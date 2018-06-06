@@ -15,7 +15,7 @@ import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
     EditText nameTv;
-    // בדיקה
+    // check check
 
     final int REQUEST_WRITE_STORAGE = 1;
     @Override
