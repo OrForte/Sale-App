@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/progressIndiucator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.eliavmenachi.myapplication.NewStudentFragment">
+
+    <ImageView
+        android:id="@+id/new_student_image"
+        android:layout_width="100dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/avatar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Name:"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/new_student_image" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="ID:"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintStart_toStartOf="@+id/textView3"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Phone:"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="B. Date:"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintStart_toStartOf="@+id/new_student_image"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <EditText
+        android:id="@+id/new_student_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/new_student_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/new_student_phone"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView3" />
+
+    <com.example.eliavmenachi.myapplication.DateEditText
+        android:id="@+id/new_student_bdate"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/new_student_save"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="24dp"
+        android:text="SAVE"
+        app:layout_constraintEnd_toStartOf="@+id/new_student_cancel"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <Button
+        android:id="@+id/new_student_cancel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="24dp"
+        android:text="CANCEL"
+        app:layout_constraintBaseline_toBaselineOf="@+id/new_student_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/new_student_save" />
+
+    <Button
+        android:id="@+id/new_student_img_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:text="edit image"
+        app:layout_constraintBottom_toBottomOf="@+id/new_student_image"
+        app:layout_constraintStart_toEndOf="@+id/new_student_image" />
+
+    <ProgressBar
+        android:id="@+id/new_student_progress"
+        android:layout_width="53dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toTopOf="@+id/new_student_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/new_student_image"
+        app:layout_constraintTop_toTopOf="parent" />
+</android.support.constraint.ConstraintLayout>

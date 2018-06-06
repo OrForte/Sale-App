@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "441698535010",
+    "firebase_url": "https://calss-2018.firebaseio.com",
+    "project_id": "calss-2018",
+    "storage_bucket": "calss-2018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441698535010:android:b8d643cb5c7b2753",
+        "android_client_info": {
+          "package_name": "com.example.eliavmenachi.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441698535010-btla7untdntu96c3ctgag2n4goi3onpi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq5yNVs_QuPU7hE4TKTXStXYIF_L7cVus"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
