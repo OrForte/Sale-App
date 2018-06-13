@@ -24,12 +24,7 @@ import static android.app.Activity.RESULT_OK;
  * A simple {@link Fragment} subclass.
  */
 public class NewStudentFragment extends Fragment {
-    private static final String ARG_NAME = "ARG_NAME";
-    private static final String ARG_ID = "ARG_ID";
 
-    public NewStudentFragment() {
-        // Required empty public constructor
-    }
 
     EditText nameEt;
     EditText idEt;
@@ -68,7 +63,8 @@ public class NewStudentFragment extends Fragment {
                             //save student obj
                             st.avatar = url;
                             Model.instance.addStudent(st);
-                            getActivity().getSupportFragmentManager().popBackStack();
+                            progress . setVisibility(View.GONE);
+                            //getActivity().getSupportFragmentManager().popBackStack();
                         }
                     });
                 }
@@ -84,16 +80,6 @@ public class NewStudentFragment extends Fragment {
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
-        if (savedInstanceState != null) {
-            String name = savedInstanceState.getString(ARG_NAME);
-            if (name != null) {
-                nameEt.setText(name);
-            }
-            String id = savedInstanceState.getString(ARG_ID);
-            if (id != null) {
-                idEt.setText(id);
-            }
-        }
 
         Button editImage = view.findViewById(R.id.new_student_img_btn);
         editImage.setOnClickListener(new View.OnClickListener() {
@@ -122,16 +108,4 @@ public class NewStudentFragment extends Fragment {
             avatar.setImageBitmap(imageBitmap);
         }
     }
-
-    @Override
-    public void onDestroyView(){
-        super.onDestroyView();
-    }
-    @Override
-    public void  onSaveInstanceState(Bundle bundle){
-        super.onSaveInstanceState(bundle);
-        bundle.putString(ARG_NAME, nameEt.getText().toString());
-        bundle.putString(ARG_ID, idEt.getText().toString());
-    }
-
 }

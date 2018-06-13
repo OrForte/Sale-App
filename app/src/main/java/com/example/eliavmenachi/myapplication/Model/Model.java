@@ -82,30 +82,30 @@ public class Model {
             super();
             //setValue(AppLocalDb.db.studentDao().getAll());
             setValue(new LinkedList<Student>());
-        }
+}
     }
 
-    StudentListData studentListData = new StudentListData();
+            StudentListData studentListData = new StudentListData();
 
-    public LiveData<List<Student>> getAllStudents(){
+public LiveData<List<Student>> getAllStudents(){
         return studentListData;
-    }
+        }
 
-    public void addStudent(Student st){
+public void addStudent(Student st){
         modelFirebase.addStudent(st);
-    }
+        }
 
 
 
-    ////////////////////////////////////////////////////////
-    //  HAndle Image Files
-    ////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+//  HAndle Image Files
+////////////////////////////////////////////////////////
 
 
 
-    public interface SaveImageListener{
-        void onDone(String url);
-    }
+public interface SaveImageListener{
+    void onDone(String url);
+}
 
     public void saveImage(Bitmap imageBitmap, SaveImageListener listener) {
         modelFirebase.saveImage(imageBitmap,listener);
@@ -113,9 +113,9 @@ public class Model {
 
 
 
-    public interface GetImageListener{
-        void onDone(Bitmap imageBitmap);
-    }
+public interface GetImageListener{
+    void onDone(Bitmap imageBitmap);
+}
     public void getImage(final String url, final GetImageListener listener ){
         String localFileName = URLUtil.guessFileName(url, null, null);
         final Bitmap image = loadImageFromFile(localFileName);
