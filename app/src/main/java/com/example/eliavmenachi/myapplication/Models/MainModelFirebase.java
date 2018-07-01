@@ -23,7 +23,7 @@ public class MainModelFirebase {
     public void addUser(User userToAdd)
     {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").child(userToAdd.id).setValue(userToAdd);
+        mDatabase.child("users").child(userToAdd.userName).setValue(userToAdd);
     }
 
 

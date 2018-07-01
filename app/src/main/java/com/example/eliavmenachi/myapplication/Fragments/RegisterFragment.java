@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.R;
 
 /**
@@ -54,7 +55,6 @@ public class RegisterFragment extends Fragment {
                 user.password = passwordEt.getText().toString();
                 user.email = mailEt.getText().toString();
                 user.userName = userNameEt.getText().toString();
-                user.id = "0";
 
                 try
                 {
@@ -64,6 +64,8 @@ public class RegisterFragment extends Fragment {
                 {
                     System.out.println("Could not parse " + nfe);
                 }
+
+                MainModel.instance.addUser(user);
             }
         });
 
