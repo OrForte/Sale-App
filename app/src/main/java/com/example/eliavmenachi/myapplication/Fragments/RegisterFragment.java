@@ -6,7 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.R;
 
 /**
@@ -14,6 +16,14 @@ import com.example.eliavmenachi.myapplication.R;
  */
 public class RegisterFragment extends Fragment {
 
+    final User user = new User();
+
+    EditText firstNameEt;
+    EditText lastNameEt;
+    EditText ageEt;
+    EditText agePassword;
+    EditText ageMail;
+    EditText ageUserName;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -24,7 +34,9 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_register, container, false);
+        View view =  inflater.inflate(R.layout.fragment_register, container, false);
+
+        return view;
     }
 
 }
