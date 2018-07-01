@@ -49,15 +49,13 @@ public class RegisterFragment extends Fragment {
 
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                int a = 1;
-
                 user.firstName = firstNameEt.getText().toString();
                 user.lastName = lastNameEt.getText().toString();
                 user.password = passwordEt.getText().toString();
                 user.email = mailEt.getText().toString();
                 user.userName = userNameEt.getText().toString();
+                user.id = "0";
 
-                user.id = 0;
                 try
                 {
                     user.age = Integer.parseInt(ageEt.getText().toString());

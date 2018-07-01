@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 public class User {
     @PrimaryKey
     @NonNull
-    public int id;
+    public String id;
     public String firstName;
     public String lastName;
     public int age;
@@ -16,7 +16,7 @@ public class User {
     public String userName;
     public String password;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
     public String getFirstName() {
@@ -41,7 +41,7 @@ public class User {
         return password;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
