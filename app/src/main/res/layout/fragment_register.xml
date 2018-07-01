@@ -9,31 +9,76 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <TextView
-        android:id="@+id/fragment_register_tvName"
-        android:layout_width="105dp"
-        android:layout_height="49dp"
-        android:text="Name:"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.057"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.149" />
-
     <EditText
-        android:id="@+id/fragment_register_ptName"
+        android:id="@+id/fragment_register_etFamily"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="40dp"
         android:layout_marginStart="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_register_tvFamily"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvFamily" />
+
+    <TextView
+        android:id="@+id/fragment_register_tvName"
+        android:layout_width="88dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="69dp"
+        android:text="Name:"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_register_tvFamily"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_register_etName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/fragment_register_etName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="34dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fragment_register_tvName"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.148" />
+        app:layout_constraintTop_toTopOf="@+id/fragment_register_tvName" />
+
+    <TextView
+        android:id="@+id/fragment_register_tvFamily"
+        android:layout_width="86dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="317dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="27dp"
+        android:text="Family:"
+        android:textSize="18dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_register_etFamily"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvName" />
+
+    <TextView
+        android:id="@+id/fragment_register_tvAge"
+        android:layout_width="84dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="16dp"
+        android:text="Age:"
+        android:textSize="18dp"
+        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvFamily"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvFamily" />
+
+    <EditText
+        android:id="@+id/fragment_register_etAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvAge"
+        app:layout_constraintTop_toTopOf="@+id/fragment_register_tvAge" />
 
 </android.support.constraint.ConstraintLayout>
