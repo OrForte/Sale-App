@@ -28,7 +28,7 @@
         android:layout_marginBottom="14dp"
         android:layout_marginEnd="14dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="69dp"
+        android:layout_marginTop="40dp"
         android:text="Name:"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/fragment_register_tvFamily"
@@ -49,8 +49,8 @@
 
     <TextView
         android:id="@+id/fragment_register_tvFamily"
-        android:layout_width="86dp"
-        android:layout_height="50dp"
+        android:layout_width="88dp"
+        android:layout_height="42dp"
         android:layout_marginBottom="317dp"
         android:layout_marginEnd="14dp"
         android:layout_marginStart="27dp"
@@ -63,12 +63,13 @@
 
     <TextView
         android:id="@+id/fragment_register_tvAge"
-        android:layout_width="84dp"
-        android:layout_height="39dp"
+        android:layout_width="88dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:text="Age:"
         android:textSize="18dp"
-        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvFamily"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvFamily" />
 
     <EditText
