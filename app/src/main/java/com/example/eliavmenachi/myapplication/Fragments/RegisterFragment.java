@@ -21,9 +21,9 @@ public class RegisterFragment extends Fragment {
     EditText firstNameEt;
     EditText lastNameEt;
     EditText ageEt;
-    EditText agePassword;
-    EditText ageMail;
-    EditText ageUserName;
+    EditText passwordEt;
+    EditText mailEt;
+    EditText userNameEt;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -35,6 +35,13 @@ public class RegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_register, container, false);
+
+        firstNameEt = view.findViewById(R.id.fragment_register_etName);
+        lastNameEt = view.findViewById(R.id.fragment_register_etFamily);
+        ageEt = view.findViewById(R.id.fragment_register_etAge);
+        passwordEt = view.findViewById(R.id.fragment_register_etPassword);
+        mailEt = view.findViewById(R.id.fragment_register_etEmail);
+        userNameEt = view.findViewById(R.id.fragment_register_etUser);
 
         return view;
     }
