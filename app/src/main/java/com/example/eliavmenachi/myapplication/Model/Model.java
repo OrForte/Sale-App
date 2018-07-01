@@ -36,8 +36,6 @@ public class Model {
 
     class StudentListData extends  MutableLiveData<List<Student>>{
 
-
-
         @Override
         protected void onActive() {
             super.onActive();
