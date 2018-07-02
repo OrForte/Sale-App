@@ -50,7 +50,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 int a = 1;
 
-                String strUserName = "aaa";
+                String strUserName = "66";
                 String strPassword = "bbb";
 
                 MainModel.instance.IsUserVisible(strUserName, strPassword, new MainModel.IsUserVisibleListener() {

@@ -9,8 +9,11 @@ import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Model.Model;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -28,7 +31,21 @@ public class MainModelFirebase {
 
     public void IsUserVisible(final String p_strUserName, final String p_strPassword, final MainModel.IsUserVisibleListener listener)
     {
-        listener.onDone(true);
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").child(p_strUserName).addListenerForSingleValueEvent(new ValueEventListener() {
+             @Override
+             public void onDataChange(DataSnapshot dataSnapshot) {
+
+                 User userData = dataSnapshot.getValue(User.class);
+
+                 listener.onDone(true);
+             }
+
+             @Override
+             public void onCancelled(DatabaseError databaseError) {
+                int a = 1;
+             }
+         });
     }
 
     public void saveImage(Bitmap imageBitmap, final Model.SaveImageListener listener) {
