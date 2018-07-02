@@ -46,7 +46,7 @@ public class MainModelFirebase {
 
                  if (userData != null)
                  {
-                     if (userData.userName == userName && userData.password == password)
+                     if (userData.userName.equals(userName) && userData.password.equals(password))
                      {
                          bIsValid = true;
                      }
