@@ -16,6 +16,4 @@ public class StudentListViewModel extends ViewModel {
         data = Model.instance.getAllStudents();
         return data;
     }
-
-
 }

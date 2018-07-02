@@ -34,4 +34,21 @@ public class MainModel {
     {
         mainModelFirebase.addUser(userToAdd);
     }
+
+    public interface IsUserVisibleListener{
+        void onDone(boolean p_bIsValid);
+    }
+
+    public void IsUserVisible(final String p_strUserName, final String p_strPassword ,  final IsUserVisibleListener listener ){
+        boolean bIsValid = true;
+
+        mainModelFirebase.IsUserVisible(p_strUserName, p_strPassword, new IsUserVisibleListener() {
+            @Override
+            public void onDone(boolean p_bIsValid) {
+                // Its happen when we get response from firebase
+            }
+        });
+
+        listener.onDone(bIsValid);
+    }
 }

@@ -26,6 +26,10 @@ public class MainModelFirebase {
         mDatabase.child("users").child(userToAdd.userName).setValue(userToAdd);
     }
 
+    public void IsUserVisible(final String p_strUserName, final String p_strPassword, final MainModel.IsUserVisibleListener listener)
+    {
+        listener.onDone(true);
+    }
 
     public void saveImage(Bitmap imageBitmap, final Model.SaveImageListener listener) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
