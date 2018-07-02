@@ -31,6 +31,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         Button loginButton = view.findViewById(R.id.fragment_login_btnRegister);
+        Button btnLoginButton = view.findViewById(R.id.fragment_login_btnLogin);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,6 +41,13 @@ public class LoginFragment extends Fragment {
                 tran.replace(R.id.main_container, fragment);
                 tran.addToBackStack("tag");
                 tran.commit();
+            }
+        });
+
+        btnLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int a = 1;
             }
         });
 
