@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.eliavmenachi.myapplication.Activities.LoginActivity;
+import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.R;
 
 /**
@@ -48,6 +49,16 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 int a = 1;
+
+                String strUserName = "aaa";
+                String strPassword = "bbb";
+
+                MainModel.instance.IsUserVisible(strUserName, strPassword, new MainModel.IsUserVisibleListener() {
+                    @Override
+                    public void onDone(boolean p_bIsValid) {
+                        int aa = 1;
+                    }
+                });
             }
         });
 

@@ -46,6 +46,7 @@ public class MainModel {
             @Override
             public void onDone(boolean p_bIsValid) {
                 // Its happen when we get response from firebase
+                listener.onDone(p_bIsValid);
             }
         });
 
