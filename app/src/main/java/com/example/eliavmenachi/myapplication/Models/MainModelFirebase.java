@@ -23,6 +23,9 @@ import java.util.Date;
 
 public class MainModelFirebase {
 
+    String userName;
+    String password;
+
     public void addUser(User userToAdd)
     {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -31,6 +34,8 @@ public class MainModelFirebase {
 
     public void IsUserVisible(final String p_strUserName, final String p_strPassword, final MainModel.IsUserVisibleListener listener)
     {
+        userName = p_strUserName;
+        password = p_strPassword;
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("users").child(p_strUserName).addListenerForSingleValueEvent(new ValueEventListener() {
              @Override
@@ -41,6 +46,14 @@ public class MainModelFirebase {
 
                  if (userData != null)
                  {
+                     if (userData.userName == userName && userData.password == password)
+                     {
+                         bIsValid = true;
+                     }
+                     else
+                     {
+                         bIsValid = false;
+                     }
                  }
 
                  listener.onDone(bIsValid);

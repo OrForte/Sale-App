@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class MainModel {
+
     public static MainModel instance = new MainModel();
     MainModelFirebase mainModelFirebase;
 
