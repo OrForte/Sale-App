@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.eliavmenachi.myapplication.Activities.LoginActivity;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
@@ -18,6 +19,9 @@ import com.example.eliavmenachi.myapplication.R;
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment {
+
+    EditText userEt;
+    EditText passwordEt;
 
 
     public LoginFragment() {
@@ -31,6 +35,11 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
+        // get the user and password details
+        userEt = view.findViewById(R.id.fragment_login_etUsername);
+        passwordEt = view.findViewById(R.id.fragment_login_etPassword);
+
+        // get instance of the login and register button
         Button loginButton = view.findViewById(R.id.fragment_login_btnRegister);
         Button btnLoginButton = view.findViewById(R.id.fragment_login_btnLogin);
 
@@ -50,8 +59,8 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 int a = 1;
 
-                String strUserName = "66";
-                String strPassword = "bbb";
+                String strUserName = userEt.getText().toString();
+                String strPassword = passwordEt.getText().toString();
 
                 MainModel.instance.IsUserVisible(strUserName, strPassword, new MainModel.IsUserVisibleListener() {
                     @Override

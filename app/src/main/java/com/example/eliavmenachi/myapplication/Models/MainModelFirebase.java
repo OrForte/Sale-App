@@ -36,14 +36,19 @@ public class MainModelFirebase {
              @Override
              public void onDataChange(DataSnapshot dataSnapshot) {
 
+                 boolean bIsValid = false;
                  User userData = dataSnapshot.getValue(User.class);
 
-                 listener.onDone(true);
+                 if (userData != null)
+                 {
+                 }
+
+                 listener.onDone(bIsValid);
              }
 
              @Override
              public void onCancelled(DatabaseError databaseError) {
-                int a = 1;
+                 listener.onDone(false);
              }
          });
     }
