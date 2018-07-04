@@ -123,7 +123,7 @@ public class SalesListFragment extends Fragment {
 
             imSalePic.setImageResource(R.drawable.avatar);
             imSalePic.setTag(currentSale.id);
-            if (currentSale.getPictureUrl() != null){
+            if (currentSale.getPictureUrl() != null) {
                 Model.instance.getImage(currentSale.getPictureUrl(), new Model.GetImageListener() {
                     @Override
                     public void onDone(Bitmap imageBitmap) {

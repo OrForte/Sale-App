@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.example.eliavmenachi.myapplication.Fragments.LoginFragment;
 import com.example.eliavmenachi.myapplication.Fragments.MainFragment;
+import com.example.eliavmenachi.myapplication.Fragments.SalesListFragment;
 import com.example.eliavmenachi.myapplication.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -19,11 +20,22 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("LoginActivity","onCreate" );
 
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_login);
+//
+//        if (savedInstanceState == null) {
+//            LoginFragment fragment = new LoginFragment();
+//            FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
+//            tran.add(R.id.main_container, fragment);
+//            tran.addToBackStack("");
+//            tran.commit();
+//        }
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_sale);
 
         if (savedInstanceState == null) {
-            LoginFragment fragment = new LoginFragment();
+            SalesListFragment fragment = new SalesListFragment();
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
             tran.add(R.id.main_container, fragment);
             tran.addToBackStack("");
