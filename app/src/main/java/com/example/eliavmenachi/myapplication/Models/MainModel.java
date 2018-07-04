@@ -209,6 +209,14 @@ public class MainModel {
         @Override
         protected void onActive() {
             super.onActive();
+            mainModelFirebase.getAllSales(new MainModelFirebase.GetAllSalesListener() {
+                @Override
+                public void onSuccess(List<Sale> studentslist) {
+                    // 4. update the live data with the new student list
+                    setValue(studentslist);
+                    Log.d("TAG","got students from firebase " + studentslist.size());
+                }
+            });
         }
 
         @Override

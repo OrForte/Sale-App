@@ -224,14 +224,17 @@ public class MainModelFirebase {
 
     public void getAllSales(final GetAllSalesListener listener)
     {
-        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sales");
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("Sales");
         eventListener = stRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Sale> stSales = new LinkedList<>();
                 for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
-                    stSales.add(stSnapshot.getValue(Sale.class));
+                    //Object currSale = stSnapshot.getValue(Sale.class);
+                    //stSales.add(currSale );
                 }
+
+                listener.onSuccess(stSales);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -240,7 +243,7 @@ public class MainModelFirebase {
     }
 
     public void cancellGetAllSales() {
-        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sales");
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("Sales");
         stRef.removeEventListener(eventListener);
     }
 

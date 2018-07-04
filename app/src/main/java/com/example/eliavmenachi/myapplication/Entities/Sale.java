@@ -9,7 +9,7 @@ public class Sale {
     @NonNull
     public String id;
     public int storeId;
-    public int userId;
+    public String userId;
     public String pictureUrl;
     public String description;
     public String endDate;
@@ -20,7 +20,7 @@ public class Sale {
         return id;
     }
     public int getStoreID() { return storeId;}
-    public int getUserId() { return userId;}
+    public String getUserId() { return userId;}
     public String getPictureUrl() { return pictureUrl;}
     public String getDescribtion() { return description;}
     public String getEndDate() { return endDate;}
@@ -33,7 +33,7 @@ public class Sale {
     public void setStoreId(int storeId) {
         this.storeId = storeId;
     }
-    public void setUserId(int lastName) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
     public void setPictureUrl(String pictureUrl) {
