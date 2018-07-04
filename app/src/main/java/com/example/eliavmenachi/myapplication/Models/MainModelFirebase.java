@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Entities.Post;
 import com.example.eliavmenachi.myapplication.Model.Model;
@@ -21,6 +22,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.util.Date;
+import java.util.List;
 
 public class MainModelFirebase {
 
@@ -74,6 +76,17 @@ public class MainModelFirebase {
                  listener.onDone(false);
              }
          });
+    }
+
+    //endregion
+
+    //region cities, malls and store methods
+
+    public void GetMallsByCityId(final String p_cityId, final MainModel.GetMallsByCityIdListener listener)
+    {
+        // TODO : need to get the collections of malls by city id
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mDatabase.child("mall").addValueEventListener()
     }
 
     //endregion

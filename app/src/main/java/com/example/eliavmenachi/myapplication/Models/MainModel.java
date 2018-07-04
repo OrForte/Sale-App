@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.webkit.URLUtil;
 
+import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Entities.Post;
 
@@ -71,6 +72,21 @@ public class MainModel {
             @Override
             public void onGetPosts(List<Post> p_postToReturn) {
                 // TODO: need to return the posts to the fragments of posts
+                //listener.onGetPosts(p_postToReturn);
+            }
+        });
+    }
+
+    public interface GetMallsByCityIdListener{
+        void onGetMallsByCityIdResults(List<Mall> p_mallList);
+    }
+
+    public void GetMallsByCityId(final String cityId, final GetMallsByCityIdListener listener)
+    {
+        mainModelFirebase.GetMallsByCityId(cityId, new GetMallsByCityIdListener() {
+            @Override
+            public void onGetMallsByCityIdResults(List<Mall> p_mallList) {
+                listener.onGetMallsByCityIdResults(p_mallList);
             }
         });
     }

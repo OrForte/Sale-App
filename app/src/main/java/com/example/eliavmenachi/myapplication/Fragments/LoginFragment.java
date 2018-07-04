@@ -13,8 +13,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Activities.LoginActivity;
+import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.R;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,6 +77,14 @@ public class LoginFragment extends Fragment {
                             Toast.makeText(getActivity(), "error in the details",
                                     Toast.LENGTH_LONG).show();
                         }
+                    }
+                });
+
+                String cityId = "1";
+                MainModel.instance.GetMallsByCityId(cityId, new MainModel.GetMallsByCityIdListener() {
+                    @Override
+                    public void onGetMallsByCityIdResults(List<Mall> p_mallList) {
+
                     }
                 });
             }
