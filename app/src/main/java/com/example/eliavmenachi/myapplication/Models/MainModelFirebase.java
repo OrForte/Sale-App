@@ -73,6 +73,12 @@ public class MainModelFirebase {
         mDatabase.child("posts").child(p_postToSave.id).setValue(p_postToSave);
     }
 
+    public void getPostsByStoreId(final String p_strStoreId, final MainModel.GetPostsByStoreIdListener listener)
+    {
+        // TODO : need to get the collections if posts by store id
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    }
+
     public void saveImage(Bitmap imageBitmap, final Model.SaveImageListener listener) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
 

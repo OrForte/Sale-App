@@ -10,6 +10,8 @@ import android.util.Log;
 import android.webkit.URLUtil;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Entities.Post;
+
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -52,5 +54,19 @@ public class MainModel {
         });
 
         listener.onDone(bIsValid);
+    }
+
+    public interface GetPostsByStoreIdListener{
+        void onGetPosts(List<Post> p_postToReturn);
+    }
+
+    public void GetPostsByStoreId(final String storeId, final GetPostsByStoreIdListener listener)
+    {
+        mainModelFirebase.getPostsByStoreId(storeId, new GetPostsByStoreIdListener() {
+            @Override
+            public void onGetPosts(List<Post> p_postToReturn) {
+                // TODO: need to return the posts to the fragments of posts
+            }
+        });
     }
 }
