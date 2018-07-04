@@ -11,6 +11,7 @@ import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Model.Model;
+import com.example.eliavmenachi.myapplication.Model.Student;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +26,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Iterator;
 
@@ -172,18 +174,46 @@ public class MainModelFirebase {
 
     //endregion
 
-    //region posts's methods
+    //region sales's methods
 
     public void addPost(Sale p_postToSave)
     {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("posts").child(p_postToSave.id).setValue(p_postToSave);
+        mDatabase.child("sales").child(p_postToSave.id).setValue(p_postToSave);
     }
 
     public void getPostsByStoreId(final String p_strStoreId, final MainModel.GetPostsByStoreIdListener listener)
     {
         // TODO : need to get the collections if posts by store id
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    }
+
+    interface GetAllSalesListener{
+        public void onSuccess(List<Sale> studentslist);
+    }
+
+    ValueEventListener eventListener;
+
+    public void getAllSales(final GetAllSalesListener listener)
+    {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sales");
+        eventListener = stRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Sale> stSales = new LinkedList<>();
+                for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
+                    stSales.add(stSnapshot.getValue(Sale.class));
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void cancellGetAllSales() {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sales");
+        stRef.removeEventListener(eventListener);
     }
 
     //endregion
