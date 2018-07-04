@@ -8,25 +8,25 @@ public class Mall {
 
     @PrimaryKey
     @NonNull
-    public int id;
+    public String id;
     public String name;
-    public int cityId;
+    public String cityId;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
     public String getName() {
         return name;
     }
-    public int getCityId() { return cityId;}
+    public String getCityId() { return cityId;}
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public void setName(String name) {
         this.name = name;
     }
-    public void setCityId(int cityId) {
+    public void setCityId(String cityId) {
         this.cityId = cityId;
     }
 }

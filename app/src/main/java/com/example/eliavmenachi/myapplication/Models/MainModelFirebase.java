@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Entities.Post;
 import com.example.eliavmenachi.myapplication.Model.Model;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -64,6 +65,12 @@ public class MainModelFirebase {
                  listener.onDone(false);
              }
          });
+    }
+
+    public void addPost(Post p_postToSave)
+    {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("posts").child(p_postToSave.id).setValue(p_postToSave);
     }
 
     public void saveImage(Bitmap imageBitmap, final Model.SaveImageListener listener) {

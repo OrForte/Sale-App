@@ -7,7 +7,7 @@ import android.support.annotation.NonNull;
 public class Post {
     @PrimaryKey
     @NonNull
-    public int id;
+    public String id;
     public int storeId;
     public int userId;
     public String avatar;
@@ -16,7 +16,7 @@ public class Post {
     public String createdDate;
     public int category;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
     public int getStoreID() { return storeId;}
@@ -27,7 +27,7 @@ public class Post {
     public String getCreatedDate() { return createdDate;}
     public int getCategory() { return category;}
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public void setStoreId(int storeId) {

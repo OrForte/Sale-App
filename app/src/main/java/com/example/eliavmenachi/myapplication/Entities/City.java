@@ -8,17 +8,17 @@ public class City {
 
     @PrimaryKey
     @NonNull
-    public int id;
+    public String id;
     public String name;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
     public String getName() {
         return name;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public void setName(String name) {

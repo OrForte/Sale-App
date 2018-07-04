@@ -7,25 +7,25 @@ import android.support.annotation.NonNull;
 public class Store {
     @PrimaryKey
     @NonNull
-    public int id;
+    public String id;
     public String name;
-    public int mallId;
+    public String mallId;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
     public String getName() {
         return name;
     }
-    public int getMallId() { return mallId;}
+    public String getMallId() { return mallId;}
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
     public void setName(String name) {
         this.name = name;
     }
-    public void setMallId(int cityId) {
+    public void setMallId(String cityId) {
         this.mallId = cityId;
     }
 }
