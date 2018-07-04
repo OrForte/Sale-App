@@ -27,8 +27,12 @@ import java.util.List;
 
 public class MainModel {
 
+    //region Data Members
+
     public static MainModel instance = new MainModel();
     MainModelFirebase mainModelFirebase;
+
+    //endregion
 
     //region C'Tors
 
@@ -132,6 +136,8 @@ public class MainModel {
             }
         });
     }
+
+    //endregion
 
     //endregion
 }

@@ -36,7 +36,7 @@ public class MainModelFirebase {
 
     //endregion
 
-    //region Methdos for users
+    //region users's methods
 
     public void addUser(User userToAdd)
     {
@@ -142,7 +142,7 @@ public class MainModelFirebase {
 
     //endregion
 
-    //region posts
+    //region posts's methods
 
     public void addPost(Post p_postToSave)
     {
@@ -158,7 +158,7 @@ public class MainModelFirebase {
 
     //endregion
 
-    //region images
+    //region images's methods
 
     public void saveImage(Bitmap imageBitmap, final Model.SaveImageListener listener) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
