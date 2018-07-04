@@ -159,4 +159,31 @@ public class MainModel {
     //endregion
 
     //endregion
+
+    //region live data
+
+    public class SaleListData extends MutableLiveData<List<Sale>>
+    {
+        @Override
+        protected void onActive() {
+            super.onActive();
+        }
+
+        @Override
+        protected void onInactive() {
+            super.onInactive();
+        }
+
+        public SaleListData()
+        {
+            super();
+            setValue(new LinkedList<Sale>());
+        }
+    }
+
+    SaleListData studentListData = new SaleListData();
+
+    public LiveData<List<Sale>> getAllSales() { return studentListData;}
+
+    //endregion
 }

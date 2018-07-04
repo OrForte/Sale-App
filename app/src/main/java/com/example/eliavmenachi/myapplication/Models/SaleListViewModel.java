@@ -13,7 +13,7 @@ public class SaleListViewModel extends ViewModel {
 
     public LiveData<List<Sale>> getData()
     {
-        //data = MainModel.instance.GetCities();
+        data = MainModel.instance.getAllSales();
         return data;
     }
 }
