@@ -34,6 +34,7 @@ public class SalesListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         dataModel = ViewModelProviders.of(this).get(SaleListViewModel.class);
         dataModel.getData().observe(this, new Observer<List<Sale>>() {
             @Override
@@ -80,7 +81,18 @@ public class SalesListFragment extends Fragment {
 
         @Override
         public int getCount() {
-            return dataModel.getData().getValue().size();
+            int nCount = 0;
+            if (dataModel != null)
+            {
+                if (dataModel.getData() != null)
+                {
+                    if (dataModel.getData().getValue() != null)
+                    {
+                        nCount = dataModel.getData().getValue().size();
+                    }
+                }
+            }
+            return nCount;
         }
 
         // TODO:
