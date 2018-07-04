@@ -172,6 +172,34 @@ public class MainModelFirebase {
         });
     }
 
+    public void GetStoreByStoreId(final int storeId, final MainModel.GetStoreByStoreIdListener listener)
+    {
+        String storeIdString = storeId + "";
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("store").child(storeIdString).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Store storeData = dataSnapshot.getValue(Store.class);
+                listener.onGetStoreByStoreIdResults(storeData);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void GetMallByStoreId(final int storeId, final MainModel.GetMallByStoreIdListener listener)
+    {
+
+    }
+
+    public void GetCityByMallId(final int mallId, final MainModel.GetCityByMallIdListener listener)
+    {
+
+    }
+
     //endregion
 
     //region sales's methods

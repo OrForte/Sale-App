@@ -82,7 +82,7 @@ public class LoginFragment extends Fragment {
                     }
                 });
 
-
+                /*
                 String cityId = "1";
                 MainModel.instance.GetMallsByCityId(cityId, new MainModel.GetMallsByCityIdListener() {
                     @Override
@@ -100,6 +100,13 @@ public class LoginFragment extends Fragment {
                 MainModel.instance.GetCities(new MainModel.GetCitiesListener() {
                     @Override
                     public void onGetCitiesResults(List<City> p_citiesList) {
+
+                    }
+                });*/
+
+                MainModel.instance.GetStoreByStoreId(1, new MainModel.GetStoreByStoreIdListener() {
+                    @Override
+                    public void onGetStoreByStoreIdResults(Store storeData) {
 
                     }
                 });

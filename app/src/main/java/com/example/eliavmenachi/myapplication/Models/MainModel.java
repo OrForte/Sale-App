@@ -66,6 +66,18 @@ public class MainModel {
         void onGetCitiesResults(List<City> p_citiesList);
     }
 
+    public interface GetStoreByStoreIdListener{
+        void onGetStoreByStoreIdResults(Store storeData);
+    }
+
+    public interface GetMallByStoreIdListener {
+        void onGetMallByStoreIdResult(Mall mallData);
+    }
+
+    public interface GetCityByMallIdListener{
+        void onGetCityByMallIdResult(City cityData);
+    }
+
     //endregion
 
     //region Methods
@@ -157,6 +169,36 @@ public class MainModel {
     }
 
     //endregion
+
+    public void GetStoreByStoreId(final int storeId, final GetStoreByStoreIdListener listener)
+    {
+        mainModelFirebase.GetStoreByStoreId(storeId, new GetStoreByStoreIdListener() {
+            @Override
+            public void onGetStoreByStoreIdResults(Store storeData) {
+                listener.onGetStoreByStoreIdResults(storeData);
+            }
+        });
+    }
+
+    public void GetMallByStoreId(final int storeId, final GetMallByStoreIdListener listener)
+    {
+        mainModelFirebase.GetMallByStoreId(storeId, new GetMallByStoreIdListener() {
+            @Override
+            public void onGetMallByStoreIdResult(Mall mallData) {
+                listener.onGetMallByStoreIdResult(mallData);
+            }
+        });
+    }
+
+    public void GetCityByMallId(final int mallId, final GetCityByMallIdListener listener)
+    {
+        mainModelFirebase.GetCityByMallId(mallId, new GetCityByMallIdListener() {
+            @Override
+            public void onGetCityByMallIdResult(City cityData) {
+                listener.onGetCityByMallIdResult(cityData);
+            }
+        });
+    }
 
     //endregion
 
