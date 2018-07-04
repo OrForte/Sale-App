@@ -4,14 +4,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-public class Post {
+public class Sale {
     @PrimaryKey
     @NonNull
     public String id;
     public int storeId;
     public int userId;
-    public String avatar;
-    public String describtion;
+    public String pictureUrl;
+    public String description;
     public String endDate;
     public String createdDate;
     public int category;
@@ -21,8 +21,8 @@ public class Post {
     }
     public int getStoreID() { return storeId;}
     public int getUserId() { return userId;}
-    public String getAvatar() { return avatar;}
-    public String getDescribtion() { return describtion;}
+    public String getPictureUrl() { return pictureUrl;}
+    public String getDescribtion() { return description;}
     public String getEndDate() { return endDate;}
     public String getCreatedDate() { return createdDate;}
     public int getCategory() { return category;}
@@ -36,11 +36,11 @@ public class Post {
     public void setUserId(int lastName) {
         this.userId = userId;
     }
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
     public void setDescribtion(String describtion) {
-        this.describtion = describtion;
+        this.description = describtion;
     }
     public void setEndDate(String endDate) {
         this.endDate = endDate;
