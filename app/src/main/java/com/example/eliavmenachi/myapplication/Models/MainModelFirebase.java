@@ -24,8 +24,14 @@ import java.util.Date;
 
 public class MainModelFirebase {
 
+    //region DataMembers
+
     String userName;
     String password;
+
+    //endregion
+
+    //region Methdos for users
 
     public void addUser(User userToAdd)
     {
@@ -47,7 +53,10 @@ public class MainModelFirebase {
 
                  if (userData != null)
                  {
-                     if (userData.userName.equals(userName) && userData.password.equals(password))
+                     if (userData.userName != null &&
+                             userData.password !=null &&
+                             userData.userName.equals(userName) &&
+                             userData.password.equals(password))
                      {
                          bIsValid = true;
                      }
@@ -67,6 +76,10 @@ public class MainModelFirebase {
          });
     }
 
+    //endregion
+
+    //region posts
+
     public void addPost(Post p_postToSave)
     {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -78,6 +91,10 @@ public class MainModelFirebase {
         // TODO : need to get the collections if posts by store id
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     }
+
+    //endregion
+
+    //region images
 
     public void saveImage(Bitmap imageBitmap, final Model.SaveImageListener listener) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -126,4 +143,6 @@ public class MainModelFirebase {
             }
         });
     }
+
+    //endregion
 }

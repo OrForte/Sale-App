@@ -33,6 +33,11 @@ public class MainModel {
         mainModelFirebase = new MainModelFirebase();
     }
 
+    public void addPost(Post p_postToSave)
+    {
+        mainModelFirebase.addPost(p_postToSave);
+    }
+
     public void addUser(User userToAdd)
     {
         mainModelFirebase.addUser(userToAdd);
@@ -53,7 +58,7 @@ public class MainModel {
             }
         });
 
-        listener.onDone(bIsValid);
+        //listener.onDone(bIsValid);
     }
 
     public interface GetPostsByStoreIdListener{

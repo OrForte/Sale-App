@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Activities.LoginActivity;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
@@ -57,15 +58,22 @@ public class LoginFragment extends Fragment {
         btnLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int a = 1;
-
                 String strUserName = userEt.getText().toString();
                 String strPassword = passwordEt.getText().toString();
 
                 MainModel.instance.IsUserVisible(strUserName, strPassword, new MainModel.IsUserVisibleListener() {
                     @Override
                     public void onDone(boolean p_bIsValid) {
-                        int aa = 1;
+                        if (p_bIsValid)
+                        {
+                            Toast.makeText(getActivity(), "log on successfully",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                        else
+                        {
+                            Toast.makeText(getActivity(), "error in the details",
+                                    Toast.LENGTH_LONG).show();
+                        }
                     }
                 });
             }
