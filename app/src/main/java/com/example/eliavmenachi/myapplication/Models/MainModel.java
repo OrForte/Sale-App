@@ -172,6 +172,7 @@ public class MainModel {
         @Override
         protected void onInactive() {
             super.onInactive();
+            mainModelFirebase.cancellGetAllSales();
         }
 
         public SaleListData()
