@@ -29,23 +29,47 @@ public class MainModel {
     public static MainModel instance = new MainModel();
     MainModelFirebase mainModelFirebase;
 
+    //region C'Tors
+
     private MainModel()
     {
         mainModelFirebase = new MainModelFirebase();
     }
+
+    // endregion
+
+    // region Interfaces
+
+    public interface IsUserVisibleListener{
+        void onDone(boolean p_bIsValid);
+    }
+
+    public interface GetPostsByStoreIdListener{
+        void onGetPosts(List<Post> p_postToReturn);
+    }
+
+    public interface GetMallsByCityIdListener{
+        void onGetMallsByCityIdResults(List<Mall> p_mallList);
+    }
+
+    //endregion
+
+    //region Methods
+
+    //region posts
 
     public void addPost(Post p_postToSave)
     {
         mainModelFirebase.addPost(p_postToSave);
     }
 
+    //endregion
+
+    //region users
+
     public void addUser(User userToAdd)
     {
         mainModelFirebase.addUser(userToAdd);
-    }
-
-    public interface IsUserVisibleListener{
-        void onDone(boolean p_bIsValid);
     }
 
     public void IsUserVisible(final String p_strUserName, final String p_strPassword ,  final IsUserVisibleListener listener ){
@@ -62,9 +86,9 @@ public class MainModel {
         //listener.onDone(bIsValid);
     }
 
-    public interface GetPostsByStoreIdListener{
-        void onGetPosts(List<Post> p_postToReturn);
-    }
+    //endregion
+
+    //region get posts
 
     public void GetPostsByStoreId(final String storeId, final GetPostsByStoreIdListener listener)
     {
@@ -77,9 +101,9 @@ public class MainModel {
         });
     }
 
-    public interface GetMallsByCityIdListener{
-        void onGetMallsByCityIdResults(List<Mall> p_mallList);
-    }
+    //endregion
+
+    //region malls by city id
 
     public void GetMallsByCityId(final String cityId, final GetMallsByCityIdListener listener)
     {
@@ -90,4 +114,8 @@ public class MainModel {
             }
         });
     }
+
+    //endregion
+
+    //endregion
 }

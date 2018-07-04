@@ -108,7 +108,6 @@ public class MainModelFirebase {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
