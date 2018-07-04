@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.eliavmenachi.myapplication.Entities.Mall;
+import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Entities.Post;
 import com.example.eliavmenachi.myapplication.Model.Model;
@@ -108,6 +109,33 @@ public class MainModelFirebase {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void GetStoresByMallId(final String mallId, final MainModel.GetStoreByMallIdListener listener)
+    {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("store").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> data = dataSnapshot.getChildren();
+
+                List<Store> lstStoresToReturn = new ArrayList<>();
+
+                for (DataSnapshot curr : data)
+                {
+                    Store currStore = curr.getValue(Store.class);
+                    if (currStore.mallId == Integer.parseInt(mallId))
+                    {
+                        lstStoresToReturn.add(currStore);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }

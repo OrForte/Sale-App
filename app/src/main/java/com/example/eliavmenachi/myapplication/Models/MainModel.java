@@ -12,6 +12,7 @@ import android.webkit.URLUtil;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Entities.Post;
+import com.example.eliavmenachi.myapplication.Entities.Store;
 
 
 import java.io.File;
@@ -50,6 +51,10 @@ public class MainModel {
 
     public interface GetMallsByCityIdListener{
         void onGetMallsByCityIdResults(List<Mall> p_mallList);
+    }
+
+    public interface  GetStoreByMallIdListener{
+        void onGetStoresByMallIdResults(List<Store> p_storeList);
     }
 
     //endregion
@@ -116,6 +121,17 @@ public class MainModel {
     }
 
     //endregion
+
+    //region Stores by mall id
+    public void GetStoresByMallId(final String mallId, final GetStoreByMallIdListener listener)
+    {
+        mainModelFirebase.GetStoresByMallId(mallId, new GetStoreByMallIdListener() {
+            @Override
+            public void onGetStoresByMallIdResults(List<Store> p_storeList) {
+                listener.onGetStoresByMallIdResults(p_storeList);
+            }
+        });
+    }
 
     //endregion
 }

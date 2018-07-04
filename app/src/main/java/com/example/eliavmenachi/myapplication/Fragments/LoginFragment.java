@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Activities.LoginActivity;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
+import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.R;
 
@@ -84,7 +85,13 @@ public class LoginFragment extends Fragment {
                 MainModel.instance.GetMallsByCityId(cityId, new MainModel.GetMallsByCityIdListener() {
                     @Override
                     public void onGetMallsByCityIdResults(List<Mall> p_mallList) {
+                    }
+                });
 
+                String mallId = "2";
+                MainModel.instance.GetStoresByMallId(mallId, new MainModel.GetStoreByMallIdListener() {
+                    @Override
+                    public void onGetStoresByMallIdResults(List<Store> p_storeList) {
                     }
                 });
             }
