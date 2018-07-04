@@ -21,8 +21,10 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Iterator;
 
 public class MainModelFirebase {
 
@@ -86,7 +88,29 @@ public class MainModelFirebase {
     {
         // TODO : need to get the collections of malls by city id
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        //mDatabase.child("mall").addValueEventListener()
+        mDatabase.child("mall").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> data = dataSnapshot.getChildren();
+
+                List<Mall> lstMallsToReturn = new ArrayList<>();
+                for (DataSnapshot curr : data)
+                {
+                    Mall currMall = curr.getValue(Mall.class);
+                    if (currMall.cityId == Integer.parseInt(p_cityId))
+                    {
+                        lstMallsToReturn.add(currMall);
+                    }
+                }
+
+                listener.onGetMallsByCityIdResults(lstMallsToReturn);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     //endregion
