@@ -42,6 +42,8 @@ public class MainModelFirebase {
     public void addUser(User userToAdd)
     {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // TODO: ADD FUNCTION TO ADD REAL ADDITION OF USER
         mDatabase.child("users").child(userToAdd.userName).setValue(userToAdd);
     }
 
