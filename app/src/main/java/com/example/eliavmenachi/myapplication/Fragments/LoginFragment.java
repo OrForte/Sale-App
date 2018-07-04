@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Activities.LoginActivity;
+import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
@@ -81,7 +82,7 @@ public class LoginFragment extends Fragment {
                     }
                 });
 
-                /*
+
                 String cityId = "1";
                 MainModel.instance.GetMallsByCityId(cityId, new MainModel.GetMallsByCityIdListener() {
                     @Override
@@ -94,7 +95,14 @@ public class LoginFragment extends Fragment {
                     @Override
                     public void onGetStoresByMallIdResults(List<Store> p_storeList) {
                     }
-                });*/
+                });
+
+                MainModel.instance.GetCities(new MainModel.GetCitiesListener() {
+                    @Override
+                    public void onGetCitiesResults(List<City> p_citiesList) {
+
+                    }
+                });
             }
         });
 

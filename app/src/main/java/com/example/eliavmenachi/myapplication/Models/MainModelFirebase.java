@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
@@ -131,6 +132,33 @@ public class MainModelFirebase {
                         lstStoresToReturn.add(currStore);
                     }
                 }
+
+                listener.onGetStoresByMallIdResults(lstStoresToReturn);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void GetCities(final MainModel.GetCitiesListener listener)
+    {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("city").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> data = dataSnapshot.getChildren();
+
+                List<City> lstCities = new ArrayList<>();
+
+                for (DataSnapshot curr : data)
+                {
+                    lstCities.add(curr.getValue(City.class));
+                }
+
+                listener.onGetCitiesResults(lstCities);
             }
 
             @Override
