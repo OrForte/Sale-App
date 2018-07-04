@@ -9,7 +9,7 @@ import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
-import com.example.eliavmenachi.myapplication.Entities.Post;
+import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Model.Model;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -174,7 +174,7 @@ public class MainModelFirebase {
 
     //region posts's methods
 
-    public void addPost(Post p_postToSave)
+    public void addPost(Sale p_postToSave)
     {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("posts").child(p_postToSave.id).setValue(p_postToSave);
