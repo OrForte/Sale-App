@@ -12,7 +12,7 @@ import android.webkit.URLUtil;
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.User;
-import com.example.eliavmenachi.myapplication.Entities.Post;
+import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 
 
@@ -51,7 +51,7 @@ public class MainModel {
     }
 
     public interface GetPostsByStoreIdListener{
-        void onGetPosts(List<Post> p_postToReturn);
+        void onGetPosts(List<Sale> p_postToReturn);
     }
 
     public interface GetMallsByCityIdListener{
@@ -72,7 +72,7 @@ public class MainModel {
 
     //region posts
 
-    public void addPost(Post p_postToSave)
+    public void addPost(Sale p_postToSave)
     {
         mainModelFirebase.addPost(p_postToSave);
     }
@@ -108,7 +108,7 @@ public class MainModel {
     {
         mainModelFirebase.getPostsByStoreId(storeId, new GetPostsByStoreIdListener() {
             @Override
-            public void onGetPosts(List<Post> p_postToReturn) {
+            public void onGetPosts(List<Sale> p_postToReturn) {
                 // TODO: need to return the posts to the fragments of posts
                 //listener.onGetPosts(p_postToReturn);
             }
