@@ -19,7 +19,7 @@ public class Sale {
     public String getId() {
         return id;
     }
-    public int getStoreID() { return storeId;}
+    public int getStoreId() { return storeId;}
     public String getUserId() { return userId;}
     public String getPictureUrl() { return pictureUrl;}
     public String getDescribtion() { return description;}

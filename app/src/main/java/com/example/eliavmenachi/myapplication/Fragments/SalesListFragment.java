@@ -129,12 +129,15 @@ public class SalesListFragment extends Fragment {
             TextView tvStore = view.findViewById(R.id.tvStore);
             final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
 
-            tvCity.setText(currentSale.storeId);
-            tvMall.setText(currentSale.storeId);
-            tvStore.setText(currentSale.storeId);
+            String strStoreId = currentSale.storeId +"";
 
-            imSalePic.setImageResource(R.drawable.avatar);
-            imSalePic.setTag(currentSale.id);
+            tvCity.setText(strStoreId);
+            tvMall.setText(strStoreId);
+            tvStore.setText(strStoreId);
+
+            //imSalePic.setImageResource(R.drawable.avatar);
+            //imSalePic.setTag(currentSale.id);
+            /*
             if (currentSale.getPictureUrl() != null) {
                 Model.instance.getImage(currentSale.getPictureUrl(), new Model.GetImageListener() {
                     @Override
@@ -144,7 +147,7 @@ public class SalesListFragment extends Fragment {
                         }
                     }
                 });
-            }
+            }*/
             return view;
 //
 //            TextView nameTv = view.findViewById(R.id.stListItem_name_tv);

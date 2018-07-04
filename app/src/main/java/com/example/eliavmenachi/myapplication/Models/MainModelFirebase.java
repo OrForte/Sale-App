@@ -207,7 +207,7 @@ public class MainModelFirebase {
     public void addPost(Sale p_postToSave)
     {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("sales").child(p_postToSave.id).setValue(p_postToSave);
+        mDatabase.child("sale").child(p_postToSave.id).setValue(p_postToSave);
     }
 
     public void getPostsByStoreId(final String p_strStoreId, final MainModel.GetPostsByStoreIdListener listener)
@@ -224,14 +224,14 @@ public class MainModelFirebase {
 
     public void getAllSales(final GetAllSalesListener listener)
     {
-        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("Sales");
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
         eventListener = stRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Sale> stSales = new LinkedList<>();
                 for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
-                    //Object currSale = stSnapshot.getValue(Sale.class);
-                    //stSales.add(currSale );
+                    Sale currSale = stSnapshot.getValue(Sale.class);
+                    stSales.add(currSale );
                 }
 
                 listener.onSuccess(stSales);
@@ -243,7 +243,7 @@ public class MainModelFirebase {
     }
 
     public void cancellGetAllSales() {
-        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("Sales");
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
         stRef.removeEventListener(eventListener);
     }
 
