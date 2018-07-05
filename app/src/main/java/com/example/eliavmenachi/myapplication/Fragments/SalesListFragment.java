@@ -131,7 +131,8 @@ public class SalesListFragment extends Fragment {
             }
 
             final Sale currentSale = dataModel.getData().getValue().get(i);
-
+            final int copyI = i;
+            final View copyView = view;
             final TextView tvCity = view.findViewById(R.id.tvCity);
             final TextView tvMall = view.findViewById(R.id.tvMall);
             final TextView tvStore = view.findViewById(R.id.tvStore);
@@ -148,71 +149,19 @@ public class SalesListFragment extends Fragment {
                 MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
                     @Override
                     public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
-                        listData = data;
-                        Store storeData = new Store();
-                        Mall malData = new Mall();
-                        City cityData = new City();
-                        for(int nIndex = 0; nIndex < listData.stores.size();nIndex++)
-                        {
-                            if (currentSale.storeId == listData.stores.get(nIndex).id)
-                            {
-                                storeData = listData.stores.get(nIndex);
-                            }
+
+                        if (listData == null) {
+                            listData = data;
                         }
 
-                        for(int nIndex = 0; nIndex < listData.malls.size();nIndex++)
-                        {
-                            if (storeData.mallId == listData.malls.get(nIndex).id)
-                            {
-                                malData = listData.malls.get(nIndex);
-                            }
-                        }
-
-                        for(int nIndex = 0; nIndex < listData.cities.size();nIndex++)
-                        {
-                            if (malData.cityId == listData.cities.get(nIndex).id)
-                            {
-                                cityData = listData.cities.get(nIndex);
-                            }
-                        }
-
-                        tvCity.setText(cityData.name);
-                        tvMall.setText(malData.name);
-                        tvStore.setText(storeData.name);
+                        SettingData(copyI,copyView,currentSale,tvCity,tvMall,tvStore);
                     }
                 });
             }
             else {
-                Store storeData = new Store();
-                Mall malData = new Mall();
-                City cityData = new City();
-                for(int nIndex = 0; nIndex < listData.stores.size();nIndex++)
-                {
-                    if (currentSale.storeId == listData.stores.get(nIndex).id)
-                    {
-                        storeData = listData.stores.get(nIndex);
-                    }
+                if (listData != null) {
+                    this.SettingData(i, view, currentSale, tvCity, tvMall, tvStore);
                 }
-
-                for(int nIndex = 0; nIndex < listData.malls.size();nIndex++)
-                {
-                    if (storeData.mallId == listData.malls.get(nIndex).id)
-                    {
-                        malData = listData.malls.get(nIndex);
-                    }
-                }
-
-                for(int nIndex = 0; nIndex < listData.cities.size();nIndex++)
-                {
-                    if (malData.cityId == listData.cities.get(nIndex).id)
-                    {
-                        cityData = listData.cities.get(nIndex);
-                    }
-                }
-
-                tvCity.setText(cityData.name);
-                tvMall.setText(malData.name);
-                tvStore.setText(storeData.name);
             }
 
             return view;
@@ -268,5 +217,39 @@ public class SalesListFragment extends Fragment {
 //            return view;
         }
 
+
+        public void SettingData(int i, View view, Sale currentSale, TextView tvCity, TextView tvMall, TextView tvStore)
+        {
+            Store storeData = new Store();
+            Mall malData = new Mall();
+            City cityData = new City();
+            for(int nIndex = 0; nIndex < listData.stores.size();nIndex++)
+            {
+                if (currentSale.storeId == listData.stores.get(nIndex).id)
+                {
+                    storeData = listData.stores.get(nIndex);
+                }
+            }
+
+            for(int nIndex = 0; nIndex < listData.malls.size();nIndex++)
+            {
+                if (storeData.mallId == listData.malls.get(nIndex).id)
+                {
+                    malData = listData.malls.get(nIndex);
+                }
+            }
+
+            for(int nIndex = 0; nIndex < listData.cities.size();nIndex++)
+            {
+                if (malData.cityId == listData.cities.get(nIndex).id)
+                {
+                    cityData = listData.cities.get(nIndex);
+                }
+            }
+
+            tvCity.setText(cityData.name);
+            tvMall.setText(malData.name);
+            tvStore.setText(storeData.name);
+        }
     }
 }
