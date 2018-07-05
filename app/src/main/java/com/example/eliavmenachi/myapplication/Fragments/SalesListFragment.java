@@ -18,8 +18,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.eliavmenachi.myapplication.Entities.CityMallStoreDetails;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Model.Model;
+import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.Models.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
 
@@ -131,9 +133,18 @@ public class SalesListFragment extends Fragment {
 
             String strStoreId = currentSale.storeId +"";
 
-            tvCity.setText(strStoreId);
-            tvMall.setText(strStoreId);
-            tvStore.setText(strStoreId);
+            if (currentSale != null) {
+                MainModel.instance.GetDetailsByStoreId(currentSale.storeId, new MainModel.GetDetailsByStoreIdListener() {
+                    @Override
+                    public void onGetDetailsByStoreIdResults(CityMallStoreDetails data) {
+
+                    }
+                });
+
+                tvCity.setText(strStoreId);
+                tvMall.setText(strStoreId);
+                tvStore.setText(strStoreId);
+            }
 
             //imSalePic.setImageResource(R.drawable.avatar);
             //imSalePic.setTag(currentSale.id);

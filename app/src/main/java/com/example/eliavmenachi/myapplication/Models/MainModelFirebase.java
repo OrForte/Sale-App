@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
+import com.example.eliavmenachi.myapplication.Entities.CityMallStoreDetails;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
@@ -36,6 +37,7 @@ public class MainModelFirebase {
 
     String userName;
     String password;
+    CityMallStoreDetails details = new CityMallStoreDetails();
 
     //endregion
 
@@ -198,6 +200,28 @@ public class MainModelFirebase {
     public void GetCityByMallId(final int mallId, final MainModel.GetCityByMallIdListener listener)
     {
 
+    }
+
+    public void GetDetailsByStoreId(final int storeId, final MainModel.GetDetailsByStoreIdListener listener)
+    {
+        String storeIdString = storeId + "";
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("store").child(storeIdString).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (details == null)
+                {
+                    details = new CityMallStoreDetails();
+                }
+                details.store = dataSnapshot.getValue(Store.class);
+                listener.onGetDetailsByStoreIdResults(details);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     //endregion
