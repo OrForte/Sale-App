@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.eliavmenachi.myapplication.Entities.CityMallStoreDetails;
+import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Model.Model;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
@@ -34,6 +35,7 @@ public class SalesListFragment extends Fragment {
     ListView list;
     SalesListFragment.ListAdapter listAdapter = new SalesListFragment.ListAdapter();;
     SaleListViewModel dataModel;
+    ListData listData;
 
     @Override
     public void onAttach(Context context) {
@@ -53,7 +55,7 @@ public class SalesListFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         // todo: cahnge to ssales
-        Model.instance.cancellGetAllStudents();
+        //Model.instance.cancellGetAllStudents();
     }
 
     @Override
@@ -69,6 +71,8 @@ public class SalesListFragment extends Fragment {
                 Log.d("TAG","item selected:" + i);
             }
         });
+
+
         return view;
     }
 
@@ -126,17 +130,23 @@ public class SalesListFragment extends Fragment {
 //                });
             }
 
-            final Sale currentSale = dataModel.getData().getValue().get(i);
+            if (listData == null) {
+                MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
+                    @Override
+                    public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
+                        listData = data;
+                    }
+                });
+            }
+            else
+            {
+                // set data in the controller
+                this.SetData(i, view);
+            }
 
-            final TextView tvCity = view.findViewById(R.id.tvCity);
-            final TextView tvMall = view.findViewById(R.id.tvMall);
-            final TextView tvStore = view.findViewById(R.id.tvStore);
-            final TextView tvDesc = view.findViewById(R.id.tvDescription);
-            final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
+            return view;
 
-            String strStoreId = currentSale.storeId +"";
-            tvDesc.setText(currentSale.description);
-
+            /*
             if (currentSale != null) {
                 MainModel.instance.GetDetailsByStoreId(currentSale.storeId, new MainModel.GetDetailsByStoreIdListener() {
                     @Override
@@ -146,7 +156,7 @@ public class SalesListFragment extends Fragment {
                         tvStore.setText(data.store.name);
                     }
                 });
-            }
+            }*/
 
             //imSalePic.setImageResource(R.drawable.avatar);
             //imSalePic.setTag(currentSale.id);
@@ -161,7 +171,6 @@ public class SalesListFragment extends Fragment {
                     }
                 });
             }*/
-            return view;
 //
 //            TextView nameTv = view.findViewById(R.id.stListItem_name_tv);
 //            TextView idTv = view.findViewById(R.id.stListItem_id_tv);
@@ -186,6 +195,23 @@ public class SalesListFragment extends Fragment {
 //                });
 //            }
 //            return view;
+        }
+
+        public void SetData(int i, View view)
+        {
+            final Sale currentSale = dataModel.getData().getValue().get(i);
+
+            final TextView tvCity = view.findViewById(R.id.tvCity);
+            final TextView tvMall = view.findViewById(R.id.tvMall);
+            final TextView tvStore = view.findViewById(R.id.tvStore);
+            final TextView tvDesc = view.findViewById(R.id.tvDescription);
+            final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
+
+            String strStoreId = currentSale.storeId +"";
+            tvDesc.setText(currentSale.description);
+            tvCity.setText(strStoreId);
+            tvMall.setText(strStoreId);
+            tvStore.setText(strStoreId);
         }
     }
 }

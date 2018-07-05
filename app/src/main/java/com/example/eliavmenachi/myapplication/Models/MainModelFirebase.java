@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.CityMallStoreDetails;
+import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
@@ -38,6 +39,7 @@ public class MainModelFirebase {
     String userName;
     String password;
     CityMallStoreDetails details = new CityMallStoreDetails();
+    ListData listData = new ListData();
 
     //endregion
 
@@ -192,16 +194,6 @@ public class MainModelFirebase {
         });
     }
 
-    public void GetMallByStoreId(final int storeId, final MainModel.GetMallByStoreIdListener listener)
-    {
-
-    }
-
-    public void GetCityByMallId(final int mallId, final MainModel.GetCityByMallIdListener listener)
-    {
-
-    }
-
     public void GetDetailsByStoreId(final int storeId, final MainModel.GetDetailsByStoreIdListener listener)
     {
         String storeIdString = storeId + "";
@@ -238,6 +230,56 @@ public class MainModelFirebase {
                             }
                         });
                     }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void GetListOfCitiesMallsAndStores(final MainModel.GetListOfCitiesMallsAndStoresListener listener)
+    {
+        // step 1: get the store data;
+        FirebaseDatabase.getInstance().getReference()
+        .child("store").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot curr : dataSnapshot.getChildren())
+                {
+                    listData.stores.add(curr.getValue(Store.class));
+                }
+                // step 2: get the mall data;
+                FirebaseDatabase.getInstance().getReference()
+                        .child("mall").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot curr : dataSnapshot.getChildren())
+                        {
+                            listData.malls.add(curr.getValue(Mall.class));
+                        }
+
+                        // step 3: get the city data;
+                        FirebaseDatabase.getInstance().getReference().child("city").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot curr : dataSnapshot.getChildren())
+                                {
+                                    listData.cities.add(curr.getValue(City.class));
+                                }
+                                // send the data to callback
+                                listener.onGetListOfCitiesMallsANdStoresResults(listData);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
+
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }

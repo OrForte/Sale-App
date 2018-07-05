@@ -11,6 +11,7 @@ import android.webkit.URLUtil;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.CityMallStoreDetails;
+import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
@@ -24,6 +25,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,6 +35,9 @@ public class MainModel {
 
     public static MainModel instance = new MainModel();
     MainModelFirebase mainModelFirebase;
+    List<Store> lstAllStores = new ArrayList<Store>();
+    List<Mall> lstAllMalls = new ArrayList<Mall>();
+    List<City> lstAllCities = new ArrayList<City>();
 
     //endregion
 
@@ -71,16 +76,12 @@ public class MainModel {
         void onGetStoreByStoreIdResults(Store storeData);
     }
 
-    public interface GetMallByStoreIdListener {
-        void onGetMallByStoreIdResult(Mall mallData);
-    }
-
-    public interface GetCityByMallIdListener{
-        void onGetCityByMallIdResult(City cityData);
-    }
-
     public interface GetDetailsByStoreIdListener{
         void onGetDetailsByStoreIdResults(CityMallStoreDetails data);
+    }
+
+    public interface GetListOfCitiesMallsAndStoresListener{
+        void onGetListOfCitiesMallsANdStoresResults(ListData data);
     }
 
     //endregion
@@ -185,32 +186,22 @@ public class MainModel {
         });
     }
 
-    public void GetMallByStoreId(final int storeId, final GetMallByStoreIdListener listener)
-    {
-        mainModelFirebase.GetMallByStoreId(storeId, new GetMallByStoreIdListener() {
-            @Override
-            public void onGetMallByStoreIdResult(Mall mallData) {
-                listener.onGetMallByStoreIdResult(mallData);
-            }
-        });
-    }
-
-    public void GetCityByMallId(final int mallId, final GetCityByMallIdListener listener)
-    {
-        mainModelFirebase.GetCityByMallId(mallId, new GetCityByMallIdListener() {
-            @Override
-            public void onGetCityByMallIdResult(City cityData) {
-                listener.onGetCityByMallIdResult(cityData);
-            }
-        });
-    }
-
     public void GetDetailsByStoreId(final int storeId, final GetDetailsByStoreIdListener listener)
     {
         mainModelFirebase.GetDetailsByStoreId(storeId, new GetDetailsByStoreIdListener() {
             @Override
             public void onGetDetailsByStoreIdResults(CityMallStoreDetails data) {
                 listener.onGetDetailsByStoreIdResults(data);
+            }
+        });
+    }
+
+    public void GetListOfCitiesMallsAndStores(final GetListOfCitiesMallsAndStoresListener listener)
+    {
+        mainModelFirebase.GetListOfCitiesMallsAndStores(new GetListOfCitiesMallsAndStoresListener() {
+            @Override
+            public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
+                listener.onGetListOfCitiesMallsANdStoresResults(data);
             }
         });
     }
