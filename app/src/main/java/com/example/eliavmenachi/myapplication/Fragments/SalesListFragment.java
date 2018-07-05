@@ -25,6 +25,8 @@ import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.Models.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
 
+import junit.framework.Test;
+
 import java.util.List;
 
 public class SalesListFragment extends Fragment {
@@ -126,24 +128,24 @@ public class SalesListFragment extends Fragment {
 
             final Sale currentSale = dataModel.getData().getValue().get(i);
 
-            TextView tvCity = view.findViewById(R.id.tvCity);
-            TextView tvMall = view.findViewById(R.id.tvMall);
-            TextView tvStore = view.findViewById(R.id.tvStore);
+            final TextView tvCity = view.findViewById(R.id.tvCity);
+            final TextView tvMall = view.findViewById(R.id.tvMall);
+            final TextView tvStore = view.findViewById(R.id.tvStore);
+            final TextView tvDesc = view.findViewById(R.id.tvDescription);
             final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
 
             String strStoreId = currentSale.storeId +"";
+            tvDesc.setText(currentSale.description);
 
             if (currentSale != null) {
                 MainModel.instance.GetDetailsByStoreId(currentSale.storeId, new MainModel.GetDetailsByStoreIdListener() {
                     @Override
                     public void onGetDetailsByStoreIdResults(CityMallStoreDetails data) {
-
+                        tvCity.setText(data.city.name);
+                        tvMall.setText(data.mall.name);
+                        tvStore.setText(data.store.name);
                     }
                 });
-
-                tvCity.setText(strStoreId);
-                tvMall.setText(strStoreId);
-                tvStore.setText(strStoreId);
             }
 
             //imSalePic.setImageResource(R.drawable.avatar);

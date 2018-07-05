@@ -205,6 +205,8 @@ public class MainModelFirebase {
     public void GetDetailsByStoreId(final int storeId, final MainModel.GetDetailsByStoreIdListener listener)
     {
         String storeIdString = storeId + "";
+
+        // step 1: get the store data;
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("store").child(storeIdString).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -214,12 +216,35 @@ public class MainModelFirebase {
                     details = new CityMallStoreDetails();
                 }
                 details.store = dataSnapshot.getValue(Store.class);
-                listener.onGetDetailsByStoreIdResults(details);
-            }
 
+                // step 2: get the mall data;
+                FirebaseDatabase.getInstance().getReference().child("mall")
+                        .child(details.store.mallId+"").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        details.mall = dataSnapshot.getValue(Mall.class);
+
+                        // step 3: get the city data;
+                        FirebaseDatabase.getInstance().getReference().child("city")
+                                .child(details.mall.cityId+"").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                details.city = dataSnapshot.getValue(City.class);
+                                listener.onGetDetailsByStoreIdResults(details);
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
+            }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
