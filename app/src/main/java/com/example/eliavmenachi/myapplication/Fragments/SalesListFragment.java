@@ -13,15 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.eliavmenachi.myapplication.Entities.CityMallStoreDetails;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
-import com.example.eliavmenachi.myapplication.Model.Model;
+import com.example.eliavmenachi.myapplication.Entities.Store;
+import com.example.eliavmenachi.myapplication.Entities.Mall;
+import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.Models.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
@@ -130,18 +130,89 @@ public class SalesListFragment extends Fragment {
 //                });
             }
 
+            final Sale currentSale = dataModel.getData().getValue().get(i);
+
+            final TextView tvCity = view.findViewById(R.id.tvCity);
+            final TextView tvMall = view.findViewById(R.id.tvMall);
+            final TextView tvStore = view.findViewById(R.id.tvStore);
+            final TextView tvDesc = view.findViewById(R.id.tvDescription);
+            final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
+            tvDesc.setText(currentSale.description);
+
+            String strStoreId = currentSale.storeId +"";
+            tvCity.setText(strStoreId);
+            tvMall.setText(strStoreId);
+            tvStore.setText(strStoreId);
+
             if (listData == null) {
                 MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
                     @Override
                     public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
                         listData = data;
+                        Store storeData = new Store();
+                        Mall malData = new Mall();
+                        City cityData = new City();
+                        for(int nIndex = 0; nIndex < listData.stores.size();nIndex++)
+                        {
+                            if (currentSale.storeId == listData.stores.get(nIndex).id)
+                            {
+                                storeData = listData.stores.get(nIndex);
+                            }
+                        }
+
+                        for(int nIndex = 0; nIndex < listData.malls.size();nIndex++)
+                        {
+                            if (storeData.mallId == listData.malls.get(nIndex).id)
+                            {
+                                malData = listData.malls.get(nIndex);
+                            }
+                        }
+
+                        for(int nIndex = 0; nIndex < listData.cities.size();nIndex++)
+                        {
+                            if (malData.cityId == listData.cities.get(nIndex).id)
+                            {
+                                cityData = listData.cities.get(nIndex);
+                            }
+                        }
+
+                        tvCity.setText(cityData.name);
+                        tvMall.setText(malData.name);
+                        tvStore.setText(storeData.name);
                     }
                 });
             }
-            else
-            {
-                // set data in the controller
-                this.SetData(i, view);
+            else {
+                Store storeData = new Store();
+                Mall malData = new Mall();
+                City cityData = new City();
+                for(int nIndex = 0; nIndex < listData.stores.size();nIndex++)
+                {
+                    if (currentSale.storeId == listData.stores.get(nIndex).id)
+                    {
+                        storeData = listData.stores.get(nIndex);
+                    }
+                }
+
+                for(int nIndex = 0; nIndex < listData.malls.size();nIndex++)
+                {
+                    if (storeData.mallId == listData.malls.get(nIndex).id)
+                    {
+                        malData = listData.malls.get(nIndex);
+                    }
+                }
+
+                for(int nIndex = 0; nIndex < listData.cities.size();nIndex++)
+                {
+                    if (malData.cityId == listData.cities.get(nIndex).id)
+                    {
+                        cityData = listData.cities.get(nIndex);
+                    }
+                }
+
+                tvCity.setText(cityData.name);
+                tvMall.setText(malData.name);
+                tvStore.setText(storeData.name);
             }
 
             return view;
@@ -197,21 +268,5 @@ public class SalesListFragment extends Fragment {
 //            return view;
         }
 
-        public void SetData(int i, View view)
-        {
-            final Sale currentSale = dataModel.getData().getValue().get(i);
-
-            final TextView tvCity = view.findViewById(R.id.tvCity);
-            final TextView tvMall = view.findViewById(R.id.tvMall);
-            final TextView tvStore = view.findViewById(R.id.tvStore);
-            final TextView tvDesc = view.findViewById(R.id.tvDescription);
-            final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
-
-            String strStoreId = currentSale.storeId +"";
-            tvDesc.setText(currentSale.description);
-            tvCity.setText(strStoreId);
-            tvMall.setText(strStoreId);
-            tvStore.setText(strStoreId);
-        }
     }
 }
