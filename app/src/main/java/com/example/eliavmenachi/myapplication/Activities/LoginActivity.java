@@ -18,32 +18,16 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Log.d("LoginActivity","onCreate" );
-        int nCodeFragment = 2;
-
+        Log.d("LoginActivity", "onCreate");
         super.onCreate(savedInstanceState);
 
-        if (nCodeFragment == 1) {
-            setContentView(R.layout.activity_login);
-            if (savedInstanceState == null) {
-                LoginFragment fragment = new LoginFragment();
-                FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-                tran.add(R.id.main_container, fragment);
-                tran.addToBackStack("");
-                tran.commit();
-            }
-
-        }
-        else if (nCodeFragment == 2) {
-            //super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_sale);
-            if (savedInstanceState == null) {
-                SalesListFragment fragment = new SalesListFragment();
-                FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-                tran.add(R.id.main_container, fragment);
-                tran.addToBackStack("");
-                tran.commit();
-            }
+        setContentView(R.layout.activity_login);
+        if (savedInstanceState == null) {
+            LoginFragment fragment = new LoginFragment();
+            FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
+            tran.add(R.id.main_container, fragment);
+            tran.addToBackStack("");
+            tran.commit();
         }
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -58,5 +42,4 @@ public class LoginActivity extends AppCompatActivity {
 //            }
 //        });
     }
-
 }

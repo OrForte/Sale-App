@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.eliavmenachi.myapplication.Activities.LoginActivity;
+import com.example.eliavmenachi.myapplication.Activities.SalesActivity;
 import com.example.eliavmenachi.myapplication.R;
 
 /**
@@ -24,15 +25,23 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
 
-        Button loginButton = view.findViewById(R.id.button);
+        Button salesButton = view.findViewById(R.id.btnSales);
+        salesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), SalesActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        Button loginButton = view.findViewById(R.id.btnLogin);
         loginButton.setOnClickListener(new View.OnClickListener() {
-                                              @Override
-                                              public void onClick(View view) {
-                                                  Intent intent = new Intent(view.getContext(), LoginActivity.class);
-                                                  startActivity(intent);
-                                              }
-                                          });
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
 
         return view;
     }
