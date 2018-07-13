@@ -84,27 +84,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        super.onCreateOptionsMenu(menu);
-//        getMenuInflater().inflate(R.menu.main_menu,menu);
-//        return true;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()){
-//            case R.id.menu_add:
-//                Log.d("TAG","menu add selected");
-//                NewStudentFragment fragment = new NewStudentFragment();
-//                FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-//                tran.replace(R.id.main_container, fragment);
-//                tran.addToBackStack("tag");
-//                tran.commit();
-//                return true;
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 }
 
 

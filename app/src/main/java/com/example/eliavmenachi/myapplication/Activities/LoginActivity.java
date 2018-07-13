@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
             tran.commit();
         }
 
+
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 //
