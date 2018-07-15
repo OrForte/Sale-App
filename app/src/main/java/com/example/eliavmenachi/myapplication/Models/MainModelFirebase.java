@@ -243,6 +243,8 @@ public class MainModelFirebase {
 
     public void GetListOfCitiesMallsAndStores(final MainModel.GetListOfCitiesMallsAndStoresListener listener)
     {
+        this.listData = new ListData();
+
         // step 1: get the store data;
         FirebaseDatabase.getInstance().getReference()
         .child("store").addListenerForSingleValueEvent(new ValueEventListener() {
