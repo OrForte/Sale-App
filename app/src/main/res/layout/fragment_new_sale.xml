@@ -35,6 +35,20 @@
         app:layout_constraintStart_toStartOf="@+id/fragment_register_tvEndDate"
         app:layout_constraintTop_toBottomOf="@+id/new_sale_image" />
 
+    <EditText
+        android:id="@+id/fragment_register_etDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="..."
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvDescription" />
+
     <TextView
         android:id="@+id/fragment_register_tvEndDate"
         android:layout_width="wrap_content"
@@ -45,6 +59,21 @@
         app:layout_constraintStart_toStartOf="@+id/fragment_register_tvStore"
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvDescription" />
 
+    <com.example.eliavmenachi.myapplication.DateEditText
+        android:id="@+id/fragment_register_etEndDate"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="..."
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvEndDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvEndDate" />
+
+
     <TextView
         android:id="@+id/fragment_register_tvStore"
         android:layout_width="wrap_content"
@@ -52,18 +81,20 @@
         android:layout_marginTop="24dp"
         android:text="Store:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvCatrgory"
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvEndDate" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/fragment_register_tvCatrgory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="B. Date:"
+        android:text="Category:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintStart_toStartOf="@+id/new_sale_image"
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvStore" />
+
+
 
     <!--
     <Button
