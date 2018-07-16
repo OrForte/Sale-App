@@ -117,7 +117,7 @@
         android:layout_marginTop="24dp"
         android:text="Mall:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvCatrgory"
+        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvStore"
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvCity" />
 
     <Spinner
@@ -135,6 +135,30 @@
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_etCity" />
 
     <TextView
+        android:id="@+id/fragment_register_tvStore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Store:"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvCatrgory"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvMall" />
+
+    <Spinner
+        android:id="@+id/fragment_register_etStore"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:ems="10"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvStore"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etMall" />
+
+    <TextView
         android:id="@+id/fragment_register_tvCatrgory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -142,7 +166,7 @@
         android:text="Category:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintStart_toStartOf="@+id/new_sale_image"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvMall" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvStore" />
 
     <EditText
         android:id="@+id/fragment_register_etCatrgory"
