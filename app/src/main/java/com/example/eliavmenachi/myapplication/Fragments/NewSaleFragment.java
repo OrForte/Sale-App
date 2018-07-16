@@ -33,6 +33,9 @@ public class NewSaleFragment extends Fragment {
     List<String> storeNames;
     Spinner dropDownMalls;
     Spinner dropDownStores;
+    int storeId;
+    int mallId;
+    int cityId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,8 +80,13 @@ public class NewSaleFragment extends Fragment {
     public void OnSelectedCity(AdapterView<?> adapterView, View view, final int position, long l)
     {
         mallNames = new ArrayList<>();
+        storeNames = new ArrayList<>();
         String selectedCityName = adapterView.getItemAtPosition(position).toString();
         City selectedCity = GetCityByCityName(selectedCityName);
+        if (selectedCity != null)
+        {
+            cityId = selectedCity.id;
+        }
         mallNames = GetMallNamesByCityId(selectedCity.id);
         ArrayAdapter<String> adapter = SetAdapter(mallNames);
         dropDownMalls.setAdapter(adapter);
@@ -99,9 +107,32 @@ public class NewSaleFragment extends Fragment {
         storeNames = new ArrayList<>();
         String selectedMallName = adapterView.getItemAtPosition(position).toString();
         Mall selectedMall = GetMallByMallName(selectedMallName);
+        if (selectedMall != null)
+        {
+            mallId = selectedMall.id;
+        }
         storeNames = GetStoreNamesByMallId(selectedMall.id);
         ArrayAdapter<String> adapter = SetAdapter(storeNames);
         dropDownStores.setAdapter(adapter);
+        dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+    }
+
+    public void OnSelectedStore(AdapterView<?> adapterView, View view, int position, long l)
+    {
+        String selectedStoreName = adapterView.getItemAtPosition(position).toString();
+        Store selectedStore = GetStoreByStoreName(selectedStoreName);
+        if (selectedStore != null)
+        {
+            storeId = selectedStore.id;
+        }
     }
 
     public List<String> GetCityNames()
@@ -131,7 +162,6 @@ public class NewSaleFragment extends Fragment {
     public List<String> GetStoreNamesByMallId(int mallId)
     {
         List<String> stores = new ArrayList<>();
-
         for (Iterator iterator = listData.stores.iterator(); iterator.hasNext();)
         {
             Store store = (Store)iterator.next();
@@ -164,6 +194,19 @@ public class NewSaleFragment extends Fragment {
             if (selectedMallName == mall.name)
             {
                 return mall;
+            }
+        }
+        return null;
+    }
+
+    public Store GetStoreByStoreName(String selectedStoreName)
+    {
+        for (Iterator iterator = listData.stores.iterator(); iterator.hasNext();)
+        {
+            Store store = (Store) iterator.next();
+            if (selectedStoreName == store.name)
+            {
+                return store;
             }
         }
         return null;
