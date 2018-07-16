@@ -95,6 +95,7 @@
         app:layout_constraintStart_toStartOf="@+id/fragment_register_tvCatrgory"
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvEndDate" />
 
+    <!--
     <EditText
         android:id="@+id/fragment_register_etStore"
         android:layout_width="0dp"
@@ -108,6 +109,21 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvStore"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fragment_register_tvStore" />
+    -->
+
+    <Spinner
+        android:id="@+id/fragment_register_etStore"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:ems="10"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvStore"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etEndDate" />
 
     <TextView
         android:id="@+id/fragment_register_tvCatrgory"
