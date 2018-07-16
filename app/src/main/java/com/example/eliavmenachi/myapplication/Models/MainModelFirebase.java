@@ -250,6 +250,7 @@ public class MainModelFirebase {
         .child("store").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                listData.stores = new ArrayList<>();
                 for (DataSnapshot curr : dataSnapshot.getChildren())
                 {
                     listData.stores.add(curr.getValue(Store.class));
@@ -259,6 +260,7 @@ public class MainModelFirebase {
                         .child("mall").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        listData.malls = new ArrayList<>();
                         for (DataSnapshot curr : dataSnapshot.getChildren())
                         {
                             listData.malls.add(curr.getValue(Mall.class));
@@ -268,6 +270,7 @@ public class MainModelFirebase {
                         FirebaseDatabase.getInstance().getReference().child("city").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
+                                listData.cities = new ArrayList<>();
                                 for (DataSnapshot curr : dataSnapshot.getChildren())
                                 {
                                     listData.cities.add(curr.getValue(City.class));
