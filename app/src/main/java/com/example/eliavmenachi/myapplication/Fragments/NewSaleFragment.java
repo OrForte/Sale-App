@@ -42,9 +42,9 @@ public class NewSaleFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_sale, container, false);
-        dropDownCities = view.findViewById(R.id.fragment_register_etCity);
-        dropDownMalls = view.findViewById(R.id.fragment_register_etMall);
-        dropDownStores = view.findViewById(R.id.fragment_register_etStore);
+        dropDownCities = view.findViewById(R.id.fragment_new_sale_etCity);
+        dropDownMalls = view.findViewById(R.id.fragment_new_sale_etMall);
+        dropDownStores = view.findViewById(R.id.fragment_new_sale_etStore);
 
         MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
             @Override

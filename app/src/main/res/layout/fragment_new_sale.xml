@@ -37,17 +37,17 @@
         app:layout_constraintStart_toEndOf="@+id/new_sale_image" />
 
     <TextView
-        android:id="@+id/fragment_register_tvDescription"
+        android:id="@+id/fragment_new_sale_tvDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Description:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvEndDate"
+        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvEndDate"
         app:layout_constraintTop_toBottomOf="@+id/new_sale_image" />
 
     <EditText
-        android:id="@+id/fragment_register_etDescription"
+        android:id="@+id/fragment_new_sale_etDescription"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
@@ -56,22 +56,22 @@
         android:inputType="textPersonName"
         android:text="..."
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvDescription"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvDescription" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvDescription" />
 
     <TextView
-        android:id="@+id/fragment_register_tvEndDate"
+        android:id="@+id/fragment_new_sale_tvEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="End Date:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvCity"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvDescription" />
+        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCity"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvDescription" />
 
     <com.example.eliavmenachi.myapplication.DateEditText
-        android:id="@+id/fragment_register_etEndDate"
+        android:id="@+id/fragment_new_sale_etEndDate"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginEnd="24dp"
@@ -80,24 +80,24 @@
         android:inputType="textPersonName"
         android:text="..."
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvEndDate"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvEndDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvEndDate" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvEndDate" />
 
 
     <TextView
-        android:id="@+id/fragment_register_tvCity"
+        android:id="@+id/fragment_new_sale_tvCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="City:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvCatrgory"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvEndDate" />
+        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCatrgory"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvEndDate" />
 
 
     <Spinner
-        android:id="@+id/fragment_register_etCity"
+        android:id="@+id/fragment_new_sale_etCity"
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginEnd="24dp"
@@ -107,21 +107,21 @@
         android:ems="10"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvCity"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etEndDate" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvCity"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etEndDate" />
 
     <TextView
-        android:id="@+id/fragment_register_tvMall"
+        android:id="@+id/fragment_new_sale_tvMall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Mall:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvStore"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvCity" />
+        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvStore"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvCity" />
 
     <Spinner
-        android:id="@+id/fragment_register_etMall"
+        android:id="@+id/fragment_new_sale_etMall"
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginEnd="24dp"
@@ -131,21 +131,21 @@
         android:ems="10"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvMall"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etCity" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvMall"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etCity" />
 
     <TextView
-        android:id="@+id/fragment_register_tvStore"
+        android:id="@+id/fragment_new_sale_tvStore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Store:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvCatrgory"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvMall" />
+        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCatrgory"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvMall" />
 
     <Spinner
-        android:id="@+id/fragment_register_etStore"
+        android:id="@+id/fragment_new_sale_etStore"
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginEnd="24dp"
@@ -155,21 +155,21 @@
         android:ems="10"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvStore"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etMall" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvStore"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etMall" />
 
     <TextView
-        android:id="@+id/fragment_register_tvCatrgory"
+        android:id="@+id/fragment_new_sale_tvCatrgory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Category:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintStart_toStartOf="@+id/new_sale_image"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvStore" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvStore" />
 
     <EditText
-        android:id="@+id/fragment_register_etCatrgory"
+        android:id="@+id/fragment_new_sale_etCatrgory"
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginEnd="24dp"
@@ -178,34 +178,34 @@
         android:inputType="textPersonName"
         android:text="..."
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvCatrgory"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvCatrgory"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvCatrgory" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvCatrgory" />
 
     <Button
-        android:id="@+id/fragment_register_btnSaveSale"
+        android:id="@+id/fragment_new_sale_btnSaveSale"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="24dp"
         android:layout_marginRight="12dp"
         android:layout_marginTop="24dp"
         android:text="SAVE SALE"
-        app:layout_constraintEnd_toStartOf="@+id/fragment_register_btnCancelSale"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_new_sale_btnCancelSale"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvCatrgory" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvCatrgory" />
 
     <Button
-        android:id="@+id/fragment_register_btnCancelSale"
+        android:id="@+id/fragment_new_sale_btnCancelSale"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
         android:layout_marginRight="24dp"
         android:text="CANCEL SALE"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_btnSaveSale"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_btnSaveSale"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_btnSaveSale" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_btnSaveSale" />
 
 </android.support.constraint.ConstraintLayout>
