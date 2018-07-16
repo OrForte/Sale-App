@@ -67,7 +67,7 @@
         android:layout_marginTop="24dp"
         android:text="End Date:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvStore"
+        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvCity"
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvDescription" />
 
     <com.example.eliavmenachi.myapplication.DateEditText
@@ -86,33 +86,18 @@
 
 
     <TextView
-        android:id="@+id/fragment_register_tvStore"
+        android:id="@+id/fragment_register_tvCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Store:"
+        android:text="City:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintStart_toStartOf="@+id/fragment_register_tvCatrgory"
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvEndDate" />
 
-    <!--
-    <EditText
-        android:id="@+id/fragment_register_etStore"
-        android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="..."
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvStore"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvStore" />
-    -->
 
     <Spinner
-        android:id="@+id/fragment_register_etStore"
+        android:id="@+id/fragment_register_etCity"
         android:layout_width="0dp"
         android:layout_height="42dp"
         android:layout_marginEnd="24dp"
@@ -122,8 +107,32 @@
         android:ems="10"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvStore"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvCity"
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_etEndDate" />
+
+    <TextView
+        android:id="@+id/fragment_register_tvMall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Mall:"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintStart_toStartOf="@+id/fragment_register_tvCatrgory"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvCity" />
+
+    <Spinner
+        android:id="@+id/fragment_register_etMall"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="10dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:ems="10"
+        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvMall"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etCity" />
 
     <TextView
         android:id="@+id/fragment_register_tvCatrgory"
@@ -133,7 +142,7 @@
         android:text="Category:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintStart_toStartOf="@+id/new_sale_image"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvStore" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvMall" />
 
     <EditText
         android:id="@+id/fragment_register_etCatrgory"
