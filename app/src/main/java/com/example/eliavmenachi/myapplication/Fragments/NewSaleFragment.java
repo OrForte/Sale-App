@@ -74,7 +74,7 @@ public class NewSaleFragment extends Fragment {
         return view;
     }
 
-    public void OnSelectedCity(AdapterView<?> adapterView, View view, int position, long l)
+    public void OnSelectedCity(AdapterView<?> adapterView, View view, final int position, long l)
     {
         mallNames = new ArrayList<>();
         String selectedCityName = adapterView.getItemAtPosition(position).toString();
@@ -85,6 +85,7 @@ public class NewSaleFragment extends Fragment {
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                OnSelectedMall(adapterView,view,i,l);
             }
 
             @Override
@@ -93,10 +94,19 @@ public class NewSaleFragment extends Fragment {
         });
     }
 
+    public void OnSelectedMall(AdapterView<?> adapterView, View view, int position, long l)
+    {
+        storeNames = new ArrayList<>();
+        String selectedMallName = adapterView.getItemAtPosition(position).toString();
+        Mall selectedMall = GetMallByMallName(selectedMallName);
+        storeNames = GetStoreNamesByMallId(selectedMall.id);
+        ArrayAdapter<String> adapter = SetAdapter(storeNames);
+        dropDownStores.setAdapter(adapter);
+    }
+
     public List<String> GetCityNames()
     {
         List<String> cities = new ArrayList<>();
-
         for (Iterator iterator = listData.cities.iterator(); iterator.hasNext();)
         {
             cities.add(((City) iterator.next()).name);
@@ -118,13 +128,17 @@ public class NewSaleFragment extends Fragment {
         return malls;
     }
 
-    public List<String> GetStoreNames()
+    public List<String> GetStoreNamesByMallId(int mallId)
     {
         List<String> stores = new ArrayList<>();
 
         for (Iterator iterator = listData.stores.iterator(); iterator.hasNext();)
         {
-            stores.add(((Store) iterator.next()).name);
+            Store store = (Store)iterator.next();
+            if (store.mallId == mallId)
+            {
+                stores.add(store.name);
+            }
         }
         return stores;
     }
@@ -137,6 +151,19 @@ public class NewSaleFragment extends Fragment {
             if (selectedCityName == city.name)
             {
                 return city;
+            }
+        }
+        return null;
+    }
+
+    public Mall GetMallByMallName(String selectedMallName)
+    {
+        for (Iterator iterator = listData.malls.iterator(); iterator.hasNext();)
+        {
+            Mall mall = (Mall) iterator.next();
+            if (selectedMallName == mall.name)
+            {
+                return mall;
             }
         }
         return null;
