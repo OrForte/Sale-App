@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,6 +25,8 @@ public class NewSaleFragment extends Fragment {
 
     ListData listData = new ListData();
     Spinner dropDownCities;
+    Spinner dropDownMalls;
+    Spinner dropDownStores;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,6 +38,7 @@ public class NewSaleFragment extends Fragment {
         MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
             @Override
             public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
+                listData = new ListData();
                 listData = data;
                 List<String> cities = new ArrayList<>();
                 for (int nIndex = 0; nIndex < listData.cities.size();nIndex++)
@@ -44,6 +48,13 @@ public class NewSaleFragment extends Fragment {
                 ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, cities);
                 adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
                 dropDownCities.setAdapter(adapter);
+                    /*
+                dropDownCities.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        String selection = dropDownCities.getSelectedItem().toString();
+                    }
+                });*/
             }
         });
 
