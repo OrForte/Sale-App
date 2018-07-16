@@ -215,12 +215,18 @@ public class MainModel {
         @Override
         protected void onActive() {
             super.onActive();
+            // TODO: 1. get the students list from the local DB
+            // TODO: 2. update the live data with the new student list
+
+            // 3. get the student list from firebase
             mainModelFirebase.getAllSales(new MainModelFirebase.GetAllSalesListener() {
                 @Override
                 public void onSuccess(List<Sale> studentslist) {
                     // 4. update the live data with the new student list
                     setValue(studentslist);
                     Log.d("TAG","got students from firebase " + studentslist.size());
+
+                    // TODO: 5. update the local DB
                 }
             });
         }

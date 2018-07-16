@@ -33,6 +33,7 @@ public class NewSaleFragment extends Fragment {
     List<String> storeNames;
     Spinner dropDownMalls;
     Spinner dropDownStores;
+    Button btnSave;
     int storeId;
     int mallId;
     int cityId;
@@ -45,6 +46,7 @@ public class NewSaleFragment extends Fragment {
         dropDownCities = view.findViewById(R.id.fragment_new_sale_etCity);
         dropDownMalls = view.findViewById(R.id.fragment_new_sale_etMall);
         dropDownStores = view.findViewById(R.id.fragment_new_sale_etStore);
+        btnSave = view.findViewById(R.id.fragment_new_sale_btnSaveSale);
 
         MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
             @Override
@@ -71,6 +73,13 @@ public class NewSaleFragment extends Fragment {
                     public void onNothingSelected(AdapterView<?> adapterView) {
                     }
                 });
+            }
+        });
+
+        btnSave.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view) {
+                // TODO: need to save the data to firebase
             }
         });
 
@@ -117,6 +126,7 @@ public class NewSaleFragment extends Fragment {
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                OnSelectedStore(adapterView,view,i,l);
             }
 
             @Override
