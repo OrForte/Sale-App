@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -53,7 +54,8 @@ public class NewSaleFragment extends Fragment {
     static final int REQUEST_IMAGE_CAPTURE = 1;
     Bitmap imageBitmap;
     ImageView imageSale;
-
+    TextView etDescription;
+    TextView etEndDate;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,6 +67,8 @@ public class NewSaleFragment extends Fragment {
         dropDownStores = view.findViewById(R.id.fragment_new_sale_etStore);
         btnSave = view.findViewById(R.id.fragment_new_sale_btnSaveSale);
         imageSale = view.findViewById(R.id.new_sale_image);
+        etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
+        etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
 
         MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
             @Override
@@ -101,8 +105,8 @@ public class NewSaleFragment extends Fragment {
                 newSale = new Sale();
 
                 // get the description
-                //newSale.description = view.findViewById(R.id.fragment_new_sale_etDescription).toString();
-                //newSale.endDate = view.findViewById(R.id.fragment_new_sale_etEndDate).toString();
+                newSale.description = etDescription.getText().toString();
+                newSale.endDate = etEndDate.getText().toString();
                 newSale.createdDate = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
             }
         });
