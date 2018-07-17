@@ -14,7 +14,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -22,11 +25,13 @@ import java.util.List;
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
+import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.R;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
+import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -44,9 +49,11 @@ public class NewSaleFragment extends Fragment {
     int storeId;
     int mallId;
     int cityId;
+    Sale newSale;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     Bitmap imageBitmap;
     ImageView imageSale;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,6 +98,12 @@ public class NewSaleFragment extends Fragment {
         {
             public void onClick(View view) {
                 // TODO: need to save the data to firebase
+                newSale = new Sale();
+
+                // get the description
+                //newSale.description = view.findViewById(R.id.fragment_new_sale_etDescription).toString();
+                //newSale.endDate = view.findViewById(R.id.fragment_new_sale_etEndDate).toString();
+                newSale.createdDate = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
             }
         });
 
