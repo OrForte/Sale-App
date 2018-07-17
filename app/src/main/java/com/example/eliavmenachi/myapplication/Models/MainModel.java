@@ -215,6 +215,35 @@ public class MainModel {
         @Override
         protected void onActive() {
             super.onActive();
+
+            // new thread tsks
+            // 1. get the students list from the local DB
+            SaleAsyncDao.getAll(new SaleAsyncDao.SaleAsynchDaoListener<List<Sale>>() {
+                @Override
+                public void onComplete(List<Sale> data) {
+                    // 2. update the live data with the new student list
+                    setValue(data);
+
+                    // 3. get the student list from firebase
+                    mainModelFirebase.getAllSales(new MainModelFirebase.GetAllSalesListener() {
+                        @Override
+                            public void onSuccess(List<Sale> salesList) {
+                            // 4. update the live data with the new student list
+                            setValue(salesList);
+                            Log.d("TAG","got students from firebase " + salesList.size());
+
+                            // 5. update the local DB
+                            SaleAsyncDao.insertAll(salesList, new SaleAsyncDao.SaleAsynchDaoListener<Boolean>() {
+                                @Override
+                                public void onComplete(Boolean data) {
+                                    // Done
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+
             // TODO: 1. get the students list from the local DB
             // TODO: 2. update the live data with the new student list
 
