@@ -114,7 +114,7 @@ public class NewSaleFragment extends Fragment {
                 newSale.storeId = storeId;
                 newSale.cityId = cityId;
                 newSale.mallId = mallId;
-                newSale.id = "1";
+                newSale.id = java.util.UUID.randomUUID().toString();
 
                 // setting image details
                 if (imageBitmap != null) {
