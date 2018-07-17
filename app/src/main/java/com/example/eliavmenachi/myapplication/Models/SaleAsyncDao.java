@@ -17,8 +17,14 @@ public class SaleAsyncDao {
         class MyAsynchTask extends AsyncTask<String,String,List<Sale>> {
             @Override
             protected List<Sale> doInBackground(String... strings) {
-                List<Sale> sList = MainAppLocalDb.db.saleDao().getAll();
-                //List<Sale> sList = new ArrayList<Sale>();
+                List<Sale> sList = new ArrayList<Sale>();
+                if (MainAppLocalDb.db.saleDao() != null)
+                {
+                    if (MainAppLocalDb.db.saleDao().getAll() != null)
+                    {
+                        sList = MainAppLocalDb.db.saleDao().getAll();
+                    }
+                }
                 return sList;
             }
 
