@@ -10,6 +10,8 @@ public class Sale {
     public String id;
     public int storeId;
     public String userId;
+    public int mallId;
+    public int cityId;
     public String pictureUrl;
     public String description;
     public String endDate;
@@ -20,6 +22,8 @@ public class Sale {
         return id;
     }
     public int getStoreId() { return storeId;}
+    public int getMallId() { return mallId;}
+    public int getCityId() { return cityId;}
     public String getUserId() { return userId;}
     public String getPictureUrl() { return pictureUrl;}
     public String getDescribtion() { return description;}
@@ -50,5 +54,11 @@ public class Sale {
     }
     public void setCategory(int category) {
         this.category = category;
+    }
+    public void setCityId(int cityId) {
+        this.cityId = cityId;
+    }
+    public void setMallId(int mallId) {
+        this.mallId = mallId;
     }
 }
