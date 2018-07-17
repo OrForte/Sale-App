@@ -1,6 +1,8 @@
 package com.example.eliavmenachi.myapplication.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -34,9 +36,11 @@ public class NewSaleFragment extends Fragment {
     Spinner dropDownMalls;
     Spinner dropDownStores;
     Button btnSave;
+    Button btnEditImage;
     int storeId;
     int mallId;
     int cityId;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -80,6 +84,21 @@ public class NewSaleFragment extends Fragment {
         {
             public void onClick(View view) {
                 // TODO: need to save the data to firebase
+            }
+        });
+
+        btnEditImage = view.findViewById(R.id.new_sale_img_btn);
+
+        btnEditImage.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view) {
+                // TODO: need to edit image
+                //open camera
+                Intent takePictureIntent = new Intent(
+                        MediaStore.ACTION_IMAGE_CAPTURE);
+
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                }
             }
         });
 
