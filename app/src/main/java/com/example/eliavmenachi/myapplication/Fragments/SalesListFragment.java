@@ -22,6 +22,7 @@ import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.City;
+import com.example.eliavmenachi.myapplication.Models.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.Models.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
@@ -36,6 +37,7 @@ public class SalesListFragment extends Fragment {
     SalesListFragment.ListAdapter listAdapter = new SalesListFragment.ListAdapter();;
     SaleListViewModel dataModel;
     ListData listData;
+    ImageView imSalePic;
 
     @Override
     public void onAttach(Context context) {
@@ -137,13 +139,14 @@ public class SalesListFragment extends Fragment {
             final TextView tvMall = view.findViewById(R.id.tvMall);
             final TextView tvStore = view.findViewById(R.id.tvStore);
             final TextView tvDesc = view.findViewById(R.id.tvDescription);
-            final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
             tvDesc.setText(currentSale.description);
 
             String strStoreId = currentSale.storeId +"";
             tvCity.setText(strStoreId);
             tvMall.setText(strStoreId);
             tvStore.setText(strStoreId);
+
+            //final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
 
             if (listData == null) {
                 MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
@@ -164,25 +167,12 @@ public class SalesListFragment extends Fragment {
                 }
             }
 
-            return view;
+            imSalePic = view.findViewById(R.id.ivSalePic);
+            imSalePic.setImageResource(R.drawable.avatar);
+            imSalePic.setTag(currentSale.id);
 
-            /*
-            if (currentSale != null) {
-                MainModel.instance.GetDetailsByStoreId(currentSale.storeId, new MainModel.GetDetailsByStoreIdListener() {
-                    @Override
-                    public void onGetDetailsByStoreIdResults(CityMallStoreDetails data) {
-                        tvCity.setText(data.city.name);
-                        tvMall.setText(data.mall.name);
-                        tvStore.setText(data.store.name);
-                    }
-                });
-            }*/
-
-            //imSalePic.setImageResource(R.drawable.avatar);
-            //imSalePic.setTag(currentSale.id);
-            /*
             if (currentSale.getPictureUrl() != null) {
-                Model.instance.getImage(currentSale.getPictureUrl(), new Model.GetImageListener() {
+                ImageModel.instance.getImage(currentSale.getPictureUrl(), new ImageModel.GetImageListener() {
                     @Override
                     public void onDone(Bitmap imageBitmap) {
                         if (currentSale.id.equals(imSalePic.getTag()) && imageBitmap != null) {
@@ -190,31 +180,9 @@ public class SalesListFragment extends Fragment {
                         }
                     }
                 });
-            }*/
-//
-//            TextView nameTv = view.findViewById(R.id.stListItem_name_tv);
-//            TextView idTv = view.findViewById(R.id.stListItem_id_tv);
-//            CheckBox cb = view.findViewById(R.id.stListItem_check_cb);
-//            final ImageView avatarView = view.findViewById(R.id.stListItem_avatar);
-//
-//            cb.setTag(i);
-//
-//            nameTv.setText(s.name);
-//            idTv.setText(s.id);
-//            cb.setChecked(s.checked);
-//            avatarView.setImageResource(R.drawable.avatar);
-//            avatarView.setTag(s.id);
-//            if (s.avatar != null){
-//                Model.instance.getImage(s.avatar, new Model.GetImageListener() {
-//                    @Override
-//                    public void onDone(Bitmap imageBitmap) {
-//                        if (s.id.equals(avatarView.getTag()) && imageBitmap != null) {
-//                            avatarView.setImageBitmap(imageBitmap);
-//                        }
-//                    }
-//                });
-//            }
-//            return view;
+            }
+            return view;
+
         }
 
 

@@ -114,7 +114,7 @@ public class NewSaleFragment extends Fragment {
                 newSale.storeId = storeId;
                 newSale.cityId = cityId;
                 newSale.mallId = mallId;
-                newSale.id = "010";
+                newSale.id = "000011";
 
                 // setting image details
                 if (imageBitmap != null) {
