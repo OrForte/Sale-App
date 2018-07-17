@@ -28,6 +28,8 @@ import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
+import com.example.eliavmenachi.myapplication.Model.Model;
+import com.example.eliavmenachi.myapplication.Models.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.R;
 import android.widget.Adapter;
@@ -112,10 +114,21 @@ public class NewSaleFragment extends Fragment {
                 newSale.storeId = storeId;
                 newSale.cityId = cityId;
                 newSale.mallId = mallId;
+                newSale.id = "010";
 
                 // setting image details
                 if (imageBitmap != null) {
-                    
+                    ImageModel.instance.saveImage(imageBitmap, new ImageModel.SaveImageListener() {
+                        @Override
+                        public void onDone(String url) {
+                            newSale.pictureUrl = url;
+                            MainModel.instance.addPost(newSale);
+                        }
+                    });
+                }
+                else
+                {
+                    MainModel.instance.addPost(newSale);
                 }
             }
         });

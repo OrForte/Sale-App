@@ -26,7 +26,7 @@ public class Sale {
     public int getCityId() { return cityId;}
     public String getUserId() { return userId;}
     public String getPictureUrl() { return pictureUrl;}
-    public String getDescribtion() { return description;}
+    public String getDescription() { return description;}
     public String getEndDate() { return endDate;}
     public String getCreatedDate() { return createdDate;}
     public int getCategory() { return category;}
@@ -43,7 +43,7 @@ public class Sale {
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
-    public void setDescribtion(String describtion) {
+    public void setDescription(String describtion) {
         this.description = describtion;
     }
     public void setEndDate(String endDate) {
