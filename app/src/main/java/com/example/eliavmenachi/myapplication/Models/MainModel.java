@@ -243,7 +243,7 @@ public class MainModel {
                     });
                 }
             });
-
+            /*
             // TODO: 1. get the students list from the local DB
             // TODO: 2. update the live data with the new student list
 
@@ -257,7 +257,7 @@ public class MainModel {
 
                     // TODO: 5. update the local DB
                 }
-            });
+            });*/
         }
 
         @Override
