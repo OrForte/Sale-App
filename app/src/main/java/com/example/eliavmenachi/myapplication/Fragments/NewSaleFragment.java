@@ -102,15 +102,21 @@ public class NewSaleFragment extends Fragment {
         {
             public void onClick(View view) {
                 // TODO: need to save the data to firebase
+                // TODO: add spinner to the loading of save
                 newSale = new Sale();
 
-                // get the description
+                // setting the details of sale
                 newSale.description = etDescription.getText().toString();
                 newSale.endDate = etEndDate.getText().toString();
                 newSale.createdDate = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
                 newSale.storeId = storeId;
                 newSale.cityId = cityId;
                 newSale.mallId = mallId;
+
+                // setting image details
+                if (imageBitmap != null) {
+                    
+                }
             }
         });
 
