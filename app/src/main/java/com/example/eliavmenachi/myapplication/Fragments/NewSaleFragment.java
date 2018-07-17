@@ -1,6 +1,7 @@
 package com.example.eliavmenachi.myapplication.Fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ import com.example.eliavmenachi.myapplication.R;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 
+import static android.app.Activity.RESULT_OK;
+
 public class NewSaleFragment extends Fragment {
 
     ListData listData = new ListData();
@@ -41,6 +45,8 @@ public class NewSaleFragment extends Fragment {
     int mallId;
     int cityId;
     static final int REQUEST_IMAGE_CAPTURE = 1;
+    Bitmap imageBitmap;
+    ImageView imageSale;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +57,7 @@ public class NewSaleFragment extends Fragment {
         dropDownMalls = view.findViewById(R.id.fragment_new_sale_etMall);
         dropDownStores = view.findViewById(R.id.fragment_new_sale_etStore);
         btnSave = view.findViewById(R.id.fragment_new_sale_btnSaveSale);
+        imageSale = view.findViewById(R.id.new_sale_image);
 
         MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
             @Override
@@ -103,6 +110,18 @@ public class NewSaleFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE &&
+                resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            imageBitmap = (Bitmap) extras.get("data");
+            imageSale.setImageBitmap(imageBitmap);
+        }
     }
 
     public void OnSelectedCity(AdapterView<?> adapterView, View view, final int position, long l)
