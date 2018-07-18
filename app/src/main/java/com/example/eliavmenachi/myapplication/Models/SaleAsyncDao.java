@@ -18,7 +18,8 @@ public class SaleAsyncDao {
             @Override
             protected List<Sale> doInBackground(String... strings) {
                 List<Sale> sList = new ArrayList<Sale>();
-                if (MainAppLocalDb.db.saleDao() != null)
+                Object a = MainAppLocalDb.db.saleDao();
+                if (a != null)
                 {
                     if (MainAppLocalDb.db.saleDao().getAll() != null)
                     {

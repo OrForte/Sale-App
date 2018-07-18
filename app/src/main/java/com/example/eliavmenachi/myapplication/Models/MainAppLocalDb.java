@@ -7,7 +7,7 @@ import android.arch.persistence.room.RoomDatabase;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.MyApplication;
 
-@Database(entities = {Sale.class}, version = 1)
+@Database(entities = {Sale.class}, version = 2)
 abstract class MainAppLocalDbRepository extends RoomDatabase {
     public abstract SaleDao saleDao();
 }
