@@ -35,9 +35,6 @@ public class MainModel {
 
     public static MainModel instance = new MainModel();
     MainModelFirebase mainModelFirebase;
-    List<Store> lstAllStores = new ArrayList<Store>();
-    List<Mall> lstAllMalls = new ArrayList<Mall>();
-    List<City> lstAllCities = new ArrayList<City>();
 
     //endregion
 
@@ -49,48 +46,6 @@ public class MainModel {
     }
 
     // endregion
-
-    // region Interfaces
-
-
-
-    public interface GetPostsByStoreIdListener{
-        void onGetPosts(List<Sale> p_postToReturn);
-    }
-
-    //endregion
-
-    //region Methods
-
-    //region posts
-
-    public void addPost(Sale p_postToSave)
-    {
-        mainModelFirebase.addPost(p_postToSave);
-    }
-
-    //endregion
-
-    //region users
-
-    //endregion
-
-    //region get posts
-
-    public void GetPostsByStoreId(final String storeId, final GetPostsByStoreIdListener listener)
-    {
-        mainModelFirebase.getPostsByStoreId(storeId, new GetPostsByStoreIdListener() {
-            @Override
-            public void onGetPosts(List<Sale> p_postToReturn) {
-                // TODO: need to return the posts to the fragments of posts
-                //listener.onGetPosts(p_postToReturn);
-            }
-        });
-    }
-
-    //endregion
-
-    //endregion
 
     //region live data
 

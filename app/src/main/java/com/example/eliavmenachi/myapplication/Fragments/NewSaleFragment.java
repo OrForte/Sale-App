@@ -28,6 +28,7 @@ import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
+import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
 import com.example.eliavmenachi.myapplication.R;
 
 import android.widget.ArrayAdapter;
@@ -125,13 +126,13 @@ public class NewSaleFragment extends Fragment {
                         @Override
                         public void onDone(String url) {
                             newSale.pictureUrl = url;
-                            MainModel.instance.addPost(newSale);
+                            SaleModel.instance.addPost(newSale);
                         }
                     });
                 }
                 else
                 {
-                    MainModel.instance.addPost(newSale);
+                    SaleModel.instance.addPost(newSale);
                 }
             }
         });

@@ -34,26 +34,7 @@ import java.util.Iterator;
 
 public class MainModelFirebase {
 
-    //region DataMembers
-
-    CityMallStoreDetails details = new CityMallStoreDetails();
-    ListData listData = new ListData();
-
-    //endregion
-
     //region sales's methods
-
-    public void addPost(Sale p_postToSave)
-    {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("sale").child(p_postToSave.id).setValue(p_postToSave);
-    }
-
-    public void getPostsByStoreId(final String p_strStoreId, final MainModel.GetPostsByStoreIdListener listener)
-    {
-        // TODO : need to get the collections if posts by store id
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    }
 
     interface GetAllSalesListener{
         public void onSuccess(List<Sale> studentslist);
