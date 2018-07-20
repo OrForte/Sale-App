@@ -52,6 +52,9 @@ public class NewSaleFragment extends Fragment {
     int storeId;
     int mallId;
     int cityId;
+    String selectedMallName;
+    String selectedCityName;
+    String selectedStoreName;
     Sale newSale;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     Bitmap imageBitmap;
@@ -114,6 +117,9 @@ public class NewSaleFragment extends Fragment {
                 newSale.storeId = storeId;
                 newSale.cityId = cityId;
                 newSale.mallId = mallId;
+                newSale.mallName = selectedMallName;
+                newSale.cityName = selectedCityName;
+                newSale.storeName = selectedStoreName;
                 newSale.id = java.util.UUID.randomUUID().toString();
 
                 // setting image details
@@ -167,7 +173,7 @@ public class NewSaleFragment extends Fragment {
     {
         mallNames = new ArrayList<>();
         storeNames = new ArrayList<>();
-        String selectedCityName = adapterView.getItemAtPosition(position).toString();
+        selectedCityName = adapterView.getItemAtPosition(position).toString();
         City selectedCity = GetCityByCityName(selectedCityName);
         if (selectedCity != null)
         {
@@ -191,7 +197,7 @@ public class NewSaleFragment extends Fragment {
     public void OnSelectedMall(AdapterView<?> adapterView, View view, int position, long l)
     {
         storeNames = new ArrayList<>();
-        String selectedMallName = adapterView.getItemAtPosition(position).toString();
+        selectedMallName = adapterView.getItemAtPosition(position).toString();
         Mall selectedMall = GetMallByMallName(selectedMallName);
         if (selectedMall != null)
         {
@@ -214,7 +220,7 @@ public class NewSaleFragment extends Fragment {
 
     public void OnSelectedStore(AdapterView<?> adapterView, View view, int position, long l)
     {
-        String selectedStoreName = adapterView.getItemAtPosition(position).toString();
+        selectedStoreName = adapterView.getItemAtPosition(position).toString();
         Store selectedStore = GetStoreByStoreName(selectedStoreName);
         if (selectedStore != null)
         {

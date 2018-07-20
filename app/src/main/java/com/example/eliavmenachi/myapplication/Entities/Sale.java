@@ -18,6 +18,10 @@ public class Sale {
     public String endDate;
     public String createdDate;
     public int category;
+    public String storeName;
+    public String mallName;
+    public String cityName;
+
 
     public String getId() {
         return id;
@@ -31,6 +35,9 @@ public class Sale {
     public String getEndDate() { return endDate;}
     public String getCreatedDate() { return createdDate;}
     public int getCategory() { return category;}
+    public String getStoreName() {return storeName;}
+    public String getMallName() { return mallName;}
+    public String getCityName() { return cityName;}
 
     public void setId(String id) {
         this.id = id;
@@ -62,4 +69,7 @@ public class Sale {
     public void setMallId(int mallId) {
         this.mallId = mallId;
     }
+    public void setStoreName(String storeName) { this.storeName = storeName;}
+    public void setMallName(String mallName) {this.mallName = mallName;}
+    public void setCityName(String cityName) {this.cityName = cityName;}
 }

@@ -142,12 +142,12 @@ public class SalesListFragment extends Fragment {
             tvDesc.setText(currentSale.description);
 
             String strStoreId = currentSale.storeId +"";
-            tvCity.setText(strStoreId);
-            tvMall.setText(strStoreId);
-            tvStore.setText(strStoreId);
+            tvCity.setText(currentSale.cityName);
+            tvMall.setText(currentSale.mallName);
+            tvStore.setText(currentSale.storeName);
 
             //final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
-
+            /*
             if (listData == null) {
                 MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
                     @Override
@@ -165,7 +165,7 @@ public class SalesListFragment extends Fragment {
                 if (listData != null) {
                     this.SettingData(i, view, currentSale, tvCity, tvMall, tvStore);
                 }
-            }
+            }*/
 
             imSalePic = view.findViewById(R.id.ivSalePic);
             imSalePic.setImageResource(R.drawable.avatar);
