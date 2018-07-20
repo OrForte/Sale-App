@@ -68,7 +68,6 @@ public class NewSaleFragment extends Fragment {
     TextView etEndDate;
 
     ListView list;
-    NewSaleFragment.ListAdapter listAdapter = new NewSaleFragment.ListAdapter();
     CityMallAndStoreViewModel dataModel;
 
     @Override
@@ -78,7 +77,7 @@ public class NewSaleFragment extends Fragment {
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
-                listAdapter.notifyDataSetChanged();
+                SetListOfCities(listData);
             }
         });
     }
@@ -100,14 +99,6 @@ public class NewSaleFragment extends Fragment {
         imageSale = view.findViewById(R.id.new_sale_image);
         etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
         etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
-
-
-        CityMallAndStoreModel.instance.GetListOfCitiesMallsAndStores(new CityMallAndStoreModel.GetListOfCitiesMallsAndStoresListener() {
-            @Override
-            public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
-                SetListOfCities(data);
-            }
-        });
 
         btnSave.setOnClickListener(new View.OnClickListener()
         {
@@ -354,30 +345,5 @@ public class NewSaleFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, collection);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         return adapter;
-    }
-
-    class ListAdapter extends BaseAdapter{
-        public ListAdapter(){
-        }
-
-        @Override
-        public int getCount() {
-            return 0;
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return null;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
     }
 }
