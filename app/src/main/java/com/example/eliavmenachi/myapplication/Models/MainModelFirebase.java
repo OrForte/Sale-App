@@ -36,59 +36,8 @@ public class MainModelFirebase {
 
     //region DataMembers
 
-    String userName;
-    String password;
     CityMallStoreDetails details = new CityMallStoreDetails();
     ListData listData = new ListData();
-
-    //endregion
-
-    //region users's methods
-
-    public void addUser(User userToAdd)
-    {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // TODO: ADD FUNCTION TO ADD REAL ADDITION OF USER
-        mDatabase.child("users").child(userToAdd.userName).setValue(userToAdd);
-    }
-
-    public void IsUserVisible(final String p_strUserName, final String p_strPassword, final MainModel.IsUserVisibleListener listener)
-    {
-        userName = p_strUserName;
-        password = p_strPassword;
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").child(p_strUserName).addListenerForSingleValueEvent(new ValueEventListener() {
-             @Override
-             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                 boolean bIsValid = false;
-                 User userData = dataSnapshot.getValue(User.class);
-
-                 if (userData != null)
-                 {
-                     if (userData.userName != null &&
-                             userData.password !=null &&
-                             userData.userName.equals(userName) &&
-                             userData.password.equals(password))
-                     {
-                         bIsValid = true;
-                     }
-                     else
-                     {
-                         bIsValid = false;
-                     }
-                 }
-
-                 listener.onDone(bIsValid);
-             }
-
-             @Override
-             public void onCancelled(DatabaseError databaseError) {
-                 listener.onDone(false);
-             }
-         });
-    }
 
     //endregion
 

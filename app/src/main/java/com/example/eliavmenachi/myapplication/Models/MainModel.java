@@ -52,9 +52,7 @@ public class MainModel {
 
     // region Interfaces
 
-    public interface IsUserVisibleListener{
-        void onDone(boolean p_bIsValid);
-    }
+
 
     public interface GetPostsByStoreIdListener{
         void onGetPosts(List<Sale> p_postToReturn);
@@ -74,25 +72,6 @@ public class MainModel {
     //endregion
 
     //region users
-
-    public void addUser(User userToAdd)
-    {
-        mainModelFirebase.addUser(userToAdd);
-    }
-
-    public void IsUserVisible(final String p_strUserName, final String p_strPassword ,  final IsUserVisibleListener listener ){
-        boolean bIsValid = true;
-
-        mainModelFirebase.IsUserVisible(p_strUserName, p_strPassword, new IsUserVisibleListener() {
-            @Override
-            public void onDone(boolean p_bIsValid) {
-                // Its happen when we get response from firebase
-                listener.onDone(p_bIsValid);
-            }
-        });
-
-        //listener.onDone(bIsValid);
-    }
 
     //endregion
 

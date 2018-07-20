@@ -18,6 +18,7 @@ import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
+import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
 
 import java.util.List;
@@ -67,7 +68,7 @@ public class LoginFragment extends Fragment {
                 String strUserName = userEt.getText().toString();
                 String strPassword = passwordEt.getText().toString();
 
-                MainModel.instance.IsUserVisible(strUserName, strPassword, new MainModel.IsUserVisibleListener() {
+                UserModel.instance.IsUserVisible(strUserName, strPassword, new UserModel.IsUserVisibleListener() {
                     @Override
                     public void onDone(boolean p_bIsValid) {
                         if (p_bIsValid)

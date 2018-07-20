@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
+import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
 
 /**
@@ -65,7 +66,7 @@ public class RegisterFragment extends Fragment {
                     System.out.println("Could not parse " + nfe);
                 }
 
-                MainModel.instance.addUser(user);
+                UserModel.instance.addUser(user);
             }
         });
 
