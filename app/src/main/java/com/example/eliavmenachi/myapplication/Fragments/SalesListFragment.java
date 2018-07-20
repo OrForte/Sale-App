@@ -23,7 +23,7 @@ import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
-import com.example.eliavmenachi.myapplication.Models.SaleListViewModel;
+import com.example.eliavmenachi.myapplication.Models.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
 
 import java.util.List;
