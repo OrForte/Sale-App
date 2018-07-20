@@ -16,6 +16,8 @@ import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
+import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
+import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModelFirebase;
 
 
 import java.io.File;
@@ -35,6 +37,7 @@ public class MainModel {
 
     public static MainModel instance = new MainModel();
     MainModelFirebase mainModelFirebase;
+    CityMallAndStoreModelFirebase cityMallAndStoreModelFirebase;
 
     //endregion
 
@@ -43,6 +46,7 @@ public class MainModel {
     private MainModel()
     {
         mainModelFirebase = new MainModelFirebase();
+        cityMallAndStoreModelFirebase = new CityMallAndStoreModelFirebase();
     }
 
     // endregion
@@ -82,21 +86,6 @@ public class MainModel {
                     });
                 }
             });
-            /*
-            // TODO: 1. get the students list from the local DB
-            // TODO: 2. update the live data with the new student list
-
-            // 3. get the student list from firebase
-            mainModelFirebase.getAllSales(new MainModelFirebase.GetAllSalesListener() {
-                @Override
-                public void onSuccess(List<Sale> studentslist) {
-                    // 4. update the live data with the new student list
-                    setValue(studentslist);
-                    Log.d("TAG","got students from firebase " + studentslist.size());
-
-                    // TODO: 5. update the local DB
-                }
-            });*/
         }
 
         @Override
@@ -115,6 +104,41 @@ public class MainModel {
     SaleListData studentListData = new SaleListData();
 
     public LiveData<List<Sale>> getAllSales() { return studentListData;}
+
+
+
+    public class CityMallAndStoreListData extends MutableLiveData<ListData>
+    {
+        @Override
+        protected void onActive() {
+            super.onActive();
+
+            // TODO: 1. get the students list from the local DB
+            // TODO: 2. update the live data with the new student list
+
+            // 3. get the student list from firebase
+            cityMallAndStoreModelFirebase.GetListOfCitiesMallsAndStores(new CityMallAndStoreModel.GetListOfCitiesMallsAndStoresListener() {
+                @Override
+                public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
+                    // 4. update the live data with the new student list
+                    setValue(data);
+                }
+            });
+        }
+
+        @Override
+        protected void onInactive() {
+            super.onInactive();
+        }
+        public CityMallAndStoreListData()
+        {
+            super();
+            setValue(new ListData());
+        }
+    }
+
+    CityMallAndStoreListData cityMallAndStoreListData = new CityMallAndStoreListData();
+    public LiveData<ListData> getAllCityMalssAndStores() { return cityMallAndStoreListData;}
 
     //endregion
 }
