@@ -1,4 +1,4 @@
-package com.example.eliavmenachi.myapplication.Models;
+package com.example.eliavmenachi.myapplication.Models.Image;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;

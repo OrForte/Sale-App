@@ -1,10 +1,11 @@
-package com.example.eliavmenachi.myapplication.Models;
+package com.example.eliavmenachi.myapplication.Models.Image;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 
+import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;

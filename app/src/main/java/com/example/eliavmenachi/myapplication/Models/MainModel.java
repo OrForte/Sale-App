@@ -60,30 +60,6 @@ public class MainModel {
         void onGetPosts(List<Sale> p_postToReturn);
     }
 
-    public interface GetMallsByCityIdListener{
-        void onGetMallsByCityIdResults(List<Mall> p_mallList);
-    }
-
-    public interface  GetStoreByMallIdListener{
-        void onGetStoresByMallIdResults(List<Store> p_storeList);
-    }
-
-    public interface  GetCitiesListener{
-        void onGetCitiesResults(List<City> p_citiesList);
-    }
-
-    public interface GetStoreByStoreIdListener{
-        void onGetStoreByStoreIdResults(Store storeData);
-    }
-
-    public interface GetDetailsByStoreIdListener{
-        void onGetDetailsByStoreIdResults(CityMallStoreDetails data);
-    }
-
-    public interface GetListOfCitiesMallsAndStoresListener{
-        void onGetListOfCitiesMallsANdStoresResults(ListData data);
-    }
-
     //endregion
 
     //region Methods
@@ -134,77 +110,6 @@ public class MainModel {
     }
 
     //endregion
-
-    //region malls by city id
-
-    public void GetMallsByCityId(final String cityId, final GetMallsByCityIdListener listener)
-    {
-        mainModelFirebase.GetMallsByCityId(cityId, new GetMallsByCityIdListener() {
-            @Override
-            public void onGetMallsByCityIdResults(List<Mall> p_mallList) {
-                listener.onGetMallsByCityIdResults(p_mallList);
-            }
-        });
-    }
-
-    //endregion
-
-    //region Stores by mall id
-    public void GetStoresByMallId(final String mallId, final GetStoreByMallIdListener listener)
-    {
-        mainModelFirebase.GetStoresByMallId(mallId, new GetStoreByMallIdListener() {
-            @Override
-            public void onGetStoresByMallIdResults(List<Store> p_storeList) {
-                listener.onGetStoresByMallIdResults(p_storeList);
-            }
-        });
-    }
-
-    //endregion
-
-    //region get Cities
-
-    public void GetCities(final GetCitiesListener listener)
-    {
-        mainModelFirebase.GetCities(new GetCitiesListener() {
-            @Override
-            public void onGetCitiesResults(List<City> p_citiesList) {
-                listener.onGetCitiesResults(p_citiesList);
-            }
-        });
-    }
-
-    //endregion
-
-    public void GetStoreByStoreId(final int storeId, final GetStoreByStoreIdListener listener)
-    {
-        mainModelFirebase.GetStoreByStoreId(storeId, new GetStoreByStoreIdListener() {
-            @Override
-            public void onGetStoreByStoreIdResults(Store storeData) {
-                listener.onGetStoreByStoreIdResults(storeData);
-            }
-        });
-    }
-
-    public void GetDetailsByStoreId(final int storeId, final GetDetailsByStoreIdListener listener)
-    {
-        mainModelFirebase.GetDetailsByStoreId(storeId, new GetDetailsByStoreIdListener() {
-            @Override
-            public void onGetDetailsByStoreIdResults(CityMallStoreDetails data) {
-                listener.onGetDetailsByStoreIdResults(data);
-            }
-        });
-    }
-
-    public void GetListOfCitiesMallsAndStores(final GetListOfCitiesMallsAndStoresListener listener)
-    {
-        mainModelFirebase.GetListOfCitiesMallsAndStores(new GetListOfCitiesMallsAndStoresListener() {
-            @Override
-            public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
-                listener.onGetListOfCitiesMallsANdStoresResults(data);
-            }
-        });
-    }
 
     //endregion
 

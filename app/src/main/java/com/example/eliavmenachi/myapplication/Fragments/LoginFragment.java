@@ -16,6 +16,7 @@ import com.example.eliavmenachi.myapplication.Activities.LoginActivity;
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
+import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.R;
 
@@ -84,32 +85,32 @@ public class LoginFragment extends Fragment {
 
                 /*
                 String cityId = "1";
-                MainModel.instance.GetMallsByCityId(cityId, new MainModel.GetMallsByCityIdListener() {
+                CityMallAndStoreModel.instance.GetMallsByCityId(cityId, new CityMallAndStoreModel.GetMallsByCityIdListener() {
                     @Override
                     public void onGetMallsByCityIdResults(List<Mall> p_mallList) {
                     }
                 });
 
                 String mallId = "2";
-                MainModel.instance.GetStoresByMallId(mallId, new MainModel.GetStoreByMallIdListener() {
+                CityMallAndStoreModel.instance.GetStoresByMallId(mallId, new CityMallAndStoreModel.GetStoreByMallIdListener() {
                     @Override
                     public void onGetStoresByMallIdResults(List<Store> p_storeList) {
                     }
                 });
 
-                MainModel.instance.GetCities(new MainModel.GetCitiesListener() {
+                CityMallAndStoreModel.instance.GetCities(new CityMallAndStoreModel.GetCitiesListener() {
                     @Override
                     public void onGetCitiesResults(List<City> p_citiesList) {
 
                     }
-                });*/
+                });
 
-                MainModel.instance.GetStoreByStoreId(1, new MainModel.GetStoreByStoreIdListener() {
+                CityMallAndStoreModel.instance.GetStoreByStoreId(1, new CityMallAndStoreModel.GetStoreByStoreIdListener() {
                     @Override
                     public void onGetStoreByStoreIdResults(Store storeData) {
 
                     }
-                });
+                });*/
             }
         });
 

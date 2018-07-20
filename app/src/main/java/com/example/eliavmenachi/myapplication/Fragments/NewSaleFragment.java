@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
@@ -28,13 +25,12 @@ import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
-import com.example.eliavmenachi.myapplication.Model.Model;
-import com.example.eliavmenachi.myapplication.Models.ImageModel;
+import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
+import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.R;
-import android.widget.Adapter;
+
 import android.widget.ArrayAdapter;
-import java.util.Date;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -75,7 +71,8 @@ public class NewSaleFragment extends Fragment {
         etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
         etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
 
-        MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
+
+        CityMallAndStoreModel.instance.GetListOfCitiesMallsAndStores(new CityMallAndStoreModel.GetListOfCitiesMallsAndStoresListener() {
             @Override
             public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
                 listData = new ListData();
