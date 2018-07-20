@@ -8,11 +8,11 @@ import com.example.eliavmenachi.myapplication.Entities.ListData;
 import java.util.List;
 
 public class CityMallAndStoreViewModel extends ViewModel {
-    LiveData<List<ListData>> data;
+    LiveData<ListData> data;
 
-    public LiveData<List<ListData>> getData()
+    public LiveData<ListData> getData()
     {
-        //data = MainModel.instance.getAllSales();
+        data = MainModel.instance.getAllCityMalssAndStores();
         return data;
     }
 }

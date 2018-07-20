@@ -1,16 +1,23 @@
 package com.example.eliavmenachi.myapplication.Fragments;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -26,6 +33,7 @@ import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
+import com.example.eliavmenachi.myapplication.Models.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
@@ -59,6 +67,27 @@ public class NewSaleFragment extends Fragment {
     TextView etDescription;
     TextView etEndDate;
 
+    ListView list;
+    NewSaleFragment.ListAdapter listAdapter = new NewSaleFragment.ListAdapter();
+    CityMallAndStoreViewModel dataModel;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
+        dataModel.getData().observe(this, new Observer<ListData>() {
+            @Override
+            public void onChanged(@Nullable ListData listData) {
+                listAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -76,28 +105,7 @@ public class NewSaleFragment extends Fragment {
         CityMallAndStoreModel.instance.GetListOfCitiesMallsAndStores(new CityMallAndStoreModel.GetListOfCitiesMallsAndStoresListener() {
             @Override
             public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
-                listData = new ListData();
-                listData = data;
-
-                // get the ciry names
-                citiesNames = GetCityNames();
-
-                // set the adaper
-                ArrayAdapter<String> adapter = SetAdapter(citiesNames);
-
-                // set the drop down cities
-                dropDownCities.setAdapter(adapter);
-
-                dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                        OnSelectedCity(adapterView,view,position,l);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> adapterView) {
-                    }
-                });
+                SetListOfCities(data);
             }
         });
 
@@ -146,6 +154,32 @@ public class NewSaleFragment extends Fragment {
             imageBitmap = (Bitmap) extras.get("data");
             imageSale.setImageBitmap(imageBitmap);
         }
+    }
+
+    public void SetListOfCities(ListData data)
+    {
+        listData = new ListData();
+        listData = data;
+
+        // get the ciry names
+        citiesNames = GetCityNames();
+
+        // set the adaper
+        ArrayAdapter<String> adapter = SetAdapter(citiesNames);
+
+        // set the drop down cities
+        dropDownCities.setAdapter(adapter);
+
+        dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                OnSelectedCity(adapterView,view,position,l);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
     }
 
     public void AddNewSaleToFireBase(String newId)
@@ -320,5 +354,30 @@ public class NewSaleFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, collection);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         return adapter;
+    }
+
+    class ListAdapter extends BaseAdapter{
+        public ListAdapter(){
+        }
+
+        @Override
+        public int getCount() {
+            return 0;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
     }
 }
