@@ -42,6 +42,18 @@ public class SaleModel {
         saleModelFirebase.addPost(p_postToSave);
     }
 
+    public interface GetNextSequenceListener{
+        void onGetNextSeq(String p_next);
+    }
+    public void GetNextSequenceSale(final String SeqName, final GetNextSequenceListener listener)
+    {
+        saleModelFirebase.GetNextSequenceSale(SeqName, new GetNextSequenceListener() {
+            @Override
+            public void onGetNextSeq(String p_next) {
+                listener.onGetNextSeq(p_next);
+            }
+        });
+    }
 
     //endregion
 }

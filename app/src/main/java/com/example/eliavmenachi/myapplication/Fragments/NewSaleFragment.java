@@ -108,32 +108,13 @@ public class NewSaleFragment extends Fragment {
                 // TODO: add spinner to the loading of save
                 newSale = new Sale();
 
-                // setting the details of sale
-                newSale.description = etDescription.getText().toString();
-                newSale.endDate = etEndDate.getText().toString();
-                newSale.createdDate = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-                newSale.storeId = storeId;
-                newSale.cityId = cityId;
-                newSale.mallId = mallId;
-                newSale.mallName = selectedMallName;
-                newSale.cityName = selectedCityName;
-                newSale.storeName = selectedStoreName;
-                newSale.id = java.util.UUID.randomUUID().toString();
-
-                // setting image details
-                if (imageBitmap != null) {
-                    ImageModel.instance.saveImage(imageBitmap, new ImageModel.SaveImageListener() {
-                        @Override
-                        public void onDone(String url) {
-                            newSale.pictureUrl = url;
-                            SaleModel.instance.addPost(newSale);
-                        }
-                    });
-                }
-                else
-                {
-                    SaleModel.instance.addPost(newSale);
-                }
+                String SeqName = "saleSeq";
+                SaleModel.instance.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
+                    @Override
+                    public void onGetNextSeq(String p_next) {
+                        AddNewSaleToFireBase(p_next);
+                    }
+                });
             }
         });
 
@@ -164,6 +145,37 @@ public class NewSaleFragment extends Fragment {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
             imageSale.setImageBitmap(imageBitmap);
+        }
+    }
+
+    public void AddNewSaleToFireBase(String newId)
+    {
+        newSale.id = newId;
+        // setting the details of sale
+        newSale.description = etDescription.getText().toString();
+        newSale.endDate = etEndDate.getText().toString();
+        newSale.createdDate = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        newSale.storeId = storeId;
+        newSale.cityId = cityId;
+        newSale.mallId = mallId;
+        newSale.mallName = selectedMallName;
+        newSale.cityName = selectedCityName;
+        newSale.storeName = selectedStoreName;
+        //newSale.id = java.util.UUID.randomUUID().toString();
+
+        // setting image details
+        if (imageBitmap != null) {
+            ImageModel.instance.saveImage(imageBitmap, new ImageModel.SaveImageListener() {
+                @Override
+                public void onDone(String url) {
+                    newSale.pictureUrl = url;
+                    SaleModel.instance.addPost(newSale);
+                }
+            });
+        }
+        else
+        {
+            SaleModel.instance.addPost(newSale);
         }
     }
 
