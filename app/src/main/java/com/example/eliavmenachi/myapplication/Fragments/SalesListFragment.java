@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,6 +72,19 @@ public class SalesListFragment extends Fragment {
             }
         });
 
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Sale selectedSaleItem = dataModel.getData().getValue().get(i);
+
+                NewSaleFragment fragment = new NewSaleFragment();
+                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+                tran.replace(R.id.main_container, fragment);
+                tran.addToBackStack("tag");
+                tran.commit();
+            }
+        });
 
         return view;
     }
