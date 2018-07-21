@@ -86,6 +86,11 @@ public class NewSaleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        String nId ="";
+        if (getArguments() != null){
+            nId = getArguments().getString("SALE_ID");
+        }
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_sale, container, false);
         dropDownCities = view.findViewById(R.id.fragment_new_sale_etCity);

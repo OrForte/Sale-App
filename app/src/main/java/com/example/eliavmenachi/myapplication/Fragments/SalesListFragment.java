@@ -79,6 +79,9 @@ public class SalesListFragment extends Fragment {
                 Sale selectedSaleItem = dataModel.getData().getValue().get(i);
 
                 NewSaleFragment fragment = new NewSaleFragment();
+                Bundle args = new Bundle();
+                args.putString("SALE_ID", selectedSaleItem.id);
+                fragment.setArguments(args);
                 FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
                 tran.replace(R.id.main_container, fragment);
                 tran.addToBackStack("tag");
