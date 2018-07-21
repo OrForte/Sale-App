@@ -24,8 +24,6 @@ import static android.app.Activity.RESULT_OK;
  * A simple {@link Fragment} subclass.
  */
 public class NewStudentFragment extends Fragment {
-
-
     EditText nameEt;
     EditText idEt;
     EditText dateEt;
@@ -70,7 +68,6 @@ public class NewStudentFragment extends Fragment {
                 }
             }
         });
-
 
         Button cancel = view.findViewById(R.id.new_student_cancel);
 
