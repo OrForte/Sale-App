@@ -23,7 +23,7 @@ public class SalesActivity extends AppCompatActivity {
             SalesListFragment fragment = new SalesListFragment();
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
             tran.add(R.id.main_container, fragment);
-            tran.addToBackStack("");
+            //tran.addToBackStack("");
             tran.commit();
         }
     }
