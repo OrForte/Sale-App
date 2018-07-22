@@ -11,14 +11,13 @@ import android.widget.Button;
 
 import com.example.eliavmenachi.myapplication.Activities.LoginActivity;
 import com.example.eliavmenachi.myapplication.Activities.SalesActivity;
+import com.example.eliavmenachi.myapplication.Activities.UserProfileActivity;
 import com.example.eliavmenachi.myapplication.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends Fragment {
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -43,7 +42,15 @@ public class MainFragment extends Fragment {
             }
         });
 
+        Button editProfile = view.findViewById(R.id.btnEditProfile);
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), UserProfileActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
-
 }

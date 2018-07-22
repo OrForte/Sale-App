@@ -15,13 +15,13 @@ import com.example.eliavmenachi.myapplication.Fragments.SalesListFragment;
 import com.example.eliavmenachi.myapplication.R;
 
 public class LoginActivity extends AppCompatActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("LoginActivity", "onCreate");
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login);
+
         if (savedInstanceState == null) {
             LoginFragment fragment = new LoginFragment();
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();

@@ -17,8 +17,8 @@ public class SalesActivity extends AppCompatActivity {
         Log.d("SalesActivity", "onCreate");
         super.onCreate(savedInstanceState);
 
-        //super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sale);
+
         if (savedInstanceState == null) {
             SalesListFragment fragment = new SalesListFragment();
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();

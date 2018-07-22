@@ -27,15 +27,13 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment {
-
+    // Data Members
     EditText userEt;
     EditText passwordEt;
 
-
-    public LoginFragment() {
-        // Required empty public constructor
-    }
-
+//    public LoginFragment() {
+//        // Required empty public constructor
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
