@@ -31,6 +31,7 @@ import java.util.List;
 
 public class SalesListFragment extends Fragment {
 
+    // Data Members
     ListView list;
     SalesListFragment.ListAdapter listAdapter = new SalesListFragment.ListAdapter();;
     SaleListViewModel dataModel;

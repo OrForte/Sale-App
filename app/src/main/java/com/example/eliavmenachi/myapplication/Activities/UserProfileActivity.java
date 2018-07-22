@@ -19,7 +19,7 @@ public class UserProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_profile);
 
         if (savedInstanceState == null) {
-            UserSalesListFragment fragment = new UserSalesListFragment();
+            EditUserProfileFragment fragment = new EditUserProfileFragment();
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
             tran.add(R.id.main_container, fragment);
             //tran.addToBackStack("");

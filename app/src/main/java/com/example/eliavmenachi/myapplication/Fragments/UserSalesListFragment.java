@@ -1,4 +1,7 @@
 package com.example.eliavmenachi.myapplication.Fragments;
 
-public class UserSalesListFragment  {
+import android.support.v4.app.Fragment;
+
+public class UserSalesListFragment extends Fragment {
+
 }
