@@ -14,7 +14,7 @@ public class UserSalesActivity extends Fragment {
         Log.d("UserSalesActivity", "onCreate");
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_user_sales);
 
         if (savedInstanceState == null) {
             EditUserProfileFragment fragment = new EditUserProfileFragment();
