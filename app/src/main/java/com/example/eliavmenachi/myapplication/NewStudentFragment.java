@@ -1,6 +1,5 @@
 package com.example.eliavmenachi.myapplication;
 
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import com.example.eliavmenachi.myapplication.Model.Model;
 import com.example.eliavmenachi.myapplication.Model.Student;
 
 import static android.app.Activity.RESULT_OK;
-
 
 /**
  * A simple {@link Fragment} subclass.
