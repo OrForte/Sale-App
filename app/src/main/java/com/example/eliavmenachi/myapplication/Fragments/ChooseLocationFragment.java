@@ -3,17 +3,22 @@ package com.example.eliavmenachi.myapplication.Fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
+import com.example.eliavmenachi.myapplication.Entities.Consts;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
@@ -38,6 +43,7 @@ public class ChooseLocationFragment extends Fragment {
     int storeId;
     int mallId;
     int cityId;
+    Button btnShowSales;
 
     @Override
     public void onAttach(Context context) {
@@ -52,6 +58,11 @@ public class ChooseLocationFragment extends Fragment {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -60,6 +71,25 @@ public class ChooseLocationFragment extends Fragment {
         dropDownCities = view.findViewById(R.id.sCity);
         dropDownMalls = view.findViewById(R.id.sMall);
         dropDownStores = view.findViewById(R.id.sStore);
+        btnShowSales = view.findViewById(R.id.btnShowSales);
+
+        btnShowSales.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view) {
+
+                FragmentManager fragmentManager = getFragmentManager();
+                SalesListFragment fragment = new SalesListFragment();
+                Bundle args = new Bundle();
+                args.putString("STORE_ID", storeId +"");
+                fragment.setArguments(args);
+                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+                //FragmentTransaction tran = fragmentManager.beginTransaction();
+                tran.replace(R.id.main_container, fragment);
+                //tran.addToBackStack(null);
+                tran.commit();
+
+            }
+        });
 
         return view;
     }

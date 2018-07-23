@@ -8,6 +8,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class SaleModelFirebase {
 
     public void getPostsByStoreId(final String p_strStoreId, final SaleModel.GetPostsByStoreIdListener listener)

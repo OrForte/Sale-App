@@ -1,5 +1,6 @@
 package com.example.eliavmenachi.myapplication.Models;
 
+import android.content.ContentUris;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -63,6 +64,41 @@ public class MainModelFirebase {
     }
 
     public void cancellGetAllSales() {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
+        stRef.removeEventListener(eventListener);
+    }
+
+
+    interface GetAllSalesByStoreListener{
+        public void onSuccess(List<Sale> results);
+    }
+
+    ValueEventListener eventListener2;
+
+    public void GetAllSalesByStoreId(final String storeId, final GetAllSalesByStoreListener listener)
+    {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
+        eventListener2 = stRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Sale> stSales = new LinkedList<>();
+                for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
+                    Sale currSale = stSnapshot.getValue(Sale.class);
+                    if (currSale.storeId == Integer.parseInt(storeId))
+                    {
+                        stSales.add(currSale);
+                    }
+                }
+
+                listener.onSuccess(stSales);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void cancellGetAllSalesByStoreId() {
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
         stRef.removeEventListener(eventListener);
     }

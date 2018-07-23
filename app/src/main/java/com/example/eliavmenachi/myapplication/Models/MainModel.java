@@ -18,6 +18,7 @@ import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
 import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModelFirebase;
+import com.example.eliavmenachi.myapplication.Models.Sale.SaleModelFirebase;
 
 
 import java.io.File;
@@ -38,6 +39,7 @@ public class MainModel {
     public static MainModel instance = new MainModel();
     MainModelFirebase mainModelFirebase;
     CityMallAndStoreModelFirebase cityMallAndStoreModelFirebase;
+    SaleModelFirebase saleModelFirebase;
 
     //endregion
 
@@ -47,11 +49,14 @@ public class MainModel {
     {
         mainModelFirebase = new MainModelFirebase();
         cityMallAndStoreModelFirebase = new CityMallAndStoreModelFirebase();
+        saleModelFirebase = new SaleModelFirebase();
     }
 
     // endregion
 
     //region live data
+
+    //region SaleListData
 
     public class SaleListData extends MutableLiveData<List<Sale>>
     {
@@ -106,6 +111,9 @@ public class MainModel {
     public LiveData<List<Sale>> getAllSales() { return studentListData;}
 
 
+    //endregion
+
+    //region CityMallAndStoreListData
 
     public class CityMallAndStoreListData extends MutableLiveData<ListData>
     {
@@ -139,6 +147,73 @@ public class MainModel {
 
     CityMallAndStoreListData cityMallAndStoreListData = new CityMallAndStoreListData();
     public LiveData<ListData> getAllCityMalssAndStores() { return cityMallAndStoreListData;}
+
+
+    //endregion
+
+    //region SaleListDataByStore
+
+    public class SaleListDataByStore extends MutableLiveData<List<Sale>>
+    {
+        String m_storeId = "";
+
+        @Override
+        protected void onActive() {
+            super.onActive();
+
+            // 1. get the students list from the local DB
+            SaleAsyncDao.getSalesByStoreId(m_storeId, new SaleAsyncDao.SaleAsynchDaoListener<List<Sale>>() {
+                @Override
+                public void onComplete(List<Sale> data) {
+                    // 2. update the live data with the new student list
+                    setValue(data);
+                    // 3. get the sale list from firebase
+                    mainModelFirebase.GetAllSalesByStoreId(m_storeId, new MainModelFirebase.GetAllSalesByStoreListener() {
+                        @Override
+                        public void onSuccess(List<Sale> results) {
+                            // 4. update the live data with the new student list
+                            setValue(results);
+                        }
+                    });
+                }
+            });
+        }
+
+        @Override
+        protected void onInactive() {
+            super.onInactive();
+        }
+
+        public SaleListDataByStore()
+        {
+            super();
+            setValue(new LinkedList());
+        }
+
+        public void InitStoreId(String p_strStoreId)
+        {
+            m_storeId = p_strStoreId;
+        }
+    }
+
+
+    public SaleListDataByStore saleListDataByStore = new SaleListDataByStore();
+    public LiveData<List<Sale>> getAllSalesByStoreId(String p_strStoreId)
+    {
+        return saleListDataByStore;
+    }
+
+    public void InitStoreId(String p_strStoreId)
+    {
+        if (saleListDataByStore == null)
+        {
+            saleListDataByStore = new SaleListDataByStore();
+        }
+
+        saleListDataByStore.InitStoreId(p_strStoreId);
+    }
+
+    // endregion
 
     //endregion
 }
