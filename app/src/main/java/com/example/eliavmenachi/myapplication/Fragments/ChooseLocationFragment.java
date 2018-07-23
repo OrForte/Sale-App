@@ -9,13 +9,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
+import com.example.eliavmenachi.myapplication.Entities.Mall;
+import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Models.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseLocationFragment extends Fragment {
@@ -25,6 +30,14 @@ public class ChooseLocationFragment extends Fragment {
     Spinner dropDownCities;
     Spinner dropDownMalls;
     Spinner dropDownStores;
+    List<String> mallNames;
+    List<String> storeNames;
+    String selectedMallName;
+    String selectedCityName;
+    String selectedStoreName;
+    int storeId;
+    int mallId;
+    int cityId;
 
     @Override
     public void onAttach(Context context) {
@@ -63,6 +76,76 @@ public class ChooseLocationFragment extends Fragment {
 
         // set the drop down cities
         dropDownCities.setAdapter(adapter);
+
+        dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                OnSelectedCity(adapterView,view,position,l);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+    }
+
+    public void OnSelectedCity(AdapterView<?> adapterView, View view, final int position, long l)
+    {
+        mallNames = new ArrayList<>();
+        storeNames = new ArrayList<>();
+        selectedCityName = adapterView.getItemAtPosition(position).toString();
+        City selectedCity = dataModel.GetCityByCityName(selectedCityName, listData);
+        if (selectedCity != null)
+        {
+            cityId = selectedCity.id;
+        }
+        mallNames = dataModel.GetMallNamesByCityId(selectedCity.id, listData);
+        ArrayAdapter<String> adapter = SetAdapter(mallNames);
+        dropDownMalls.setAdapter(adapter);
+        dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                OnSelectedMall(adapterView,view,i,l);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+    }
+
+    public void OnSelectedMall(AdapterView<?> adapterView, View view, int position, long l)
+    {
+        storeNames = new ArrayList<>();
+        selectedMallName = adapterView.getItemAtPosition(position).toString();
+        Mall selectedMall = dataModel.GetMallByMallName(selectedMallName, listData);
+        if (selectedMall != null)
+        {
+            mallId = selectedMall.id;
+        }
+        storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
+        ArrayAdapter<String> adapter = SetAdapter(storeNames);
+        dropDownStores.setAdapter(adapter);
+        dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                OnSelectedStore(adapterView,view,i,l);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+    }
+
+    public void OnSelectedStore(AdapterView<?> adapterView, View view, int position, long l)
+    {
+        selectedStoreName = adapterView.getItemAtPosition(position).toString();
+        Store selectedStore = dataModel.GetStoreByStoreName(selectedStoreName,listData);
+        if (selectedStore != null)
+        {
+            storeId = selectedStore.id;
+        }
     }
 
     public ArrayAdapter<String> SetAdapter(List<String> collection)
