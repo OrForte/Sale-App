@@ -3,10 +3,12 @@ package com.example.eliavmenachi.myapplication.Fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,14 +76,18 @@ public class ChooseLocationFragment extends Fragment {
         btnShowSales.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View view) {
+
+                FragmentManager fragmentManager = getFragmentManager();
                 SalesListFragment fragment = new SalesListFragment();
                 Bundle args = new Bundle();
                 args.putString("STORE_ID", storeId +"");
                 fragment.setArguments(args);
                 FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-                tran.add(R.id.main_container, fragment);
-                tran.addToBackStack(Consts.instance.TAG_SALES);
+                //FragmentTransaction tran = fragmentManager.beginTransaction();
+                tran.replace(R.id.main_container, fragment);
+                //tran.addToBackStack(null);
                 tran.commit();
+
             }
         });
 

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -153,9 +154,10 @@ public class NewSaleFragment extends Fragment {
 
     public void GetToSaleListFragments()
     {
+        FragmentManager fragmentManager = getFragmentManager();
         SalesListFragment fragment = new SalesListFragment();
         FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-        tran.add(R.id.main_container, fragment);
+        tran.replace(R.id.main_container, fragment);
         tran.addToBackStack(Consts.instance.TAG_SALES);
         tran.commit();
     }
