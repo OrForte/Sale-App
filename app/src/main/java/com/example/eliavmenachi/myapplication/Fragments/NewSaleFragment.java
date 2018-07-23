@@ -155,7 +155,7 @@ public class NewSaleFragment extends Fragment {
         listData = data;
 
         // get the ciry names
-        citiesNames = CityMallAndStoreModel.instance.GetCityNames(listData);
+        citiesNames = dataModel.GetCityNames(listData);
 
         // set the adaper
         ArrayAdapter<String> adapter = SetAdapter(citiesNames);
@@ -211,12 +211,12 @@ public class NewSaleFragment extends Fragment {
         mallNames = new ArrayList<>();
         storeNames = new ArrayList<>();
         selectedCityName = adapterView.getItemAtPosition(position).toString();
-        City selectedCity = CityMallAndStoreModel.instance.GetCityByCityName(selectedCityName, listData);
+        City selectedCity = dataModel.GetCityByCityName(selectedCityName, listData);
         if (selectedCity != null)
         {
             cityId = selectedCity.id;
         }
-        mallNames = CityMallAndStoreModel.instance.GetMallNamesByCityId(selectedCity.id, listData);
+        mallNames = dataModel.GetMallNamesByCityId(selectedCity.id, listData);
         ArrayAdapter<String> adapter = SetAdapter(mallNames);
         dropDownMalls.setAdapter(adapter);
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -235,12 +235,12 @@ public class NewSaleFragment extends Fragment {
     {
         storeNames = new ArrayList<>();
         selectedMallName = adapterView.getItemAtPosition(position).toString();
-        Mall selectedMall = CityMallAndStoreModel.instance.GetMallByMallName(selectedMallName, listData);
+        Mall selectedMall = dataModel.GetMallByMallName(selectedMallName, listData);
         if (selectedMall != null)
         {
             mallId = selectedMall.id;
         }
-        storeNames = CityMallAndStoreModel.instance.GetStoreNamesByMallId(selectedMall.id, listData);
+        storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
         ArrayAdapter<String> adapter = SetAdapter(storeNames);
         dropDownStores.setAdapter(adapter);
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -258,90 +258,12 @@ public class NewSaleFragment extends Fragment {
     public void OnSelectedStore(AdapterView<?> adapterView, View view, int position, long l)
     {
         selectedStoreName = adapterView.getItemAtPosition(position).toString();
-        Store selectedStore = CityMallAndStoreModel.instance.GetStoreByStoreName(selectedStoreName,listData);
+        Store selectedStore = dataModel.GetStoreByStoreName(selectedStoreName,listData);
         if (selectedStore != null)
         {
             storeId = selectedStore.id;
         }
     }
-
-    /*
-    public List<String> GetCityNames()
-    {
-        List<String> cities = new ArrayList<>();
-        for (Iterator iterator = listData.cities.iterator(); iterator.hasNext();)
-        {
-            cities.add(((City) iterator.next()).name);
-        }
-        return cities;
-    }
-
-    public List<String> GetMallNamesByCityId(int cityId)
-    {
-        List<String> malls = new ArrayList<>();
-        for (Iterator iterator = listData.malls.iterator(); iterator.hasNext();)
-        {
-            Mall mall = (Mall)iterator.next();
-            if (mall.cityId == cityId)
-            {
-                malls.add(mall.name);
-            }
-        }
-        return malls;
-    }
-
-    public List<String> GetStoreNamesByMallId(int mallId)
-    {
-        List<String> stores = new ArrayList<>();
-        for (Iterator iterator = listData.stores.iterator(); iterator.hasNext();)
-        {
-            Store store = (Store)iterator.next();
-            if (store.mallId == mallId)
-            {
-                stores.add(store.name);
-            }
-        }
-        return stores;
-    }
-
-    public City GetCityByCityName(String selectedCityName)
-    {
-        for (Iterator iterator = listData.cities.iterator(); iterator.hasNext();)
-        {
-            City city = (City) iterator.next();
-            if (selectedCityName == city.name)
-            {
-                return city;
-            }
-        }
-        return null;
-    }
-
-    public Mall GetMallByMallName(String selectedMallName)
-    {
-        for (Iterator iterator = listData.malls.iterator(); iterator.hasNext();)
-        {
-            Mall mall = (Mall) iterator.next();
-            if (selectedMallName == mall.name)
-            {
-                return mall;
-            }
-        }
-        return null;
-    }
-
-    public Store GetStoreByStoreName(String selectedStoreName)
-    {
-        for (Iterator iterator = listData.stores.iterator(); iterator.hasNext();)
-        {
-            Store store = (Store) iterator.next();
-            if (selectedStoreName == store.name)
-            {
-                return store;
-            }
-        }
-        return null;
-    }*/
 
     public ArrayAdapter<String> SetAdapter(List<String> collection)
     {

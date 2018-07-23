@@ -116,6 +116,7 @@ public class CityMallAndStoreModel {
         });
     }
 
+    /*
     public List<String> GetCityNames(ListData listData)
     {
         List<String> cities = new ArrayList<>();
@@ -191,5 +192,5 @@ public class CityMallAndStoreModel {
             }
         }
         return null;
-    }
+    }*/
 }
