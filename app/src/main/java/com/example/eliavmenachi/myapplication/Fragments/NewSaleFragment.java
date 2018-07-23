@@ -37,6 +37,7 @@ import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAn
 import com.example.eliavmenachi.myapplication.Models.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
+import com.example.eliavmenachi.myapplication.Models.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
 
 import android.widget.ArrayAdapter;
@@ -69,11 +70,13 @@ public class NewSaleFragment extends Fragment {
 
     ListView list;
     CityMallAndStoreViewModel dataModel;
+    SaleListViewModel dataModelSale;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
+        dataModelSale = ViewModelProviders.of(this).get(SaleListViewModel.class);
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
@@ -93,6 +96,12 @@ public class NewSaleFragment extends Fragment {
         String nId ="";
         if (getArguments() != null){
             nId = getArguments().getString("SALE_ID");
+            dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
+                @Override
+                public void onChanged(@Nullable Sale sale) {
+                    newSale = sale;
+                }
+            });
         }
 
         // Inflate the layout for this fragment
@@ -110,15 +119,23 @@ public class NewSaleFragment extends Fragment {
             public void onClick(View view) {
                 // TODO: need to save the data to firebase
                 // TODO: add spinner to the loading of save
-                newSale = new Sale();
+                if (newSale == null)
+                {
+                    newSale = new Sale();
+                    newSale.id = "0";
 
-                String SeqName = "saleSeq";
-                SaleModel.instance.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
-                    @Override
-                    public void onGetNextSeq(String p_next) {
-                        AddNewSaleToFireBase(p_next);
-                    }
-                });
+
+                    String SeqName = "saleSeq";
+                    SaleModel.instance.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
+                        @Override
+                        public void onGetNextSeq(String p_next) {
+                            AddNewSaleToFireBase(p_next);
+                        }
+                    });
+                }
+                else{
+                    //AddNewSaleToFireBase(newSale.id);
+                }
             }
         });
 

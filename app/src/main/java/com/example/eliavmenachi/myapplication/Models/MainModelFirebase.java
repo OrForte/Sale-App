@@ -103,5 +103,39 @@ public class MainModelFirebase {
         stRef.removeEventListener(eventListener);
     }
 
+
+
+
+    interface GetSaleBySaleId{
+        public void onGetData(Sale data);
+    }
+    ValueEventListener eventListener3;
+    public void GetSaleBySaleId(final String saleId, final GetSaleBySaleId listener)
+    {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
+        eventListener3 = stRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Sale currSale = new Sale();
+                for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
+                    Sale sale = stSnapshot.getValue(Sale.class);
+                    if (sale.id == saleId)
+                    {
+                        currSale = sale;
+                        break;
+                    }
+                }
+                listener.onGetData(currSale);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+    public void cancellGetSalesBySaleId() {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
+        stRef.removeEventListener(eventListener);
+    }
+
     //endregion
 }
