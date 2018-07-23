@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
+import com.example.eliavmenachi.myapplication.Entities.Consts;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
@@ -79,7 +80,7 @@ public class ChooseLocationFragment extends Fragment {
                 fragment.setArguments(args);
                 FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
                 tran.add(R.id.main_container, fragment);
-                tran.addToBackStack("tag");
+                tran.addToBackStack(Consts.instance.TAG_SALES);
                 tran.commit();
             }
         });

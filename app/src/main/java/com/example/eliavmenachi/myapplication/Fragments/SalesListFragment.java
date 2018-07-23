@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.eliavmenachi.myapplication.Entities.Consts;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
@@ -99,7 +100,7 @@ public class SalesListFragment extends Fragment {
                 fragment.setArguments(args);
                 FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
                 tran.replace(R.id.main_container, fragment);
-                tran.addToBackStack("tag");
+                tran.addToBackStack(Consts.instance.TAG_NEW_SALE);
                 tran.commit();
             }
         });

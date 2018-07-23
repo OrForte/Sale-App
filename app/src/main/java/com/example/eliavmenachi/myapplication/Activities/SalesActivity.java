@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.eliavmenachi.myapplication.Entities.Consts;
 import com.example.eliavmenachi.myapplication.Fragments.NewSaleFragment;
 import com.example.eliavmenachi.myapplication.Fragments.SalesListFragment;
 import com.example.eliavmenachi.myapplication.Fragments.ChooseLocationFragment;
@@ -44,7 +45,7 @@ public class SalesActivity extends AppCompatActivity {
                 NewSaleFragment fragment = new NewSaleFragment();
                 FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
                 tran.replace(R.id.main_container, fragment);
-                tran.addToBackStack("tag");
+                tran.addToBackStack(Consts.instance.TAG_NEW_SALE);
                 tran.commit();
                 return true;
             }
@@ -52,7 +53,7 @@ public class SalesActivity extends AppCompatActivity {
                 ChooseLocationFragment fragment = new ChooseLocationFragment();
                 FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
                 tran.replace(R.id.main_container, fragment);
-                tran.addToBackStack("tag2");
+                tran.addToBackStack(Consts.instance.TAG_CHOOSE_STORE);
                 tran.commit();
                 return true;
             }

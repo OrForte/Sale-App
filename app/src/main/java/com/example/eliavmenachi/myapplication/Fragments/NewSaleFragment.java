@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
+import com.example.eliavmenachi.myapplication.Entities.Consts;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
@@ -149,6 +151,15 @@ public class NewSaleFragment extends Fragment {
         }
     }
 
+    public void GetToSaleListFragments()
+    {
+        SalesListFragment fragment = new SalesListFragment();
+        FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+        tran.add(R.id.main_container, fragment);
+        tran.addToBackStack(Consts.instance.TAG_SALES);
+        tran.commit();
+    }
+
     public void SetListOfCities(ListData data)
     {
         listData = new ListData();
@@ -197,12 +208,14 @@ public class NewSaleFragment extends Fragment {
                 public void onDone(String url) {
                     newSale.pictureUrl = url;
                     SaleModel.instance.addPost(newSale);
+                    GetToSaleListFragments();
                 }
             });
         }
         else
         {
             SaleModel.instance.addPost(newSale);
+            GetToSaleListFragments();
         }
     }
 
