@@ -46,6 +46,16 @@ public class SalesListFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
+        if (getArguments() != null){
+            m_selectedStore = getArguments().getString("STORE_ID");
+            m_bGetAllSales = false;
+        }
+        else
+        {
+            m_selectedStore = "-1";
+            m_bGetAllSales = true;
+        }
+
         dataModel = ViewModelProviders.of(this).get(SaleListViewModel.class);
         dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).observe(this, new Observer<List<Sale>>() {
             @Override
@@ -89,7 +99,7 @@ public class SalesListFragment extends Fragment {
                 fragment.setArguments(args);
                 FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
                 tran.replace(R.id.main_container, fragment);
-                tran.addToBackStack("tag");
+                tran.addToBackStack("tag3");
                 tran.commit();
             }
         });

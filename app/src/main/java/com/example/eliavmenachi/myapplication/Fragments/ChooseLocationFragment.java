@@ -6,11 +6,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
@@ -38,6 +40,7 @@ public class ChooseLocationFragment extends Fragment {
     int storeId;
     int mallId;
     int cityId;
+    Button btnShowSales;
 
     @Override
     public void onAttach(Context context) {
@@ -60,6 +63,21 @@ public class ChooseLocationFragment extends Fragment {
         dropDownCities = view.findViewById(R.id.sCity);
         dropDownMalls = view.findViewById(R.id.sMall);
         dropDownStores = view.findViewById(R.id.sStore);
+        btnShowSales = view.findViewById(R.id.btnShowSales);
+
+        btnShowSales.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View view) {
+                SalesListFragment fragment = new SalesListFragment();
+                Bundle args = new Bundle();
+                args.putString("STORE_ID", storeId +"");
+                fragment.setArguments(args);
+                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+                tran.add(R.id.main_container, fragment);
+                tran.addToBackStack("tag");
+                tran.commit();
+            }
+        });
 
         return view;
     }
