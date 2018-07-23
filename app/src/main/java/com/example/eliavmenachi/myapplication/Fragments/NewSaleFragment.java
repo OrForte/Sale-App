@@ -30,6 +30,7 @@ import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
+import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
 import com.example.eliavmenachi.myapplication.Models.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
@@ -154,7 +155,7 @@ public class NewSaleFragment extends Fragment {
         listData = data;
 
         // get the ciry names
-        citiesNames = GetCityNames();
+        citiesNames = CityMallAndStoreModel.instance.GetCityNames(listData);
 
         // set the adaper
         ArrayAdapter<String> adapter = SetAdapter(citiesNames);
@@ -210,12 +211,12 @@ public class NewSaleFragment extends Fragment {
         mallNames = new ArrayList<>();
         storeNames = new ArrayList<>();
         selectedCityName = adapterView.getItemAtPosition(position).toString();
-        City selectedCity = GetCityByCityName(selectedCityName);
+        City selectedCity = CityMallAndStoreModel.instance.GetCityByCityName(selectedCityName, listData);
         if (selectedCity != null)
         {
             cityId = selectedCity.id;
         }
-        mallNames = GetMallNamesByCityId(selectedCity.id);
+        mallNames = CityMallAndStoreModel.instance.GetMallNamesByCityId(selectedCity.id, listData);
         ArrayAdapter<String> adapter = SetAdapter(mallNames);
         dropDownMalls.setAdapter(adapter);
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -234,12 +235,12 @@ public class NewSaleFragment extends Fragment {
     {
         storeNames = new ArrayList<>();
         selectedMallName = adapterView.getItemAtPosition(position).toString();
-        Mall selectedMall = GetMallByMallName(selectedMallName);
+        Mall selectedMall = CityMallAndStoreModel.instance.GetMallByMallName(selectedMallName, listData);
         if (selectedMall != null)
         {
             mallId = selectedMall.id;
         }
-        storeNames = GetStoreNamesByMallId(selectedMall.id);
+        storeNames = CityMallAndStoreModel.instance.GetStoreNamesByMallId(selectedMall.id, listData);
         ArrayAdapter<String> adapter = SetAdapter(storeNames);
         dropDownStores.setAdapter(adapter);
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -257,13 +258,14 @@ public class NewSaleFragment extends Fragment {
     public void OnSelectedStore(AdapterView<?> adapterView, View view, int position, long l)
     {
         selectedStoreName = adapterView.getItemAtPosition(position).toString();
-        Store selectedStore = GetStoreByStoreName(selectedStoreName);
+        Store selectedStore = CityMallAndStoreModel.instance.GetStoreByStoreName(selectedStoreName,listData);
         if (selectedStore != null)
         {
             storeId = selectedStore.id;
         }
     }
 
+    /*
     public List<String> GetCityNames()
     {
         List<String> cities = new ArrayList<>();
@@ -339,7 +341,7 @@ public class NewSaleFragment extends Fragment {
             }
         }
         return null;
-    }
+    }*/
 
     public ArrayAdapter<String> SetAdapter(List<String> collection)
     {

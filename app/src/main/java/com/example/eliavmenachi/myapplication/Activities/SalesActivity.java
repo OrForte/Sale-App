@@ -52,6 +52,7 @@ public class SalesActivity extends AppCompatActivity {
                 ChooseLocationFragment fragment = new ChooseLocationFragment();
                 FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
                 tran.replace(R.id.main_container, fragment);
+                tran.addToBackStack("tag");
                 tran.commit();
                 return true;
             }
