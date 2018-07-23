@@ -32,7 +32,6 @@ import com.example.eliavmenachi.myapplication.R;
 import java.util.List;
 
 public class SalesListFragment extends Fragment {
-
     // Data Members
     ListView list;
     SalesListFragment.ListAdapter listAdapter = new SalesListFragment.ListAdapter();;
@@ -42,6 +41,38 @@ public class SalesListFragment extends Fragment {
     String m_selectedStore = "-1";
     boolean m_bGetAllSales = true;
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.sale_list, container, false);
+
+        list = view.findViewById(R.id.lvSaleList);
+        list.setAdapter(listAdapter);
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Log.d("TAG","item selected:" + i);
+            }
+        });
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Sale selectedSaleItem = dataModel.getData().getValue().get(i);
+
+                NewSaleFragment fragment = new NewSaleFragment();
+                Bundle args = new Bundle();
+                args.putString("SALE_ID", selectedSaleItem.id);
+                fragment.setArguments(args);
+                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+                tran.replace(R.id.main_container, fragment);
+                tran.addToBackStack(Consts.instance.TAG_NEW_SALE);
+                tran.commit();
+            }
+        });
+
+        return view;
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -75,45 +106,10 @@ public class SalesListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.sale_list, container, false);
-
-        list = view.findViewById(R.id.lvSaleList);
-        list.setAdapter(listAdapter);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("TAG","item selected:" + i);
-            }
-        });
-
-
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Sale selectedSaleItem = dataModel.getData().getValue().get(i);
-
-                NewSaleFragment fragment = new NewSaleFragment();
-                Bundle args = new Bundle();
-                args.putString("SALE_ID", selectedSaleItem.id);
-                fragment.setArguments(args);
-                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-                tran.replace(R.id.main_container, fragment);
-                tran.addToBackStack(Consts.instance.TAG_NEW_SALE);
-                tran.commit();
-            }
-        });
-
-        return view;
-    }
-
-    @Override
     public void onDetach() {
         super.onDetach();
 //        mListener = null;
     }
-
 
     class ListAdapter extends BaseAdapter {
         public ListAdapter(){
@@ -212,10 +208,9 @@ public class SalesListFragment extends Fragment {
                     }
                 });
             }
+
             return view;
-
         }
-
 
         public void SettingData(int i, View view, Sale currentSale, TextView tvCity, TextView tvMall, TextView tvStore)
         {

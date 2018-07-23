@@ -6,11 +6,12 @@ import java.util.List;
 
 public class StudentAsynchDao {
 
-    interface StudentAsynchDaoListener<T>{
+    interface StudentAsynchDaoListener<T> {
         void onComplete(T data);
     }
+
     static public void getAll(final StudentAsynchDaoListener<List<Student>> listener) {
-        class MyAsynchTask extends AsyncTask<String,String,List<Student>>{
+        class MyAsynchTask extends AsyncTask<String,String,List<Student>> {
             @Override
             protected List<Student> doInBackground(String... strings) {
                 List<Student> stList = AppLocalDb.db.studentDao().getAll();
@@ -26,7 +27,6 @@ public class StudentAsynchDao {
         MyAsynchTask task = new MyAsynchTask();
         task.execute();
     }
-
 
     static void insertAll(final List<Student> students, final StudentAsynchDaoListener<Boolean> listener){
         class MyAsynchTask extends AsyncTask<List<Student>,String,Boolean>{
