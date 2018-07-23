@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.example.eliavmenachi.myapplication.Fragments.NewSaleFragment;
 import com.example.eliavmenachi.myapplication.Fragments.SalesListFragment;
+import com.example.eliavmenachi.myapplication.Fragments.ChooseLocationFragment;
 import com.example.eliavmenachi.myapplication.R;
 
 public class SalesActivity extends AppCompatActivity {
@@ -39,14 +40,21 @@ public class SalesActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.menu_add:
-                Log.d("TAG","menu add selected");
+            case R.id.menu_add: {
                 NewSaleFragment fragment = new NewSaleFragment();
                 FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
                 tran.replace(R.id.main_container, fragment);
                 tran.addToBackStack("tag");
                 tran.commit();
                 return true;
+            }
+            case R.id.menu_list_sales_by_category:{
+                ChooseLocationFragment fragment = new ChooseLocationFragment();
+                FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
+                tran.replace(R.id.main_container, fragment);
+                tran.commit();
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

@@ -6,4 +6,9 @@
         android:icon="@android:drawable/ic_input_add"
         android:showAsAction="ifRoom"
         android:title="Add" />
+    <item
+        android:id="@+id/menu_list_sales_by_category"
+        android:icon="@android:drawable/ic_input_add"
+        android:showAsAction="ifRoom"
+        android:title="Show Sale List" />
 </menu>
