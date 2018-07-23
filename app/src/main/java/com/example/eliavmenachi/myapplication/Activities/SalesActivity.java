@@ -24,7 +24,7 @@ public class SalesActivity extends AppCompatActivity {
             SalesListFragment fragment = new SalesListFragment();
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
             tran.add(R.id.main_container, fragment);
-            //tran.addToBackStack("");
+            tran.addToBackStack("tag");
             tran.commit();
         }
     }
@@ -52,7 +52,7 @@ public class SalesActivity extends AppCompatActivity {
                 ChooseLocationFragment fragment = new ChooseLocationFragment();
                 FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
                 tran.replace(R.id.main_container, fragment);
-                tran.addToBackStack("tag");
+                tran.addToBackStack("tag2");
                 tran.commit();
                 return true;
             }
