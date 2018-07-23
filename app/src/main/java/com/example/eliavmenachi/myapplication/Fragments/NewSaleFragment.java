@@ -100,6 +100,10 @@ public class NewSaleFragment extends Fragment {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
                     newSale = sale;
+
+                    // populate the data
+                    etDescription.setText(newSale.description);
+                    etEndDate.setText(newSale.endDate);
                 }
             });
         }
@@ -134,6 +138,7 @@ public class NewSaleFragment extends Fragment {
                     });
                 }
                 else{
+                    int nId = 1;
                     //AddNewSaleToFireBase(newSale.id);
                 }
             }
