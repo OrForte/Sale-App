@@ -1,5 +1,6 @@
 package com.example.eliavmenachi.myapplication.Fragments;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
@@ -37,13 +38,16 @@ public class SalesListFragment extends Fragment {
     SaleListViewModel dataModel;
     ListData listData;
     ImageView imSalePic;
+    String m_selectedStore = "-1";
+    boolean m_bGetAllSales = true;
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
         dataModel = ViewModelProviders.of(this).get(SaleListViewModel.class);
-        dataModel.getData().observe(this, new Observer<List<Sale>>() {
+        dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).observe(this, new Observer<List<Sale>>() {
             @Override
             public void onChanged(@Nullable List<Sale> sales) {
                 listAdapter.notifyDataSetChanged();
@@ -109,11 +113,12 @@ public class SalesListFragment extends Fragment {
             int nCount = 0;
             if (dataModel != null)
             {
-                if (dataModel.getData() != null)
+                LiveData<List<Sale>> data = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore);
+                if (data != null)
                 {
-                    if (dataModel.getData().getValue() != null)
+                    if (data.getValue() != null)
                     {
-                        nCount = dataModel.getData().getValue().size();
+                        nCount = data.getValue().size();
                     }
                 }
             }
@@ -147,7 +152,7 @@ public class SalesListFragment extends Fragment {
 //                });
             }
 
-            final Sale currentSale = dataModel.getData().getValue().get(i);
+            final Sale currentSale = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).getValue().get(i);
             final int copyI = i;
             final View copyView = view;
             final TextView tvCity = view.findViewById(R.id.tvCity);

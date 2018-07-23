@@ -1,5 +1,6 @@
 package com.example.eliavmenachi.myapplication.Models;
 
+import android.content.ContentUris;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -74,7 +75,7 @@ public class MainModelFirebase {
 
     ValueEventListener eventListener2;
 
-    public void GetAllSalesByStoreId(String storeId,final GetAllSalesByStoreListener listener)
+    public void GetAllSalesByStoreId(final String storeId, final GetAllSalesByStoreListener listener)
     {
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
         eventListener2 = stRef.addValueEventListener(new ValueEventListener() {
@@ -83,7 +84,10 @@ public class MainModelFirebase {
                 List<Sale> stSales = new LinkedList<>();
                 for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
                     Sale currSale = stSnapshot.getValue(Sale.class);
-                    stSales.add(currSale );
+                    if (currSale.storeId == Integer.parseInt(storeId))
+                    {
+                        stSales.add(currSale);
+                    }
                 }
 
                 listener.onSuccess(stSales);

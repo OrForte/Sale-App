@@ -18,9 +18,16 @@ public class SaleListViewModel extends ViewModel {
         return data;
     }
 
-    public LiveData<List<Sale>> getDataByStoreId(String p_strStoreId)
+    public LiveData<List<Sale>> getDataByStoreId(boolean p_bIsGetAllSales,String p_strStoreId)
     {
-        data = MainModel.instance.getAllSalesByStoreId(p_strStoreId);
+        if (p_bIsGetAllSales == true)
+        {
+            data = MainModel.instance.getAllSales();
+        }
+        else {
+            MainModel.instance.InitStoreId(p_strStoreId);
+            data = MainModel.instance.getAllSalesByStoreId(p_strStoreId);
+        }
         return data;
     }
 }

@@ -182,13 +182,27 @@ public class MainModel {
             //m_storeId = p_storeId;
         }
 
+        public void InitStoreId(String p_strStoreId)
+        {
+            m_storeId = p_strStoreId;
+        }
     }
 
 
-    SaleListDataByStore saleListDataByStore = new SaleListDataByStore();
+    public SaleListDataByStore saleListDataByStore = new SaleListDataByStore();
     public LiveData<List<Sale>> getAllSalesByStoreId(String p_strStoreId)
     {
         return saleListDataByStore;
+    }
+
+    public void InitStoreId(String p_strStoreId)
+    {
+        if (saleListDataByStore == null)
+        {
+            saleListDataByStore = new SaleListDataByStore();
+        }
+
+        saleListDataByStore.InitStoreId(p_strStoreId);
     }
 
     // endregion
