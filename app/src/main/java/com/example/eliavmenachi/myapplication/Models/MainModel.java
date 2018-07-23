@@ -161,11 +161,20 @@ public class MainModel {
         protected void onActive() {
             super.onActive();
 
-            // 3. get the sale list from firebase
-            mainModelFirebase.GetAllSalesByStoreId(m_storeId, new MainModelFirebase.GetAllSalesByStoreListener() {
+            // 1. get the students list from the local DB
+            SaleAsyncDao.getSalesByStoreId(m_storeId, new SaleAsyncDao.SaleAsynchDaoListener<List<Sale>>() {
                 @Override
-                public void onSuccess(List<Sale> results) {
-                    setValue(results);
+                public void onComplete(List<Sale> data) {
+                    // 2. update the live data with the new student list
+                    setValue(data);
+                    // 3. get the sale list from firebase
+                    mainModelFirebase.GetAllSalesByStoreId(m_storeId, new MainModelFirebase.GetAllSalesByStoreListener() {
+                        @Override
+                        public void onSuccess(List<Sale> results) {
+                            // 4. update the live data with the new student list
+                            setValue(results);
+                        }
+                    });
                 }
             });
         }
@@ -179,7 +188,6 @@ public class MainModel {
         {
             super();
             setValue(new LinkedList());
-            //m_storeId = p_storeId;
         }
 
         public void InitStoreId(String p_strStoreId)
