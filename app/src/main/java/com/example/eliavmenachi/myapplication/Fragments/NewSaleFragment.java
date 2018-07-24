@@ -119,7 +119,7 @@ public class NewSaleFragment extends Fragment {
                     newSale = sale;
 
                     // populate the data
-                    //PopulateTheView();
+                    PopulateTheView();
                 }
             });
         }
@@ -325,7 +325,9 @@ public class NewSaleFragment extends Fragment {
 
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
-            public void onChanged(@Nullable ListData listData) {
+            public void onChanged(@Nullable ListData data) {
+                listData = new ListData();
+                listData = data;
                 if (newSale != null) {
                     City city = dataModel.GetCityByCityId(newSale.cityId, listData);
                     if (city != null) {
