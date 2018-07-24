@@ -67,6 +67,9 @@ public class NewSaleFragment extends Fragment {
     ImageView imageSale;
     TextView etDescription;
     TextView etEndDate;
+    ArrayAdapter<String> adapterCities;
+    ArrayAdapter<String> adapterMalls;
+    ArrayAdapter<String> adapterStores;
 
     ListView list;
     CityMallAndStoreViewModel dataModel;
@@ -93,21 +96,6 @@ public class NewSaleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String nId ="";
-        if (getArguments() != null){
-            nId = getArguments().getString("SALE_ID");
-            dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
-                @Override
-                public void onChanged(@Nullable Sale sale) {
-                    newSale = sale;
-
-                    // populate the data
-                    etDescription.setText(newSale.description);
-                    etEndDate.setText(newSale.endDate);
-                }
-            });
-        }
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_sale, container, false);
         dropDownCities = view.findViewById(R.id.fragment_new_sale_etCity);
@@ -117,6 +105,20 @@ public class NewSaleFragment extends Fragment {
         imageSale = view.findViewById(R.id.new_sale_image);
         etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
         etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
+
+        String nId ="";
+        if (getArguments() != null){
+            nId = getArguments().getString("SALE_ID");
+            dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
+                @Override
+                public void onChanged(@Nullable Sale sale) {
+                    newSale = sale;
+
+                    // populate the data
+                    //PopulateTheView();
+                }
+            });
+        }
 
         btnSave.setOnClickListener(new View.OnClickListener()
         {
@@ -193,10 +195,10 @@ public class NewSaleFragment extends Fragment {
         citiesNames = dataModel.GetCityNames(listData);
 
         // set the adaper
-        ArrayAdapter<String> adapter = SetAdapter(citiesNames);
+        adapterCities = SetAdapter(citiesNames);
 
         // set the drop down cities
-        dropDownCities.setAdapter(adapter);
+        dropDownCities.setAdapter(adapterCities);
 
         dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -254,8 +256,8 @@ public class NewSaleFragment extends Fragment {
             cityId = selectedCity.id;
         }
         mallNames = dataModel.GetMallNamesByCityId(selectedCity.id, listData);
-        ArrayAdapter<String> adapter = SetAdapter(mallNames);
-        dropDownMalls.setAdapter(adapter);
+        adapterMalls = SetAdapter(mallNames);
+        dropDownMalls.setAdapter(adapterMalls);
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -278,8 +280,8 @@ public class NewSaleFragment extends Fragment {
             mallId = selectedMall.id;
         }
         storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
-        ArrayAdapter<String> adapter = SetAdapter(storeNames);
-        dropDownStores.setAdapter(adapter);
+        adapterStores = SetAdapter(storeNames);
+        dropDownStores.setAdapter(adapterStores);
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -307,5 +309,31 @@ public class NewSaleFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, collection);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         return adapter;
+    }
+
+    public void PopulateTheView()
+    {
+        // setting the desctiption
+        etDescription.setText(newSale.description);
+
+        // setting the end date
+        etEndDate.setText(newSale.endDate);
+
+        dataModel.getData().observe(this, new Observer<ListData>() {
+            @Override
+            public void onChanged(@Nullable ListData listData) {
+                if (newSale != null) {
+                    City city = dataModel.GetCityByCityId(newSale.cityId, listData);
+                    Mall mall = dataModel.GetMallByMallId(newSale.mallId, listData);
+                    Store store = dataModel.GetStoreByStoreId(newSale.storeId, listData);
+
+                    citiesNames = dataModel.GetCityNames(listData);
+                    adapterCities = SetAdapter(citiesNames);
+                    dropDownCities.setAdapter(adapterCities);
+                    int positionCity = adapterCities.getPosition(selectedCityName);
+                    dropDownCities.setSelection(positionCity);
+                }
+            }
+        });
     }
 }
