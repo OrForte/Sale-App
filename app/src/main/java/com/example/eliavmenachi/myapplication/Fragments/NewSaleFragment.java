@@ -70,6 +70,7 @@ public class NewSaleFragment extends Fragment {
     ArrayAdapter<String> adapterCities;
     ArrayAdapter<String> adapterMalls;
     ArrayAdapter<String> adapterStores;
+    boolean IsNewSale = true;
 
     ListView list;
     CityMallAndStoreViewModel dataModel;
@@ -83,7 +84,9 @@ public class NewSaleFragment extends Fragment {
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
-                SetListOfCities(listData);
+                if (IsNewSale == true) {
+                    SetListOfCities(listData);
+                }
             }
         });
     }
@@ -109,6 +112,7 @@ public class NewSaleFragment extends Fragment {
         String nId ="";
         if (getArguments() != null){
             nId = getArguments().getString("SALE_ID");
+            IsNewSale = false;
             dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
@@ -324,14 +328,50 @@ public class NewSaleFragment extends Fragment {
             public void onChanged(@Nullable ListData listData) {
                 if (newSale != null) {
                     City city = dataModel.GetCityByCityId(newSale.cityId, listData);
+                    if (city != null) {
+                        selectedCityName = city.name;
+                    }
                     Mall mall = dataModel.GetMallByMallId(newSale.mallId, listData);
+                    if (mall != null) {
+                        selectedMallName = mall.name;
+                    }
                     Store store = dataModel.GetStoreByStoreId(newSale.storeId, listData);
-
+                    if (store != null) {
+                        selectedStoreName = store.name;
+                    }
                     citiesNames = dataModel.GetCityNames(listData);
                     adapterCities = SetAdapter(citiesNames);
                     dropDownCities.setAdapter(adapterCities);
                     int positionCity = adapterCities.getPosition(selectedCityName);
                     dropDownCities.setSelection(positionCity);
+
+                    if (city != null) {
+                        mallNames = dataModel.GetMallNamesByCityId(city.id, listData);
+                        adapterMalls = SetAdapter(mallNames);
+                        dropDownMalls.setAdapter(adapterMalls);
+                        int positionMall = adapterMalls.getPosition(selectedMallName);
+                        dropDownMalls.setSelection(positionMall);
+                    }
+
+                    if (store != null) {
+                        storeNames = dataModel.GetStoreNamesByMallId(mall.id, listData);
+                        adapterStores = SetAdapter(storeNames);
+                        dropDownStores.setAdapter(adapterStores);
+                        int positionStore = adapterStores.getPosition(selectedStoreName);
+                        dropDownStores.setSelection(positionStore);
+                    }
+                    if (selectedCityName != null && selectedStoreName != null && selectedMallName != null) {
+                        dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                                OnSelectedCity(adapterView, view, position, l);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+                            }
+                        });
+                    }
                 }
             }
         });
