@@ -326,21 +326,26 @@ public class NewSaleFragment extends Fragment {
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData data) {
-                listData = new ListData();
-                listData = data;
+                //listData = new ListData();
+                //listData = data;
                 if (newSale != null) {
-                    City city = dataModel.GetCityByCityId(newSale.cityId, listData);
+                    City city = dataModel.GetCityByCityId(newSale.cityId, data);
                     if (city != null) {
                         selectedCityName = city.name;
                     }
-                    Mall mall = dataModel.GetMallByMallId(newSale.mallId, listData);
+                    Mall mall = dataModel.GetMallByMallId(newSale.mallId, data);
                     if (mall != null) {
                         selectedMallName = mall.name;
                     }
-                    Store store = dataModel.GetStoreByStoreId(newSale.storeId, listData);
+                    Store store = dataModel.GetStoreByStoreId(newSale.storeId, data);
                     if (store != null) {
                         selectedStoreName = store.name;
                     }
+
+                    if (selectedCityName != null && selectedStoreName != null && selectedMallName != null) {
+                        SetListOfCities(data);
+                    }
+                    /*
                     citiesNames = dataModel.GetCityNames(listData);
                     adapterCities = SetAdapter(citiesNames);
                     dropDownCities.setAdapter(adapterCities);
@@ -373,7 +378,7 @@ public class NewSaleFragment extends Fragment {
                             public void onNothingSelected(AdapterView<?> adapterView) {
                             }
                         });
-                    }
+                    }*/
                 }
             }
         });
