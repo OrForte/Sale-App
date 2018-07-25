@@ -35,7 +35,7 @@ import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
-import com.example.eliavmenachi.myapplication.Models.ViewModels.SaleListViewModel;
+import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
 
 import android.widget.ArrayAdapter;
