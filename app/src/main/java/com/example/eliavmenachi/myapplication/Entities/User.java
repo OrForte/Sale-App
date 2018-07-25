@@ -78,7 +78,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String setBirthDate(String birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 
