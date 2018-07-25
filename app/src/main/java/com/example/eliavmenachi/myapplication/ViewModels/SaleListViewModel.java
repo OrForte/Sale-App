@@ -29,4 +29,11 @@ public class SaleListViewModel extends ViewModel {
         }
         return data;
     }
+
+    public LiveData<Sale> GetSaleBySaleId(String p_strSaleId)
+    {
+        MainModel.instance.InitSaleId(p_strSaleId);
+        LiveData<Sale> currSale = MainModel.instance.getSaleBySaleId(p_strSaleId);;
+        return currSale;
+    }
 }

@@ -73,6 +73,19 @@ public class CityMallAndStoreViewModel extends ViewModel {
         return null;
     }
 
+    public City GetCityByCityId(int cityId, ListData listData)
+    {
+        for (Iterator iterator = listData.cities.iterator(); iterator.hasNext();)
+        {
+            City city = (City) iterator.next();
+            if (cityId == city.id)
+            {
+                return city;
+            }
+        }
+        return null;
+    }
+
     public Mall GetMallByMallName(String selectedMallName, ListData listData)
     {
         for (Iterator iterator = listData.malls.iterator(); iterator.hasNext();)
@@ -86,12 +99,38 @@ public class CityMallAndStoreViewModel extends ViewModel {
         return null;
     }
 
+    public Mall GetMallByMallId(int mallId, ListData listData)
+    {
+        for (Iterator iterator = listData.malls.iterator(); iterator.hasNext();)
+        {
+            Mall mall = (Mall) iterator.next();
+            if (mallId == mall.id)
+            {
+                return mall;
+            }
+        }
+        return null;
+    }
+
     public Store GetStoreByStoreName(String selectedStoreName, ListData listData)
     {
         for (Iterator iterator = listData.stores.iterator(); iterator.hasNext();)
         {
             Store store = (Store) iterator.next();
             if (selectedStoreName == store.name)
+            {
+                return store;
+            }
+        }
+        return null;
+    }
+
+    public Store GetStoreByStoreId(int storeId, ListData listData)
+    {
+        for (Iterator iterator = listData.stores.iterator(); iterator.hasNext();)
+        {
+            Store store = (Store) iterator.next();
+            if (storeId == store.id)
             {
                 return store;
             }

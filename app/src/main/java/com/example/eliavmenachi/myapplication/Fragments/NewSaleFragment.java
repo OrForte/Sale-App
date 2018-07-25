@@ -35,6 +35,7 @@ import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
+import com.example.eliavmenachi.myapplication.Models.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
 
 import android.widget.ArrayAdapter;
@@ -64,18 +65,26 @@ public class NewSaleFragment extends Fragment {
     ImageView imageSale;
     TextView etDescription;
     TextView etEndDate;
+    ArrayAdapter<String> adapterCities;
+    ArrayAdapter<String> adapterMalls;
+    ArrayAdapter<String> adapterStores;
+    boolean IsNewSale = true;
 
     ListView list;
     CityMallAndStoreViewModel dataModel;
+    SaleListViewModel dataModelSale;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
+        dataModelSale = ViewModelProviders.of(this).get(SaleListViewModel.class);
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
-                SetListOfCities(listData);
+                if (IsNewSale == true) {
+                    SetListOfCities(listData);
+                }
             }
         });
     }
@@ -88,11 +97,6 @@ public class NewSaleFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        String nId ="";
-        if (getArguments() != null){
-            nId = getArguments().getString("SALE_ID");
-        }
-
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_sale, container, false);
         dropDownCities = view.findViewById(R.id.fragment_new_sale_etCity);
@@ -103,20 +107,44 @@ public class NewSaleFragment extends Fragment {
         etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
         etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
 
+        String nId ="";
+        if (getArguments() != null){
+            nId = getArguments().getString("SALE_ID");
+            IsNewSale = false;
+            dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
+                @Override
+                public void onChanged(@Nullable Sale sale) {
+                    newSale = sale;
+
+                    // populate the data
+                    PopulateTheView();
+                }
+            });
+        }
+
         btnSave.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View view) {
                 // TODO: need to save the data to firebase
                 // TODO: add spinner to the loading of save
-                newSale = new Sale();
+                if (newSale == null)
+                {
+                    newSale = new Sale();
+                    newSale.id = "0";
 
-                String SeqName = "saleSeq";
-                SaleModel.instance.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
-                    @Override
-                    public void onGetNextSeq(String p_next) {
-                        AddNewSaleToFireBase(p_next);
-                    }
-                });
+
+                    String SeqName = "saleSeq";
+                    SaleModel.instance.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
+                        @Override
+                        public void onGetNextSeq(String p_next) {
+                            AddNewSaleToFireBase(p_next);
+                        }
+                    });
+                }
+                else{
+                    int nId = 1;
+                    //AddNewSaleToFireBase(newSale.id);
+                }
             }
         });
 
@@ -169,10 +197,10 @@ public class NewSaleFragment extends Fragment {
         citiesNames = dataModel.GetCityNames(listData);
 
         // set the adaper
-        ArrayAdapter<String> adapter = SetAdapter(citiesNames);
+        adapterCities = SetAdapter(citiesNames);
 
         // set the drop down cities
-        dropDownCities.setAdapter(adapter);
+        dropDownCities.setAdapter(adapterCities);
 
         dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -230,8 +258,8 @@ public class NewSaleFragment extends Fragment {
             cityId = selectedCity.id;
         }
         mallNames = dataModel.GetMallNamesByCityId(selectedCity.id, listData);
-        ArrayAdapter<String> adapter = SetAdapter(mallNames);
-        dropDownMalls.setAdapter(adapter);
+        adapterMalls = SetAdapter(mallNames);
+        dropDownMalls.setAdapter(adapterMalls);
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -254,8 +282,8 @@ public class NewSaleFragment extends Fragment {
             mallId = selectedMall.id;
         }
         storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
-        ArrayAdapter<String> adapter = SetAdapter(storeNames);
-        dropDownStores.setAdapter(adapter);
+        adapterStores = SetAdapter(storeNames);
+        dropDownStores.setAdapter(adapterStores);
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -283,5 +311,74 @@ public class NewSaleFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, collection);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         return adapter;
+    }
+
+    public void PopulateTheView()
+    {
+        // setting the desctiption
+        etDescription.setText(newSale.description);
+
+        // setting the end date
+        etEndDate.setText(newSale.endDate);
+
+        dataModel.getData().observe(this, new Observer<ListData>() {
+            @Override
+            public void onChanged(@Nullable ListData data) {
+                //listData = new ListData();
+                //listData = data;
+                if (newSale != null) {
+                    City city = dataModel.GetCityByCityId(newSale.cityId, data);
+                    if (city != null) {
+                        selectedCityName = city.name;
+                    }
+                    Mall mall = dataModel.GetMallByMallId(newSale.mallId, data);
+                    if (mall != null) {
+                        selectedMallName = mall.name;
+                    }
+                    Store store = dataModel.GetStoreByStoreId(newSale.storeId, data);
+                    if (store != null) {
+                        selectedStoreName = store.name;
+                    }
+
+                    if (selectedCityName != null && selectedStoreName != null && selectedMallName != null) {
+                        SetListOfCities(data);
+                    }
+                    /*
+                    citiesNames = dataModel.GetCityNames(listData);
+                    adapterCities = SetAdapter(citiesNames);
+                    dropDownCities.setAdapter(adapterCities);
+                    int positionCity = adapterCities.getPosition(selectedCityName);
+                    dropDownCities.setSelection(positionCity);
+
+                    if (city != null) {
+                        mallNames = dataModel.GetMallNamesByCityId(city.id, listData);
+                        adapterMalls = SetAdapter(mallNames);
+                        dropDownMalls.setAdapter(adapterMalls);
+                        int positionMall = adapterMalls.getPosition(selectedMallName);
+                        dropDownMalls.setSelection(positionMall);
+                    }
+
+                    if (store != null) {
+                        storeNames = dataModel.GetStoreNamesByMallId(mall.id, listData);
+                        adapterStores = SetAdapter(storeNames);
+                        dropDownStores.setAdapter(adapterStores);
+                        int positionStore = adapterStores.getPosition(selectedStoreName);
+                        dropDownStores.setSelection(positionStore);
+                    }
+                    if (selectedCityName != null && selectedStoreName != null && selectedMallName != null) {
+                        dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                                OnSelectedCity(adapterView, view, position, l);
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+                            }
+                        });
+                    }*/
+                }
+            }
+        });
     }
 }

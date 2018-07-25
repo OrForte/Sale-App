@@ -215,5 +215,55 @@ public class MainModel {
 
     // endregion
 
+    // region GetSaleBySaleId
+
+    public class SaleBySaleIdData extends MutableLiveData<Sale>
+    {
+        String m_saleId = "";
+
+        @Override
+        protected void onActive() {
+            super.onActive();
+
+            mainModelFirebase.GetSaleBySaleId(m_saleId, new MainModelFirebase.GetSaleBySaleId() {
+                @Override
+                public void onGetData(Sale data) {
+                    setValue(data);
+                }
+            });
+        }
+
+        @Override
+        protected void onInactive() {
+            super.onInactive();
+        }
+
+        public SaleBySaleIdData()
+        {
+            super();
+            setValue(new Sale());
+        }
+
+        public void InitSaleId(String p_saleId)
+        {
+            m_saleId = p_saleId;
+        }
+    }
+
+    public SaleBySaleIdData saleBySaleIdData = new SaleBySaleIdData();
+    public LiveData<Sale> getSaleBySaleId(String p_strSaleId)
+    {
+        return saleBySaleIdData;
+    }
+    public void InitSaleId(String p_SaleId)
+    {
+        if (saleBySaleIdData == null)
+        {
+            saleBySaleIdData = new SaleBySaleIdData();
+        }
+
+        saleBySaleIdData.InitSaleId(p_SaleId);
+    }
+
     //endregion
 }
