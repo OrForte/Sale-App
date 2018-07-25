@@ -68,11 +68,11 @@ public class NewSaleFragment extends Fragment {
     ArrayAdapter<String> adapterCities;
     ArrayAdapter<String> adapterMalls;
     ArrayAdapter<String> adapterStores;
-    boolean IsNewSale = true;
 
     ListView list;
     CityMallAndStoreViewModel dataModel;
     SaleListViewModel dataModelSale;
+    boolean bIsOccur = false;
 
     @Override
     public void onAttach(Context context) {
@@ -82,8 +82,13 @@ public class NewSaleFragment extends Fragment {
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
-                if (IsNewSale == true) {
-                    SetListOfCities(listData);
+                if (!bIsOccur) {
+                    if (listData != null) {
+                        if (listData.cities.size() != 0 && listData.malls.size() != 0&& listData.stores.size() != 0) {
+                            bIsOccur = true;
+                            SetListOfCities(listData);
+                        }
+                    }
                 }
             }
         });
@@ -110,14 +115,13 @@ public class NewSaleFragment extends Fragment {
         String nId ="";
         if (getArguments() != null){
             nId = getArguments().getString("SALE_ID");
-            IsNewSale = false;
             dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
                     newSale = sale;
 
                     // populate the data
-                    PopulateTheView();
+                    //PopulateTheView();
                 }
             });
         }
@@ -131,7 +135,6 @@ public class NewSaleFragment extends Fragment {
                 {
                     newSale = new Sale();
                     newSale.id = "0";
-
 
                     String SeqName = "saleSeq";
                     SaleModel.instance.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {

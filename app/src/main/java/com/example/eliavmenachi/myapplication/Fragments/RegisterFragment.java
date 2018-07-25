@@ -59,7 +59,7 @@ public class RegisterFragment extends Fragment {
 
                 try
                 {
-                    user.age = Integer.parseInt(ageEt.getText().toString());
+                    //user.age = Integer.parseInt(ageEt.getText().toString());
                 }
                 catch(NumberFormatException nfe)
                 {
