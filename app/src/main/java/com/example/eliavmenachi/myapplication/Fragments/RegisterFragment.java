@@ -55,7 +55,7 @@ public class RegisterFragment extends Fragment {
                 user.lastName = lastNameEt.getText().toString();
                 user.password = passwordEt.getText().toString();
                 user.email = mailEt.getText().toString();
-                user.userName = userNameEt.getText().toString();
+                user.username = userNameEt.getText().toString();
 
                 try
                 {

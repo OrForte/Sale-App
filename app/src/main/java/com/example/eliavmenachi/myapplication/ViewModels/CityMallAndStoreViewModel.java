@@ -1,4 +1,4 @@
-package com.example.eliavmenachi.myapplication.Models.ViewModels;
+package com.example.eliavmenachi.myapplication.ViewModels;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;

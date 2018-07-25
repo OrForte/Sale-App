@@ -1,9 +1,8 @@
-package com.example.eliavmenachi.myapplication.Models.ViewModels;
+package com.example.eliavmenachi.myapplication.ViewModels;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
 

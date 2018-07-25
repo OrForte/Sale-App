@@ -24,7 +24,6 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
@@ -33,8 +32,7 @@ import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
-import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
-import com.example.eliavmenachi.myapplication.Models.ViewModels.CityMallAndStoreViewModel;
+import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
 import com.example.eliavmenachi.myapplication.R;

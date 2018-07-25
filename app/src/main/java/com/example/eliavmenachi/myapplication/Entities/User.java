@@ -1,42 +1,67 @@
 package com.example.eliavmenachi.myapplication.Entities;
 
+import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+@Entity
 public class User {
     @PrimaryKey
     @NonNull
+    @ColumnInfo(name = "id")
     public String id;
-    public String firstName;
-    public String lastName;
+
+    @ColumnInfo(name = "age")
     public int age;
+
+    @ColumnInfo(name = "city")
     public int city;
+
+    @ColumnInfo(name = "email")
     public String email;
-    public String userName;
+
+    @ColumnInfo(name = "username")
+    public String username;
+
+    @ColumnInfo(name = "password")
     public String password;
+
+    @ColumnInfo(name = "firstName")
+    public String firstName;
+
+    @ColumnInfo(name = "lastName")
+    public String lastName;
+
 
     public String getId() {
         return id;
     }
+
     public String getFirstName() {
         return firstName;
     }
+
     public String getLastName() {
         return lastName;
     }
+
     public int getAge() {
         return age;
     }
+
     public int getCity() {
         return city;
     }
+
     public String getEmail() {
         return email;
     }
-    public String getUserName() {
-        return userName;
+
+    public String getUsername() {
+        return username;
     }
+
     public String getPassword() {
         return password;
     }
@@ -65,8 +90,8 @@ public class User {
         this.email = email;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public void setPassword(String password) {

@@ -12,7 +12,7 @@ import com.example.eliavmenachi.myapplication.Model.Student;
 import java.util.List;
 
 @Dao
-public interface SaleDao {
+public interface    SaleDao {
     @Query("select * from Sale")
     List<Sale> getAll();
 

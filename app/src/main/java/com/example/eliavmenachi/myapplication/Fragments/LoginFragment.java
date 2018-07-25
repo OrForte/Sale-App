@@ -1,10 +1,15 @@
 package com.example.eliavmenachi.myapplication.Fragments;
 
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +21,13 @@ import com.example.eliavmenachi.myapplication.Activities.LoginActivity;
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
+import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
+import com.example.eliavmenachi.myapplication.Models.User.UserAsynchDao;
 import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
+import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
 import java.util.List;
 
@@ -30,10 +38,17 @@ public class LoginFragment extends Fragment {
     // Data Members
     EditText userEt;
     EditText passwordEt;
+    UserViewModel userViewModel;
 
 //    public LoginFragment() {
 //        // Required empty public constructor
 //    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,24 +78,37 @@ public class LoginFragment extends Fragment {
         btnLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String strUserName = userEt.getText().toString();
+                String strUsername = userEt.getText().toString();
                 String strPassword = passwordEt.getText().toString();
 
-                UserModel.instance.IsUserVisible(strUserName, strPassword, new UserModel.IsUserVisibleListener() {
+                userViewModel.getUserByUserNamePassword(strUsername, strPassword).observe(LoginFragment.this, new Observer<User>() {
                     @Override
-                    public void onDone(boolean p_bIsValid) {
-                        if (p_bIsValid)
-                        {
-                            Toast.makeText(getActivity(), "log on successfully",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                        else
-                        {
+                    public void onChanged(@Nullable User user) {
+                        if (user == null) {
                             Toast.makeText(getActivity(), "error in the details",
                                     Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getActivity(), "log on successfully",
+                                    Toast.LENGTH_LONG).show();
+                            Log.d("TAG", "userViewModelChange" + user.username);
                         }
                     }
                 });
+//                UserModel.instance.IsUserExists(strUserName, strPassword, new UserModel.IsUserExistsListener() {
+//                    @Override
+//                    public void onDone(boolean p_bIsExists) {
+//                        if (p_bIsExists)
+//                        {
+//                            Toast.makeText(getActivity(), "log on successfully",
+//                                    Toast.LENGTH_LONG).show();
+//                        }
+//                        else
+//                        {
+//                            Toast.makeText(getActivity(), "error in the details",
+//                                    Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
 
                 /*
                 String cityId = "1";

@@ -3,7 +3,6 @@ package com.example.eliavmenachi.myapplication.Fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,11 +17,10 @@ import android.widget.Button;
 import android.widget.Spinner;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
-import com.example.eliavmenachi.myapplication.Entities.Consts;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
-import com.example.eliavmenachi.myapplication.Models.ViewModels.CityMallAndStoreViewModel;
+import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.R;
 
 import java.util.ArrayList;
