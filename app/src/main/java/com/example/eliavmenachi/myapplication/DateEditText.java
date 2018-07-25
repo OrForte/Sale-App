@@ -7,25 +7,21 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
-/**
- * Created by eliav.menachi on 02/05/2018.
- */
-
 public class DateEditText extends EditText {
     int year;
     int month;
     int day;
 
-    public void setDate(int y, int m, int d){
+    public void setDate(int y, int m, int d) {
         year = y;
         month = m;
         day = d;
     }
 
-    private void readDate(){
-        String txt =getText().toString();
+    private void readDate() {
+        String txt = getText().toString();
         String[] arr = txt.split("/");
-        if (arr.length == 3){
+        if (arr.length == 3) {
             day = Integer.parseInt(arr[0]);
             month = Integer.parseInt(arr[1]);
             year = Integer.parseInt(arr[2]);
@@ -46,21 +42,18 @@ public class DateEditText extends EditText {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN){
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
             DateDialogFragment fragment = new DateDialogFragment();
             readDate();
-            fragment.setDate(year,month,day);
+            fragment.setDate(year, month, day);
             fragment.listener = new DateDialogFragment.DateDialogFragmentListener() {
                 @Override
                 public void onDateSet(int y, int m, int d) {
-                    setText("" + d + "/" + (m+1) + "/" + y);
+                    setText("" + d + "/" + (m + 1) + "/" + y);
                 }
             };
-            fragment.show(((Activity)getContext()).getFragmentManager(),"");
+            fragment.show(((Activity) getContext()).getFragmentManager(), "");
         }
         return true;
     }
-
-
-
 }

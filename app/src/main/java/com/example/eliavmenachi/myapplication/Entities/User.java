@@ -12,8 +12,8 @@ public class User {
     @ColumnInfo(name = "id")
     public String id;
 
-    @ColumnInfo(name = "age")
-    public int age;
+    @ColumnInfo(name = "birthDate")
+    public String birthDate;
 
     @ColumnInfo(name = "city")
     public int city;
@@ -46,8 +46,8 @@ public class User {
         return lastName;
     }
 
-    public int getAge() {
-        return age;
+    public String getBirthDate() {
+        return birthDate;
     }
 
     public int getCity() {
@@ -78,8 +78,8 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public String setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 
     public void setCity(int city) {
