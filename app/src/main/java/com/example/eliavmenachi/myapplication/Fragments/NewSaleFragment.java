@@ -146,7 +146,7 @@ public class NewSaleFragment extends Fragment {
                 }
                 else{
                     int nId = 1;
-                    //AddNewSaleToFireBase(newSale.id);
+                    AddNewSaleToFireBase(newSale.id);
                 }
             }
         });
