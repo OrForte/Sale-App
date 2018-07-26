@@ -119,7 +119,7 @@ public class MainModelFirebase {
                 Sale currSale = new Sale();
                 for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
                     Sale sale = stSnapshot.getValue(Sale.class);
-                    if (sale.id == saleId)
+                    if (Integer.parseInt(sale.id ) == Integer.parseInt(saleId))
                     {
                         currSale = sale;
                         break;

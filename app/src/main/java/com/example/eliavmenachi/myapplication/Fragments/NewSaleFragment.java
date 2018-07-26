@@ -121,7 +121,7 @@ public class NewSaleFragment extends Fragment {
                     newSale = sale;
 
                     // populate the data
-                    //PopulateTheView();
+                    PopulateTheView();
                 }
             });
         }
@@ -343,9 +343,10 @@ public class NewSaleFragment extends Fragment {
                         selectedStoreName = store.name;
                     }
 
+                    /*
                     if (selectedCityName != null && selectedStoreName != null && selectedMallName != null) {
                         SetListOfCities(data);
-                    }
+                    }*/
                     /*
                     citiesNames = dataModel.GetCityNames(listData);
                     adapterCities = SetAdapter(citiesNames);
