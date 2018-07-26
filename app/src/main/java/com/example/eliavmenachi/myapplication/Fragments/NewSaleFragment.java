@@ -65,6 +65,7 @@ public class NewSaleFragment extends Fragment {
     ImageView imageSale;
     TextView etDescription;
     TextView etEndDate;
+    TextView title;
     ArrayAdapter<String> adapterCities;
     ArrayAdapter<String> adapterMalls;
     ArrayAdapter<String> adapterStores;
@@ -104,6 +105,8 @@ public class NewSaleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
         View view = inflater.inflate(R.layout.fragment_new_sale, container, false);
         dropDownCities = view.findViewById(R.id.fragment_new_sale_etCity);
         dropDownMalls = view.findViewById(R.id.fragment_new_sale_etMall);
@@ -112,6 +115,7 @@ public class NewSaleFragment extends Fragment {
         imageSale = view.findViewById(R.id.new_sale_image);
         etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
         etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
+        title = view.findViewById(R.id.fragment_register_tvRegister);
 
         String nId ="";
         if (getArguments() != null){
@@ -121,6 +125,8 @@ public class NewSaleFragment extends Fragment {
                 public void onChanged(@Nullable Sale sale) {
                     newSale = sale;
 
+                    title.setText("sale " + newSale.id);
+                    btnSave.setText("update");
                     // populate the data
                     PopulateTheView();
                 }

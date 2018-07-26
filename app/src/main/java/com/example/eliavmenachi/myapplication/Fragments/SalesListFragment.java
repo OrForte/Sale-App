@@ -148,15 +148,6 @@ public class SalesListFragment extends Fragment {
         public View getView(int i, View view, ViewGroup viewGroup) {
             if (view == null){
                 view = LayoutInflater.from(getActivity()).inflate(R.layout.sale_list_item,null);
-//                final CheckBox cb = view.findViewById(R.id.stListItem_check_cb);
-//                cb.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        int index = (int) cb.getTag();
-//                        Student s = dataModel.getData().getValue().get(index);
-//                        s.checked = !s.checked;
-//                    }
-//                });
             }
 
             final Sale currentSale = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).getValue().get(i);
@@ -172,27 +163,6 @@ public class SalesListFragment extends Fragment {
             tvCity.setText(currentSale.cityName);
             tvMall.setText(currentSale.mallName);
             tvStore.setText(currentSale.storeName);
-
-            //final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
-            /*
-            if (listData == null) {
-                MainModel.instance.GetListOfCitiesMallsAndStores(new MainModel.GetListOfCitiesMallsAndStoresListener() {
-                    @Override
-                    public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
-
-                        if (listData == null) {
-                            listData = data;
-                        }
-
-                        SettingData(copyI,copyView,currentSale,tvCity,tvMall,tvStore);
-                    }
-                });
-            }
-            else {
-                if (listData != null) {
-                    this.SettingData(i, view, currentSale, tvCity, tvMall, tvStore);
-                }
-            }*/
 
             imSalePic = view.findViewById(R.id.ivSalePic);
             imSalePic.setImageResource(R.drawable.avatar);
