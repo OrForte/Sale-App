@@ -225,12 +225,19 @@ public class MainModel {
         protected void onActive() {
             super.onActive();
 
-            mainModelFirebase.GetSaleBySaleId(m_saleId, new MainModelFirebase.GetSaleBySaleId() {
-                @Override
-                public void onGetData(Sale data) {
-                    setValue(data);
-                }
-            });
+            //SaleAsyncDao.getSaleBySaleId(m_saleId, new SaleAsyncDao.SaleAsynchDaoListener2<List<Sale>>() {
+           //     @Override
+            //    public void onCompleteOneSale(Sale data) {
+            //        setValue(data);
+
+                    mainModelFirebase.GetSaleBySaleId(m_saleId, new MainModelFirebase.GetSaleBySaleId() {
+                        @Override
+                        public void onGetData(Sale data) {
+                            setValue(data);
+                        }
+                    });
+            //    }
+            //});
         }
 
         @Override

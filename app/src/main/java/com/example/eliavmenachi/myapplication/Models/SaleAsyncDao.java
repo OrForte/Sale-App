@@ -13,6 +13,10 @@ public class SaleAsyncDao {
         void onComplete(T data);
     }
 
+    interface SaleAsynchDaoListener2<T>{
+        void onCompleteOneSale(Sale data);
+    }
+
     static public void getAll(final SaleAsynchDaoListener<List<Sale>> listener) {
         class MyAsynchTask extends AsyncTask<String,String,List<Sale>> {
             @Override
@@ -33,6 +37,32 @@ public class SaleAsyncDao {
             protected void onPostExecute(List<Sale> sales) {
                 super.onPostExecute(sales);
                 listener.onComplete(sales);
+            }
+        }
+        MyAsynchTask task = new MyAsynchTask();
+        task.execute();
+    }
+
+    static public void getSaleBySaleId(final String SaleId ,final SaleAsynchDaoListener2<List<Sale>> listener) {
+        class MyAsynchTask extends AsyncTask<String,String,Sale> {
+            @Override
+            protected Sale doInBackground(String... strings) {
+                Sale sList = new Sale();
+                Object a = MainAppLocalDb.db.saleDao();
+                if (a != null)
+                {
+                    if (MainAppLocalDb.db.saleDao().getAll() != null)
+                    {
+                        sList = MainAppLocalDb.db.saleDao().getSaleBySaleId(SaleId);
+                    }
+                }
+                return sList;
+            }
+
+            @Override
+            protected void onPostExecute(Sale sales) {
+                super.onPostExecute(sales);
+                listener.onCompleteOneSale(sales);
             }
         }
         MyAsynchTask task = new MyAsynchTask();
