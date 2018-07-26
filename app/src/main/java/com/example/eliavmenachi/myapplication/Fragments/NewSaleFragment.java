@@ -205,6 +205,9 @@ public class NewSaleFragment extends Fragment {
         // set the drop down cities
         dropDownCities.setAdapter(adapterCities);
 
+        int positionCity = adapterCities.getPosition(selectedCityName);
+        dropDownCities.setSelection(positionCity);
+
         dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -263,6 +266,8 @@ public class NewSaleFragment extends Fragment {
         mallNames = dataModel.GetMallNamesByCityId(selectedCity.id, listData);
         adapterMalls = SetAdapter(mallNames);
         dropDownMalls.setAdapter(adapterMalls);
+        int positionMall = adapterMalls.getPosition(selectedMallName);
+        dropDownMalls.setSelection(positionMall);
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -287,6 +292,8 @@ public class NewSaleFragment extends Fragment {
         storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
         adapterStores = SetAdapter(storeNames);
         dropDownStores.setAdapter(adapterStores);
+        int positionStore = adapterStores.getPosition(selectedStoreName);
+        dropDownStores.setSelection(positionStore);
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -357,10 +364,10 @@ public class NewSaleFragment extends Fragment {
                         selectedStoreName = store.name;
                     }
 
-                    /*
+
                     if (selectedCityName != null && selectedStoreName != null && selectedMallName != null) {
                         SetListOfCities(data);
-                    }*/
+                    }
                     /*
                     citiesNames = dataModel.GetCityNames(listData);
                     adapterCities = SetAdapter(citiesNames);
