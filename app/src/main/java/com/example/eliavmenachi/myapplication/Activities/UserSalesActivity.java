@@ -20,7 +20,7 @@ public class UserSalesActivity extends AppCompatActivity {
             UserSalesListFragment fragment = new UserSalesListFragment();
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
             tran.add(R.id.main_container, fragment);
-            //tran.addToBackStack("");
+            tran.addToBackStack(null);
             tran.commit();
         }
     }

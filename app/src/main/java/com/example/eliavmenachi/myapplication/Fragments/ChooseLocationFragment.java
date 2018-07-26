@@ -83,7 +83,7 @@ public class ChooseLocationFragment extends Fragment {
                 FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
                 //FragmentTransaction tran = fragmentManager.beginTransaction();
                 tran.replace(R.id.main_container, fragment);
-                //tran.addToBackStack(null);
+                tran.addToBackStack(null);
                 tran.commit();
 
             }

@@ -66,7 +66,7 @@ public class SalesListFragment extends Fragment {
                 fragment.setArguments(args);
                 FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
                 tran.replace(R.id.main_container, fragment);
-                tran.addToBackStack(Consts.instance.TAG_NEW_SALE);
+                tran.addToBackStack(null);
                 tran.commit();
             }
         });
