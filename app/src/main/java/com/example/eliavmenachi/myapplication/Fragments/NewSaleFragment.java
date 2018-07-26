@@ -324,6 +324,20 @@ public class NewSaleFragment extends Fragment {
         // setting the end date
         etEndDate.setText(newSale.endDate);
 
+        imageSale.setImageResource(R.drawable.avatar);
+        imageSale.setTag(newSale.id);
+
+        if (newSale.getPictureUrl() != null) {
+            ImageModel.instance.getImage(newSale.getPictureUrl(), new ImageModel.GetImageListener() {
+                @Override
+                public void onDone(Bitmap imageBitmap) {
+                    if (newSale.id.equals(imageSale.getTag()) && imageBitmap != null) {
+                        imageSale.setImageBitmap(imageBitmap);
+                    }
+                }
+            });
+        }
+
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData data) {
