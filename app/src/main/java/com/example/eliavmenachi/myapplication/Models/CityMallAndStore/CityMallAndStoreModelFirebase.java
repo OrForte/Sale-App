@@ -19,8 +19,7 @@ public class CityMallAndStoreModelFirebase {
     ListData listData = new ListData();
 
 
-    public void GetListOfCitiesMallsAndStores(final CityMallAndStoreModel.GetListOfCitiesMallsAndStoresListener listener)
-    {
+    public void GetListOfCitiesMallsAndStores(final CityMallAndStoreModel.GetListOfCitiesMallsAndStoresListener listener) {
         this.listData = new ListData();
 
         // step 1: get the store data;
@@ -29,8 +28,7 @@ public class CityMallAndStoreModelFirebase {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 listData.stores = new ArrayList<>();
-                for (DataSnapshot curr : dataSnapshot.getChildren())
-                {
+                for (DataSnapshot curr : dataSnapshot.getChildren()) {
                     listData.stores.add(curr.getValue(Store.class));
                 }
                 // step 2: get the mall data;
@@ -39,8 +37,7 @@ public class CityMallAndStoreModelFirebase {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         listData.malls = new ArrayList<>();
-                        for (DataSnapshot curr : dataSnapshot.getChildren())
-                        {
+                        for (DataSnapshot curr : dataSnapshot.getChildren()) {
                             listData.malls.add(curr.getValue(Mall.class));
                         }
 
@@ -49,8 +46,7 @@ public class CityMallAndStoreModelFirebase {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 listData.cities = new ArrayList<>();
-                                for (DataSnapshot curr : dataSnapshot.getChildren())
-                                {
+                                for (DataSnapshot curr : dataSnapshot.getChildren()) {
                                     listData.cities.add(curr.getValue(City.class));
                                 }
                                 // send the data to callback
@@ -68,6 +64,7 @@ public class CityMallAndStoreModelFirebase {
                     }
                 });
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
@@ -75,8 +72,7 @@ public class CityMallAndStoreModelFirebase {
     }
 
 
-    public void GetDetailsByStoreId(final int storeId, final CityMallAndStoreModel.GetDetailsByStoreIdListener listener)
-    {
+    public void GetDetailsByStoreId(final int storeId, final CityMallAndStoreModel.GetDetailsByStoreIdListener listener) {
         String storeIdString = storeId + "";
 
         // step 1: get the store data;
@@ -84,22 +80,21 @@ public class CityMallAndStoreModelFirebase {
         mDatabase.child("store").child(storeIdString).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (details == null)
-                {
+                if (details == null) {
                     details = new CityMallStoreDetails();
                 }
                 details.store = dataSnapshot.getValue(Store.class);
 
                 // step 2: get the mall data;
                 FirebaseDatabase.getInstance().getReference().child("mall")
-                        .child(details.store.mallId+"").addListenerForSingleValueEvent(new ValueEventListener() {
+                        .child(details.store.mallId + "").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         details.mall = dataSnapshot.getValue(Mall.class);
 
                         // step 3: get the city data;
                         FirebaseDatabase.getInstance().getReference().child("city")
-                                .child(details.mall.cityId+"").addListenerForSingleValueEvent(new ValueEventListener() {
+                                .child(details.mall.cityId + "").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 details.city = dataSnapshot.getValue(City.class);
@@ -111,19 +106,20 @@ public class CityMallAndStoreModelFirebase {
                             }
                         });
                     }
+
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
     }
 
-    public void GetMallsByCityId(final String p_cityId, final CityMallAndStoreModel.GetMallsByCityIdListener listener)
-    {
+    public void GetMallsByCityId(final String p_cityId, final CityMallAndStoreModel.GetMallsByCityIdListener listener) {
         // TODO : need to get the collections of malls by city id
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("mall").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -132,11 +128,9 @@ public class CityMallAndStoreModelFirebase {
                 Iterable<DataSnapshot> data = dataSnapshot.getChildren();
 
                 List<Mall> lstMallsToReturn = new ArrayList<>();
-                for (DataSnapshot curr : data)
-                {
+                for (DataSnapshot curr : data) {
                     Mall currMall = curr.getValue(Mall.class);
-                    if (currMall.cityId == Integer.parseInt(p_cityId))
-                    {
+                    if (currMall.cityId == Integer.parseInt(p_cityId)) {
                         lstMallsToReturn.add(currMall);
                     }
                 }
@@ -150,8 +144,7 @@ public class CityMallAndStoreModelFirebase {
         });
     }
 
-    public void GetStoresByMallId(final String mallId, final CityMallAndStoreModel.GetStoreByMallIdListener listener)
-    {
+    public void GetStoresByMallId(final String mallId, final CityMallAndStoreModel.GetStoreByMallIdListener listener) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("store").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -160,11 +153,9 @@ public class CityMallAndStoreModelFirebase {
 
                 List<Store> lstStoresToReturn = new ArrayList<>();
 
-                for (DataSnapshot curr : data)
-                {
+                for (DataSnapshot curr : data) {
                     Store currStore = curr.getValue(Store.class);
-                    if (currStore.mallId == Integer.parseInt(mallId))
-                    {
+                    if (currStore.mallId == Integer.parseInt(mallId)) {
                         lstStoresToReturn.add(currStore);
                     }
                 }
@@ -178,8 +169,7 @@ public class CityMallAndStoreModelFirebase {
         });
     }
 
-    public void GetCities(final CityMallAndStoreModel.GetCitiesListener listener)
-    {
+    public void GetCities(final CityMallAndStoreModel.GetCitiesListener listener) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("city").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -188,8 +178,7 @@ public class CityMallAndStoreModelFirebase {
 
                 List<City> lstCities = new ArrayList<>();
 
-                for (DataSnapshot curr : data)
-                {
+                for (DataSnapshot curr : data) {
                     lstCities.add(curr.getValue(City.class));
                 }
 
@@ -202,8 +191,7 @@ public class CityMallAndStoreModelFirebase {
         });
     }
 
-    public void GetStoreByStoreId(final int storeId, final CityMallAndStoreModel.GetStoreByStoreIdListener listener)
-    {
+    public void GetStoreByStoreId(final int storeId, final CityMallAndStoreModel.GetStoreByStoreIdListener listener) {
         String storeIdString = storeId + "";
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("store").child(storeIdString).addListenerForSingleValueEvent(new ValueEventListener() {

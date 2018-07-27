@@ -108,34 +108,31 @@ public class EditUserProfileFragment extends Fragment {
         etFirstName = view.findViewById(R.id.fragment_edit_user_etFirstName);
         etLastName = view.findViewById(R.id.fragment_edit_user_etLastName);
         etPassword = view.findViewById(R.id.fragment_edit_user_etNewPassword);
-        etPassword = view.findViewById(R.id.fragment_edit_user_etNewPassword);
-        etPassword = view.findViewById(R.id.fragment_edit_user_etNewPassword);
-        etPassword = view.findViewById(R.id.fragment_edit_user_etNewPassword);
-        etPassword = view.findViewById(R.id.fragment_edit_user_etNewPassword);
-        etPassword = view.findViewById(R.id.fragment_edit_user_etNewPassword);
+        etEmail = view.findViewById(R.id.fragment_edit_user_etEmail);
+        etBirthDate = view.findViewById(R.id.fragment_edit_user_etBirthDate);
+        spCity = view.findViewById(R.id.fragment_edit_user_spCity);
 
         cityDataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
                 setListOfCities(listData);
+
+                userViewModel.getCurrentUser().observe(EditUserProfileFragment.this, new Observer<User>() {
+                    @Override
+                    public void onChanged(@Nullable User user) {
+                        currentUser = user;
+                        etUserName.setText(user.username);
+                        etFirstName.setText(user.firstName);
+                        etLastName.setText(user.lastName);
+
+                        selectSpinnerValue(spCity, cityDataModel.GetCityByCityId(user.city, cityListData).name);
+                        etBirthDate.setText(user.birthDate);
+                        etEmail.setText(user.email);
+                        //myAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
-
-        userViewModel.getCurrentUser().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(@Nullable User user) {
-                currentUser = user;
-                etUserName.setText(user.username);
-                etFirstName.setText(user.firstName);
-                etLastName.setText(user.lastName);
-
-                selectSpinnerValue(spCity, cityDataModel.GetCityByCityId(user.city, cityListData).name);
-                etBirthDate.setText(user.birthDate);
-                etEmail.setText(user.email);
-                //myAdapter.notifyDataSetChanged();
-            }
-        });
-
 
         Button btnUpdateProfile = view.findViewById(R.id.fragment_edit_user_btnUpdateProfile);
 

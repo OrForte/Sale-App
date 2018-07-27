@@ -8,7 +8,7 @@ import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.UserDao;
 import com.example.eliavmenachi.myapplication.MyApplication;
 
-@Database(entities = {Student.class}, version = 3)
+@Database(entities = {Student.class}, version = 4)
 abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract StudentDao studentDao();
 }

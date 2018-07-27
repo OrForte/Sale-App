@@ -57,14 +57,15 @@ public class RegisterFragment extends Fragment {
                 user.email = mailEt.getText().toString();
                 user.username = userNameEt.getText().toString();
 
-                try
-                {
-                    user.age = Integer.parseInt(ageEt.getText().toString());
-                }
-                catch(NumberFormatException nfe)
-                {
-                    System.out.println("Could not parse " + nfe);
-                }
+                // TODO: Update to birthdate
+//                try
+//                {
+//                    user.birthDate = Integer.parseInt(ageEt.getText().toString());
+//                }
+//                catch(NumberFormatException nfe)
+//                {
+//                    System.out.println("Could not parse " + nfe);
+//                }
 
                 UserModel.instance.addUser(user);
             }
