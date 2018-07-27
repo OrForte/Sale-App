@@ -7,7 +7,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/fragment_register_tvRegister"
+        android:id="@+id/fragment_sale_details_tvRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="108dp"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/new_sale_image"
+        android:id="@+id/sale_details_image"
         android:layout_width="200dp"
         android:layout_height="120dp"
         android:layout_marginStart="32dp"
@@ -28,121 +28,121 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/fragment_new_sale_tvDescription"
+        android:id="@+id/fragment_sale_details_tvDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Description:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvEndDate"
-        app:layout_constraintTop_toBottomOf="@+id/new_sale_image" />
+        app:layout_constraintStart_toStartOf="@+id/fragment_sale_details_tvEndDate"
+        app:layout_constraintTop_toBottomOf="@+id/sale_details_image" />
 
     <TextView
-        android:id="@+id/fragment_new_sale_etDescription"
+        android:id="@+id/fragment_sale_details_etDescription"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvDescription"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_sale_details_tvDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvDescription"
+        app:layout_constraintStart_toEndOf="@+id/fragment_sale_details_tvDescription"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
 
     <TextView
-        android:id="@+id/fragment_new_sale_tvEndDate"
+        android:id="@+id/fragment_sale_details_tvEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="End Date:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCity"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvDescription" />
+        app:layout_constraintStart_toStartOf="@+id/fragment_sale_details_tvCity"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_sale_details_tvDescription" />
 
     <TextView
-        android:id="@+id/fragment_new_sale_etEndDate"
+        android:id="@+id/fragment_sale_Details_etEndDate"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvEndDate"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_sale_details_tvEndDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvEndDate" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_sale_details_tvEndDate" />
 
 
     <TextView
-        android:id="@+id/fragment_new_sale_tvCity"
+        android:id="@+id/fragment_sale_details_tvCity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="City:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCatrgory"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvEndDate" />
+        app:layout_constraintStart_toStartOf="@+id/fragment_sale_details_tvCatrgory"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_sale_details_tvEndDate" />
 
 
     <TextView
-        android:id="@+id/fragment_new_sale_etCity"
+        android:id="@+id/fragment_sale_details_etCity"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvCity"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_sale_details_tvCity"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvCity"/>
+        app:layout_constraintStart_toEndOf="@+id/fragment_sale_details_tvCity"/>
 
     <TextView
-        android:id="@+id/fragment_new_sale_tvMall"
+        android:id="@+id/fragment_sale_details_tvMall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Mall:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvStore"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvCity" />
+        app:layout_constraintStart_toStartOf="@+id/fragment_sale_details_tvStore"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_sale_details_tvCity" />
 
     <TextView
-        android:id="@+id/fragment_new_sale_etMall"
+        android:id="@+id/fragment_sale_details_etMall"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvMall"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_sale_details_tvMall"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvMall"/>
+        app:layout_constraintStart_toEndOf="@+id/fragment_sale_details_tvMall"/>
 
     <TextView
-        android:id="@+id/fragment_new_sale_tvStore"
+        android:id="@+id/fragment_sale_details_tvStore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Store:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCatrgory"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvMall" />
+        app:layout_constraintStart_toStartOf="@+id/fragment_sale_details_tvCatrgory"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_sale_details_tvMall" />
 
     <TextView
-        android:id="@+id/fragment_new_sale_etStore"
+        android:id="@+id/fragment_sale_details_etStore"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvStore"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_sale_details_tvStore"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvStore" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_sale_details_tvStore" />
 
     <TextView
-        android:id="@+id/fragment_new_sale_tvCatrgory"
+        android:id="@+id/fragment_sale_details_tvCatrgory"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Category:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/new_sale_image"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvStore" />
+        app:layout_constraintStart_toStartOf="@+id/sale_details_image"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_sale_details_tvStore" />
 
     <TextView
         android:id="@+id/fragment_new_sale_etCatrgory"
@@ -151,33 +151,8 @@
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvCatrgory"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_sale_details_tvCatrgory"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvCatrgory" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_sale_details_tvCatrgory" />
 
-    <Button
-        android:id="@+id/fragment_new_sale_btnSaveSale"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="24dp"
-        android:text="SAVE SALE"
-        app:layout_constraintEnd_toStartOf="@+id/fragment_new_sale_btnCancelSale"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvCatrgory" />
-
-    <Button
-        android:id="@+id/fragment_new_sale_btnCancelSale"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="24dp"
-        android:text="CANCEL SALE"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_btnSaveSale"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_btnSaveSale" />
 </android.support.constraint.ConstraintLayout>
