@@ -225,18 +225,19 @@ public class MainModel {
         @Override
         protected void onActive() {
 
-            SaleAsyncDao.getSalesByUserName(m_userName, new SaleAsyncDao.SaleAsynchDaoListener<List<Sale>>() {
-                @Override
-                public void onComplete(List<Sale> data) {
+            //SaleAsyncDao.getSalesByUserName(m_userName, new SaleAsyncDao.SaleAsynchDaoListener<List<Sale>>() {
+            //    @Override
+            //    public void onComplete(List<Sale> data) {
+            //        setValue(data);
                     // 3. get the sale list from firebase
                     mainModelFirebase.GetSaleByUserName(m_userName, new MainModelFirebase.GetSaleByUserName() {
                         @Override
                         public void onGetData(List<Sale> data) {
-
+                            setValue(data);
                         }
                     });
-                }
-            });
+                //}
+            //});
         }
 
         @Override
@@ -259,7 +260,7 @@ public class MainModel {
     public SaleListDataByUserId saleListDataByUserId = new SaleListDataByUserId();
     public LiveData<List<Sale>> getSalesByUserName(String p_strUserName)
     {
-        return saleListDataByStore;
+        return saleListDataByUserId;
     }
     public void InitUserName(String p_strUserName)
     {

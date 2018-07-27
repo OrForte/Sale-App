@@ -137,7 +137,7 @@ public class MainModelFirebase {
 
     public void GetSaleByUserName(final String UserName, final GetSaleByUserName listener)
     {
-        Query stRef = FirebaseDatabase.getInstance().getReference().child("sale").orderByChild("userName").equalTo(UserName);
+        Query stRef = FirebaseDatabase.getInstance().getReference().child("sale").orderByChild("userId").equalTo(UserName);
         eventListener4 = stRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
