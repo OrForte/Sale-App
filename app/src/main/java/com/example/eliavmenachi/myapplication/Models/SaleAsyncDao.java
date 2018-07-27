@@ -79,6 +79,31 @@ public class SaleAsyncDao {
         task.execute();
     }
 
+    static public void deleteSale(final Sale toDelete) {
+        class MyAsynchTask extends AsyncTask<String,String,Sale> {
+            @Override
+            protected Sale doInBackground(String... strings) {
+                Sale sList = new Sale();
+                Object a = MainAppLocalDb.db.saleDao();
+                if (a != null)
+                {
+                    if (MainAppLocalDb.db.saleDao().getAll() != null)
+                    {
+                        MainAppLocalDb.db.saleDao().delete(toDelete);
+                    }
+                }
+                return sList;
+            }
+
+            @Override
+            protected void onPostExecute(Sale sales) {
+                super.onPostExecute(sales);
+            }
+        }
+        MyAsynchTask task = new MyAsynchTask();
+        task.execute();
+    }
+
     static public void getSalesByStoreId(final String storeId ,final SaleAsynchDaoListener<List<Sale>> listener) {
         class MyAsynchTask extends AsyncTask<String,String,List<Sale>> {
             @Override
@@ -105,8 +130,6 @@ public class SaleAsyncDao {
 
         MyAsynchTask task = new MyAsynchTask();
         task.execute();
-
-
     }
 
 

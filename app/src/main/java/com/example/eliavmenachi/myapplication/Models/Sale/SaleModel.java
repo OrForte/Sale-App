@@ -1,6 +1,7 @@
 package com.example.eliavmenachi.myapplication.Models.Sale;
 
 import com.example.eliavmenachi.myapplication.Entities.Sale;
+import com.example.eliavmenachi.myapplication.Models.SaleAsyncDao;
 
 import java.util.List;
 
@@ -50,6 +51,7 @@ public class SaleModel {
         saleModelFirebase.deleteLogicSale(p_saleToDelete, new deleteLogicSaleListener() {
             @Override
             public void onDeleteLogicSale(boolean b_isDelete) {
+                SaleAsyncDao.deleteSale(p_saleToDelete);
                 listener.onDeleteLogicSale(b_isDelete);
             }
         });
