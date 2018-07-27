@@ -146,7 +146,9 @@ public class MainModel {
     }
 
     CityMallAndStoreListData cityMallAndStoreListData = new CityMallAndStoreListData();
-    public LiveData<ListData> getAllCityMalssAndStores() { return cityMallAndStoreListData;}
+    public LiveData<ListData> getAllCityMalssAndStores() {
+        return cityMallAndStoreListData;
+    }
 
 
     //endregion

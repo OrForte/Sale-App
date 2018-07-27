@@ -47,11 +47,31 @@ public class UserModel {
                 UserAsynchDao.getCurrentUser(new UserAsynchDao.UserAsynchDaoListener<User>() {
                     @Override
                     public void onComplete(User data) {
-                        if (data != null) {
+                        if (user != null) {
                             setValue(data);
                         }
+
+                        userModelFirebase.getUserById(data.id, new UserModelFirebase.getUserByIdListener() {
+                            @Override
+                            public void onSuccess(final User user) {
+                                setValue(user);
+                                UserAsynchDao.removeAll(new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
+                                    @Override
+                                    public void onComplete(Boolean data) {
+                                        UserAsynchDao.insert(user, new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
+                                            @Override
+                                            public void onComplete(Boolean data) {
+
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
+
+
             } else {
                 UserAsynchDao.getData(username, new UserAsynchDao.UserAsynchDaoListener<User>() {
                     @Override
