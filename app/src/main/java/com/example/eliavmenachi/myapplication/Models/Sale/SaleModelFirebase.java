@@ -18,6 +18,12 @@ public class SaleModelFirebase {
         // TODO : need to get the collections if posts by store id
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     }
+    public void deleteLogicSale(Sale p_saleToDelete, final SaleModel.deleteLogicSaleListener listener)
+    {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("sale").child(p_saleToDelete.id).setValue(p_saleToDelete);
+        listener.onDeleteLogicSale(true);
+    }
 
     public void addPost(Sale p_postToSave)
     {

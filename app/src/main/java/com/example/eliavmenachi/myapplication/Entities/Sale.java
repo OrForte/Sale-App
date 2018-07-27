@@ -21,6 +21,7 @@ public class Sale {
     public String storeName;
     public String mallName;
     public String cityName;
+    public boolean active;
 
 
     public String getId() {
@@ -38,6 +39,7 @@ public class Sale {
     public String getStoreName() {return storeName;}
     public String getMallName() { return mallName;}
     public String getCityName() { return cityName;}
+    public boolean getActive() {return active;}
 
     public void setId(String id) {
         this.id = id;
@@ -72,4 +74,5 @@ public class Sale {
     public void setStoreName(String storeName) { this.storeName = storeName;}
     public void setMallName(String mallName) {this.mallName = mallName;}
     public void setCityName(String cityName) {this.cityName = cityName;}
+    public void setActive(boolean p_active) {this.active = p_active;}
 }

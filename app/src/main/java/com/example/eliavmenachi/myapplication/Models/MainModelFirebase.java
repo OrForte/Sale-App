@@ -54,7 +54,9 @@ public class MainModelFirebase {
                 List<Sale> stSales = new LinkedList<>();
                 for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
                     Sale currSale = stSnapshot.getValue(Sale.class);
-                    stSales.add(currSale );
+                    if (currSale.active == true) {
+                        stSales.add(currSale);
+                    }
                 }
 
                 listener.onSuccess(stSales);
@@ -86,7 +88,9 @@ public class MainModelFirebase {
                 List<Sale> stSales = new LinkedList<>();
                 for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
                     Sale currSale = stSnapshot.getValue(Sale.class);
-                    stSales.add(currSale);
+                    if (currSale.active == true) {
+                        stSales.add(currSale);
+                    }
                 }
 
                 listener.onSuccess(stSales);
@@ -116,7 +120,9 @@ public class MainModelFirebase {
                 Sale currSale = new Sale();
                 for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
                     Sale sale = stSnapshot.getValue(Sale.class);
-                    currSale = sale;
+                    if (sale.active == true) {
+                        currSale = sale;
+                    }
                 }
                 listener.onGetData(currSale);
             }
@@ -144,7 +150,9 @@ public class MainModelFirebase {
                 List<Sale> stSales = new LinkedList<>();
                 for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
                     Sale currSale = stSnapshot.getValue(Sale.class);
-                    stSales.add(currSale);
+                    if (currSale.active) {
+                        stSales.add(currSale);
+                    }
                 }
 
                 listener.onGetData(stSales);

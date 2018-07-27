@@ -42,6 +42,19 @@ public class SaleModel {
         saleModelFirebase.addPost(p_postToSave);
     }
 
+    public interface  deleteLogicSaleListener{
+        void onDeleteLogicSale(boolean b_isDelete);
+    }
+    public void deleteLogicSale(final Sale p_saleToDelete, final deleteLogicSaleListener listener)
+    {
+        saleModelFirebase.deleteLogicSale(p_saleToDelete, new deleteLogicSaleListener() {
+            @Override
+            public void onDeleteLogicSale(boolean b_isDelete) {
+                listener.onDeleteLogicSale(b_isDelete);
+            }
+        });
+    }
+
     public interface GetNextSequenceListener{
         void onGetNextSeq(String p_next);
     }

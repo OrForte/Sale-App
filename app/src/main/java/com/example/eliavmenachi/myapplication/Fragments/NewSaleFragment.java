@@ -39,6 +39,7 @@ import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
 
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -53,6 +54,7 @@ public class NewSaleFragment extends Fragment {
     Spinner dropDownStores;
     Button btnSave;
     Button btnEditImage;
+    Button btnCancelOrDelete;
     int storeId;
     int mallId;
     int cityId;
@@ -75,6 +77,7 @@ public class NewSaleFragment extends Fragment {
     CityMallAndStoreViewModel dataModel;
     SaleListViewModel dataModelSale;
     boolean bIsOccur = false;
+    boolean bUpdateMode = false;
 
     @Override
     public void onAttach(Context context) {
@@ -112,6 +115,7 @@ public class NewSaleFragment extends Fragment {
         dropDownMalls = view.findViewById(R.id.fragment_new_sale_etMall);
         dropDownStores = view.findViewById(R.id.fragment_new_sale_etStore);
         btnSave = view.findViewById(R.id.fragment_new_sale_btnSaveSale);
+        btnCancelOrDelete = view.findViewById(R.id.fragment_new_sale_btnCancelSale);
         imageSale = view.findViewById(R.id.new_sale_image);
         etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
         etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
@@ -119,6 +123,7 @@ public class NewSaleFragment extends Fragment {
 
         String nId ="";
         if (getArguments() != null){
+            bUpdateMode = true;
             nId = getArguments().getString("SALE_ID");
             dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
                 @Override
@@ -127,6 +132,7 @@ public class NewSaleFragment extends Fragment {
 
                     title.setText("sale " + newSale.id);
                     btnSave.setText("update");
+                    btnCancelOrDelete.setText("delete");
                     // populate the data
                     PopulateTheView();
                 }
@@ -169,6 +175,23 @@ public class NewSaleFragment extends Fragment {
 
                 if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                }
+            }
+        });
+
+        btnCancelOrDelete.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
+                if (bUpdateMode == true) {
+                    newSale.active = false;
+                    SaleModel.instance.deleteLogicSale(newSale, new SaleModel.deleteLogicSaleListener() {
+                        @Override
+                        public void onDeleteLogicSale(boolean b_isDelete) {
+                            if (b_isDelete == true) {
+                                Toast.makeText(getActivity(), "delete sale successfully",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -242,6 +265,7 @@ public class NewSaleFragment extends Fragment {
         newSale.cityName = selectedCityName;
         newSale.storeName = selectedStoreName;
         newSale.userId = "liorM";
+        newSale.active = true;
         //newSale.id = java.util.UUID.randomUUID().toString();
 
         // setting image details

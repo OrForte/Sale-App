@@ -13,7 +13,7 @@ import java.util.List;
 
 @Dao
 public interface    SaleDao {
-    @Query("select * from Sale")
+    @Query("select * from Sale where active = 1")
     List<Sale> getAll();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -22,12 +22,12 @@ public interface    SaleDao {
     @Delete
     void delete(Sale sale);
 
-    @Query("SELECT * FROM Sale where id LIKE :id")
+    @Query("SELECT * FROM Sale where id LIKE :id and  active = 1")
     Sale getSaleBySaleId(String id);
 
-    @Query("SELECT * FROM Sale where storeId = :id")
+    @Query("SELECT * FROM Sale where storeId = :id and  active = 1")
     List<Sale> getSaleByStoreId(int id);
 
-    @Query("SELECT * FROM Sale where userId LIKE :userName")
+    @Query("SELECT * FROM Sale where userId LIKE :userName and  active = 1")
     List<Sale> getSaleByUserName(String userName);
 }
