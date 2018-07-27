@@ -74,23 +74,17 @@ public class SaleAsyncDao {
             @Override
             protected List<Sale> doInBackground(String... strings) {
                 List<Sale> sList = new ArrayList<Sale>();
-                List<Sale> toSend = new ArrayList<Sale>();
                 Object a = MainAppLocalDb.db.saleDao();
                 if (a != null)
                 {
-                    if (MainAppLocalDb.db.saleDao().getAll() != null)
+                    int nStoreId = Integer.parseInt(storeId);
+                    //Object query = MainAppLocalDb.db.saleDao().getSaleByStoreId(nStoreId);
+                    if (MainAppLocalDb.db.saleDao().getSaleByStoreId(nStoreId) != null)
                     {
-                        sList = MainAppLocalDb.db.saleDao().getAll();
-                        for (Sale curr : sList)
-                        {
-                            if (curr.storeId == Integer.parseInt(storeId))
-                            {
-                                toSend.add(curr);
-                            }
-                        }
+                        sList = MainAppLocalDb.db.saleDao().getSaleByStoreId(nStoreId);
                     }
                 }
-                return toSend;
+                return sList;
             }
 
             @Override

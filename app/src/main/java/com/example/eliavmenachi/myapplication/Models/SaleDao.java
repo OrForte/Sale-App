@@ -24,4 +24,7 @@ public interface    SaleDao {
 
     @Query("SELECT * FROM Sale where id LIKE :id")
     Sale getSaleBySaleId(String id);
+
+    @Query("SELECT * FROM Sale where storeId = :id")
+    List<Sale> getSaleByStoreId(int id);
 }
