@@ -241,6 +241,7 @@ public class NewSaleFragment extends Fragment {
         newSale.mallName = selectedMallName;
         newSale.cityName = selectedCityName;
         newSale.storeName = selectedStoreName;
+        newSale.userId = "liorM";
         //newSale.id = java.util.UUID.randomUUID().toString();
 
         // setting image details

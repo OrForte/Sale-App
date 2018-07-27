@@ -224,11 +224,17 @@ public class MainModel {
 
         @Override
         protected void onActive() {
-            // 3. get the sale list from firebase
-            mainModelFirebase.GetSaleByUserName(m_userName, new MainModelFirebase.GetSaleByUserName() {
-                @Override
-                public void onGetData(List<Sale> data) {
 
+            SaleAsyncDao.getSalesByUserName(m_userName, new SaleAsyncDao.SaleAsynchDaoListener<List<Sale>>() {
+                @Override
+                public void onComplete(List<Sale> data) {
+                    // 3. get the sale list from firebase
+                    mainModelFirebase.GetSaleByUserName(m_userName, new MainModelFirebase.GetSaleByUserName() {
+                        @Override
+                        public void onGetData(List<Sale> data) {
+
+                        }
+                    });
                 }
             });
         }

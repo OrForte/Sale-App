@@ -78,10 +78,36 @@ public class SaleAsyncDao {
                 if (a != null)
                 {
                     int nStoreId = Integer.parseInt(storeId);
-                    //Object query = MainAppLocalDb.db.saleDao().getSaleByStoreId(nStoreId);
                     if (MainAppLocalDb.db.saleDao().getSaleByStoreId(nStoreId) != null)
                     {
                         sList = MainAppLocalDb.db.saleDao().getSaleByStoreId(nStoreId);
+                    }
+                }
+                return sList;
+            }
+
+            @Override
+            protected void onPostExecute(List<Sale> sales) {
+                super.onPostExecute(sales);
+                listener.onComplete(sales);
+            }
+        }
+
+        MyAsynchTask task = new MyAsynchTask();
+        task.execute();
+    }
+
+    static public void getSalesByUserName(final String userName ,final SaleAsynchDaoListener<List<Sale>> listener) {
+        class MyAsynchTask extends AsyncTask<String,String,List<Sale>> {
+            @Override
+            protected List<Sale> doInBackground(String... strings) {
+                List<Sale> sList = new ArrayList<Sale>();
+                Object a = MainAppLocalDb.db.saleDao();
+                if (a != null)
+                {
+                    if (MainAppLocalDb.db.saleDao().getSaleByUserName(userName) != null)
+                    {
+                        sList = MainAppLocalDb.db.saleDao().getSaleByUserName(userName);
                     }
                 }
                 return sList;
