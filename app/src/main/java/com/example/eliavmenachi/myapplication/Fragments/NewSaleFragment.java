@@ -65,14 +65,16 @@ public class NewSaleFragment extends Fragment {
     ImageView imageSale;
     TextView etDescription;
     TextView etEndDate;
+    TextView title;
     ArrayAdapter<String> adapterCities;
     ArrayAdapter<String> adapterMalls;
     ArrayAdapter<String> adapterStores;
-    boolean IsNewSale = true;
+    boolean m_bIsChangedImage = false;
 
     ListView list;
     CityMallAndStoreViewModel dataModel;
     SaleListViewModel dataModelSale;
+    boolean bIsOccur = false;
 
     @Override
     public void onAttach(Context context) {
@@ -82,8 +84,13 @@ public class NewSaleFragment extends Fragment {
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
-                if (IsNewSale == true) {
-                    SetListOfCities(listData);
+                if (!bIsOccur) {
+                    if (listData != null) {
+                        if (listData.cities.size() != 0 && listData.malls.size() != 0&& listData.stores.size() != 0) {
+                            bIsOccur = true;
+                            SetListOfCities(listData);
+                        }
+                    }
                 }
             }
         });
@@ -98,6 +105,8 @@ public class NewSaleFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+
         View view = inflater.inflate(R.layout.fragment_new_sale, container, false);
         dropDownCities = view.findViewById(R.id.fragment_new_sale_etCity);
         dropDownMalls = view.findViewById(R.id.fragment_new_sale_etMall);
@@ -106,16 +115,18 @@ public class NewSaleFragment extends Fragment {
         imageSale = view.findViewById(R.id.new_sale_image);
         etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
         etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
+        title = view.findViewById(R.id.fragment_register_tvRegister);
 
         String nId ="";
         if (getArguments() != null){
             nId = getArguments().getString("SALE_ID");
-            IsNewSale = false;
             dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
                     newSale = sale;
 
+                    title.setText("sale " + newSale.id);
+                    btnSave.setText("update");
                     // populate the data
                     PopulateTheView();
                 }
@@ -132,7 +143,6 @@ public class NewSaleFragment extends Fragment {
                     newSale = new Sale();
                     newSale.id = "0";
 
-
                     String SeqName = "saleSeq";
                     SaleModel.instance.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
                         @Override
@@ -143,7 +153,7 @@ public class NewSaleFragment extends Fragment {
                 }
                 else{
                     int nId = 1;
-                    //AddNewSaleToFireBase(newSale.id);
+                    AddNewSaleToFireBase(newSale.id);
                 }
             }
         });
@@ -175,6 +185,7 @@ public class NewSaleFragment extends Fragment {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
             imageSale.setImageBitmap(imageBitmap);
+            m_bIsChangedImage = true;
         }
     }
 
@@ -184,7 +195,7 @@ public class NewSaleFragment extends Fragment {
         SalesListFragment fragment = new SalesListFragment();
         FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
         tran.replace(R.id.main_container, fragment);
-        tran.addToBackStack(Consts.instance.TAG_SALES);
+        tran.addToBackStack(null);
         tran.commit();
     }
 
@@ -201,6 +212,9 @@ public class NewSaleFragment extends Fragment {
 
         // set the drop down cities
         dropDownCities.setAdapter(adapterCities);
+
+        int positionCity = adapterCities.getPosition(selectedCityName);
+        dropDownCities.setSelection(positionCity);
 
         dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -260,6 +274,8 @@ public class NewSaleFragment extends Fragment {
         mallNames = dataModel.GetMallNamesByCityId(selectedCity.id, listData);
         adapterMalls = SetAdapter(mallNames);
         dropDownMalls.setAdapter(adapterMalls);
+        int positionMall = adapterMalls.getPosition(selectedMallName);
+        dropDownMalls.setSelection(positionMall);
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -284,6 +300,8 @@ public class NewSaleFragment extends Fragment {
         storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
         adapterStores = SetAdapter(storeNames);
         dropDownStores.setAdapter(adapterStores);
+        int positionStore = adapterStores.getPosition(selectedStoreName);
+        dropDownStores.setSelection(positionStore);
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -321,6 +339,23 @@ public class NewSaleFragment extends Fragment {
         // setting the end date
         etEndDate.setText(newSale.endDate);
 
+        //imageSale.setImageResource(R.drawable.avatar);
+        //imageSale.setTag(newSale.id);
+        if (!m_bIsChangedImage) {
+            imageSale.setImageResource(R.drawable.avatar);
+            imageSale.setTag(newSale.id);
+            if (newSale.getPictureUrl() != null) {
+                ImageModel.instance.getImage(newSale.getPictureUrl(), new ImageModel.GetImageListener() {
+                    @Override
+                    public void onDone(Bitmap imageBitmap) {
+                        if (newSale.id.equals(imageSale.getTag()) && imageBitmap != null) {
+                            imageSale.setImageBitmap(imageBitmap);
+                        }
+                    }
+                });
+            }
+        }
+
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData data) {
@@ -339,6 +374,7 @@ public class NewSaleFragment extends Fragment {
                     if (store != null) {
                         selectedStoreName = store.name;
                     }
+
 
                     if (selectedCityName != null && selectedStoreName != null && selectedMallName != null) {
                         SetListOfCities(data);

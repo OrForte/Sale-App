@@ -21,4 +21,10 @@ public interface    SaleDao {
 
     @Delete
     void delete(Sale sale);
+
+    @Query("SELECT * FROM Sale where id LIKE :id")
+    Sale getSaleBySaleId(String id);
+
+    @Query("SELECT * FROM Sale where storeId = :id")
+    List<Sale> getSaleByStoreId(int id);
 }
