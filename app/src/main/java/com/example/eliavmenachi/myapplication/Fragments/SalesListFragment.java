@@ -60,14 +60,27 @@ public class SalesListFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Sale selectedSaleItem = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).getValue().get(i);
 
-                NewSaleFragment fragment = new NewSaleFragment();
-                Bundle args = new Bundle();
-                args.putString("SALE_ID", selectedSaleItem.id);
-                fragment.setArguments(args);
-                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-                tran.replace(R.id.main_container, fragment);
-                tran.addToBackStack(null);
-                tran.commit();
+                int nId = 2;
+                if (nId == 1) {
+                    NewSaleFragment fragment = new NewSaleFragment();
+                    Bundle args = new Bundle();
+                    args.putString("SALE_ID", selectedSaleItem.id);
+                    fragment.setArguments(args);
+                    FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+                    tran.replace(R.id.main_container, fragment);
+                    tran.addToBackStack(null);
+                    tran.commit();
+                }
+                else if (nId == 2) {
+                    SaleDetailsFragment fragment = new SaleDetailsFragment();
+                    Bundle args = new Bundle();
+                    args.putString("SALE_ID", selectedSaleItem.id);
+                    fragment.setArguments(args);
+                    FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+                    tran.replace(R.id.main_container, fragment);
+                    tran.addToBackStack(null);
+                    tran.commit();
+                }
             }
         });
 
