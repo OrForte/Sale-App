@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
+import com.example.eliavmenachi.myapplication.Entities.Consts;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
@@ -71,6 +72,7 @@ public class UserSalesListFragment extends Fragment {
                         NewSaleFragment fragment = new NewSaleFragment();
                         Bundle args = new Bundle();
                         args.putString("SALE_ID", selectedSaleItem.id);
+                        args.putString(Consts.instance.SALE_LIST_TYPE, Consts.instance.BY_USER);
                         fragment.setArguments(args);
                         FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
                         tran.replace(R.id.main_container, fragment);

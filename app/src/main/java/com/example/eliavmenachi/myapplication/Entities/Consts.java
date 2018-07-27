@@ -6,4 +6,8 @@ public class Consts {
     public String TAG_SALES = "SALES";
     public String TAG_NEW_SALE = "NEW_SALE";
     public String TAG_CHOOSE_STORE = "CHOOSE_STORE";
+    public String SALE_LIST_TYPE = "SALE_LIST_TYPE";
+
+    public String ALL = "all";
+    public String BY_USER = "byUser";
 }

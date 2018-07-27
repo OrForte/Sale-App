@@ -78,6 +78,7 @@ public class NewSaleFragment extends Fragment {
     SaleListViewModel dataModelSale;
     boolean bIsOccur = false;
     boolean bUpdateMode = false;
+    String m_SaleListTypeParams = "";
 
     @Override
     public void onAttach(Context context) {
@@ -125,6 +126,7 @@ public class NewSaleFragment extends Fragment {
         if (getArguments() != null){
             bUpdateMode = true;
             nId = getArguments().getString("SALE_ID");
+            m_SaleListTypeParams = getArguments().getString(Consts.instance.SALE_LIST_TYPE);
             dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
@@ -214,12 +216,23 @@ public class NewSaleFragment extends Fragment {
 
     public void GetToSaleListFragments()
     {
-        FragmentManager fragmentManager = getFragmentManager();
-        SalesListFragment fragment = new SalesListFragment();
-        FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-        tran.replace(R.id.main_container, fragment);
-        tran.addToBackStack(null);
-        tran.commit();
+        if (!bUpdateMode || m_SaleListTypeParams.equals(Consts.instance.ALL)) {
+            FragmentManager fragmentManager = getFragmentManager();
+            SalesListFragment fragment = new SalesListFragment();
+            FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+            tran.replace(R.id.main_container, fragment);
+            tran.addToBackStack(null);
+            tran.commit();
+        }
+        else if (m_SaleListTypeParams.equals(Consts.instance.BY_USER))
+        {
+            FragmentManager fragmentManager = getFragmentManager();
+            UserSalesListFragment fragment = new UserSalesListFragment();
+            FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+            tran.replace(R.id.main_container, fragment);
+            tran.addToBackStack(null);
+            tran.commit();
+        }
     }
 
     public void SetListOfCities(ListData data)

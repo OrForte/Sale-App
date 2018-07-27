@@ -65,6 +65,7 @@ public class SalesListFragment extends Fragment {
                     NewSaleFragment fragment = new NewSaleFragment();
                     Bundle args = new Bundle();
                     args.putString("SALE_ID", selectedSaleItem.id);
+                    args.putString(Consts.instance.SALE_LIST_TYPE, Consts.instance.ALL);
                     fragment.setArguments(args);
                     FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
                     tran.replace(R.id.main_container, fragment);
