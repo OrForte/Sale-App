@@ -15,7 +15,7 @@ public class UserModelFirebase {
     public void cancelGetUser() {
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("users");
 
-        if (eventListener != null)  {
+        if (eventListener != null) {
             stRef.removeEventListener(eventListener);
         }
     }
@@ -38,8 +38,7 @@ public class UserModelFirebase {
 
                 if (user != null && user.password.equals(password)) {
                     listener.onSuccess(user);
-                }
-                else {
+                } else {
                     listener.onSuccess(null);
                 }
             }
@@ -49,6 +48,36 @@ public class UserModelFirebase {
             }
         });
     }
+
+    interface getUserByIdListener {
+        public void onSuccess(User user);
+    }
+
+    public void getUserById(String id, final getUserByIdListener listener) {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("users");
+
+        //eventListener = stRef.child(key).addChildEventListener(new
+        eventListener = stRef.orderByChild("id").equalTo(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = null;
+                for (DataSnapshot stSnapshot : dataSnapshot.getChildren()) {
+                    user = stSnapshot.getValue(User.class);
+                }
+
+                if (user != null) {
+                    listener.onSuccess(user);
+                } else {
+                    listener.onSuccess(null);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
 
     // TODO: MAKE IT ASYNC
     public void addUser(User userToAdd) {

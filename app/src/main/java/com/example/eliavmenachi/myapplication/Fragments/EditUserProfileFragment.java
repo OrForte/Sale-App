@@ -115,7 +115,7 @@ public class EditUserProfileFragment extends Fragment {
         cityDataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
-                setListOfCities(listData);
+               setListOfCities(listData);
 
                 userViewModel.getCurrentUser().observe(EditUserProfileFragment.this, new Observer<User>() {
                     @Override
@@ -125,7 +125,9 @@ public class EditUserProfileFragment extends Fragment {
                         etFirstName.setText(user.firstName);
                         etLastName.setText(user.lastName);
 
-                        selectSpinnerValue(spCity, cityDataModel.GetCityByCityId(user.city, cityListData).name);
+                        if (cityListData.cities.size() > 0) {
+                            selectSpinnerValue(spCity, cityDataModel.GetCityByCityId(user.city, cityListData).name);
+                        }
                         etBirthDate.setText(user.birthDate);
                         etEmail.setText(user.email);
                         //myAdapter.notifyDataSetChanged();
@@ -133,6 +135,21 @@ public class EditUserProfileFragment extends Fragment {
                 });
             }
         });
+
+//        userViewModel.getCurrentUser().observe(EditUserProfileFragment.this, new Observer<User>() {
+//            @Override
+//            public void onChanged(@Nullable User user) {
+//                currentUser = user;
+//                etUserName.setText(user.username);
+//                etFirstName.setText(user.firstName);
+//                etLastName.setText(user.lastName);
+//
+//                selectSpinnerValue(spCity, cityDataModel.GetCityByCityId(user.city, cityListData).name);
+//                etBirthDate.setText(user.birthDate);
+//                etEmail.setText(user.email);
+//                //myAdapter.notifyDataSetChanged();
+//            }
+//        });
 
         Button btnUpdateProfile = view.findViewById(R.id.fragment_edit_user_btnUpdateProfile);
 
