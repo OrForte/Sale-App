@@ -106,7 +106,7 @@
                 android:layout_marginTop="28dp"
                 android:text="Update"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etRepeatPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etRetypeNewPassword" />
 
             <TextView
                 android:id="@+id/fragment_edit_user_tvPersonalDetails"
@@ -145,13 +145,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etUserName" />
 
             <EditText
-                android:id="@+id/fragment_edit_user_etRepeatPassword"
+                android:id="@+id/fragment_edit_user_etRetypeNewPassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
-                android:hint="New Password"
+                android:hint="Retype New Password"
 
                 android:inputType="textPassword"
                 app:layout_constraintStart_toStartOf="parent"

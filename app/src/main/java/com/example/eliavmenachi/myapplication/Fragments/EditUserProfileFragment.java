@@ -37,6 +37,7 @@ public class EditUserProfileFragment extends Fragment {
     EditText etFirstName;
     EditText etLastName;
     EditText etPassword;
+    EditText etRetypeNewPassword;
     Spinner spCity;
     EditText etBirthDate;
     EditText etEmail;
@@ -63,8 +64,7 @@ public class EditUserProfileFragment extends Fragment {
         }
     }
 
-    public void setListOfCities(ListData data)
-    {
+    public void setListOfCities(ListData data) {
         cityListData = data;
         List<String> citiesNames = cityDataModel.GetCityNames(cityListData);
 
@@ -77,7 +77,7 @@ public class EditUserProfileFragment extends Fragment {
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                onSelectedCity(adapterView,view,position,l);
+                onSelectedCity(adapterView, view, position, l);
             }
 
             @Override
@@ -86,14 +86,12 @@ public class EditUserProfileFragment extends Fragment {
         });
     }
 
-    public void onSelectedCity(AdapterView<?> adapterView, View view, final int position, long l)
-    {
+    public void onSelectedCity(AdapterView<?> adapterView, View view, final int position, long l) {
         String selectedCityName = adapterView.getItemAtPosition(position).toString();
         selectedCity = cityDataModel.GetCityByCityName(selectedCityName, cityListData);
     }
 
-    public ArrayAdapter<String> setAdapter(List<String> collection)
-    {
+    public ArrayAdapter<String> setAdapter(List<String> collection) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, collection);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         return adapter;
@@ -108,6 +106,7 @@ public class EditUserProfileFragment extends Fragment {
         etFirstName = view.findViewById(R.id.fragment_edit_user_etFirstName);
         etLastName = view.findViewById(R.id.fragment_edit_user_etLastName);
         etPassword = view.findViewById(R.id.fragment_edit_user_etNewPassword);
+        etRetypeNewPassword = view.findViewById(R.id.fragment_edit_user_etRetypeNewPassword);
         etEmail = view.findViewById(R.id.fragment_edit_user_etEmail);
         etBirthDate = view.findViewById(R.id.fragment_edit_user_etBirthDate);
         spCity = view.findViewById(R.id.fragment_edit_user_spCity);
@@ -115,7 +114,7 @@ public class EditUserProfileFragment extends Fragment {
         cityDataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
-               setListOfCities(listData);
+                setListOfCities(listData);
 
                 userViewModel.getCurrentUser().observe(EditUserProfileFragment.this, new Observer<User>() {
                     @Override
@@ -156,21 +155,33 @@ public class EditUserProfileFragment extends Fragment {
         btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean isValid = true;
+
                 currentUser.username = etUserName.getText().toString();
                 currentUser.lastName = etLastName.getText().toString();
                 currentUser.firstName = etFirstName.getText().toString();
-
-                currentUser.city = selectedCity.id;
-                if (!etPassword.getText().toString().equals("")) {
-                    if (etpass)
-                    currentUser.password = etPassword.getText().toString();
-                }
 
                 currentUser.birthDate = etBirthDate.getText().toString();
                 currentUser.email = etFirstName.getText().toString();
                 currentUser.city = selectedCity.id;
 
-                userViewModel.setUser(currentUser);
+                currentUser.city = selectedCity.id;
+                if (!etPassword.getText().toString().equals("")) {
+                    if (!etRetypeNewPassword.getText().toString().equals(etPassword.getText().toString())) {
+                        isValid = false;
+                        Toast.makeText(getActivity(), "Passwords don't match!",
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        currentUser.password = etPassword.getText().toString();
+                    }
+                }
+
+                if (isValid) {
+                    // TODO: make async
+                    userViewModel.setUser(currentUser);
+                    Toast.makeText(getActivity(), "User updated successfully!",
+                            Toast.LENGTH_LONG).show();
+                }
             }
         });
 //        Button btnLoginButton = view.findViewById(R.id.fragment_login_btnLogin);

@@ -1,6 +1,12 @@
 package com.example.eliavmenachi.myapplication.Models.User;
 
+import android.support.annotation.NonNull;
+
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -78,7 +84,6 @@ public class UserModelFirebase {
         });
     }
 
-
     // TODO: MAKE IT ASYNC
     public void addUser(User userToAdd) {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -90,6 +95,26 @@ public class UserModelFirebase {
     public void setUser(User user) {
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference();
         stRef.child("users").child(user.id).setValue(user);
+    }
+
+    interface setUserListener {
+        public void onSuccess();
+        public void onFailure(Exception e);
+    }
+
+    public void setUser(User user, final setUserListener listener) {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference();
+        stRef.child("users").child(user.id).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                listener.onSuccess();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                listener.onFailure(e);
+            }
+        });
     }
 
     public interface IsUserExistsListener {
