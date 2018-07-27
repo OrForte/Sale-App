@@ -28,6 +28,6 @@ public interface    SaleDao {
     @Query("SELECT * FROM Sale where storeId = :id")
     List<Sale> getSaleByStoreId(int id);
 
-    //@Query("SELECT * FROM Sale where userId LIKE :userName")
-    //List<Sale> getSaleByUserName(String userName);
+    @Query("SELECT * FROM Sale where userId LIKE :userName")
+    List<Sale> getSaleByUserName(String userName);
 }
