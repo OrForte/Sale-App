@@ -162,6 +162,7 @@ public class EditUserProfileFragment extends Fragment {
 
                 currentUser.city = selectedCity.id;
                 if (!etPassword.getText().toString().equals("")) {
+                    if (etpass)
                     currentUser.password = etPassword.getText().toString();
                 }
 
