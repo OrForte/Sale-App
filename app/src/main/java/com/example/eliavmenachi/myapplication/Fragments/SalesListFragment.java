@@ -58,7 +58,7 @@ public class SalesListFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Sale selectedSaleItem = dataModel.getData().getValue().get(i);
+                Sale selectedSaleItem = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).getValue().get(i);
 
                 NewSaleFragment fragment = new NewSaleFragment();
                 Bundle args = new Bundle();
