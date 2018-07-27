@@ -97,6 +97,7 @@ public class SaleAsyncDao {
         task.execute();
     }
 
+    /*
     static public void getSalesByUserName(final String userName ,final SaleAsynchDaoListener<List<Sale>> listener) {
         class MyAsynchTask extends AsyncTask<String,String,List<Sale>> {
             @Override
@@ -105,6 +106,7 @@ public class SaleAsyncDao {
                 Object a = MainAppLocalDb.db.saleDao();
                 if (a != null)
                 {
+                    /*
                     if (MainAppLocalDb.db.saleDao().getSaleByUserName(userName) != null)
                     {
                         sList = MainAppLocalDb.db.saleDao().getSaleByUserName(userName);
@@ -122,7 +124,7 @@ public class SaleAsyncDao {
 
         MyAsynchTask task = new MyAsynchTask();
         task.execute();
-    }
+    }*/
 
     static void insertAll(final List<Sale> sales, final SaleAsynchDaoListener<Boolean> listener){
         class MyAsynchTask extends AsyncTask<List<Sale>,String,Boolean>{
