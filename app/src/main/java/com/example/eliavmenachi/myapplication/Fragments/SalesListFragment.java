@@ -60,7 +60,7 @@ public class SalesListFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Sale selectedSaleItem = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).getValue().get(i);
 
-                int nId = 2;
+                int nId = 1;
                 if (nId == 1) {
                     NewSaleFragment fragment = new NewSaleFragment();
                     Bundle args = new Bundle();
@@ -102,13 +102,6 @@ public class SalesListFragment extends Fragment {
         }
 
         dataModel = ViewModelProviders.of(this).get(SaleListViewModel.class);
-        /*
-        saleListViewModel.getSaleListByUserId("liorM").observe(this, new Observer<List<Sale>>() {
-            @Override
-            public void onChanged(@Nullable List<Sale> sales) {
-
-            }
-        });*/
         dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).observe(this, new Observer<List<Sale>>() {
             @Override
             public void onChanged(@Nullable List<Sale> sales) {
