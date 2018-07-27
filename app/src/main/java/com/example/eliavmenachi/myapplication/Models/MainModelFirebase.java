@@ -130,5 +130,29 @@ public class MainModelFirebase {
         stRef.removeEventListener(eventListener);
     }
 
+    interface GetSaleByUserName{
+        public void onGetData(List<Sale> data);
+    }
+    ValueEventListener eventListener4;
+
+    public void GetSaleByUserName(final String UserName, final GetSaleByUserName listener)
+    {
+        Query stRef = FirebaseDatabase.getInstance().getReference().child("sale").orderByChild("userName").equalTo(UserName);
+        eventListener4 = stRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Sale> stSales = new LinkedList<>();
+                for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
+                    Sale currSale = stSnapshot.getValue(Sale.class);
+                    stSales.add(currSale);
+                }
+
+                listener.onGetData(stSales);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
     //endregion
 }
