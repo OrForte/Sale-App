@@ -36,4 +36,11 @@ public class SaleListViewModel extends ViewModel {
         LiveData<Sale> currSale = MainModel.instance.getSaleBySaleId(p_strSaleId);;
         return currSale;
     }
+
+    public LiveData<List<Sale>> getSaleListByUserId(String p_strUserName)
+    {
+        MainModel.instance.InitUserName(p_strUserName);
+        LiveData<List<Sale>> results = MainModel.instance.getSalesByUserName(p_strUserName);;
+        return results;
+    }
 }

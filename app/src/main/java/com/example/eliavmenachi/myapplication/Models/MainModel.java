@@ -215,6 +215,47 @@ public class MainModel {
 
     // endregion
 
+    //region SalesByUserId
+    public class SaleListDataByUserId extends MutableLiveData<List<Sale>>
+    {
+        String m_userName = "";
+
+        @Override
+        protected void onActive() {
+        }
+
+        @Override
+        protected void onInactive() {
+            super.onInactive();
+        }
+
+        public SaleListDataByUserId()
+        {
+            super();
+            setValue(new LinkedList());
+        }
+
+        public void InitUserName(String p_strUserName)
+        {
+            m_userName = p_strUserName;
+        }
+    }
+
+    public SaleListDataByUserId saleListDataByUserId = new SaleListDataByUserId();
+    public LiveData<List<Sale>> getSalesByUserName(String p_strUserName)
+    {
+        return saleListDataByStore;
+    }
+    public void InitUserName(String p_strUserName)
+    {
+        if (saleListDataByUserId == null)
+        {
+            saleListDataByUserId = new SaleListDataByUserId();
+        }
+
+        saleListDataByStore.InitStoreId(p_strUserName);
+    }
+
     // region GetSaleBySaleId
 
     public class SaleBySaleIdData extends MutableLiveData<Sale>

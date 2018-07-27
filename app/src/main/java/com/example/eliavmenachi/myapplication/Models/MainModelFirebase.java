@@ -103,8 +103,6 @@ public class MainModelFirebase {
     }
 
 
-
-
     interface GetSaleBySaleId{
         public void onGetData(Sale data);
     }
