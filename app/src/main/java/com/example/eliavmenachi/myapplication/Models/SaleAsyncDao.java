@@ -28,9 +28,18 @@ public class SaleAsyncDao {
                     if (MainAppLocalDb.db.saleDao().getAll() != null)
                     {
                         sList = MainAppLocalDb.db.saleDao().getAll();
+                        //DeleteAllSales(sList);
                     }
                 }
                 return sList;
+            }
+
+            public void DeleteAllSales(List<Sale> p_listToDelete)
+            {
+                for (Sale curr : p_listToDelete)
+                {
+                    MainAppLocalDb.db.saleDao().delete(curr);
+                }
             }
 
             @Override
@@ -54,6 +63,7 @@ public class SaleAsyncDao {
                     if (MainAppLocalDb.db.saleDao().getAll() != null)
                     {
                         sList = MainAppLocalDb.db.saleDao().getSaleBySaleId(SaleId);
+
                     }
                 }
                 return sList;
@@ -95,6 +105,8 @@ public class SaleAsyncDao {
 
         MyAsynchTask task = new MyAsynchTask();
         task.execute();
+
+
     }
 
 
