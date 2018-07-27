@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Models.MainModel;
+import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class SaleListViewModel extends ViewModel {
 
     public LiveData<List<Sale>> getData()
     {
-        data = MainModel.instance.getAllSales();
+        data = SaleModel.instance.getAllSales();
         return data;
     }
 
@@ -21,26 +22,26 @@ public class SaleListViewModel extends ViewModel {
     {
         if (p_bIsGetAllSales == true)
         {
-            data = MainModel.instance.getAllSales();
+            data = SaleModel.instance.getAllSales();
         }
         else {
-            MainModel.instance.InitStoreId(p_strStoreId);
-            data = MainModel.instance.getAllSalesByStoreId(p_strStoreId);
+            SaleModel.instance.InitStoreId(p_strStoreId);
+            data = SaleModel.instance.getAllSalesByStoreId(p_strStoreId);
         }
         return data;
     }
 
     public LiveData<Sale> GetSaleBySaleId(String p_strSaleId)
     {
-        MainModel.instance.InitSaleId(p_strSaleId);
-        LiveData<Sale> currSale = MainModel.instance.getSaleBySaleId(p_strSaleId);;
+        SaleModel.instance.InitSaleId(p_strSaleId);
+        LiveData<Sale> currSale = SaleModel.instance.getSaleBySaleId(p_strSaleId);;
         return currSale;
     }
 
     public LiveData<List<Sale>> getSaleListByUserId(String p_strUserName)
     {
-        MainModel.instance.InitUserName(p_strUserName);
-        LiveData<List<Sale>> results = MainModel.instance.getSalesByUserName(p_strUserName);;
+        SaleModel.instance.InitUserName(p_strUserName);
+        LiveData<List<Sale>> results = SaleModel.instance.getSalesByUserName(p_strUserName);;
         return results;
     }
 }

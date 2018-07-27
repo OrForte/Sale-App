@@ -6,6 +6,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.LinkedList;
@@ -48,4 +49,135 @@ public class SaleModelFirebase {
             }
         });
     }
+
+
+
+
+
+    //region sales's methods
+
+    interface GetAllSalesListener{
+        public void onSuccess(List<Sale> studentslist);
+    }
+
+    ValueEventListener eventListener;
+
+    public void getAllSales(final GetAllSalesListener listener)
+    {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
+        eventListener = stRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Sale> stSales = new LinkedList<>();
+                for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
+                    Sale currSale = stSnapshot.getValue(Sale.class);
+                    if (currSale.active == true) {
+                        stSales.add(currSale);
+                    }
+                }
+
+                listener.onSuccess(stSales);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void cancellGetAllSales() {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
+        stRef.removeEventListener(eventListener);
+    }
+
+
+    interface GetAllSalesByStoreListener{
+        public void onSuccess(List<Sale> results);
+    }
+
+    ValueEventListener eventListener2;
+
+    public void GetAllSalesByStoreId(final String storeId, final GetAllSalesByStoreListener listener)
+    {
+        Query stRef = FirebaseDatabase.getInstance().getReference().child("sale").orderByChild("storeId").equalTo(Integer.parseInt(storeId));
+        eventListener2 = stRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Sale> stSales = new LinkedList<>();
+                for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
+                    Sale currSale = stSnapshot.getValue(Sale.class);
+                    if (currSale.active == true) {
+                        stSales.add(currSale);
+                    }
+                }
+
+                listener.onSuccess(stSales);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    public void cancellGetAllSalesByStoreId() {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
+        stRef.removeEventListener(eventListener);
+    }
+
+
+    interface GetSaleBySaleId{
+        public void onGetData(Sale data);
+    }
+    ValueEventListener eventListener3;
+    public void GetSaleBySaleId(final String saleId, final GetSaleBySaleId listener)
+    {
+        Query stRef = FirebaseDatabase.getInstance().getReference().child("sale").orderByChild("id").equalTo(saleId);
+        eventListener3 = stRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Sale currSale = new Sale();
+                for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
+                    Sale sale = stSnapshot.getValue(Sale.class);
+                    if (sale.active == true) {
+                        currSale = sale;
+                    }
+                }
+                listener.onGetData(currSale);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+    public void cancellGetSalesBySaleId() {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
+        stRef.removeEventListener(eventListener);
+    }
+
+    interface GetSaleByUserName{
+        public void onGetData(List<Sale> data);
+    }
+    ValueEventListener eventListener4;
+
+    public void GetSaleByUserName(final String UserName, final GetSaleByUserName listener)
+    {
+        Query stRef = FirebaseDatabase.getInstance().getReference().child("sale").orderByChild("userId").equalTo(UserName);
+        eventListener4 = stRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Sale> stSales = new LinkedList<>();
+                for (DataSnapshot stSnapshot: dataSnapshot.getChildren()) {
+                    Sale currSale = stSnapshot.getValue(Sale.class);
+                    if (currSale.active) {
+                        stSales.add(currSale);
+                    }
+                }
+
+                listener.onGetData(stSales);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+    //endregion
 }
