@@ -45,6 +45,7 @@ public class EditUserProfileFragment extends Fragment {
     ListData cityListData;
     City selectedCity;
     User currentUser;
+    View rlProgressBar;
 
     @Override
     public void onAttach(Context context) {
@@ -109,6 +110,7 @@ public class EditUserProfileFragment extends Fragment {
         etEmail = view.findViewById(R.id.fragment_edit_user_etEmail);
         etBirthDate = view.findViewById(R.id.fragment_edit_user_etBirthDate);
         spCity = view.findViewById(R.id.fragment_edit_user_spCity);
+        rlProgressBar = view.findViewById(R.id.fragment_edit_user_rlProgressBar);
 
         cityDataModel.getData().observe(this, new Observer<ListData>() {
             @Override
@@ -128,6 +130,8 @@ public class EditUserProfileFragment extends Fragment {
                         }
                         etBirthDate.setText(user.birthDate);
                         etEmail.setText(user.email);
+
+                        rlProgressBar.setVisibility(View.GONE);
                         //myAdapter.notifyDataSetChanged();
                     }
                 });
@@ -183,7 +187,6 @@ public class EditUserProfileFragment extends Fragment {
                 }
             }
         });
-
 
         Button btnUserSales = view.findViewById(R.id.fragment_edit_user_btnUserSales);
         btnUserSales.setOnClickListener(new View.OnClickListener() {
