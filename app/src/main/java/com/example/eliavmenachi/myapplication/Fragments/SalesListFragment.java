@@ -103,7 +103,7 @@ public class SalesListFragment extends Fragment {
 
         dataModel = ViewModelProviders.of(this).get(SaleListViewModel.class);
         /*
-        dataModel.getSaleListByUserId("liorM").observe(this, new Observer<List<Sale>>() {
+        saleListViewModel.getSaleListByUserId("liorM").observe(this, new Observer<List<Sale>>() {
             @Override
             public void onChanged(@Nullable List<Sale> sales) {
 

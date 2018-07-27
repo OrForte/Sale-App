@@ -381,14 +381,14 @@ public class NewSaleFragment extends Fragment {
                         SetListOfCities(data);
                     }
                     /*
-                    citiesNames = dataModel.GetCityNames(listData);
+                    citiesNames = saleListViewModel.GetCityNames(listData);
                     adapterCities = SetAdapter(citiesNames);
                     dropDownCities.setAdapter(adapterCities);
                     int positionCity = adapterCities.getPosition(selectedCityName);
                     dropDownCities.setSelection(positionCity);
 
                     if (city != null) {
-                        mallNames = dataModel.GetMallNamesByCityId(city.id, listData);
+                        mallNames = saleListViewModel.GetMallNamesByCityId(city.id, listData);
                         adapterMalls = SetAdapter(mallNames);
                         dropDownMalls.setAdapter(adapterMalls);
                         int positionMall = adapterMalls.getPosition(selectedMallName);
@@ -396,7 +396,7 @@ public class NewSaleFragment extends Fragment {
                     }
 
                     if (store != null) {
-                        storeNames = dataModel.GetStoreNamesByMallId(mall.id, listData);
+                        storeNames = saleListViewModel.GetStoreNamesByMallId(mall.id, listData);
                         adapterStores = SetAdapter(storeNames);
                         dropDownStores.setAdapter(adapterStores);
                         int positionStore = adapterStores.getPosition(selectedStoreName);

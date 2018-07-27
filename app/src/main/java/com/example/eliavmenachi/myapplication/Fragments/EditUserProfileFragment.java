@@ -51,7 +51,6 @@ public class EditUserProfileFragment extends Fragment {
         super.onAttach(context);
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         cityDataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
-
     }
 
     private void selectSpinnerValue(Spinner spinner, String myString) {
@@ -182,6 +181,19 @@ public class EditUserProfileFragment extends Fragment {
                     Toast.makeText(getActivity(), "User updated successfully!",
                             Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+
+        Button btnUserSales = view.findViewById(R.id.fragment_edit_user_btnUserSales);
+        btnUserSales.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserSalesListFragment fragment = new UserSalesListFragment();
+                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+                tran.replace(R.id.main_container, fragment);
+                tran.addToBackStack(null);
+                tran.commit();
             }
         });
 //        Button btnLoginButton = view.findViewById(R.id.fragment_login_btnLogin);
