@@ -3,12 +3,8 @@ package com.example.eliavmenachi.myapplication.ViewModels;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.User;
-import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.Models.User.UserModel;
-
-import java.util.List;
 
 public class UserViewModel extends ViewModel {
     LiveData<User> data;

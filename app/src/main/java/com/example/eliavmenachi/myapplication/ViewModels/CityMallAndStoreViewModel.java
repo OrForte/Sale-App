@@ -7,7 +7,7 @@ import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
-import com.example.eliavmenachi.myapplication.Models.MainModel;
+import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,7 +18,7 @@ public class CityMallAndStoreViewModel extends ViewModel {
 
     public LiveData<ListData> getData()
     {
-        data = MainModel.instance.getAllCityMalssAndStores();
+        data = CityMallAndStoreModel.instance.getAllCityMalssAndStores();
         return data;
     }
 

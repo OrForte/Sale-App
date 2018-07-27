@@ -4,7 +4,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.example.eliavmenachi.myapplication.Entities.Sale;
-import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
 
 import java.util.List;

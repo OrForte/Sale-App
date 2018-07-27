@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
-import com.example.eliavmenachi.myapplication.Models.MainModel;
 import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
 

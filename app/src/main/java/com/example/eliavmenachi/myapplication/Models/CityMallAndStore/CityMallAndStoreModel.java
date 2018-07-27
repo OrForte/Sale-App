@@ -1,5 +1,8 @@
 package com.example.eliavmenachi.myapplication.Models.CityMallAndStore;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
+
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.CityMallStoreDetails;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
@@ -193,4 +196,41 @@ public class CityMallAndStoreModel {
         }
         return null;
     }*/
+
+
+    //region CityMallAndStoreListData
+
+    public class CityMallAndStoreListData extends MutableLiveData<ListData>
+    {
+        @Override
+        protected void onActive() {
+            super.onActive();
+
+            // 3. get the student list from firebase
+            cityMallAndStoreModelFirebase.GetListOfCitiesMallsAndStores(new CityMallAndStoreModel.GetListOfCitiesMallsAndStoresListener() {
+                @Override
+                public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
+                    // 4. update the live data with the new student list
+                    setValue(data);
+                }
+            });
+        }
+
+        @Override
+        protected void onInactive() {
+            super.onInactive();
+        }
+        public CityMallAndStoreListData()
+        {
+            super();
+            setValue(new ListData());
+        }
+    }
+
+    CityMallAndStoreListData cityMallAndStoreListData = new CityMallAndStoreListData();
+    public LiveData<ListData> getAllCityMalssAndStores() {
+        return cityMallAndStoreListData;
+    }
+
+    //endregion
 }
