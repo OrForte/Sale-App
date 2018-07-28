@@ -40,12 +40,14 @@ public class SalesListFragment extends Fragment {
     ImageView imSalePic;
     String m_selectedStore = "-1";
     boolean m_bGetAllSales = true;
+    int nCounterQuery = 0;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sale_list, container, false);
-
+        nCounterQuery = 0;
         list = view.findViewById(R.id.lvSaleList);
         list.setAdapter(listAdapter);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -60,7 +62,7 @@ public class SalesListFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Sale selectedSaleItem = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).getValue().get(i);
 
-                int nId = 1;
+                int nId = 2;
                 if (nId == 1) {
                     NewSaleFragment fragment = new NewSaleFragment();
                     Bundle args = new Bundle();
@@ -106,8 +108,11 @@ public class SalesListFragment extends Fragment {
         dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).observe(this, new Observer<List<Sale>>() {
             @Override
             public void onChanged(@Nullable List<Sale> sales) {
-                listAdapter.notifyDataSetChanged();
-                Log.d("TAG","notifyDataSetChanged" + sales.size());
+                nCounterQuery++;
+                if (nCounterQuery >= 2) {
+                    listAdapter.notifyDataSetChanged();
+                    Log.d("TAG", "notifyDataSetChanged" + sales.size());
+                }
             }
         });
     }
@@ -132,14 +137,13 @@ public class SalesListFragment extends Fragment {
         @Override
         public int getCount() {
             int nCount = 0;
-            if (dataModel != null)
-            {
-                LiveData<List<Sale>> data = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore);
-                if (data != null)
-                {
-                    if (data.getValue() != null)
-                    {
-                        nCount = data.getValue().size();
+            if (nCounterQuery >= 2) {
+                if (dataModel != null) {
+                    LiveData<List<Sale>> data = dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore);
+                    if (data != null) {
+                        if (data.getValue() != null) {
+                            nCount = data.getValue().size();
+                        }
                     }
                 }
             }
@@ -163,34 +167,35 @@ public class SalesListFragment extends Fragment {
             if (view == null){
                 view = LayoutInflater.from(getActivity()).inflate(R.layout.sale_list_item,null);
             }
+            if (nCounterQuery >= 2) {
+                final Sale currentSale = dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore).getValue().get(i);
+                final int copyI = i;
+                final View copyView = view;
+                final TextView tvCity = view.findViewById(R.id.tvCity);
+                final TextView tvMall = view.findViewById(R.id.tvMall);
+                final TextView tvStore = view.findViewById(R.id.tvStore);
+                final TextView tvDesc = view.findViewById(R.id.tvDescription);
+                tvDesc.setText(currentSale.description);
 
-            final Sale currentSale = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).getValue().get(i);
-            final int copyI = i;
-            final View copyView = view;
-            final TextView tvCity = view.findViewById(R.id.tvCity);
-            final TextView tvMall = view.findViewById(R.id.tvMall);
-            final TextView tvStore = view.findViewById(R.id.tvStore);
-            final TextView tvDesc = view.findViewById(R.id.tvDescription);
-            tvDesc.setText(currentSale.description);
+                String strStoreId = currentSale.storeId + "";
+                tvCity.setText(currentSale.cityName);
+                tvMall.setText(currentSale.mallName);
+                tvStore.setText(currentSale.storeName);
 
-            String strStoreId = currentSale.storeId +"";
-            tvCity.setText(currentSale.cityName);
-            tvMall.setText(currentSale.mallName);
-            tvStore.setText(currentSale.storeName);
+                imSalePic = view.findViewById(R.id.ivSalePic);
+                imSalePic.setImageResource(R.drawable.avatar);
+                imSalePic.setTag(currentSale.id);
 
-            imSalePic = view.findViewById(R.id.ivSalePic);
-            imSalePic.setImageResource(R.drawable.avatar);
-            imSalePic.setTag(currentSale.id);
-
-            if (currentSale.getPictureUrl() != null) {
-                ImageModel.instance.getImage(currentSale.getPictureUrl(), new ImageModel.GetImageListener() {
-                    @Override
-                    public void onDone(Bitmap imageBitmap) {
-                        if (currentSale.id.equals(imSalePic.getTag()) && imageBitmap != null) {
-                            imSalePic.setImageBitmap(imageBitmap);
+                if (currentSale.getPictureUrl() != null) {
+                    ImageModel.instance.getImage(currentSale.getPictureUrl(), new ImageModel.GetImageListener() {
+                        @Override
+                        public void onDone(Bitmap imageBitmap) {
+                            if (currentSale.id.equals(imSalePic.getTag()) && imageBitmap != null) {
+                                imSalePic.setImageBitmap(imageBitmap);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
 
             return view;

@@ -39,6 +39,8 @@ public class SaleDetailsFragment extends Fragment {
     SaleListViewModel dataModelSale;
     boolean bIsOccur = false;
     Sale currSale;
+    View rlProgressBar;
+    int nCounterQuery = 0;
 
     @Override
     public void onAttach(Context context) {
@@ -63,7 +65,8 @@ public class SaleDetailsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sale_details, container, false);
-
+        nCounterQuery = 0;
+        currSale = new Sale();
         imageSale = view.findViewById(R.id.sale_details_image);
         etDescription = view.findViewById(R.id.fragment_sale_details_etDescription);
         etEndDate = view.findViewById(R.id.fragment_sale_Details_etEndDate);
@@ -71,19 +74,23 @@ public class SaleDetailsFragment extends Fragment {
         etCity = view.findViewById(R.id.fragment_sale_details_etCity);
         etMall = view.findViewById(R.id.fragment_sale_details_etMall);
         etStore = view.findViewById(R.id.fragment_sale_details_etStore);
-
+        rlProgressBar = view.findViewById(R.id.fragment_sale_details_rlProgressBar);
+        rlProgressBar.setVisibility(View.VISIBLE);
         String nId ="";
         if (getArguments() != null){
             nId = getArguments().getString("SALE_ID");
             dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
-                    currSale = sale;
+                    nCounterQuery++;
+                    if (nCounterQuery >= 2) {
+                        currSale = sale;
 
-                    etTitle.setText("sale " + currSale.id);
+                        etTitle.setText("sale " + currSale.id);
 
-                    // populate the data
-                    PopulateTheView();
+                        // populate the data
+                        PopulateTheView();
+                    }
                 }
             });
         }
@@ -93,23 +100,28 @@ public class SaleDetailsFragment extends Fragment {
     }
 
     public void PopulateTheView() {
-        etDescription.setText(currSale.description);
-        etEndDate.setText(currSale.endDate);
-        etCity.setText(currSale.cityName);
-        etMall.setText(currSale.mallName);
-        etStore.setText(currSale.storeName);
+        if (currSale != null) {
+            if (currSale.id != null) {
+                etDescription.setText(currSale.description);
+                etEndDate.setText(currSale.endDate);
+                etCity.setText(currSale.cityName);
+                etMall.setText(currSale.mallName);
+                etStore.setText(currSale.storeName);
 
-        imageSale.setImageResource(R.drawable.avatar);
-        imageSale.setTag(currSale.id);
-        if (currSale.getPictureUrl() != null) {
-            ImageModel.instance.getImage(currSale.getPictureUrl(), new ImageModel.GetImageListener() {
-                @Override
-                public void onDone(Bitmap imageBitmap) {
-                    if (currSale.id.equals(imageSale.getTag()) && imageBitmap != null) {
-                        imageSale.setImageBitmap(imageBitmap);
-                    }
+                imageSale.setImageResource(R.drawable.avatar);
+                imageSale.setTag(currSale.id);
+                rlProgressBar.setVisibility(View.GONE);
+                if (currSale.getPictureUrl() != null) {
+                    ImageModel.instance.getImage(currSale.getPictureUrl(), new ImageModel.GetImageListener() {
+                        @Override
+                        public void onDone(Bitmap imageBitmap) {
+                            if (currSale.id.equals(imageSale.getTag()) && imageBitmap != null) {
+                                imageSale.setImageBitmap(imageBitmap);
+                            }
+                        }
+                    });
                 }
-            });
+            }
         }
     }
 }

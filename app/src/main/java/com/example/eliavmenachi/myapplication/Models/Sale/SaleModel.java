@@ -280,19 +280,19 @@ public class SaleModel {
         protected void onActive() {
             super.onActive();
 
-            //SaleAsyncDao.getSaleBySaleId(m_saleId, new SaleAsyncDao.SaleAsynchDaoListener2<List<Sale>>() {
-            //     @Override
-            //    public void onCompleteOneSale(Sale data) {
-            //        setValue(data);
-
-            saleModelFirebase.GetSaleBySaleId(m_saleId, new SaleModelFirebase.GetSaleBySaleId() {
-                @Override
-                public void onGetData(Sale data) {
+            SalesAsyncDao.getSaleBySaleId(m_saleId, new SalesAsyncDao.SaleAsynchDaoListener2<List<Sale>>() {
+                 @Override
+                public void onCompleteOneSale(Sale data) {
                     setValue(data);
-                }
+
+                    saleModelFirebase.GetSaleBySaleId(m_saleId, new SaleModelFirebase.GetSaleBySaleId() {
+                        @Override
+                        public void onGetData(Sale data) {
+                            setValue(data);
+                        }
+                    });
+               }
             });
-            //    }
-            //});
         }
 
         @Override
