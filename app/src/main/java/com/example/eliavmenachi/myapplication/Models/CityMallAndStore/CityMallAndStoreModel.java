@@ -131,18 +131,18 @@ public class CityMallAndStoreModel {
                 @Override
                 public void onComplete(ListData data) {
                     setValue(data);
-                    //cityMallAndStoreModelFirebase.GetListOfCitiesMallsAndStores(new CityMallAndStoreModel.GetListOfCitiesMallsAndStoresListener() {
-                    //    @Override
-                    //    public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
-                    //        setValue(data);
+                    cityMallAndStoreModelFirebase.GetListOfCitiesMallsAndStores(new CityMallAndStoreModel.GetListOfCitiesMallsAndStoresListener() {
+                        @Override
+                        public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
+                            setValue(data);
 
                             CityMallAndStoreAsyncDao.insertAll(data, new CityMallAndStoreAsyncDao.CityMallAndStoreAsynchDaoListener<Boolean>() {
                                 @Override
                                 public void onComplete(Boolean data) {
                                 }
                             });
-                    //    }
-                    //});
+                        }
+                    });
                 }
             });
         }
