@@ -134,7 +134,9 @@ public class CityMallAndStoreModel {
                     cityMallAndStoreModelFirebase.GetListOfCitiesMallsAndStores(new CityMallAndStoreModel.GetListOfCitiesMallsAndStoresListener() {
                         @Override
                         public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
-                            setValue(data);
+                            if (!getValue().equals(data)) {
+                                setValue(data);
+                            }
 
                             CityMallAndStoreAsyncDao.insertAll(data, new CityMallAndStoreAsyncDao.CityMallAndStoreAsynchDaoListener<Boolean>() {
                                 @Override

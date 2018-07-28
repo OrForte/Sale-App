@@ -58,7 +58,9 @@ public class EditUserProfileFragment extends Fragment {
         int index = 0;
         for (int i = 0; i < spinner.getCount(); i++) {
             if (spinner.getItemAtPosition(i).toString().equals(myString)) {
-                spinner.setSelection(i);
+                if (spinner.getSelectedItemPosition() != i) {
+                    spinner.setSelection(i);
+                }
                 break;
             }
         }
@@ -77,18 +79,14 @@ public class EditUserProfileFragment extends Fragment {
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                onSelectedCity(adapterView, view, position, l);
+                String selectedCityName = adapterView.getItemAtPosition(position).toString();
+                selectedCity = cityDataModel.GetCityByCityName(selectedCityName, cityListData);
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-    }
-
-    public void onSelectedCity(AdapterView<?> adapterView, View view, final int position, long l) {
-        String selectedCityName = adapterView.getItemAtPosition(position).toString();
-        selectedCity = cityDataModel.GetCityByCityName(selectedCityName, cityListData);
     }
 
     public ArrayAdapter<String> setAdapter(List<String> collection) {

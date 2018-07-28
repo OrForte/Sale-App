@@ -351,8 +351,8 @@ public class NewSaleFragment extends Fragment {
         if (selectedMall != null)
         {
             mallId = selectedMall.id;
+            storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
         }
-        storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
         adapterStores = SetAdapter(storeNames);
         dropDownStores.setAdapter(adapterStores);
         int positionStore = adapterStores.getPosition(selectedStoreName);
