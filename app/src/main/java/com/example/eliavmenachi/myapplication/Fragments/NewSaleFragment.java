@@ -79,6 +79,8 @@ public class NewSaleFragment extends Fragment {
     boolean bIsOccur = false;
     boolean bUpdateMode = false;
     String m_SaleListTypeParams = "";
+    int nCounterQuery = 0;
+    View rlProgressBar;
 
     @Override
     public void onAttach(Context context) {
@@ -122,7 +124,7 @@ public class NewSaleFragment extends Fragment {
         etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
         etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
         title = view.findViewById(R.id.fragment_register_tvRegister);
-
+        rlProgressBar = view.findViewById(R.id.fragment_new_sale_rlProgressBar);
         dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
         dataModelSale = ViewModelProviders.of(this).get(SaleListViewModel.class);
         dataModel.getData().observe(this, new Observer<ListData>() {
@@ -147,15 +149,22 @@ public class NewSaleFragment extends Fragment {
             dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
-                    newSale = sale;
+                    nCounterQuery++;
+                    if (nCounterQuery >= 2) {
+                        newSale = sale;
 
-                    title.setText("sale " + newSale.id);
-                    btnSave.setText("update");
-                    btnCancelOrDelete.setText("delete");
-                    // populate the data
-                    PopulateTheView();
+                        title.setText("sale " + newSale.id);
+                        btnSave.setText("update");
+                        btnCancelOrDelete.setText("delete");
+                        // populate the data
+                        PopulateTheView();
+                    }
                 }
             });
+        }
+        else
+        {
+            rlProgressBar.setVisibility(View.GONE);
         }
 
         btnSave.setOnClickListener(new View.OnClickListener()
@@ -208,6 +217,7 @@ public class NewSaleFragment extends Fragment {
                             if (b_isDelete == true) {
                                 Toast.makeText(getActivity(), "delete sale successfully",
                                         Toast.LENGTH_LONG).show();
+                                GetToSaleListFragments();
                             }
                         }
                     });
@@ -434,6 +444,8 @@ public class NewSaleFragment extends Fragment {
                     if (selectedCityName != null && selectedStoreName != null && selectedMallName != null) {
                         SetListOfCities(data);
                     }
+
+                    rlProgressBar.setVisibility(View.GONE);
                     /*
                     citiesNames = saleListViewModel.GetCityNames(listData);
                     adapterCities = SetAdapter(citiesNames);

@@ -1,211 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/fragment_register_tvRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="108dp"
-        android:text="New Sale"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_new_sale_rlProgressBar">
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/new_sale_image"
-        android:layout_width="200dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="60dp"
-        android:src="@drawable/avatar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/new_sale_img_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Add Image Sale"
-        app:layout_constraintBottom_toBottomOf="@+id/new_sale_image"
-        app:layout_constraintStart_toEndOf="@+id/new_sale_image" />
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+             <TextView
+                 android:id="@+id/fragment_register_tvRegister"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginStart="108dp"
+                 android:text="New Sale"
+                 android:textSize="48sp"
+                 android:textStyle="bold"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/fragment_new_sale_tvDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Description:"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvEndDate"
-        app:layout_constraintTop_toBottomOf="@+id/new_sale_image" />
+             <ImageView
+                 android:id="@+id/new_sale_image"
+                 android:layout_width="200dp"
+                 android:layout_height="120dp"
+                 android:layout_marginStart="32dp"
+                 android:layout_marginTop="60dp"
+                 android:src="@drawable/avatar"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/fragment_new_sale_etDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="..."
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvDescription" />
+             <Button
+                 android:id="@+id/new_sale_img_btn"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginBottom="8dp"
+                 android:layout_marginStart="8dp"
+                 android:text="Add Image Sale"
+                 app:layout_constraintBottom_toBottomOf="@+id/new_sale_image"
+                 app:layout_constraintStart_toEndOf="@+id/new_sale_image" />
 
-    <TextView
-        android:id="@+id/fragment_new_sale_tvEndDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="End Date:"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCity"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvDescription" />
+             <TextView
+                 android:id="@+id/fragment_new_sale_tvDescription"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="24dp"
+                 android:text="Description:"
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvEndDate"
+                 app:layout_constraintTop_toBottomOf="@+id/new_sale_image" />
 
-    <com.example.eliavmenachi.myapplication.DateEditText
-        android:id="@+id/fragment_new_sale_etEndDate"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="..."
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvEndDate"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvEndDate" />
+             <EditText
+                 android:id="@+id/fragment_new_sale_etDescription"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginEnd="24dp"
+                 android:layout_marginStart="24dp"
+                 android:ems="10"
+                 android:inputType="textPersonName"
+                 android:text="..."
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvDescription"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvDescription" />
+
+             <TextView
+                 android:id="@+id/fragment_new_sale_tvEndDate"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="24dp"
+                 android:text="End Date:"
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCity"
+                 app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvDescription" />
+
+             <com.example.eliavmenachi.myapplication.DateEditText
+                 android:id="@+id/fragment_new_sale_etEndDate"
+                 android:layout_width="0dp"
+                 android:layout_height="50dp"
+                 android:layout_marginEnd="24dp"
+                 android:layout_marginStart="24dp"
+                 android:ems="10"
+                 android:inputType="textPersonName"
+                 android:text="..."
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvEndDate"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvEndDate" />
 
 
-    <TextView
-        android:id="@+id/fragment_new_sale_tvCity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="City:"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCatrgory"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvEndDate" />
+             <TextView
+                 android:id="@+id/fragment_new_sale_tvCity"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="24dp"
+                 android:text="City:"
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCatrgory"
+                 app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvEndDate" />
 
 
-    <Spinner
-        android:id="@+id/fragment_new_sale_etCity"
-        android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:ems="10"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvCity"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etEndDate" />
+             <Spinner
+                 android:id="@+id/fragment_new_sale_etCity"
+                 android:layout_width="0dp"
+                 android:layout_height="42dp"
+                 android:layout_marginEnd="24dp"
+                 android:layout_marginStart="24dp"
+                 android:layout_marginTop="10dp"
+                 android:background="@android:drawable/btn_dropdown"
+                 android:ems="10"
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvCity"
+                 app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etEndDate" />
 
-    <TextView
-        android:id="@+id/fragment_new_sale_tvMall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Mall:"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvStore"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvCity" />
+             <TextView
+                 android:id="@+id/fragment_new_sale_tvMall"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="24dp"
+                 android:text="Mall:"
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvStore"
+                 app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvCity" />
 
-    <Spinner
-        android:id="@+id/fragment_new_sale_etMall"
-        android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:ems="10"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvMall"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etCity" />
+             <Spinner
+                 android:id="@+id/fragment_new_sale_etMall"
+                 android:layout_width="0dp"
+                 android:layout_height="42dp"
+                 android:layout_marginEnd="24dp"
+                 android:layout_marginStart="24dp"
+                 android:layout_marginTop="10dp"
+                 android:background="@android:drawable/btn_dropdown"
+                 android:ems="10"
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvMall"
+                 app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etCity" />
 
-    <TextView
-        android:id="@+id/fragment_new_sale_tvStore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Store:"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCatrgory"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvMall" />
+             <TextView
+                 android:id="@+id/fragment_new_sale_tvStore"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="24dp"
+                 android:text="Store:"
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCatrgory"
+                 app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvMall" />
 
-    <Spinner
-        android:id="@+id/fragment_new_sale_etStore"
-        android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="10dp"
-        android:background="@android:drawable/btn_dropdown"
-        android:ems="10"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvStore"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etMall" />
+             <Spinner
+                 android:id="@+id/fragment_new_sale_etStore"
+                 android:layout_width="0dp"
+                 android:layout_height="42dp"
+                 android:layout_marginEnd="24dp"
+                 android:layout_marginStart="24dp"
+                 android:layout_marginTop="10dp"
+                 android:background="@android:drawable/btn_dropdown"
+                 android:ems="10"
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvStore"
+                 app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etMall" />
 
-    <TextView
-        android:id="@+id/fragment_new_sale_tvCatrgory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Category:"
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/new_sale_image"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvStore" />
+             <TextView
+                 android:id="@+id/fragment_new_sale_tvCatrgory"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_marginTop="24dp"
+                 android:text="Category:"
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintStart_toStartOf="@+id/new_sale_image"
+                 app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvStore" />
 
-    <EditText
-        android:id="@+id/fragment_new_sale_etCatrgory"
-        android:layout_width="0dp"
-        android:layout_height="42dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginStart="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="..."
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvCatrgory"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvCatrgory" />
+             <EditText
+                 android:id="@+id/fragment_new_sale_etCatrgory"
+                 android:layout_width="0dp"
+                 android:layout_height="42dp"
+                 android:layout_marginEnd="24dp"
+                 android:layout_marginStart="24dp"
+                 android:ems="10"
+                 android:inputType="textPersonName"
+                 android:text="..."
+                 android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                 app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_tvCatrgory"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvCatrgory" />
 
-    <Button
-        android:id="@+id/fragment_new_sale_btnSaveSale"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="12dp"
-        android:layout_marginTop="24dp"
-        android:text="SAVE SALE"
-        app:layout_constraintEnd_toStartOf="@+id/fragment_new_sale_btnCancelSale"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="spread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvCatrgory" />
+             <Button
+                 android:id="@+id/fragment_new_sale_btnSaveSale"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="24dp"
+                 android:layout_marginRight="12dp"
+                 android:layout_marginTop="24dp"
+                 android:text="SAVE SALE"
+                 app:layout_constraintEnd_toStartOf="@+id/fragment_new_sale_btnCancelSale"
+                 app:layout_constraintHorizontal_bias="0.5"
+                 app:layout_constraintHorizontal_chainStyle="spread"
+                 app:layout_constraintStart_toStartOf="parent"
+                 app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvCatrgory" />
 
-    <Button
-        android:id="@+id/fragment_new_sale_btnCancelSale"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="24dp"
-        android:text="CANCEL SALE"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_btnSaveSale"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_btnSaveSale" />
+             <Button
+                 android:id="@+id/fragment_new_sale_btnCancelSale"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_marginLeft="12dp"
+                 android:layout_marginRight="24dp"
+                 android:text="CANCEL SALE"
+                 app:layout_constraintBaseline_toBaselineOf="@+id/fragment_new_sale_btnSaveSale"
+                 app:layout_constraintEnd_toEndOf="parent"
+                 app:layout_constraintHorizontal_bias="0.5"
+                 app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_btnSaveSale" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

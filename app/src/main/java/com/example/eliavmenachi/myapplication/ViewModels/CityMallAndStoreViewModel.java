@@ -65,7 +65,7 @@ public class CityMallAndStoreViewModel extends ViewModel {
         for (Iterator iterator = listData.cities.iterator(); iterator.hasNext();)
         {
             City city = (City) iterator.next();
-            if (selectedCityName == city.name)
+            if (selectedCityName.equals(city.name))
             {
                 return city;
             }
@@ -91,7 +91,7 @@ public class CityMallAndStoreViewModel extends ViewModel {
         for (Iterator iterator = listData.malls.iterator(); iterator.hasNext();)
         {
             Mall mall = (Mall) iterator.next();
-            if (selectedMallName == mall.name)
+            if (selectedMallName.equals(mall.name))
             {
                 return mall;
             }
@@ -117,7 +117,7 @@ public class CityMallAndStoreViewModel extends ViewModel {
         for (Iterator iterator = listData.stores.iterator(); iterator.hasNext();)
         {
             Store store = (Store) iterator.next();
-            if (selectedStoreName == store.name)
+            if (selectedStoreName.equals(store.name))
             {
                 return store;
             }

@@ -64,7 +64,7 @@ public class SalesListFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Sale selectedSaleItem = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).getValue().get(i);
 
-                int nId = 2;
+                int nId = 1;
                 if (nId == 1) {
                     NewSaleFragment fragment = new NewSaleFragment();
                     Bundle args = new Bundle();
@@ -110,12 +110,12 @@ public class SalesListFragment extends Fragment {
         dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).observe(this, new Observer<List<Sale>>() {
             @Override
             public void onChanged(@Nullable List<Sale> sales) {
-                nCounterQuery++;
-                if (nCounterQuery >= 2) {
+                //nCounterQuery++;
+                //if (nCounterQuery >= 2) {
                     listAdapter.notifyDataSetChanged();
                     Log.d("TAG", "notifyDataSetChanged" + sales.size());
                     rlProgressBar.setVisibility(View.GONE);
-                }
+                //}
             }
         });
     }
@@ -140,7 +140,7 @@ public class SalesListFragment extends Fragment {
         @Override
         public int getCount() {
             int nCount = 0;
-            if (nCounterQuery >= 2) {
+            //if (nCounterQuery >= 2) {
                 if (dataModel != null) {
                     LiveData<List<Sale>> data = dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore);
                     if (data != null) {
@@ -149,7 +149,7 @@ public class SalesListFragment extends Fragment {
                         }
                     }
                 }
-            }
+            //}
             return nCount;
         }
 
@@ -170,7 +170,7 @@ public class SalesListFragment extends Fragment {
             if (view == null){
                 view = LayoutInflater.from(getActivity()).inflate(R.layout.sale_list_item,null);
             }
-            if (nCounterQuery >= 2) {
+            //if (nCounterQuery >= 2) {
                 final Sale currentSale = dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore).getValue().get(i);
                 final int copyI = i;
                 final View copyView = view;
@@ -199,7 +199,7 @@ public class SalesListFragment extends Fragment {
                         }
                     });
                 }
-            }
+            //}
 
             return view;
         }
