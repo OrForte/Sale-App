@@ -28,6 +28,7 @@ public class UserModelFirebase {
 
     interface getUserByUsernamePasswordListener {
         public void onSuccess(User user);
+        public void onFailure();
     }
 
     public void getUserByUsernamePassword(String username, final String password, final getUserByUsernamePasswordListener listener) {
@@ -45,7 +46,7 @@ public class UserModelFirebase {
                 if (user != null && user.password.equals(password)) {
                     listener.onSuccess(user);
                 } else {
-                    listener.onSuccess(null);
+                    listener.onFailure();
                 }
             }
 

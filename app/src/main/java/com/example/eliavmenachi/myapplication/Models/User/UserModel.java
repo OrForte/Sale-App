@@ -92,6 +92,11 @@ public class UserModel {
                                     }
                                 });
                             }
+
+                            @Override
+                            public void onFailure() {
+                                setValue(null);
+                            }
                         });
                     }
                 });

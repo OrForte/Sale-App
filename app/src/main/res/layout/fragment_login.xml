@@ -34,17 +34,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/fragment_login_etPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:inputType="textNoSuggestions|textPassword"
-        app:layout_constraintStart_toEndOf="@+id/fragment_login_tvPassword"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_login_etUsername" />
-
-    <EditText
         android:id="@+id/fragment_login_etUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,6 +43,17 @@
         android:inputType="textNoSuggestions|textPersonName"
         app:layout_constraintStart_toEndOf="@+id/fragement_login_tvUsername"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/fragment_login_etPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textNoSuggestions|textPassword"
+        app:layout_constraintStart_toEndOf="@+id/fragment_login_tvPassword"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_etUsername" />
 
     <Button
         android:id="@+id/fragment_login_btnLogin"
