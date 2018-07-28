@@ -41,6 +41,7 @@ public class SalesListFragment extends Fragment {
     String m_selectedStore = "-1";
     boolean m_bGetAllSales = true;
     int nCounterQuery = 0;
+    View rlProgressBar;
 
 
     @Override
@@ -56,6 +57,7 @@ public class SalesListFragment extends Fragment {
                 Log.d("TAG","item selected:" + i);
             }
         });
+        rlProgressBar = view.findViewById(R.id.fragment_sale_list_rlProgressBar);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -112,6 +114,7 @@ public class SalesListFragment extends Fragment {
                 if (nCounterQuery >= 2) {
                     listAdapter.notifyDataSetChanged();
                     Log.d("TAG", "notifyDataSetChanged" + sales.size());
+                    rlProgressBar.setVisibility(View.GONE);
                 }
             }
         });
