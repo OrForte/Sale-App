@@ -136,13 +136,13 @@ public class CityMallAndStoreModel {
                         public void onGetListOfCitiesMallsANdStoresResults(ListData data) {
                             if (!getValue().equals(data)) {
                                 setValue(data);
-                            }
 
-                            CityMallAndStoreAsyncDao.insertAll(data, new CityMallAndStoreAsyncDao.CityMallAndStoreAsynchDaoListener<Boolean>() {
-                                @Override
-                                public void onComplete(Boolean data) {
-                                }
-                            });
+                                CityMallAndStoreAsyncDao.insertAll(data, new CityMallAndStoreAsyncDao.CityMallAndStoreAsynchDaoListener<Boolean>() {
+                                    @Override
+                                    public void onComplete(Boolean data) {
+                                    }
+                                });
+                            }
                         }
                     });
                 }
