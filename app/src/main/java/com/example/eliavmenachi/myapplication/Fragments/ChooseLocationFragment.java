@@ -150,8 +150,8 @@ public class ChooseLocationFragment extends Fragment {
         if (selectedMall != null)
         {
             mallId = selectedMall.id;
+            storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
         }
-        storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
         ArrayAdapter<String> adapter = SetAdapter(storeNames);
         dropDownStores.setAdapter(adapter);
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
