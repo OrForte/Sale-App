@@ -83,6 +83,46 @@ public class NewSaleFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        /*
+        dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
+        dataModelSale = ViewModelProviders.of(this).get(SaleListViewModel.class);
+        dataModel.getData().observe(this, new Observer<ListData>() {
+            @Override
+            public void onChanged(@Nullable ListData listData) {
+                if (!bIsOccur) {
+                    if (listData != null) {
+                        if (listData.cities.size() != 0 && listData.malls.size() != 0&& listData.stores.size() != 0) {
+                            bIsOccur = true;
+                            SetListOfCities(listData);
+                        }
+                    }
+                }
+            }
+        });*/
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+        bIsOccur = false;
+        View view = inflater.inflate(R.layout.fragment_new_sale, container, false);
+        dropDownCities = view.findViewById(R.id.fragment_new_sale_etCity);
+        dropDownMalls = view.findViewById(R.id.fragment_new_sale_etMall);
+        dropDownStores = view.findViewById(R.id.fragment_new_sale_etStore);
+        btnSave = view.findViewById(R.id.fragment_new_sale_btnSaveSale);
+        btnCancelOrDelete = view.findViewById(R.id.fragment_new_sale_btnCancelSale);
+        imageSale = view.findViewById(R.id.new_sale_image);
+        etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
+        etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
+        title = view.findViewById(R.id.fragment_register_tvRegister);
+
         dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
         dataModelSale = ViewModelProviders.of(this).get(SaleListViewModel.class);
         dataModel.getData().observe(this, new Observer<ListData>() {
@@ -98,29 +138,6 @@ public class NewSaleFragment extends Fragment {
                 }
             }
         });
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-
-
-        View view = inflater.inflate(R.layout.fragment_new_sale, container, false);
-        dropDownCities = view.findViewById(R.id.fragment_new_sale_etCity);
-        dropDownMalls = view.findViewById(R.id.fragment_new_sale_etMall);
-        dropDownStores = view.findViewById(R.id.fragment_new_sale_etStore);
-        btnSave = view.findViewById(R.id.fragment_new_sale_btnSaveSale);
-        btnCancelOrDelete = view.findViewById(R.id.fragment_new_sale_btnCancelSale);
-        imageSale = view.findViewById(R.id.new_sale_image);
-        etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
-        etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
-        title = view.findViewById(R.id.fragment_register_tvRegister);
 
         String nId ="";
         if (getArguments() != null){
