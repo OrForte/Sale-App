@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,6 +77,13 @@ public class EditUserProfileFragment extends Fragment {
         // set the drop down cities
         spCity.setAdapter(adapter);
 
+        if (currentUser != null) {
+            if (cityListData.cities.size() > 0) {
+                int selectedCityIndex = ((ArrayAdapter<String>)spCity.getAdapter()).getPosition(cityDataModel.GetCityByCityId(currentUser.city, cityListData).name);
+                spCity.setSelection(selectedCityIndex);
+            }
+        }
+
         spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -124,7 +132,10 @@ public class EditUserProfileFragment extends Fragment {
                         etLastName.setText(user.lastName);
 
                         if (cityListData.cities.size() > 0) {
-                            selectSpinnerValue(spCity, cityDataModel.GetCityByCityId(user.city, cityListData).name);
+                            int selectedCityIndex = ((ArrayAdapter<String>)spCity.getAdapter()).getPosition(cityDataModel.GetCityByCityId(user.city, cityListData).name);
+                            spCity.setSelection(selectedCityIndex);
+                            // adapterCities.getPosition(selectedCityName);
+                            //selectSpinnerValue(spCity, cityDataModel.GetCityByCityId(user.city, cityListData).name);
                         }
                         etBirthDate.setText(user.birthDate);
                         etEmail.setText(user.email);
@@ -135,6 +146,7 @@ public class EditUserProfileFragment extends Fragment {
                 });
             }
         });
+
 
 //        userViewModel.getCurrentUser().observe(EditUserProfileFragment.this, new Observer<User>() {
 //            @Override
@@ -195,6 +207,31 @@ public class EditUserProfileFragment extends Fragment {
                 tran.replace(R.id.main_container, fragment);
                 tran.addToBackStack(null);
                 tran.commit();
+            }
+        });
+
+        Button btnLogut = view.findViewById(R.id.fragment_edit_user_btnLogout);
+        btnUserSales.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userViewModel.logoutCurrentUser(new UserViewModel.LogoutCompleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getActivity(), "User was logout successfully!",
+                                Toast.LENGTH_LONG).show();
+
+                        UserSalesListFragment fragment = new UserSalesListFragment();
+                        FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+                        tran.replace(R.id.main_container, fragment);
+                        tran.commit();
+                    }
+
+                    @Override
+                    public void onFailure() {
+                        Toast.makeText(getActivity(), "Logout has faild!",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 //        Button btnLoginButton = view.findViewById(R.id.fragment_login_btnLogin);
