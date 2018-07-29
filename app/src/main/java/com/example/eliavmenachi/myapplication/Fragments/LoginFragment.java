@@ -100,7 +100,7 @@ public class LoginFragment extends Fragment {
                     }
                 });
                 */
-
+                // TODO: need to change to view model...
                 UserAuthModel.instance.signIn(strUsername, strPassword, new UserAuthModelFirebase.SigninCallback() {
                     @Override
                     public void onSuccess(String userID, String userName) {

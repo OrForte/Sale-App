@@ -34,6 +34,7 @@ import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
@@ -318,30 +319,27 @@ public class NewSaleFragment extends Fragment {
         //newSale.userId = "liorM";
         newSale.active = true;
 
-        userViewModel.getCurrentUser().observe(NewSaleFragment.this, new Observer<User>() {
-            @Override
-            public void onChanged(@Nullable User user) {
-                if (user != null) {
-                    newSale.userId = user.id;
-                }
-                // setting image details
-                if (imageBitmap != null) {
-                    ImageModel.instance.saveImage(imageBitmap, new ImageModel.SaveImageListener() {
-                        @Override
-                        public void onDone(String url) {
-                            newSale.pictureUrl = url;
-                            SaleModel.instance.addPost(newSale);
-                            GetToSaleListFragments();
-                        }
-                    });
-                }
-                else
-                {
+        // TODO: need to change to view model...
+        final User data = UserAuthModel.instance.getCurrentUser();
+        if (data != null) {
+            newSale.userId = data.id;
+        }
+        // setting image details
+        if (imageBitmap != null) {
+            ImageModel.instance.saveImage(imageBitmap, new ImageModel.SaveImageListener() {
+                @Override
+                public void onDone(String url) {
+                    newSale.pictureUrl = url;
                     SaleModel.instance.addPost(newSale);
                     GetToSaleListFragments();
                 }
-            }
-        });
+            });
+        }
+        else
+        {
+            SaleModel.instance.addPost(newSale);
+            GetToSaleListFragments();
+        }
     }
 
     public void OnSelectedCity(AdapterView<?> adapterView, View view, final int position, long l)

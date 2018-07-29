@@ -21,6 +21,7 @@ import com.example.eliavmenachi.myapplication.Fragments.LoginFragment;
 import com.example.eliavmenachi.myapplication.Fragments.NewSaleFragment;
 import com.example.eliavmenachi.myapplication.Fragments.SalesListFragment;
 import com.example.eliavmenachi.myapplication.Fragments.ChooseLocationFragment;
+import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
@@ -42,10 +43,9 @@ public class SalesActivity extends AppCompatActivity {
             SalesListFragment fragment = new SalesListFragment();
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
             tran.add(R.id.main_container, fragment);
-            //tran.addToBackStack("tag");
             tran.commit();
         }
-
+        /*
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
         userViewModel.getCurrentUser().observe(this, new Observer<User>() {
@@ -54,7 +54,10 @@ public class SalesActivity extends AppCompatActivity {
                 currentUser = user;
                 SalesActivity.this.invalidateOptionsMenu();
             }
-        });
+        });*/
+
+        // TODO: need to change to view model...
+        currentUser = UserAuthModel.instance.getCurrentUser();
     }
 
     @Override

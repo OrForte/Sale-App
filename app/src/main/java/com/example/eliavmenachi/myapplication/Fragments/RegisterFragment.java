@@ -62,7 +62,8 @@ public class RegisterFragment extends Fragment {
                 user.id = userNameEt.getText().toString();
 
                 //UserModel.instance.addUser(user);
-
+                
+                // TODO: need to change to view model...
                 UserAuthModel.instance.createUser(user, new UserAuthModelFirebase.CreateUserCallback() {
                     @Override
                     public void onSuccess(String userID, String userName) {

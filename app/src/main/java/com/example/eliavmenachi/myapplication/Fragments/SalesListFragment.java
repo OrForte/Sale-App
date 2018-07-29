@@ -27,6 +27,7 @@ import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
+import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
 import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
@@ -61,6 +62,7 @@ public class SalesListFragment extends Fragment {
         });
         rlProgressBar = view.findViewById(R.id.fragment_sale_list_rlProgressBar);
 
+        /*
         userViewModel.getCurrentUser().observe(SalesListFragment.this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
@@ -68,7 +70,10 @@ public class SalesListFragment extends Fragment {
                     currentUser = user;
                 }
             }
-        });
+        });*/
+
+        // TODO: need to change to view model...
+        currentUser = UserAuthModel.instance.getCurrentUser();
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

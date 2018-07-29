@@ -241,6 +241,7 @@ public class EditUserProfileFragment extends Fragment {
             }
         });*/
 
+        // TODO: need to change to view model...
         btnLogut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
