@@ -25,9 +25,11 @@ import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.City;
+import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
+import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
 import java.util.List;
 
@@ -41,7 +43,8 @@ public class SalesListFragment extends Fragment {
     boolean m_bGetAllSales = true;
     int nCounterQuery = 0;
     View rlProgressBar;
-
+    UserViewModel userViewModel;
+    User currentUser;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,37 +61,64 @@ public class SalesListFragment extends Fragment {
         });
         rlProgressBar = view.findViewById(R.id.fragment_sale_list_rlProgressBar);
 
+        userViewModel.getCurrentUser().observe(SalesListFragment.this, new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User user) {
+                if (user != null){
+                    currentUser = user;
+                }
+            }
+        });
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Sale selectedSaleItem = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).getValue().get(i);
 
-                int nId = 1;
-                if (nId == 1) {
-                    NewSaleFragment fragment = new NewSaleFragment();
-                    Bundle args = new Bundle();
-                    args.putString("SALE_ID", selectedSaleItem.id);
-                    args.putString(Consts.instance.SALE_LIST_TYPE, Consts.instance.ALL);
-                    fragment.setArguments(args);
-                    FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-                    tran.replace(R.id.main_container, fragment);
-                    tran.addToBackStack(null);
-                    tran.commit();
+                if (currentUser  == null)
+                {
+                    setSaleDetailsFragments(selectedSaleItem);
                 }
-                else if (nId == 2) {
-                    SaleDetailsFragment fragment = new SaleDetailsFragment();
-                    Bundle args = new Bundle();
-                    args.putString("SALE_ID", selectedSaleItem.id);
-                    fragment.setArguments(args);
-                    FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-                    tran.replace(R.id.main_container, fragment);
-                    tran.addToBackStack(null);
-                    tran.commit();
+                else
+                {
+                    if (currentUser.id.equals(selectedSaleItem.userId))
+                    {
+                        setNewSaleFragments(selectedSaleItem);
+                        }
+                    else {
+                        setSaleDetailsFragments(selectedSaleItem);
+                    }
                 }
             }
         });
 
+
         return view;
+    }
+
+    public void  setNewSaleFragments(Sale selectedSaleItem)
+    {
+        NewSaleFragment fragment = new NewSaleFragment();
+        Bundle args = new Bundle();
+        args.putString("SALE_ID", selectedSaleItem.id);
+        args.putString(Consts.instance.SALE_LIST_TYPE, Consts.instance.ALL);
+        fragment.setArguments(args);
+        FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+        tran.replace(R.id.main_container, fragment);
+        tran.addToBackStack(null);
+        tran.commit();
+    }
+
+    public void setSaleDetailsFragments(Sale selectedSaleItem)
+    {
+        SaleDetailsFragment fragment = new SaleDetailsFragment();
+        Bundle args = new Bundle();
+        args.putString("SALE_ID", selectedSaleItem.id);
+        fragment.setArguments(args);
+        FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+        tran.replace(R.id.main_container, fragment);
+        tran.addToBackStack(null);
+        tran.commit();
     }
 
     @Override
@@ -105,6 +135,7 @@ public class SalesListFragment extends Fragment {
             m_bGetAllSales = true;
         }
 
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         dataModel = ViewModelProviders.of(this).get(SaleListViewModel.class);
         dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).observe(this, new Observer<List<Sale>>() {
             @Override

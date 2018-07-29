@@ -40,6 +40,7 @@ public class UserSalesListFragment extends Fragment {
     ListAdapter listAdapter = new ListAdapter();
     ListData listData;
     ImageView imSalePic;
+    View rlProgressBar;
 
     private User currentUser;
     UserViewModel userViewModel;
@@ -49,6 +50,8 @@ public class UserSalesListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.sale_list, container, false);
         list = view.findViewById(R.id.lvSaleList);
+        rlProgressBar = view.findViewById(R.id.fragment_sale_list_rlProgressBar);
+
 
         userViewModel.getCurrentUser().observe(this, new Observer<User>() {
             @Override
@@ -97,13 +100,16 @@ public class UserSalesListFragment extends Fragment {
             @Override
             public void onChanged(@Nullable User user) {
                 currentUser = user;
-                saleListViewModel.getSaleListByUserId(currentUser.id).observe(UserSalesListFragment.this, new Observer<List<Sale>>() {
-                    @Override
-                    public void onChanged(@Nullable List<Sale> sales) {
-                        listAdapter.notifyDataSetChanged();
-                        Log.d("TAG", "notifyDataSetChanged" + sales.size());
-                    }
-                });
+                if (currentUser != null) {
+                    saleListViewModel.getSaleListByUserId(currentUser.id).observe(UserSalesListFragment.this, new Observer<List<Sale>>() {
+                        @Override
+                        public void onChanged(@Nullable List<Sale> sales) {
+                            listAdapter.notifyDataSetChanged();
+                            Log.d("TAG", "notifyDataSetChanged" + sales.size());
+                            rlProgressBar.setVisibility(View.GONE);
+                        }
+                    });
+                }
             }
         });
     }
