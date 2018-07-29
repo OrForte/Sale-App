@@ -97,19 +97,19 @@ public class UserAuthModelFirebase {
         void onSuccess(String userID, String userName);
         void onFailed(String message);
     }
-    public void createUserWithEmailAndPassword(final String userName,
-                                               final String email,
-                                               final String password,
+    public void createUserWithEmailAndPassword(final User userToAdd,
                                                final CreateUserCallback callback) {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(userToAdd.email, userToAdd.password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()){
+                    String exception = task.getException().getMessage();
                     callback.onFailed("Registretion failed");
                 } else {
 
                     FirebaseUser firebaseUser = task.getResult().getUser();
-                    updateUserProfile(firebaseUser, userName, callback);
+                    updateUserProfile(firebaseUser, userToAdd.username, callback);
                 }
             }
         });

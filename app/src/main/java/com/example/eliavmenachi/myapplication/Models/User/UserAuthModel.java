@@ -41,12 +41,10 @@ public class UserAuthModel {
         });
     }
 
-    public void createUser(final String userName,
-                           final String email,
-                           final String password,
+    public void createUser(User userToAdd,
                            final UserAuthModelFirebase.CreateUserCallback callback){
 
-        userAuthModelFirebase.createUserWithEmailAndPassword(userName, email, password, new UserAuthModelFirebase.CreateUserCallback() {
+        userAuthModelFirebase.createUserWithEmailAndPassword(userToAdd, new UserAuthModelFirebase.CreateUserCallback() {
             @Override
             public void onSuccess(String userID, String userName) {
                 //userDbHelper.addUser(new User(userID, userName, email, password));

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
+import com.example.eliavmenachi.myapplication.Models.User.UserAuthModelFirebase;
 import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
 
@@ -57,7 +59,18 @@ public class RegisterFragment extends Fragment {
                 user.username = userNameEt.getText().toString();
                 user.id = userNameEt.getText().toString();
 
-                UserModel.instance.addUser(user);
+                //UserModel.instance.addUser(user);
+                UserAuthModel.instance.createUser(user, new UserAuthModelFirebase.CreateUserCallback() {
+                    @Override
+                    public void onSuccess(String userID, String userName) {
+
+                    }
+
+                    @Override
+                    public void onFailed(String message) {
+
+                    }
+                });
             }
         });
 
