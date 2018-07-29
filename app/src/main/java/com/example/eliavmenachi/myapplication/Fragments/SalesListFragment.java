@@ -37,7 +37,6 @@ public class SalesListFragment extends Fragment {
     SalesListFragment.ListAdapter listAdapter = new SalesListFragment.ListAdapter();;
     SaleListViewModel dataModel;
     ListData listData;
-    ImageView imSalePic;
     String m_selectedStore = "-1";
     boolean m_bGetAllSales = true;
     int nCounterQuery = 0;
@@ -185,7 +184,7 @@ public class SalesListFragment extends Fragment {
                 tvMall.setText(currentSale.mallName);
                 tvStore.setText(currentSale.storeName);
 
-                imSalePic = view.findViewById(R.id.ivSalePic);
+                final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
                 imSalePic.setImageResource(R.drawable.avatar);
                 imSalePic.setTag(currentSale.id);
 
