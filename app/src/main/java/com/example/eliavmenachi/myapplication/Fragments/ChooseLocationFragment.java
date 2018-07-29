@@ -46,13 +46,19 @@ public class ChooseLocationFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        /*
         dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
-                SetListOfCities(listData);
+                if (listData != null) {
+                    if (listData.cities.size() != 0 && listData.malls.size() != 0&& listData.stores.size() != 0) {
+                        SetListOfCities(listData);
+                    }
+                }
+                //SetListOfCities(listData);
             }
-        });
+        });*/
     }
 
     @Override
@@ -70,6 +76,18 @@ public class ChooseLocationFragment extends Fragment {
         dropDownMalls = view.findViewById(R.id.sMall);
         dropDownStores = view.findViewById(R.id.sStore);
         btnShowSales = view.findViewById(R.id.btnShowSales);
+
+        dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
+        dataModel.getData().observe(this, new Observer<ListData>() {
+            @Override
+            public void onChanged(@Nullable ListData listData) {
+                if (listData != null) {
+                    if (listData.cities.size() != 0 && listData.malls.size() != 0&& listData.stores.size() != 0) {
+                        SetListOfCities(listData);
+                    }
+                }
+            }
+        });
 
         btnShowSales.setOnClickListener(new View.OnClickListener()
         {
