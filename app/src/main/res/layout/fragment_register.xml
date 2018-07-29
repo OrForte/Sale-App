@@ -22,7 +22,7 @@
 
     <TextView
         android:id="@+id/fragment_register_tvName"
-        android:layout_width="wrap_content"
+        android:layout_width="52dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
@@ -30,7 +30,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvRegister"  />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvRegister" />
 
     <EditText
         android:id="@+id/fragment_register_etName"
@@ -40,8 +40,9 @@
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvName"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvRegister" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvName" />
 
     <TextView
         android:id="@+id/fragment_register_tvFamily"
@@ -64,11 +65,12 @@
         android:layout_marginStart="24dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvFamily"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etName" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvFamily"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvFamily" />
 
     <TextView
-        android:id="@+id/fragment_register_tvAge"
+        android:id="@+id/fragment_register_tvEndDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -78,7 +80,7 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvFamily" />
-
+    <!--
     <EditText
         android:id="@+id/fragment_register_etAge"
         android:layout_width="wrap_content"
@@ -86,8 +88,22 @@
         android:layout_marginStart="46dp"
         android:ems="10"
         android:inputType="number"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvAge"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etFamily" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvEndDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvEndDate" />-->
+
+    <com.example.eliavmenachi.myapplication.DateEditText
+        android:id="@+id/fragment_register_etEndDate"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="..."
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvEndDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvEndDate" />
 
     <TextView
         android:id="@+id/fragment_register_tvEmail"
@@ -99,7 +115,7 @@
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvAge" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvEndDate" />
 
     <EditText
         android:id="@+id/fragment_register_etEmail"
@@ -109,8 +125,36 @@
         android:layout_marginStart="46dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvEmail"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etAge" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvEmail" />
+
+    <TextView
+        android:id="@+id/fragment_register_tvCity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:text="City:"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvEmail" />
+
+
+    <Spinner
+        android:id="@+id/fragment_register_etCity"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:drawable/btn_dropdown"
+        android:ems="10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvUser"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etEmail" />
 
     <TextView
         android:id="@+id/fragment_register_tvUser"
@@ -122,7 +166,7 @@
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvCity" />
 
     <EditText
         android:id="@+id/fragment_register_etUser"
@@ -132,8 +176,9 @@
         android:layout_marginStart="46dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvUser"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etEmail" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvUser"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvUser" />
 
     <TextView
         android:id="@+id/fragment_register_tvPassword"
@@ -155,8 +200,9 @@
         android:layout_marginStart="6dp"
         android:ems="10"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvPassword"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_register_etUser" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_register_tvPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/fragment_register_tvPassword" />
 
     <Button
         android:id="@+id/fragment_register_btnRegister"

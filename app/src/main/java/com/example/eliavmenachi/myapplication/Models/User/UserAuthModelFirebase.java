@@ -24,7 +24,7 @@ import com.example.eliavmenachi.myapplication.Entities.User;
 
 public class UserAuthModelFirebase {
 
-
+    User totalUserDetailsToSave = new User();
     public interface GetAllUsersCallback {
         void onCompleted(List<User> users);
         void onCanceled();
@@ -99,7 +99,7 @@ public class UserAuthModelFirebase {
     }
     public void createUserWithEmailAndPassword(final User userToAdd,
                                                final CreateUserCallback callback) {
-
+        totalUserDetailsToSave = userToAdd;
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(userToAdd.email, userToAdd.password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -132,6 +132,10 @@ public class UserAuthModelFirebase {
                     user.id = firebaseUser.getUid();
                     user.email = firebaseUser.getEmail();
                     user.username = userName;
+                    user.firstName = totalUserDetailsToSave.firstName;
+                    user.lastName = totalUserDetailsToSave.lastName;
+                    //user.city = totalUserDetailsToSave.city;
+                    //user.birthDate = totalUserDetailsToSave.birthDate;
 
                     addUser(user, callback);
                 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
@@ -31,6 +32,7 @@ public class RegisterFragment extends Fragment {
     EditText mailEt;
     EditText userNameEt;
     Button register;
+    TextView etEndDate;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -45,10 +47,11 @@ public class RegisterFragment extends Fragment {
 
         firstNameEt = view.findViewById(R.id.fragment_register_etName);
         lastNameEt = view.findViewById(R.id.fragment_register_etFamily);
-        ageEt = view.findViewById(R.id.fragment_register_etAge);
+        //ageEt = view.findViewById(R.id.fragment_register_etAge);
         passwordEt = view.findViewById(R.id.fragment_register_etPassword);
         mailEt = view.findViewById(R.id.fragment_register_etEmail);
         userNameEt = view.findViewById(R.id.fragment_register_etUser);
+        etEndDate = view.findViewById(R.id.fragment_register_etEndDate);
 
         register = view.findViewById(R.id.fragment_register_btnRegister);
 
@@ -60,9 +63,10 @@ public class RegisterFragment extends Fragment {
                 user.email = mailEt.getText().toString();
                 user.username = userNameEt.getText().toString();
                 user.id = userNameEt.getText().toString();
+                user.birthDate = etEndDate.getText().toString();
 
                 //UserModel.instance.addUser(user);
-                
+
                 // TODO: need to change to view model...
                 UserAuthModel.instance.createUser(user, new UserAuthModelFirebase.CreateUserCallback() {
                     @Override
