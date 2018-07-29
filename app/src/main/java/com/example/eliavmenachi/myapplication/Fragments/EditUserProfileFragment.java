@@ -214,6 +214,7 @@ public class EditUserProfileFragment extends Fragment {
         });
 
         Button btnLogut = view.findViewById(R.id.fragment_edit_user_btnLogout);
+
         btnLogut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

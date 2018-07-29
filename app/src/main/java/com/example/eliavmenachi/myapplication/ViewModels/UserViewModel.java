@@ -5,6 +5,8 @@ import android.arch.lifecycle.ViewModel;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.User.UserAsynchDao;
+import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
+import com.example.eliavmenachi.myapplication.Models.User.UserAuthModelFirebase;
 import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 
 public class UserViewModel extends ViewModel {
@@ -46,5 +48,41 @@ public class UserViewModel extends ViewModel {
                     listener.onFailure();
             }
         });
+    }
+
+    public void signIn(final String userEmail, final String password, final UserAuthModelFirebase.SigninCallback callback)
+    {
+        UserAuthModel.instance.signIn(userEmail, password, new UserAuthModelFirebase.SigninCallback() {
+            @Override
+            public void onSuccess(String userID, String userName) {
+                callback.onSuccess(userID, userName);
+            }
+
+            @Override
+            public void onFailed() {
+                callback.onFailed();
+            }
+        });
+    }
+
+    public void createUser(User userToAdd,
+                           final UserAuthModelFirebase.CreateUserCallback callback)
+    {
+        UserAuthModel.instance.createUser(userToAdd, new UserAuthModelFirebase.CreateUserCallback() {
+            @Override
+            public void onSuccess(String userID, String userName) {
+                callback.onSuccess(userID, userName);
+            }
+
+            @Override
+            public void onFailed(String message) {
+                callback.onFailed(message);
+            }
+        });
+    }
+
+    public void signOut()
+    {
+        UserAuthModel.instance.signOut();
     }
 }

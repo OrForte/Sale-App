@@ -132,6 +132,7 @@ public class UserAuthModelFirebase {
                     user.id = firebaseUser.getUid();
                     user.email = firebaseUser.getEmail();
                     user.username = userName;
+                    user.id = userName;
 
                     addUser(user, callback);
                 }

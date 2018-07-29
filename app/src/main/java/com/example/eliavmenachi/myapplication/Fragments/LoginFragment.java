@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
+import com.example.eliavmenachi.myapplication.Models.User.UserAuthModelFirebase;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
@@ -70,6 +72,7 @@ public class LoginFragment extends Fragment {
                 String strUsername = userEt.getText().toString();
                 String strPassword = passwordEt.getText().toString();
 
+
                 userViewModel.getUserByUserNamePassword(strUsername, strPassword).observe(LoginFragment.this, new Observer<User>() {
                     @Override
                     public void onChanged(@Nullable User user) {
@@ -83,48 +86,19 @@ public class LoginFragment extends Fragment {
                         }
                     }
                 });
-//                UserModel.instance.IsUserExists(strUserName, strPassword, new UserModel.IsUserExistsListener() {
-//                    @Override
-//                    public void onDone(boolean p_bIsExists) {
-//                        if (p_bIsExists)
-//                        {
-//                            Toast.makeText(getActivity(), "log on successfully",
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-//                        else
-//                        {
-//                            Toast.makeText(getActivity(), "error in the details",
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                });
-
                 /*
-                String cityId = "1";
-                CityMallAndStoreModel.instance.GetMallsByCityId(cityId, new CityMallAndStoreModel.GetMallsByCityIdListener() {
+                UserAuthModel.instance.signIn(strUsername, strPassword, new UserAuthModelFirebase.SigninCallback() {
                     @Override
-                    public void onGetMallsByCityIdResults(List<Mall> p_mallList) {
+                    public void onSuccess(String userID, String userName) {
+                        Toast.makeText(getActivity(), "log on successfully",
+                                Toast.LENGTH_LONG).show();
+                        Log.d("TAG", "userViewModelChange");
                     }
-                });
 
-                String mallId = "2";
-                CityMallAndStoreModel.instance.GetStoresByMallId(mallId, new CityMallAndStoreModel.GetStoreByMallIdListener() {
                     @Override
-                    public void onGetStoresByMallIdResults(List<Store> p_storeList) {
-                    }
-                });
-
-                CityMallAndStoreModel.instance.GetCities(new CityMallAndStoreModel.GetCitiesListener() {
-                    @Override
-                    public void onGetCitiesResults(List<City> p_citiesList) {
-
-                    }
-                });
-
-                CityMallAndStoreModel.instance.GetStoreByStoreId(1, new CityMallAndStoreModel.GetStoreByStoreIdListener() {
-                    @Override
-                    public void onGetStoreByStoreIdResults(Store storeData) {
-
+                    public void onFailed() {
+                        Toast.makeText(getActivity(), "error in the details",
+                                Toast.LENGTH_LONG).show();
                     }
                 });*/
             }

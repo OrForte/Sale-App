@@ -3,11 +3,13 @@ package com.example.eliavmenachi.myapplication.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
@@ -60,15 +62,17 @@ public class RegisterFragment extends Fragment {
                 user.id = userNameEt.getText().toString();
 
                 //UserModel.instance.addUser(user);
+
                 UserAuthModel.instance.createUser(user, new UserAuthModelFirebase.CreateUserCallback() {
                     @Override
                     public void onSuccess(String userID, String userName) {
-
+                        String welcomeMsg = "welcome " + userName + " !!";
+                        Toast.makeText(getActivity(), welcomeMsg, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailed(String message) {
-
+                        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
                     }
                 });
             }
