@@ -47,31 +47,29 @@ public class UserModel {
                 UserAsynchDao.getCurrentUser(new UserAsynchDao.UserAsynchDaoListener<User>() {
                     @Override
                     public void onComplete(User data) {
-                        if (user != null) {
-                            setValue(data);
+                        setValue(data);
+
+                        if (data != null) {
+                            userModelFirebase.getUserById(data.id, new UserModelFirebase.getUserByIdListener() {
+                                @Override
+                                public void onSuccess(final User user) {
+                                    setValue(user);
+                                    UserAsynchDao.removeAll(new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
+                                        @Override
+                                        public void onComplete(Boolean data) {
+                                            UserAsynchDao.insert(user, new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
+                                                @Override
+                                                public void onComplete(Boolean data) {
+
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
                         }
-
-                        userModelFirebase.getUserById(data.id, new UserModelFirebase.getUserByIdListener() {
-                            @Override
-                            public void onSuccess(final User user) {
-                                setValue(user);
-                                UserAsynchDao.removeAll(new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
-                                    @Override
-                                    public void onComplete(Boolean data) {
-                                        UserAsynchDao.insert(user, new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
-                                            @Override
-                                            public void onComplete(Boolean data) {
-
-                                            }
-                                        });
-                                    }
-                                });
-                            }
-                        });
                     }
                 });
-
-
             } else {
                 UserAsynchDao.getData(username, new UserAsynchDao.UserAsynchDaoListener<User>() {
                     @Override
@@ -142,5 +140,23 @@ public class UserModel {
         userModelFirebase.setUser(user);
     }
 
+    public interface LogoutCompleteListener {
+        public void onSuccess();
+        public void onFailure();
+
+    }
+
+    public void removeAllUsersLocally(final UserAsynchDao.UserAsynchDaoListener listener) {
+        UserAsynchDao.removeAll(new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
+            @Override
+            public void onComplete(Boolean data) {
+                if (data == true) {
+                    user.setValue(null);
+                }
+
+                listener.onComplete(data);
+            }
+        });
+    }
     //endregion
 }

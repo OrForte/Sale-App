@@ -28,5 +28,5 @@ public interface UserDao {
     void delete(User user);
 
     @Query("DELETE FROM User")
-    void deleteAll();
+    int deleteAll();
 }

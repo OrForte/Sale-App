@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_add"
-        android:icon="@android:drawable/ic_input_add"
-        android:showAsAction="ifRoom"
-        android:title="Add" />
+        android:id="@+id/menu_user_profile"
+        android:title="User Profile"
+        tools:icon="@drawable/ic_person_black_24dp"
+        app:showAsAction="always" />
     <item
         android:id="@+id/menu_list_sales_by_category"
-        android:icon="@android:drawable/ic_input_add"
-        android:showAsAction="ifRoom"
-        android:title="Show Sale List" />
+        android:icon="@drawable/ic_filter_list_black_24dp"
+        android:title="All Sales List"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_add_sale"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="Add Sale"
+        app:showAsAction="always" />
 </menu>

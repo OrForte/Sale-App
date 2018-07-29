@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Models.User.UserAsynchDao;
 import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 
 public class UserViewModel extends ViewModel {
@@ -27,5 +28,23 @@ public class UserViewModel extends ViewModel {
 
     public void setUser(User user) {
         UserModel.instance.setUser(user);
+    }
+
+    public interface LogoutCompleteListener {
+        public void onSuccess();
+        public void onFailure();
+
+    }
+
+    public void logoutCurrentUser(final LogoutCompleteListener listener) {
+        UserModel.instance.removeAllUsersLocally(new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
+            @Override
+            public void onComplete(Boolean data) {
+                if (data)
+                    listener.onSuccess();
+                else
+                    listener.onFailure();
+            }
+        });
     }
 }

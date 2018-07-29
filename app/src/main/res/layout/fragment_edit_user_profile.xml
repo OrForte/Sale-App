@@ -194,11 +194,19 @@
                 android:id="@+id/fragment_edit_user_btnUserSales"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="32dp"
                 android:layout_marginTop="16dp"
                 android:text="Your Sales"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/fragment_edit_user_btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Logout"
+                tools:layout_editor_absoluteX="274dp"
+                tools:layout_editor_absoluteY="82dp" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

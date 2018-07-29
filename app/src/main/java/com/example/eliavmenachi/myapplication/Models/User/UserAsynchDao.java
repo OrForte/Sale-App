@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserAsynchDao {
 
-    interface UserAsynchDaoListener<T> {
+    public interface UserAsynchDaoListener<T> {
         void onComplete(T data);
     }
 
@@ -39,7 +39,11 @@ public class UserAsynchDao {
         class MyAsynchTask extends AsyncTask<String, String, User> {
             @Override
             protected User doInBackground(String... usersnames) {
-                User user = MainAppLocalDb.db.userDao().getUsers().get(0);
+                List<User> users =  MainAppLocalDb.db.userDao().getUsers();
+                if (users.size() == 0)
+                    return null;
+
+                User user = users.get(0);
                 return user;
             }
 
@@ -77,7 +81,8 @@ public class UserAsynchDao {
         class MyAsynchTask extends AsyncTask<User, String, Boolean> {
             @Override
             protected Boolean doInBackground(User... users) {
-                MainAppLocalDb.db.userDao().deleteAll();
+                int a = MainAppLocalDb.db.userDao().deleteAll();
+                List<User> userslist = MainAppLocalDb.db.userDao().getUsers();
                 return true;
             }
 

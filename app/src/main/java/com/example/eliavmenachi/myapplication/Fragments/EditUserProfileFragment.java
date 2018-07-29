@@ -211,7 +211,7 @@ public class EditUserProfileFragment extends Fragment {
         });
 
         Button btnLogut = view.findViewById(R.id.fragment_edit_user_btnLogout);
-        btnUserSales.setOnClickListener(new View.OnClickListener() {
+        btnLogut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 userViewModel.logoutCurrentUser(new UserViewModel.LogoutCompleteListener() {
@@ -220,7 +220,7 @@ public class EditUserProfileFragment extends Fragment {
                         Toast.makeText(getActivity(), "User was logout successfully!",
                                 Toast.LENGTH_LONG).show();
 
-                        UserSalesListFragment fragment = new UserSalesListFragment();
+                        SalesListFragment fragment = new SalesListFragment();
                         FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
                         tran.replace(R.id.main_container, fragment);
                         tran.commit();
