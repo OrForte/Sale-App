@@ -31,6 +31,8 @@ public class SalesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        currentUser = null;
         Log.d("SalesActivity", "onCreate");
         super.onCreate(savedInstanceState);
 

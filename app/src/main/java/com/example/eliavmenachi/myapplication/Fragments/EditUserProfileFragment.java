@@ -127,18 +127,21 @@ public class EditUserProfileFragment extends Fragment {
                     @Override
                     public void onChanged(@Nullable User user) {
                         currentUser = user;
-                        etUserName.setText(user.username);
-                        etFirstName.setText(user.firstName);
-                        etLastName.setText(user.lastName);
 
-                        if (cityListData.cities.size() > 0) {
-                            int selectedCityIndex = ((ArrayAdapter<String>)spCity.getAdapter()).getPosition(cityDataModel.GetCityByCityId(user.city, cityListData).name);
-                            spCity.setSelection(selectedCityIndex);
-                            // adapterCities.getPosition(selectedCityName);
-                            //selectSpinnerValue(spCity, cityDataModel.GetCityByCityId(user.city, cityListData).name);
+                        if (user != null) {
+                            etUserName.setText(user.username);
+                            etFirstName.setText(user.firstName);
+                            etLastName.setText(user.lastName);
+
+                            if (cityListData.cities.size() > 0) {
+                                int selectedCityIndex = ((ArrayAdapter<String>)spCity.getAdapter()).getPosition(cityDataModel.GetCityByCityId(user.city, cityListData).name);
+                                spCity.setSelection(selectedCityIndex);
+                                // adapterCities.getPosition(selectedCityName);
+                                //selectSpinnerValue(spCity, cityDataModel.GetCityByCityId(user.city, cityListData).name);
+                            }
+                            etBirthDate.setText(user.birthDate);
+                            etEmail.setText(user.email);
                         }
-                        etBirthDate.setText(user.birthDate);
-                        etEmail.setText(user.email);
 
                         rlProgressBar.setVisibility(View.GONE);
                         //myAdapter.notifyDataSetChanged();
@@ -234,6 +237,19 @@ public class EditUserProfileFragment extends Fragment {
                 });
             }
         });
+
+        Button btnRegister = view.findViewById(R.id.fragment_edit_user_btnRegister);
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RegisterFragment fragment = new RegisterFragment();
+                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+                tran.replace(R.id.main_container, fragment);
+                tran.addToBackStack(null);
+                tran.commit();
+            }
+        });
+
 //        Button btnLoginButton = view.findViewById(R.id.fragment_login_btnLogin);
 
 //        btnLoginButton.setOnClickListener(new View.OnClickListener() {

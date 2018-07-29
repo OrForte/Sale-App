@@ -154,4 +154,13 @@ public class UserModelFirebase {
         });
     }
 
+//    public void createUser(String email, String pwd) {
+//        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference();
+//        FirebaseDatabase.getInstance().au
+//        myFirebaseRef.cstRefreateUser(email, pwd, new Firebase.ResultHandler() {   @Override   public void onSuccess() { ...   }
+//            @Override   public void onError(FirebaseError firebaseError) { ...   } });
+//    }
+
+
+
 }
