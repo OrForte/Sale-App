@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -81,6 +82,7 @@ public class NewSaleFragment extends Fragment {
     String m_SaleListTypeParams = "";
     int nCounterQuery = 0;
     View rlProgressBar;
+    ProgressBar progressBarSaveNewSale;
 
     @Override
     public void onAttach(Context context) {
@@ -127,6 +129,9 @@ public class NewSaleFragment extends Fragment {
         rlProgressBar = view.findViewById(R.id.fragment_new_sale_rlProgressBar);
         dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
         dataModelSale = ViewModelProviders.of(this).get(SaleListViewModel.class);
+
+        progressBarSaveNewSale = view.findViewById(R.id.fragment_new_sale_progress);
+        progressBarSaveNewSale . setVisibility(View.GONE);
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
@@ -172,6 +177,7 @@ public class NewSaleFragment extends Fragment {
             public void onClick(View view) {
                 // TODO: need to save the data to firebase
                 // TODO: add spinner to the loading of save
+                progressBarSaveNewSale . setVisibility(View.VISIBLE);
                 if (newSale == null)
                 {
                     newSale = new Sale();
@@ -243,6 +249,7 @@ public class NewSaleFragment extends Fragment {
 
     public void GetToSaleListFragments()
     {
+        progressBarSaveNewSale . setVisibility(View.GONE);
         if (!bUpdateMode || m_SaleListTypeParams.equals(Consts.instance.ALL)) {
             FragmentManager fragmentManager = getFragmentManager();
             SalesListFragment fragment = new SalesListFragment();
