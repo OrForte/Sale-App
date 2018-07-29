@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
 import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
@@ -215,6 +216,7 @@ public class EditUserProfileFragment extends Fragment {
 
         Button btnLogut = view.findViewById(R.id.fragment_edit_user_btnLogout);
 
+        /*
         btnLogut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -236,6 +238,21 @@ public class EditUserProfileFragment extends Fragment {
                                 Toast.LENGTH_LONG).show();
                     }
                 });
+            }
+        });*/
+
+        btnLogut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UserAuthModel.instance.signOut();
+
+                Toast.makeText(getActivity(), "User was logout successfully!",
+                        Toast.LENGTH_LONG).show();
+
+                SalesListFragment fragment = new SalesListFragment();
+                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+                tran.replace(R.id.main_container, fragment);
+                tran.commit();
             }
         });
 

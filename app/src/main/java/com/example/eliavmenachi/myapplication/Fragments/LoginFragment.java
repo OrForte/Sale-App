@@ -35,6 +35,7 @@ public class LoginFragment extends Fragment {
 //        // Required empty public constructor
 //    }
 
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -54,6 +55,7 @@ public class LoginFragment extends Fragment {
         // get instance of the login and register button
         Button loginButton = view.findViewById(R.id.fragment_login_btnRegister);
         Button btnLoginButton = view.findViewById(R.id.fragment_login_btnLogin);
+        Button btnSignOutButton = view.findViewById(R.id.fragment_login_btnLogOff);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,13 +68,24 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        btnSignOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                User user = UserAuthModel.instance.getCurrentUser();
+                UserAuthModel.instance.signOut();
+                Toast.makeText(getActivity(), "User was logout successfully!",
+                        Toast.LENGTH_LONG).show();
+                User user2 = UserAuthModel.instance.getCurrentUser();
+            }
+        });
+
         btnLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String strUsername = userEt.getText().toString();
                 String strPassword = passwordEt.getText().toString();
 
-
+                /*
                 userViewModel.getUserByUserNamePassword(strUsername, strPassword).observe(LoginFragment.this, new Observer<User>() {
                     @Override
                     public void onChanged(@Nullable User user) {
@@ -86,21 +99,20 @@ public class LoginFragment extends Fragment {
                         }
                     }
                 });
-                /*
+                */
+
                 UserAuthModel.instance.signIn(strUsername, strPassword, new UserAuthModelFirebase.SigninCallback() {
                     @Override
                     public void onSuccess(String userID, String userName) {
-                        Toast.makeText(getActivity(), "log on successfully",
-                                Toast.LENGTH_LONG).show();
-                        Log.d("TAG", "userViewModelChange");
+                        String wellcomeMsg = userName + " Welcome !!";
+                        Toast.makeText(getActivity(), wellcomeMsg, Toast.LENGTH_LONG).show();
                     }
 
                     @Override
                     public void onFailed() {
-                        Toast.makeText(getActivity(), "error in the details",
-                                Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "error in the details", Toast.LENGTH_LONG).show();
                     }
-                });*/
+                });
             }
         });
 

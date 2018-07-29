@@ -78,6 +78,7 @@ public class RegisterFragment extends Fragment {
             }
         });
 
+
         return view;
     }
 

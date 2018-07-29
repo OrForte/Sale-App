@@ -105,7 +105,7 @@ public class UserAuthModelFirebase {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()){
                     String exception = task.getException().getMessage();
-                    callback.onFailed("Registretion failed");
+                    callback.onFailed("Registretion failed: " + exception);
                 } else {
 
                     FirebaseUser firebaseUser = task.getResult().getUser();
@@ -132,7 +132,6 @@ public class UserAuthModelFirebase {
                     user.id = firebaseUser.getUid();
                     user.email = firebaseUser.getEmail();
                     user.username = userName;
-                    user.id = userName;
 
                     addUser(user, callback);
                 }
@@ -143,7 +142,7 @@ public class UserAuthModelFirebase {
     private void addUser(final User user, final CreateUserCallback callback){
         DatabaseReference mUsersRef = FirebaseDatabase.getInstance().getReference("users");
 
-        mUsersRef.child(user.username).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+        mUsersRef.child(user.id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
