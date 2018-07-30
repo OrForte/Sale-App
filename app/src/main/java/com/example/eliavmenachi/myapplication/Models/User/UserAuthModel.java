@@ -84,6 +84,12 @@ public class UserAuthModel {
                             @Override
                             public void onSuccess(User user) {
                                 setValue(user);
+
+                                UserAsynchDao.insert(user, new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
+                                    @Override
+                                    public void onComplete(Boolean data) {
+                                    }
+                                });
                             }
                         });
                     }
