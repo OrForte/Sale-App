@@ -80,6 +80,12 @@ public class UserAuthModel {
                     @Override
                     public void onComplete(User data) {
                         setValue(data);
+                        userAuthModelFirebase.getUserById(currentUser.id, new UserAuthModelFirebase.getUserByIdListener() {
+                            @Override
+                            public void onSuccess(User user) {
+                                setValue(user);
+                            }
+                        });
                     }
                 });
             }

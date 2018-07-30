@@ -157,4 +157,31 @@ public class UserAuthModelFirebase {
             }
         });
     }
+
+    interface getUserByIdListener {
+        public void onSuccess(User user);
+    }
+    ValueEventListener eventListener;
+    public void getUserById(String id, final getUserByIdListener listener) {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("users");
+        eventListener = stRef.orderByChild("id").equalTo(id).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User user = null;
+                for (DataSnapshot stSnapshot : dataSnapshot.getChildren()) {
+                    user = stSnapshot.getValue(User.class);
+                }
+
+                if (user != null) {
+                    listener.onSuccess(user);
+                } else {
+                    listener.onSuccess(null);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
 }
