@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,40 +87,58 @@ public class LoginFragment extends Fragment {
                 String strPassword = passwordEt.getText().toString();
                 final View copyView = view;
 
-                /*
-                userViewModel.getUserByUserNamePassword(strUsername, strPassword).observe(LoginFragment.this, new Observer<User>() {
-                    @Override
-                    public void onChanged(@Nullable User user) {
-                        if (user == null) {
-                            Toast.makeText(getActivity(), "error in the details",
-                                    Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getActivity(), "log on successfully",
-                                    Toast.LENGTH_LONG).show();
-                            Log.d("TAG", "userViewModelChange" + user.username);
+                boolean bIsValid = isInputsValid();
+                if (bIsValid == true) {
+                    userViewModel.signIn(strUsername, strPassword, new UserAuthModelFirebase.SigninCallback() {
+                        @Override
+                        public void onSuccess(String userID, String userName) {
+                            String wellcomeMsg = userName + " Welcome !!";
+                            Toast.makeText(getActivity(), wellcomeMsg, Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(copyView.getContext(), SalesActivity.class);
+                            startActivity(intent);
                         }
-                    }
-                });
-                */
-                // TODO: need to change to view model...
-                UserAuthModel.instance.signIn(strUsername, strPassword, new UserAuthModelFirebase.SigninCallback() {
-                    @Override
-                    public void onSuccess(String userID, String userName) {
-                        String wellcomeMsg = userName + " Welcome !!";
-                        Toast.makeText(getActivity(), wellcomeMsg, Toast.LENGTH_LONG).show();
-                        Intent intent = new Intent(copyView.getContext(), SalesActivity.class);
-                        startActivity(intent);
-                    }
 
-                    @Override
-                    public void onFailed() {
-                        Toast.makeText(getActivity(), "error in the details", Toast.LENGTH_LONG).show();
-                    }
-                });
+                        @Override
+                        public void onFailed() {
+                            Toast.makeText(getActivity(), "error in the details", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
             }
         });
 
         return view;
     }
 
+    private boolean isInputsValid()
+    {
+        final String mail = userEt.getText().toString();
+        final String password = passwordEt.getText().toString();
+        boolean bIsValid = true;
+
+        if (mail.length() == 0){
+            userEt.requestFocus();
+            userEt.setError("FIELD CANNOT BE EMPTY");
+            bIsValid = false;
+        }
+        else if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()){
+            userEt.requestFocus();
+            userEt.setError("INVALID EMAIL FORMAT");
+            bIsValid = false;
+        }
+
+        if (password.length() == 0){
+            passwordEt.requestFocus();
+            passwordEt.setError("FIELD CANNOT BE EMPTY");
+            bIsValid = false;
+        }
+        else if (password.length() <= 5)
+        {
+            passwordEt.requestFocus();
+            passwordEt.setError("Password must be 6 CHARACTERs");
+            bIsValid = false;
+        }
+
+        return bIsValid;
+    }
 }
