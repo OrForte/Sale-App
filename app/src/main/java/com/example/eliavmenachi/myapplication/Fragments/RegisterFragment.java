@@ -8,7 +8,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,17 +20,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
-import com.example.eliavmenachi.myapplication.Entities.InputValidation;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.User;
-import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
 import com.example.eliavmenachi.myapplication.Models.User.UserAuthModelFirebase;
-import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**

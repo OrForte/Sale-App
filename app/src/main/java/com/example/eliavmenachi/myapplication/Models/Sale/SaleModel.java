@@ -1,24 +1,11 @@
 package com.example.eliavmenachi.myapplication.Models.Sale;
 
 import com.example.eliavmenachi.myapplication.Entities.Sale;
-import com.example.eliavmenachi.myapplication.Models.SaleAsyncDao;
+
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import com.example.eliavmenachi.myapplication.Entities.ListData;
-import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModel;
-import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAndStoreModelFirebase;
-import com.example.eliavmenachi.myapplication.Models.Sale.SaleModelFirebase;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class SaleModel {

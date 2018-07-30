@@ -81,7 +81,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_register_tvFamily" />
 
-    <com.example.eliavmenachi.myapplication.DateEditText
+    <com.example.eliavmenachi.myapplication.Controls.DateEditText
         android:id="@+id/fragment_register_etEndDate"
         android:layout_width="0dp"
         android:layout_height="50dp"

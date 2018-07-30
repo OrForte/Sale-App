@@ -28,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
             tran.add(R.id.main_container, fragment);
             //tran.addToBackStack("");
             tran.commit();
+
         }
 
 //        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
