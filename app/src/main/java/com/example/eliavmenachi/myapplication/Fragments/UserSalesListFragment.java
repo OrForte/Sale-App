@@ -53,7 +53,7 @@ public class UserSalesListFragment extends Fragment {
         rlProgressBar = view.findViewById(R.id.fragment_sale_list_rlProgressBar);
 
 
-        userViewModel.getCurrentUser().observe(this, new Observer<User>() {
+        userViewModel.getCurrentUserNew().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
                 currentUser = user;
@@ -96,7 +96,7 @@ public class UserSalesListFragment extends Fragment {
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         saleListViewModel = ViewModelProviders.of(this).get(SaleListViewModel.class);
 
-        userViewModel.getCurrentUser().observe(this, new Observer<User>() {
+        userViewModel.getCurrentUserNew().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
                 currentUser = user;

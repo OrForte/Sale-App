@@ -82,8 +82,11 @@ public class EditUserProfileFragment extends Fragment {
 
         if (currentUser != null) {
             if (cityListData.cities.size() > 0) {
-                int selectedCityIndex = ((ArrayAdapter<String>)spCity.getAdapter()).getPosition(cityDataModel.GetCityByCityId(currentUser.city, cityListData).name);
-                spCity.setSelection(selectedCityIndex);
+                City city = cityDataModel.GetCityByCityId(currentUser.city, cityListData);
+                if (city != null) {
+                    int selectedCityIndex = ((ArrayAdapter<String>) spCity.getAdapter()).getPosition(city.name);
+                    spCity.setSelection(selectedCityIndex);
+                }
             }
         }
 
@@ -126,7 +129,7 @@ public class EditUserProfileFragment extends Fragment {
             public void onChanged(@Nullable ListData listData) {
                 setListOfCities(listData);
 
-                userViewModel.getCurrentUser().observe(EditUserProfileFragment.this, new Observer<User>() {
+                userViewModel.getCurrentUserNew().observe(EditUserProfileFragment.this, new Observer<User>() {
                     @Override
                     public void onChanged(@Nullable User user) {
                         currentUser = user;
@@ -136,11 +139,13 @@ public class EditUserProfileFragment extends Fragment {
                             etFirstName.setText(user.firstName);
                             etLastName.setText(user.lastName);
 
-                            if (cityListData.cities.size() > 0) {
-                                int selectedCityIndex = ((ArrayAdapter<String>)spCity.getAdapter()).getPosition(cityDataModel.GetCityByCityId(user.city, cityListData).name);
-                                spCity.setSelection(selectedCityIndex);
-                                // adapterCities.getPosition(selectedCityName);
-                                //selectSpinnerValue(spCity, cityDataModel.GetCityByCityId(user.city, cityListData).name);
+                            if (cityListData.cities.size() > 0)
+                            {
+                                City city = cityDataModel.GetCityByCityId(user.city, cityListData);
+                                if (city != null) {
+                                    int selectedCityIndex = ((ArrayAdapter<String>) spCity.getAdapter()).getPosition(city.name);
+                                    spCity.setSelection(selectedCityIndex);
+                                }
                             }
                             etBirthDate.setText(user.birthDate);
                             etEmail.setText(user.email);

@@ -22,6 +22,11 @@ public class UserViewModel extends ViewModel {
         return data;
     }
 
+    public LiveData<User> getCurrentUserNew(){
+        data = UserAuthModel.instance.getCurrentUserNew();
+        return data;
+    }
+
     public void setUser(User user) {
         UserModel.instance.setUser(user);
     }

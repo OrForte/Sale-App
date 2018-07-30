@@ -22,9 +22,6 @@ public class UserModel {
         userModelFirebase = new UserModelFirebase();
     }
 
-//    public LiveData<User> getUser(int id) {
-//        return user;
-//    }
 
     public LiveData<User> getUser(String username, String password) {
         this.username = username;
@@ -116,21 +113,9 @@ public class UserModel {
 
         public UserData(String username) {
             super();
-            //setValue(AppLocalDb.db.studentDao().getAll());
             setValue(MainAppLocalDb.db.userDao().getUserByUsername(username));
         }
     }
-
-//    public void IsUserExists(final String p_strUserName, final String p_strPassword, final IsUserExistsListener listener) {
-//        userModelFirebase.IsUserExists(p_strUserName, p_strPassword, new IsUserExistsListener() {
-//            @Override
-//            public void onDone(boolean p_bIsExists) {
-//                // This happens when we get response from firebase
-//                listener.onDone(p_bIsExists);
-//            }
-//        });
-//        //listener.onDone(bIsValid);
-//    }
 
     public void addUser(User userToAdd) {
         userModelFirebase.addUser(userToAdd);

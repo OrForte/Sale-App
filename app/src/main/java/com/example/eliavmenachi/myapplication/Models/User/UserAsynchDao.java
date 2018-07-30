@@ -69,6 +69,8 @@ public class UserAsynchDao {
 
             @Override
             protected void onPostExecute(User user) {
+                super.onPostExecute(user);
+                listener.onComplete(user);
             }
         }
 
@@ -99,8 +101,8 @@ public class UserAsynchDao {
         class MyAsynchTask extends AsyncTask<User, String, Boolean> {
             @Override
             protected Boolean doInBackground(User... users) {
-                int a = MainAppLocalDb.db.userDao().deleteAll();
-                List<User> userslist = MainAppLocalDb.db.userDao().getUsers();
+                //int a = MainAppLocalDb.db.userDao().deleteAll();
+                //List<User> userslist = MainAppLocalDb.db.userDao().getUsers();
                 return true;
             }
 
