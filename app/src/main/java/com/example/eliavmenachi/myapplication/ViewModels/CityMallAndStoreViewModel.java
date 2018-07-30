@@ -16,122 +16,95 @@ import java.util.List;
 public class CityMallAndStoreViewModel extends ViewModel {
     LiveData<ListData> data;
 
-    public LiveData<ListData> getData()
-    {
+    public LiveData<ListData> getData() {
         data = CityMallAndStoreModel.instance.getAllCityMalssAndStores();
         return data;
     }
 
-    public List<String> GetCityNames(ListData listData)
-    {
+    public List<String> GetCityNames(ListData listData) {
         List<String> cities = new ArrayList<>();
-        for (Iterator iterator = listData.cities.iterator(); iterator.hasNext();)
-        {
+        for (Iterator iterator = listData.cities.iterator(); iterator.hasNext(); ) {
             cities.add(((City) iterator.next()).name);
         }
         return cities;
     }
 
-    public List<String> GetMallNamesByCityId(int cityId, ListData listData)
-    {
+    public List<String> GetMallNamesByCityId(int cityId, ListData listData) {
         List<String> malls = new ArrayList<>();
-        for (Iterator iterator = listData.malls.iterator(); iterator.hasNext();)
-        {
-            Mall mall = (Mall)iterator.next();
-            if (mall.cityId == cityId)
-            {
+        for (Iterator iterator = listData.malls.iterator(); iterator.hasNext(); ) {
+            Mall mall = (Mall) iterator.next();
+            if (mall.cityId == cityId) {
                 malls.add(mall.name);
             }
         }
         return malls;
     }
 
-    public List<String> GetStoreNamesByMallId(int mallId, ListData listData)
-    {
+    public List<String> GetStoreNamesByMallId(int mallId, ListData listData) {
         List<String> stores = new ArrayList<>();
-        for (Iterator iterator = listData.stores.iterator(); iterator.hasNext();)
-        {
-            Store store = (Store)iterator.next();
-            if (store.mallId == mallId)
-            {
+        for (Iterator iterator = listData.stores.iterator(); iterator.hasNext(); ) {
+            Store store = (Store) iterator.next();
+            if (store.mallId == mallId) {
                 stores.add(store.name);
             }
         }
         return stores;
     }
 
-    public City GetCityByCityName(String selectedCityName, ListData listData)
-    {
-        for (Iterator iterator = listData.cities.iterator(); iterator.hasNext();)
-        {
+    public City GetCityByCityName(String selectedCityName, ListData listData) {
+        for (Iterator iterator = listData.cities.iterator(); iterator.hasNext(); ) {
             City city = (City) iterator.next();
-            if (selectedCityName.equals(city.name))
-            {
+            if (selectedCityName.equals(city.name)) {
                 return city;
             }
         }
         return null;
     }
 
-    public City GetCityByCityId(int cityId, ListData listData)
-    {
-        for (Iterator iterator = listData.cities.iterator(); iterator.hasNext();)
-        {
+    public City GetCityByCityId(int cityId, ListData listData) {
+        for (Iterator iterator = listData.cities.iterator(); iterator.hasNext(); ) {
             City city = (City) iterator.next();
-            if (cityId == city.id)
-            {
+            if (cityId == city.id) {
                 return city;
             }
         }
         return null;
     }
 
-    public Mall GetMallByMallName(String selectedMallName, ListData listData)
-    {
-        for (Iterator iterator = listData.malls.iterator(); iterator.hasNext();)
-        {
+    public Mall GetMallByMallName(String selectedMallName, ListData listData) {
+        for (Iterator iterator = listData.malls.iterator(); iterator.hasNext(); ) {
             Mall mall = (Mall) iterator.next();
-            if (selectedMallName.equals(mall.name))
-            {
+            if (selectedMallName.equals(mall.name)) {
                 return mall;
             }
         }
         return null;
     }
 
-    public Mall GetMallByMallId(int mallId, ListData listData)
-    {
-        for (Iterator iterator = listData.malls.iterator(); iterator.hasNext();)
-        {
+    public Mall GetMallByMallId(int mallId, ListData listData) {
+        for (Iterator iterator = listData.malls.iterator(); iterator.hasNext(); ) {
             Mall mall = (Mall) iterator.next();
-            if (mallId == mall.id)
-            {
+            if (mallId == mall.id) {
                 return mall;
             }
         }
         return null;
     }
 
-    public Store GetStoreByStoreName(String selectedStoreName, ListData listData)
-    {
-        for (Iterator iterator = listData.stores.iterator(); iterator.hasNext();)
-        {
+    public Store GetStoreByStoreName(String selectedStoreName, ListData listData) {
+        for (Iterator iterator = listData.stores.iterator(); iterator.hasNext(); ) {
             Store store = (Store) iterator.next();
-            if (selectedStoreName.equals(store.name))
-            {
+            if (selectedStoreName.equals(store.name)) {
                 return store;
             }
         }
         return null;
     }
 
-    public Store GetStoreByStoreId(int storeId, ListData listData)
-    {
-        for (Iterator iterator = listData.stores.iterator(); iterator.hasNext();)
-        {
+    public Store GetStoreByStoreId(int storeId, ListData listData) {
+        for (Iterator iterator = listData.stores.iterator(); iterator.hasNext(); ) {
             Store store = (Store) iterator.next();
-            if (storeId == store.id)
-            {
+            if (storeId == store.id) {
                 return store;
             }
         }

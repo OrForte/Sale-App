@@ -23,7 +23,7 @@ public class UserViewModel extends ViewModel {
         return data;
     }*/
 
-    public LiveData<User> getCurrentUserNew(){
+    public LiveData<User> getCurrentUserNew() {
         data = UserAuthModel.instance.getCurrentUserNew();
         return data;
     }
@@ -34,6 +34,7 @@ public class UserViewModel extends ViewModel {
 
     public interface LogoutCompleteListener {
         public void onSuccess();
+
         public void onFailure();
 
     }
@@ -50,8 +51,7 @@ public class UserViewModel extends ViewModel {
         });
     }
 
-    public void signIn(final String userEmail, final String password ,final UserAuthModelFirebase.SigninCallback callback)
-    {
+    public void signIn(final String userEmail, final String password, final UserAuthModelFirebase.SigninCallback callback) {
         UserAuthModel.instance.signIn(userEmail, password, new UserAuthModelFirebase.SigninCallback() {
             @Override
             public void onSuccess(final String userID, final String userName) {
@@ -80,11 +80,10 @@ public class UserViewModel extends ViewModel {
     }
 
     public void createUser(final User userToAdd,
-                           final UserAuthModelFirebase.CreateUserCallback callback)
-    {
+                           final UserAuthModelFirebase.CreateUserCallback callback) {
         UserAuthModel.instance.createUser(userToAdd, new UserAuthModelFirebase.CreateUserCallback() {
             @Override
-            public void onSuccess(final String userID,final  String userName) {
+            public void onSuccess(final String userID, final String userName) {
                 InsertToFileBase(userID, userName, userToAdd, callback);
             }
 
@@ -95,13 +94,11 @@ public class UserViewModel extends ViewModel {
         });
     }
 
-    public void signOut()
-    {
+    public void signOut() {
         UserAuthModel.instance.signOut();
     }
 
-    public void InsertToFileBase(final String userID, final String userName, User userToAdd, final UserAuthModelFirebase.CreateUserCallback callback)
-    {
+    public void InsertToFileBase(final String userID, final String userName, User userToAdd, final UserAuthModelFirebase.CreateUserCallback callback) {
         User userToSqlite = new User();
         userToSqlite.id = userID;
         userToSqlite.username = userName;

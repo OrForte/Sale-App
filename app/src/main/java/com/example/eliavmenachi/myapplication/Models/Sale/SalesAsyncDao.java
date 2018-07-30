@@ -9,24 +9,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SalesAsyncDao {
-    interface SaleAsynchDaoListener<T>{
+    interface SaleAsynchDaoListener<T> {
         void onComplete(T data);
     }
 
-    interface SaleAsynchDaoListener2<T>{
+    interface SaleAsynchDaoListener2<T> {
         void onCompleteOneSale(Sale data);
     }
 
     static public void getAll(final SaleAsynchDaoListener<List<Sale>> listener) {
-        class MyAsynchTask extends AsyncTask<String,String,List<Sale>> {
+        class MyAsynchTask extends AsyncTask<String, String, List<Sale>> {
             @Override
             protected List<Sale> doInBackground(String... strings) {
                 List<Sale> sList = new ArrayList<Sale>();
                 Object a = MainAppLocalDb.db.saleDao();
-                if (a != null)
-                {
-                    if (MainAppLocalDb.db.saleDao().getAll() != null)
-                    {
+                if (a != null) {
+                    if (MainAppLocalDb.db.saleDao().getAll() != null) {
                         sList = MainAppLocalDb.db.saleDao().getAll();
                         //DeleteAllSales(sList);
                     }
@@ -34,10 +32,8 @@ public class SalesAsyncDao {
                 return sList;
             }
 
-            public void DeleteAllSales(List<Sale> p_listToDelete)
-            {
-                for (Sale curr : p_listToDelete)
-                {
+            public void DeleteAllSales(List<Sale> p_listToDelete) {
+                for (Sale curr : p_listToDelete) {
                     MainAppLocalDb.db.saleDao().delete(curr);
                 }
             }
@@ -52,16 +48,14 @@ public class SalesAsyncDao {
         task.execute();
     }
 
-    static public void getSaleBySaleId(final String SaleId ,final SaleAsynchDaoListener2<List<Sale>> listener) {
-        class MyAsynchTask extends AsyncTask<String,String,Sale> {
+    static public void getSaleBySaleId(final String SaleId, final SaleAsynchDaoListener2<List<Sale>> listener) {
+        class MyAsynchTask extends AsyncTask<String, String, Sale> {
             @Override
             protected Sale doInBackground(String... strings) {
                 Sale sList = new Sale();
                 Object a = MainAppLocalDb.db.saleDao();
-                if (a != null)
-                {
-                    if (MainAppLocalDb.db.saleDao().getAll() != null)
-                    {
+                if (a != null) {
+                    if (MainAppLocalDb.db.saleDao().getAll() != null) {
                         sList = MainAppLocalDb.db.saleDao().getSaleBySaleId(SaleId);
 
                     }
@@ -80,15 +74,13 @@ public class SalesAsyncDao {
     }
 
     static public void deleteSale(final Sale toDelete) {
-        class MyAsynchTask extends AsyncTask<String,String,Sale> {
+        class MyAsynchTask extends AsyncTask<String, String, Sale> {
             @Override
             protected Sale doInBackground(String... strings) {
                 Sale sList = new Sale();
                 Object a = MainAppLocalDb.db.saleDao();
-                if (a != null)
-                {
-                    if (MainAppLocalDb.db.saleDao().getAll() != null)
-                    {
+                if (a != null) {
+                    if (MainAppLocalDb.db.saleDao().getAll() != null) {
                         MainAppLocalDb.db.saleDao().delete(toDelete);
                     }
                 }
@@ -104,17 +96,15 @@ public class SalesAsyncDao {
         task.execute();
     }
 
-    static public void getSalesByStoreId(final String storeId ,final SaleAsynchDaoListener<List<Sale>> listener) {
-        class MyAsynchTask extends AsyncTask<String,String,List<Sale>> {
+    static public void getSalesByStoreId(final String storeId, final SaleAsynchDaoListener<List<Sale>> listener) {
+        class MyAsynchTask extends AsyncTask<String, String, List<Sale>> {
             @Override
             protected List<Sale> doInBackground(String... strings) {
                 List<Sale> sList = new ArrayList<Sale>();
                 Object a = MainAppLocalDb.db.saleDao();
-                if (a != null)
-                {
+                if (a != null) {
                     int nStoreId = Integer.parseInt(storeId);
-                    if (MainAppLocalDb.db.saleDao().getSaleByStoreId(nStoreId) != null)
-                    {
+                    if (MainAppLocalDb.db.saleDao().getSaleByStoreId(nStoreId) != null) {
                         sList = MainAppLocalDb.db.saleDao().getSaleByStoreId(nStoreId);
                     }
                 }
@@ -133,17 +123,15 @@ public class SalesAsyncDao {
     }
 
 
-    static public void getSalesByUserName(final String userName ,final SaleAsynchDaoListener<List<Sale>> listener) {
-        class MyAsynchTask extends AsyncTask<String,String,List<Sale>> {
+    static public void getSalesByUserName(final String userName, final SaleAsynchDaoListener<List<Sale>> listener) {
+        class MyAsynchTask extends AsyncTask<String, String, List<Sale>> {
             @Override
             protected List<Sale> doInBackground(String... strings) {
                 List<Sale> sList = new ArrayList<Sale>();
                 Object a = MainAppLocalDb.db.saleDao();
-                if (a != null)
-                {
+                if (a != null) {
 
-                    if (MainAppLocalDb.db.saleDao().getSaleByUserName(userName) != null)
-                    {
+                    if (MainAppLocalDb.db.saleDao().getSaleByUserName(userName) != null) {
                         sList = MainAppLocalDb.db.saleDao().getSaleByUserName(userName);
                     }
                 }
@@ -161,11 +149,11 @@ public class SalesAsyncDao {
         task.execute();
     }
 
-    static void insertAll(final List<Sale> sales, final SaleAsynchDaoListener<Boolean> listener){
-        class MyAsynchTask extends AsyncTask<List<Sale>,String,Boolean>{
+    static void insertAll(final List<Sale> sales, final SaleAsynchDaoListener<Boolean> listener) {
+        class MyAsynchTask extends AsyncTask<List<Sale>, String, Boolean> {
             @Override
             protected Boolean doInBackground(List<Sale>... sales) {
-                for (Sale sl:sales[0]) {
+                for (Sale sl : sales[0]) {
                     MainAppLocalDb.db.saleDao().insertAll(sl);
                 }
                 return true;

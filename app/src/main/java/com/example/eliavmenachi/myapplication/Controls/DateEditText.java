@@ -50,7 +50,7 @@ public class DateEditText extends EditText {
 
             final Calendar c = Calendar.getInstance();
             int mFYear = c.get(Calendar.YEAR);
-            int mFMonth = c.get(Calendar.MONTH)+1;
+            int mFMonth = c.get(Calendar.MONTH) + 1;
             int mFDay = c.get(Calendar.DAY_OF_MONTH);
             fragment.day = mFDay;
             fragment.month = mFMonth;

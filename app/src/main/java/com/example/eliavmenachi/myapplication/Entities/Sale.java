@@ -27,52 +27,112 @@ public class Sale {
     public String getId() {
         return id;
     }
-    public int getStoreId() { return storeId;}
-    public int getMallId() { return mallId;}
-    public int getCityId() { return cityId;}
-    public String getUserId() { return userId;}
-    public String getPictureUrl() { return pictureUrl;}
-    public String getDescription() { return description;}
-    public String getEndDate() { return endDate;}
-    public String getCreatedDate() { return createdDate;}
-    public int getCategory() { return category;}
-    public String getStoreName() {return storeName;}
-    public String getMallName() { return mallName;}
-    public String getCityName() { return cityName;}
-    public boolean getActive() {return active;}
+
+    public int getStoreId() {
+        return storeId;
+    }
+
+    public int getMallId() {
+        return mallId;
+    }
+
+    public int getCityId() {
+        return cityId;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public int getCategory() {
+        return category;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public String getMallName() {
+        return mallName;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public boolean getActive() {
+        return active;
+    }
 
     public void setId(String id) {
         this.id = id;
     }
+
     public void setStoreId(int storeId) {
         this.storeId = storeId;
     }
+
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
     }
+
     public void setDescription(String describtion) {
         this.description = describtion;
     }
+
     public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
+
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
+
     public void setCategory(int category) {
         this.category = category;
     }
+
     public void setCityId(int cityId) {
         this.cityId = cityId;
     }
+
     public void setMallId(int mallId) {
         this.mallId = mallId;
     }
-    public void setStoreName(String storeName) { this.storeName = storeName;}
-    public void setMallName(String mallName) {this.mallName = mallName;}
-    public void setCityName(String cityName) {this.cityName = cityName;}
-    public void setActive(boolean p_active) {this.active = p_active;}
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
+    }
+
+    public void setMallName(String mallName) {
+        this.mallName = mallName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public void setActive(boolean p_active) {
+        this.active = p_active;
+    }
 }

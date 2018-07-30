@@ -20,8 +20,7 @@ public class ImageModel {
 
     //region C'Tors
 
-    private ImageModel()
-    {
+    private ImageModel() {
         imageModelFirebase = new ImageModelFirebase();
     }
 
@@ -33,34 +32,28 @@ public class ImageModel {
 
     //region Methods
 
-    public interface SaveImageListener{
+    public interface SaveImageListener {
         void onDone(String url);
     }
 
-    public interface GetImageListener{
+    public interface GetImageListener {
         void onDone(Bitmap imageBitmap);
     }
 
     public void saveImage(Bitmap imageBitmap, SaveImageListener listener) {
-        imageModelFirebase.saveImage(imageBitmap,listener);
+        imageModelFirebase.saveImage(imageBitmap, listener);
     }
 
-    public void getImage(final String url, final GetImageListener listener )
-    {
+    public void getImage(final String url, final GetImageListener listener) {
         String localFileName = URLUtil.guessFileName(url, null, null);
         final Bitmap image = loadImageFromFile(localFileName);
-        if (image == null)
-        {                                      //if image not found - try downloading it from parse
+        if (image == null) {                                      //if image not found - try downloading it from parse
             imageModelFirebase.getImage(url, new GetImageListener() {
                 @Override
-                public void onDone(Bitmap imageBitmap)
-                {
-                    if (imageBitmap == null)
-                    {
+                public void onDone(Bitmap imageBitmap) {
+                    if (imageBitmap == null) {
                         listener.onDone(null);
-                    }
-                    else
-                    {
+                    } else {
                         //2.  save the image localy
                         String localFileName = URLUtil.guessFileName(url, null, null);
                         Log.d("TAG", "save image to cache: " + localFileName);
@@ -70,25 +63,20 @@ public class ImageModel {
                     }
                 }
             });
-        }
-        else
-        {
-            Log.d("TAG","OK reading cache image: " + localFileName);
+        } else {
+            Log.d("TAG", "OK reading cache image: " + localFileName);
             listener.onDone(image);
         }
     }
 
-    private void saveImageToFile(Bitmap imageBitmap, String imageFileName)
-    {
+    private void saveImageToFile(Bitmap imageBitmap, String imageFileName) {
         if (imageBitmap == null) return;
-        try
-        {
+        try {
             File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            if (!dir.exists())
-            {
+            if (!dir.exists()) {
                 dir.mkdir();
             }
-            File imageFile = new File(dir,imageFileName);
+            File imageFile = new File(dir, imageFileName);
             imageFile.createNewFile();
 
             OutputStream out = new FileOutputStream(imageFile);
@@ -96,33 +84,24 @@ public class ImageModel {
             out.close();
 
             //addPicureToGallery(imageFile);
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     private Bitmap loadImageFromFile(String imageFileName) {
         Bitmap bitmap = null;
-        try
-        {
+        try {
             File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-            File imageFile = new File(dir,imageFileName);
+            File imageFile = new File(dir, imageFileName);
             InputStream inputStream = new FileInputStream(imageFile);
             bitmap = BitmapFactory.decodeStream(inputStream);
-            Log.d("tag","got image from cache: " + imageFileName);
-        }
-        catch (FileNotFoundException e)
-        {
+            Log.d("tag", "got image from cache: " + imageFileName);
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return bitmap;

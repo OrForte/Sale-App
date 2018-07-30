@@ -14,11 +14,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
-import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
-import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
@@ -52,7 +49,7 @@ public class SaleDetailsFragment extends Fragment {
             public void onChanged(@Nullable ListData listData) {
                 if (!bIsOccur) {
                     if (listData != null) {
-                        if (listData.cities.size() != 0 && listData.malls.size() != 0&& listData.stores.size() != 0) {
+                        if (listData.cities.size() != 0 && listData.malls.size() != 0 && listData.stores.size() != 0) {
                             bIsOccur = true;
                         }
                     }
@@ -76,8 +73,8 @@ public class SaleDetailsFragment extends Fragment {
         etStore = view.findViewById(R.id.fragment_sale_details_etStore);
         rlProgressBar = view.findViewById(R.id.fragment_sale_details_rlProgressBar);
         rlProgressBar.setVisibility(View.VISIBLE);
-        String nId ="";
-        if (getArguments() != null){
+        String nId = "";
+        if (getArguments() != null) {
             nId = getArguments().getString("SALE_ID");
             dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
                 @Override

@@ -5,7 +5,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 
-import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -21,7 +20,7 @@ public class ImageModelFirebase {
         FirebaseStorage storage = FirebaseStorage.getInstance();
 
         Date d = new Date();
-        String name = ""+ d.getTime();
+        String name = "" + d.getTime();
         StorageReference imagesRef = storage.getReference().child("images").child(name);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -45,22 +44,22 @@ public class ImageModelFirebase {
     }
 
 
-    public void getImage(String url, final ImageModel.GetImageListener listener){
+    public void getImage(String url, final ImageModel.GetImageListener listener) {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference httpsReference = storage.getReferenceFromUrl(url);
         final long ONE_MEGABYTE = 1024 * 1024;
-        httpsReference.getBytes(3* ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+        httpsReference.getBytes(3 * ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
             @Override
             public void onSuccess(byte[] bytes) {
-                Bitmap image = BitmapFactory.decodeByteArray(bytes,0,bytes.length);
-                Log.d("TAG","get image from firebase success");
+                Bitmap image = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                Log.d("TAG", "get image from firebase success");
                 listener.onDone(image);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(Exception exception) {
-                Log.d("TAG",exception.getMessage());
-                Log.d("TAG","get image from firebase Failed");
+                Log.d("TAG", exception.getMessage());
+                Log.d("TAG", "get image from firebase Failed");
                 listener.onDone(null);
             }
         });

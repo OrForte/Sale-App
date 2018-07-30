@@ -15,6 +15,8 @@ import com.example.eliavmenachi.myapplication.Models.User.UserDao;
 @Database(entities = {Sale.class, User.class, City.class, Mall.class, Store.class}, version = 8)
 public abstract class MainAppLocalDbRepository extends RoomDatabase {
     public abstract SaleDao saleDao();
+
     public abstract UserDao userDao();
+
     public abstract CityMallAndStoreDao CityMallAndStoreDao();
 }

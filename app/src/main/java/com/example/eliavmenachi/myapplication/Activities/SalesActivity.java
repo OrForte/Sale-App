@@ -1,26 +1,19 @@
 package com.example.eliavmenachi.myapplication.Activities;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuBuilder;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.example.eliavmenachi.myapplication.Entities.Consts;
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Fragments.ChooseLocationFragment;
 import com.example.eliavmenachi.myapplication.Fragments.EditUserProfileFragment;
-import com.example.eliavmenachi.myapplication.Fragments.LoginFragment;
 import com.example.eliavmenachi.myapplication.Fragments.NewSaleFragment;
 import com.example.eliavmenachi.myapplication.Fragments.SalesListFragment;
-import com.example.eliavmenachi.myapplication.Fragments.ChooseLocationFragment;
 import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
@@ -67,7 +60,7 @@ public class SalesActivity extends AppCompatActivity {
         menu.clear();
 
         getMenuInflater().inflate(R.menu.main_menu, menu);
-            toolBarMenu = menu;
+        toolBarMenu = menu;
 
         if (currentUser == null) {
             toolBarMenu.removeItem(R.id.menu_user_profile);

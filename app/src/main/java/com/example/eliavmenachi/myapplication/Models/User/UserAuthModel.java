@@ -2,7 +2,6 @@ package com.example.eliavmenachi.myapplication.Models.User;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,7 +16,7 @@ public class UserAuthModel {
         userAuthModelFirebase = new UserAuthModelFirebase();
     }
 
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         return userAuthModelFirebase.getCurrentUser();
     }
 
@@ -25,7 +24,7 @@ public class UserAuthModel {
         userAuthModelFirebase.getUsers(userID, callback);
     }
 
-    public void signIn(final String userEmail, final String password, final UserAuthModelFirebase.SigninCallback callback){
+    public void signIn(final String userEmail, final String password, final UserAuthModelFirebase.SigninCallback callback) {
         userAuthModelFirebase.signInWithEmailAndPassword(userEmail, password, new UserAuthModelFirebase.SigninCallback() {
             @Override
             public void onSuccess(String userID, String userName) {
@@ -40,7 +39,7 @@ public class UserAuthModel {
     }
 
     public void createUser(User userToAdd,
-                           final UserAuthModelFirebase.CreateUserCallback callback){
+                           final UserAuthModelFirebase.CreateUserCallback callback) {
 
         userAuthModelFirebase.createUserWithEmailAndPassword(userToAdd, new UserAuthModelFirebase.CreateUserCallback() {
             @Override
@@ -55,14 +54,12 @@ public class UserAuthModel {
         });
     }
 
-    public void signOut(){
+    public void signOut() {
         FirebaseAuth.getInstance().signOut();
     }
 
 
-
-    public LiveData<User> getCurrentUserNew()
-    {
+    public LiveData<User> getCurrentUserNew() {
         UserDataNew user = new UserDataNew();
         return user;
     }
@@ -101,13 +98,16 @@ public class UserAuthModel {
         protected void onInactive() {
             super.onInactive();
         }
-        public UserDataNew()
-        {
+
+        public UserDataNew() {
             super();
             setValue(new User());
         }
     }
 
     UserDataNew userDataNew = new UserDataNew();
-    public LiveData<User> getAllSales() { return userDataNew;}
+
+    public LiveData<User> getAllSales() {
+        return userDataNew;
+    }
 }

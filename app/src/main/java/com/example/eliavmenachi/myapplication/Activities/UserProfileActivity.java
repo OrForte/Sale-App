@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.eliavmenachi.myapplication.Fragments.EditUserProfileFragment;
-import com.example.eliavmenachi.myapplication.Fragments.SalesListFragment;
-import com.example.eliavmenachi.myapplication.Fragments.UserSalesListFragment;
 import com.example.eliavmenachi.myapplication.R;
 
 public class UserProfileActivity extends AppCompatActivity {

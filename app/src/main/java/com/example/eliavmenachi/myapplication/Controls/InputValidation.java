@@ -34,16 +34,13 @@ public class InputValidation {
     }
 
 
-    public boolean isEditTextFilled(EditText editText, String message)
-    {
+    public boolean isEditTextFilled(EditText editText, String message) {
         String value = editText.getText().toString().trim();
         if (value.isEmpty()) {
             editText.setError(message);
             hideKeyboardFrom(editText);
             return false;
-        }
-        else
-            {
+        } else {
             editText.setError(null);
         }
 
@@ -75,12 +72,12 @@ public class InputValidation {
                 nValidate = Integer.parseInt(value);
                 editInt.setError(null);
 
-            } catch (NumberFormatException pe){
+            } catch (NumberFormatException pe) {
                 Log.d(TAG, "ERROR getValidateDate" + pe.getMessage());
             }
         }
 
-        if (nValidate == -1){
+        if (nValidate == -1) {
             editInt.setError(message);
             hideKeyboardFrom(editInt);
         }

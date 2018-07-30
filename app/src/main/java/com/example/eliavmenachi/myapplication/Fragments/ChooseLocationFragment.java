@@ -6,8 +6,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +20,8 @@ import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
-import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.R;
+import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,21 +82,20 @@ public class ChooseLocationFragment extends Fragment {
             @Override
             public void onChanged(@Nullable ListData listData) {
                 if (listData != null) {
-                    if (listData.cities.size() != 0 && listData.malls.size() != 0&& listData.stores.size() != 0) {
+                    if (listData.cities.size() != 0 && listData.malls.size() != 0 && listData.stores.size() != 0) {
                         SetListOfCities(listData);
                     }
                 }
             }
         });
 
-        btnShowSales.setOnClickListener(new View.OnClickListener()
-        {
+        btnShowSales.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
 
                 FragmentManager fragmentManager = getFragmentManager();
                 SalesListFragment fragment = new SalesListFragment();
                 Bundle args = new Bundle();
-                args.putString("STORE_ID", storeId +"");
+                args.putString("STORE_ID", storeId + "");
                 fragment.setArguments(args);
                 FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
                 //FragmentTransaction tran = fragmentManager.beginTransaction();
@@ -110,8 +109,7 @@ public class ChooseLocationFragment extends Fragment {
         return view;
     }
 
-    public void SetListOfCities(ListData data)
-    {
+    public void SetListOfCities(ListData data) {
         listData = new ListData();
         listData = data;
 
@@ -126,7 +124,7 @@ public class ChooseLocationFragment extends Fragment {
         dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                OnSelectedCity(adapterView,view,position,l);
+                OnSelectedCity(adapterView, view, position, l);
             }
 
             @Override
@@ -135,14 +133,12 @@ public class ChooseLocationFragment extends Fragment {
         });
     }
 
-    public void OnSelectedCity(AdapterView<?> adapterView, View view, final int position, long l)
-    {
+    public void OnSelectedCity(AdapterView<?> adapterView, View view, final int position, long l) {
         mallNames = new ArrayList<>();
         storeNames = new ArrayList<>();
         selectedCityName = adapterView.getItemAtPosition(position).toString();
         City selectedCity = dataModel.GetCityByCityName(selectedCityName, listData);
-        if (selectedCity != null)
-        {
+        if (selectedCity != null) {
             cityId = selectedCity.id;
         }
         mallNames = dataModel.GetMallNamesByCityId(selectedCity.id, listData);
@@ -151,7 +147,7 @@ public class ChooseLocationFragment extends Fragment {
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                OnSelectedMall(adapterView,view,i,l);
+                OnSelectedMall(adapterView, view, i, l);
             }
 
             @Override
@@ -160,13 +156,11 @@ public class ChooseLocationFragment extends Fragment {
         });
     }
 
-    public void OnSelectedMall(AdapterView<?> adapterView, View view, int position, long l)
-    {
+    public void OnSelectedMall(AdapterView<?> adapterView, View view, int position, long l) {
         storeNames = new ArrayList<>();
         selectedMallName = adapterView.getItemAtPosition(position).toString();
         Mall selectedMall = dataModel.GetMallByMallName(selectedMallName, listData);
-        if (selectedMall != null)
-        {
+        if (selectedMall != null) {
             mallId = selectedMall.id;
             storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
         }
@@ -175,7 +169,7 @@ public class ChooseLocationFragment extends Fragment {
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                OnSelectedStore(adapterView,view,i,l);
+                OnSelectedStore(adapterView, view, i, l);
             }
 
             @Override
@@ -184,18 +178,15 @@ public class ChooseLocationFragment extends Fragment {
         });
     }
 
-    public void OnSelectedStore(AdapterView<?> adapterView, View view, int position, long l)
-    {
+    public void OnSelectedStore(AdapterView<?> adapterView, View view, int position, long l) {
         selectedStoreName = adapterView.getItemAtPosition(position).toString();
-        Store selectedStore = dataModel.GetStoreByStoreName(selectedStoreName,listData);
-        if (selectedStore != null)
-        {
+        Store selectedStore = dataModel.GetStoreByStoreName(selectedStoreName, listData);
+        if (selectedStore != null) {
             storeId = selectedStore.id;
         }
     }
 
-    public ArrayAdapter<String> SetAdapter(List<String> collection)
-    {
+    public ArrayAdapter<String> SetAdapter(List<String> collection) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, collection);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         return adapter;

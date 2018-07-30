@@ -15,17 +15,23 @@ public class Store {
     public int getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
-    public int getMallId() { return mallId;}
+
+    public int getMallId() {
+        return mallId;
+    }
 
     public void setId(int id) {
         this.id = id;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public void setMallId(int cityId) {
         this.mallId = cityId;
     }

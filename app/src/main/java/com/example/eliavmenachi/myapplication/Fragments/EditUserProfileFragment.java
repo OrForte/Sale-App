@@ -3,11 +3,11 @@ package com.example.eliavmenachi.myapplication.Fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,19 +17,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.content.Intent;
 
 import com.example.eliavmenachi.myapplication.Activities.SalesActivity;
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.User;
-import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
-import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class EditUserProfileFragment extends Fragment {
@@ -139,8 +135,7 @@ public class EditUserProfileFragment extends Fragment {
                             etFirstName.setText(user.firstName);
                             etLastName.setText(user.lastName);
 
-                            if (cityListData.cities.size() > 0)
-                            {
+                            if (cityListData.cities.size() > 0) {
                                 City city = cityDataModel.GetCityByCityId(user.city, cityListData);
                                 if (city != null) {
                                     int selectedCityIndex = ((ArrayAdapter<String>) spCity.getAdapter()).getPosition(city.name);

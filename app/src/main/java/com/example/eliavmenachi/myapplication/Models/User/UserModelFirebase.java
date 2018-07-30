@@ -3,10 +3,8 @@ package com.example.eliavmenachi.myapplication.Models.User;
 import android.support.annotation.NonNull;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +26,7 @@ public class UserModelFirebase {
 
     interface getUserByUsernamePasswordListener {
         public void onSuccess(User user);
+
         public void onFailure();
     }
 
@@ -100,6 +99,7 @@ public class UserModelFirebase {
 
     interface setUserListener {
         public void onSuccess();
+
         public void onFailure(Exception e);
     }
 
@@ -160,7 +160,6 @@ public class UserModelFirebase {
 //        myFirebaseRef.cstRefreateUser(email, pwd, new Firebase.ResultHandler() {   @Override   public void onSuccess() { ...   }
 //            @Override   public void onError(FirebaseError firebaseError) { ...   } });
 //    }
-
 
 
 }

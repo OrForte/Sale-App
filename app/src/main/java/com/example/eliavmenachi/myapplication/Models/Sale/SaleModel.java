@@ -1,9 +1,9 @@
 package com.example.eliavmenachi.myapplication.Models.Sale;
 
-import com.example.eliavmenachi.myapplication.Entities.Sale;
-
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
+
+import com.example.eliavmenachi.myapplication.Entities.Sale;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,8 +18,7 @@ public class SaleModel {
 
     //region C'Tors
 
-    private SaleModel()
-    {
+    private SaleModel() {
         saleModelFirebase = new SaleModelFirebase();
     }
 
@@ -29,11 +28,11 @@ public class SaleModel {
 
     // region Regular Methods
 
-    public interface GetPostsByStoreIdListener{
+    public interface GetPostsByStoreIdListener {
         void onGetPosts(List<Sale> p_postToReturn);
     }
-    public void GetPostsByStoreId(final String storeId, final GetPostsByStoreIdListener listener)
-    {
+
+    public void GetPostsByStoreId(final String storeId, final GetPostsByStoreIdListener listener) {
         saleModelFirebase.getPostsByStoreId(storeId, new GetPostsByStoreIdListener() {
             @Override
             public void onGetPosts(List<Sale> p_postToReturn) {
@@ -44,16 +43,15 @@ public class SaleModel {
     }
 
 
-    public void addPost(Sale p_postToSave)
-    {
+    public void addPost(Sale p_postToSave) {
         saleModelFirebase.addPost(p_postToSave);
     }
 
-    public interface  deleteLogicSaleListener{
+    public interface deleteLogicSaleListener {
         void onDeleteLogicSale(boolean b_isDelete);
     }
-    public void deleteLogicSale(final Sale p_saleToDelete, final deleteLogicSaleListener listener)
-    {
+
+    public void deleteLogicSale(final Sale p_saleToDelete, final deleteLogicSaleListener listener) {
         saleModelFirebase.deleteLogicSale(p_saleToDelete, new deleteLogicSaleListener() {
             @Override
             public void onDeleteLogicSale(boolean b_isDelete) {
@@ -63,11 +61,11 @@ public class SaleModel {
         });
     }
 
-    public interface GetNextSequenceListener{
+    public interface GetNextSequenceListener {
         void onGetNextSeq(String p_next);
     }
-    public void GetNextSequenceSale(final String SeqName, final GetNextSequenceListener listener)
-    {
+
+    public void GetNextSequenceSale(final String SeqName, final GetNextSequenceListener listener) {
         saleModelFirebase.GetNextSequenceSale(SeqName, new GetNextSequenceListener() {
             @Override
             public void onGetNextSeq(String p_next) {
@@ -82,8 +80,7 @@ public class SaleModel {
 
     //region SaleListData
 
-    public class SaleListData extends MutableLiveData<List<Sale>>
-    {
+    public class SaleListData extends MutableLiveData<List<Sale>> {
         @Override
         protected void onActive() {
             super.onActive();
@@ -122,8 +119,7 @@ public class SaleModel {
             saleModelFirebase.cancellGetAllSales();
         }
 
-        public SaleListData()
-        {
+        public SaleListData() {
             super();
             setValue(new LinkedList<Sale>());
         }
@@ -131,15 +127,16 @@ public class SaleModel {
 
     SaleListData studentListData = new SaleListData();
 
-    public LiveData<List<Sale>> getAllSales() { return studentListData;}
+    public LiveData<List<Sale>> getAllSales() {
+        return studentListData;
+    }
 
 
     //endregion
 
     //region SaleListDataByStore
 
-    public class SaleListDataByStore extends MutableLiveData<List<Sale>>
-    {
+    public class SaleListDataByStore extends MutableLiveData<List<Sale>> {
         String m_storeId = "";
 
         @Override
@@ -169,29 +166,25 @@ public class SaleModel {
             super.onInactive();
         }
 
-        public SaleListDataByStore()
-        {
+        public SaleListDataByStore() {
             super();
             setValue(new LinkedList());
         }
 
-        public void InitStoreId(String p_strStoreId)
-        {
+        public void InitStoreId(String p_strStoreId) {
             m_storeId = p_strStoreId;
         }
     }
 
 
     public SaleListDataByStore saleListDataByStore = new SaleListDataByStore();
-    public LiveData<List<Sale>> getAllSalesByStoreId(String p_strStoreId)
-    {
+
+    public LiveData<List<Sale>> getAllSalesByStoreId(String p_strStoreId) {
         return saleListDataByStore;
     }
 
-    public void InitStoreId(String p_strStoreId)
-    {
-        if (saleListDataByStore == null)
-        {
+    public void InitStoreId(String p_strStoreId) {
+        if (saleListDataByStore == null) {
             saleListDataByStore = new SaleListDataByStore();
         }
 
@@ -201,8 +194,7 @@ public class SaleModel {
     // endregion
 
     //region SalesByUserId
-    public class SaleListDataByUserId extends MutableLiveData<List<Sale>>
-    {
+    public class SaleListDataByUserId extends MutableLiveData<List<Sale>> {
         String m_userName = "";
 
         @Override
@@ -228,27 +220,24 @@ public class SaleModel {
             super.onInactive();
         }
 
-        public SaleListDataByUserId()
-        {
+        public SaleListDataByUserId() {
             super();
             setValue(new LinkedList());
         }
 
-        public void InitUserName(String p_strUserName)
-        {
+        public void InitUserName(String p_strUserName) {
             m_userName = p_strUserName;
         }
     }
 
     public SaleListDataByUserId saleListDataByUserId = new SaleListDataByUserId();
-    public LiveData<List<Sale>> getSalesByUserName(String p_strUserName)
-    {
+
+    public LiveData<List<Sale>> getSalesByUserName(String p_strUserName) {
         return saleListDataByUserId;
     }
-    public void InitUserName(String p_strUserName)
-    {
-        if (saleListDataByUserId == null)
-        {
+
+    public void InitUserName(String p_strUserName) {
+        if (saleListDataByUserId == null) {
             saleListDataByUserId = new SaleListDataByUserId();
         }
 
@@ -259,8 +248,7 @@ public class SaleModel {
 
     // region GetSaleBySaleId
 
-    public class SaleBySaleIdData extends MutableLiveData<Sale>
-    {
+    public class SaleBySaleIdData extends MutableLiveData<Sale> {
         String m_saleId = "";
 
         @Override
@@ -268,7 +256,7 @@ public class SaleModel {
             super.onActive();
 
             SalesAsyncDao.getSaleBySaleId(m_saleId, new SalesAsyncDao.SaleAsynchDaoListener2<List<Sale>>() {
-                 @Override
+                @Override
                 public void onCompleteOneSale(Sale data) {
                     setValue(data);
 
@@ -278,7 +266,7 @@ public class SaleModel {
                             setValue(data);
                         }
                     });
-               }
+                }
             });
         }
 
@@ -287,27 +275,24 @@ public class SaleModel {
             super.onInactive();
         }
 
-        public SaleBySaleIdData()
-        {
+        public SaleBySaleIdData() {
             super();
             setValue(new Sale());
         }
 
-        public void InitSaleId(String p_saleId)
-        {
+        public void InitSaleId(String p_saleId) {
             m_saleId = p_saleId;
         }
     }
 
     public SaleBySaleIdData saleBySaleIdData = new SaleBySaleIdData();
-    public LiveData<Sale> getSaleBySaleId(String p_strSaleId)
-    {
+
+    public LiveData<Sale> getSaleBySaleId(String p_strSaleId) {
         return saleBySaleIdData;
     }
-    public void InitSaleId(String p_SaleId)
-    {
-        if (saleBySaleIdData == null)
-        {
+
+    public void InitSaleId(String p_SaleId) {
+        if (saleBySaleIdData == null) {
             saleBySaleIdData = new SaleBySaleIdData();
         }
 

@@ -1,17 +1,11 @@
 package com.example.eliavmenachi.myapplication.Activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
 import com.example.eliavmenachi.myapplication.Fragments.LoginFragment;
-import com.example.eliavmenachi.myapplication.Fragments.MainFragment;
-import com.example.eliavmenachi.myapplication.Fragments.SalesListFragment;
 import com.example.eliavmenachi.myapplication.R;
 
 public class LoginActivity extends AppCompatActivity {

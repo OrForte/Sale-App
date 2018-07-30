@@ -1,15 +1,12 @@
 package com.example.eliavmenachi.myapplication.Fragments;
 
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -110,30 +107,26 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
-    private boolean isInputsValid()
-    {
+    private boolean isInputsValid() {
         final String mail = userEt.getText().toString();
         final String password = passwordEt.getText().toString();
         boolean bIsValid = true;
 
-        if (mail.length() == 0){
+        if (mail.length() == 0) {
             userEt.requestFocus();
             userEt.setError("FIELD CANNOT BE EMPTY");
             bIsValid = false;
-        }
-        else if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()){
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
             userEt.requestFocus();
             userEt.setError("INVALID EMAIL FORMAT");
             bIsValid = false;
         }
 
-        if (password.length() == 0){
+        if (password.length() == 0) {
             passwordEt.requestFocus();
             passwordEt.setError("FIELD CANNOT BE EMPTY");
             bIsValid = false;
-        }
-        else if (password.length() <= 5)
-        {
+        } else if (password.length() <= 5) {
             passwordEt.requestFocus();
             passwordEt.setError("Password must be 6 CHARACTERs");
             bIsValid = false;

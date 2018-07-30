@@ -2,12 +2,12 @@ package com.example.eliavmenachi.myapplication.Fragments;
 
 
 import android.arch.lifecycle.Observer;
-import android.util.Patterns;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +69,7 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
 
         firstNameEt = view.findViewById(R.id.fragment_register_etName);
         lastNameEt = view.findViewById(R.id.fragment_register_etFamily);
@@ -125,8 +125,7 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    private boolean isInputsValid()
-    {
+    private boolean isInputsValid() {
         final String firstName = firstNameEt.getText().toString();
         final String lastName = lastNameEt.getText().toString();
         final String password = passwordEt.getText().toString();
@@ -135,42 +134,38 @@ public class RegisterFragment extends Fragment {
         final String userName = userNameEt.getText().toString();
         boolean bIsValid = true;
 
-        if(firstName.length()==0)
-        {
+        if (firstName.length() == 0) {
             firstNameEt.requestFocus();
             firstNameEt.setError("FIELD CANNOT BE EMPTY");
             bIsValid = false;
         }
 
-        if(lastName.length()==0)
-        {
+        if (lastName.length() == 0) {
             lastNameEt.requestFocus();
             lastNameEt.setError("FIELD CANNOT BE EMPTY");
             bIsValid = false;
         }
 
         //String mailPattern = "/^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$/";
-        if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()){
+        if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
             mailEt.requestFocus();
             mailEt.setError("Invalid format mail");
             bIsValid = false;
         }
 
-        if (userName.length() == 0){
+        if (userName.length() == 0) {
             userNameEt.requestFocus();
             userNameEt.setError("FIELD CANNOT BE EMPTY");
             bIsValid = false;
         }
 
-        if (!password.equals(repeatPassword))
-        {
+        if (!password.equals(repeatPassword)) {
             passwordEt.requestFocus();
             passwordEt.setError("Password not equals");
             bIsValid = false;
         }
 
-        if (password.length() <= 5)
-        {
+        if (password.length() <= 5) {
             passwordEt.requestFocus();
             passwordEt.setError("Password must be 6 CHARACTERs");
             bIsValid = false;
@@ -179,8 +174,7 @@ public class RegisterFragment extends Fragment {
         return bIsValid;
     }
 
-    public void SetListOfCities(ListData data)
-    {
+    public void SetListOfCities(ListData data) {
         listData = new ListData();
         listData = data;
         citiesNames = cityDataModel.GetCityNames(listData);
@@ -192,8 +186,7 @@ public class RegisterFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
                 selectedCityName = adapterView.getItemAtPosition(position).toString();
                 City selectedCity = cityDataModel.GetCityByCityName(selectedCityName, listData);
-                if (selectedCity != null)
-                {
+                if (selectedCity != null) {
                     cityId = selectedCity.id;
                 }
             }
@@ -203,8 +196,8 @@ public class RegisterFragment extends Fragment {
             }
         });
     }
-    public ArrayAdapter<String> SetAdapter(List<String> collection)
-    {
+
+    public ArrayAdapter<String> SetAdapter(List<String> collection) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, collection);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         return adapter;

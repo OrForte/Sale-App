@@ -16,17 +16,23 @@ public class Mall {
     public int getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
-    public int getCityId() { return cityId;}
+
+    public int getCityId() {
+        return cityId;
+    }
 
     public void setId(int id) {
         this.id = id;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public void setCityId(int cityId) {
         this.cityId = cityId;
     }

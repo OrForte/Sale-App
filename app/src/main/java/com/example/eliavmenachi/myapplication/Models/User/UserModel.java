@@ -127,6 +127,7 @@ public class UserModel {
 
     public interface LogoutCompleteListener {
         public void onSuccess();
+
         public void onFailure();
 
     }

@@ -19,17 +19,17 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.Consts;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
+import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
-import com.example.eliavmenachi.myapplication.Entities.Mall;
-import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
-import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.R;
+import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
 import java.util.List;
@@ -37,7 +37,8 @@ import java.util.List;
 public class SalesListFragment extends Fragment {
     // Data Members
     ListView list;
-    SalesListFragment.ListAdapter listAdapter = new SalesListFragment.ListAdapter();;
+    SalesListFragment.ListAdapter listAdapter = new SalesListFragment.ListAdapter();
+    ;
     SaleListViewModel dataModel;
     ListData listData;
     String m_selectedStore = "-1";
@@ -57,7 +58,7 @@ public class SalesListFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Log.d("TAG","item selected:" + i);
+                Log.d("TAG", "item selected:" + i);
             }
         });
         rlProgressBar = view.findViewById(R.id.fragment_sale_list_rlProgressBar);
@@ -78,19 +79,14 @@ public class SalesListFragment extends Fragment {
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Sale selectedSaleItem = dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).getValue().get(i);
+                Sale selectedSaleItem = dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore).getValue().get(i);
 
-                if (currentUser  == null)
-                {
+                if (currentUser == null) {
                     setSaleDetailsFragments(selectedSaleItem);
-                }
-                else
-                {
-                    if (currentUser.id.equals(selectedSaleItem.userId))
-                    {
+                } else {
+                    if (currentUser.id.equals(selectedSaleItem.userId)) {
                         setNewSaleFragments(selectedSaleItem);
-                        }
-                    else {
+                    } else {
                         setSaleDetailsFragments(selectedSaleItem);
                     }
                 }
@@ -101,8 +97,7 @@ public class SalesListFragment extends Fragment {
         return view;
     }
 
-    public void  setNewSaleFragments(Sale selectedSaleItem)
-    {
+    public void setNewSaleFragments(Sale selectedSaleItem) {
         NewSaleFragment fragment = new NewSaleFragment();
         Bundle args = new Bundle();
         args.putString("SALE_ID", selectedSaleItem.id);
@@ -114,8 +109,7 @@ public class SalesListFragment extends Fragment {
         tran.commit();
     }
 
-    public void setSaleDetailsFragments(Sale selectedSaleItem)
-    {
+    public void setSaleDetailsFragments(Sale selectedSaleItem) {
         SaleDetailsFragment fragment = new SaleDetailsFragment();
         Bundle args = new Bundle();
         args.putString("SALE_ID", selectedSaleItem.id);
@@ -130,26 +124,24 @@ public class SalesListFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (getArguments() != null){
+        if (getArguments() != null) {
             m_selectedStore = getArguments().getString("STORE_ID");
             m_bGetAllSales = false;
-        }
-        else
-        {
+        } else {
             m_selectedStore = "-1";
             m_bGetAllSales = true;
         }
 
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         dataModel = ViewModelProviders.of(this).get(SaleListViewModel.class);
-        dataModel.getDataByStoreId(m_bGetAllSales,m_selectedStore).observe(this, new Observer<List<Sale>>() {
+        dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore).observe(this, new Observer<List<Sale>>() {
             @Override
             public void onChanged(@Nullable List<Sale> sales) {
                 //nCounterQuery++;
                 //if (nCounterQuery >= 2) {
-                    listAdapter.notifyDataSetChanged();
-                    Log.d("TAG", "notifyDataSetChanged" + sales.size());
-                    rlProgressBar.setVisibility(View.GONE);
+                listAdapter.notifyDataSetChanged();
+                Log.d("TAG", "notifyDataSetChanged" + sales.size());
+                rlProgressBar.setVisibility(View.GONE);
                 //}
             }
         });
@@ -169,21 +161,21 @@ public class SalesListFragment extends Fragment {
     }
 
     class ListAdapter extends BaseAdapter {
-        public ListAdapter(){
+        public ListAdapter() {
         }
 
         @Override
         public int getCount() {
             int nCount = 0;
             //if (nCounterQuery >= 2) {
-                if (dataModel != null) {
-                    LiveData<List<Sale>> data = dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore);
-                    if (data != null) {
-                        if (data.getValue() != null) {
-                            nCount = data.getValue().size();
-                        }
+            if (dataModel != null) {
+                LiveData<List<Sale>> data = dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore);
+                if (data != null) {
+                    if (data.getValue() != null) {
+                        nCount = data.getValue().size();
                     }
                 }
+            }
             //}
             return nCount;
         }
@@ -202,68 +194,61 @@ public class SalesListFragment extends Fragment {
 
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
-            if (view == null){
-                view = LayoutInflater.from(getActivity()).inflate(R.layout.sale_list_item,null);
+            if (view == null) {
+                view = LayoutInflater.from(getActivity()).inflate(R.layout.sale_list_item, null);
             }
             //if (nCounterQuery >= 2) {
-                final Sale currentSale = dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore).getValue().get(i);
-                final int copyI = i;
-                final View copyView = view;
-                final TextView tvCity = view.findViewById(R.id.tvCity);
-                final TextView tvMall = view.findViewById(R.id.tvMall);
-                final TextView tvStore = view.findViewById(R.id.tvStore);
-                final TextView tvDesc = view.findViewById(R.id.tvDescription);
-                tvDesc.setText(currentSale.description);
+            final Sale currentSale = dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore).getValue().get(i);
+            final int copyI = i;
+            final View copyView = view;
+            final TextView tvCity = view.findViewById(R.id.tvCity);
+            final TextView tvMall = view.findViewById(R.id.tvMall);
+            final TextView tvStore = view.findViewById(R.id.tvStore);
+            final TextView tvDesc = view.findViewById(R.id.tvDescription);
+            tvDesc.setText(currentSale.description);
 
-                String strStoreId = currentSale.storeId + "";
-                tvCity.setText(currentSale.cityName);
-                tvMall.setText(currentSale.mallName);
-                tvStore.setText(currentSale.storeName);
+            String strStoreId = currentSale.storeId + "";
+            tvCity.setText(currentSale.cityName);
+            tvMall.setText(currentSale.mallName);
+            tvStore.setText(currentSale.storeName);
 
-                final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
-                imSalePic.setImageResource(R.drawable.avatar);
-                imSalePic.setTag(currentSale.id);
+            final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
+            imSalePic.setImageResource(R.drawable.avatar);
+            imSalePic.setTag(currentSale.id);
 
-                if (currentSale.getPictureUrl() != null) {
-                    ImageModel.instance.getImage(currentSale.getPictureUrl(), new ImageModel.GetImageListener() {
-                        @Override
-                        public void onDone(Bitmap imageBitmap) {
-                            if (currentSale.id.equals(imSalePic.getTag()) && imageBitmap != null) {
-                                imSalePic.setImageBitmap(imageBitmap);
-                            }
+            if (currentSale.getPictureUrl() != null) {
+                ImageModel.instance.getImage(currentSale.getPictureUrl(), new ImageModel.GetImageListener() {
+                    @Override
+                    public void onDone(Bitmap imageBitmap) {
+                        if (currentSale.id.equals(imSalePic.getTag()) && imageBitmap != null) {
+                            imSalePic.setImageBitmap(imageBitmap);
                         }
-                    });
-                }
+                    }
+                });
+            }
             //}
 
             return view;
         }
 
-        public void SettingData(int i, View view, Sale currentSale, TextView tvCity, TextView tvMall, TextView tvStore)
-        {
+        public void SettingData(int i, View view, Sale currentSale, TextView tvCity, TextView tvMall, TextView tvStore) {
             Store storeData = new Store();
             Mall malData = new Mall();
             City cityData = new City();
-            for(int nIndex = 0; nIndex < listData.stores.size();nIndex++)
-            {
-                if (currentSale.storeId == listData.stores.get(nIndex).id)
-                {
+            for (int nIndex = 0; nIndex < listData.stores.size(); nIndex++) {
+                if (currentSale.storeId == listData.stores.get(nIndex).id) {
                     storeData = listData.stores.get(nIndex);
                 }
             }
 
-            for(int nIndex = 0; nIndex < listData.malls.size();nIndex++)
-            {
-                if (storeData.mallId == listData.malls.get(nIndex).id)
-                {
+            for (int nIndex = 0; nIndex < listData.malls.size(); nIndex++) {
+                if (storeData.mallId == listData.malls.get(nIndex).id) {
                     malData = listData.malls.get(nIndex);
                 }
             }
 
-            for(int nIndex = 0; nIndex < listData.cities.size();nIndex++)
-            {
-                if (malData.cityId == listData.cities.get(nIndex).id)
-                {
+            for (int nIndex = 0; nIndex < listData.cities.size(); nIndex++) {
+                if (malData.cityId == listData.cities.get(nIndex).id) {
                     cityData = listData.cities.get(nIndex);
                 }
             }

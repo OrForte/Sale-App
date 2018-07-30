@@ -8,32 +8,25 @@ import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Models.MainAppLocalDb;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CityMallAndStoreAsyncDao {
-    interface CityMallAndStoreAsynchDaoListener<T>{
+    interface CityMallAndStoreAsynchDaoListener<T> {
         void onComplete(T data);
     }
 
     static public void getCitiesMallsAndStores(final CityMallAndStoreAsynchDaoListener<ListData> listener) {
-        class MyAsynchTask extends AsyncTask<String,String,ListData> {
+        class MyAsynchTask extends AsyncTask<String, String, ListData> {
             @Override
             protected ListData doInBackground(String... strings) {
                 ListData data = new ListData();
                 Object a = MainAppLocalDb.db.CityMallAndStoreDao();
-                if (a != null)
-                {
-                    if (MainAppLocalDb.db.CityMallAndStoreDao().getCities() != null)
-                    {
+                if (a != null) {
+                    if (MainAppLocalDb.db.CityMallAndStoreDao().getCities() != null) {
                         data.cities = MainAppLocalDb.db.CityMallAndStoreDao().getCities();
                     }
-                    if (MainAppLocalDb.db.CityMallAndStoreDao().getMalls() != null)
-                    {
+                    if (MainAppLocalDb.db.CityMallAndStoreDao().getMalls() != null) {
                         data.malls = MainAppLocalDb.db.CityMallAndStoreDao().getMalls();
                     }
-                    if (MainAppLocalDb.db.CityMallAndStoreDao().getStores() != null)
-                    {
+                    if (MainAppLocalDb.db.CityMallAndStoreDao().getStores() != null) {
                         data.stores = MainAppLocalDb.db.CityMallAndStoreDao().getStores();
                     }
                 }
@@ -50,26 +43,23 @@ public class CityMallAndStoreAsyncDao {
         task.execute();
     }
 
-    static void insertAll(final ListData data, final CityMallAndStoreAsynchDaoListener<Boolean> listener){
-        class MyAsynchTask extends AsyncTask<ListData,String,Boolean>{
+    static void insertAll(final ListData data, final CityMallAndStoreAsynchDaoListener<Boolean> listener) {
+        class MyAsynchTask extends AsyncTask<ListData, String, Boolean> {
             @Override
             protected Boolean doInBackground(ListData... data) {
 
-                if (data != null)
-                {
-                    if (data[0] != null)
-                    {
-                        if (data[0].cities != null)
-                        {
-                            for (City currCity:data[0].cities) {
+                if (data != null) {
+                    if (data[0] != null) {
+                        if (data[0].cities != null) {
+                            for (City currCity : data[0].cities) {
                                 MainAppLocalDb.db.CityMallAndStoreDao().insertCities(currCity);
                             }
 
-                            for (Mall currMall:data[0].malls) {
+                            for (Mall currMall : data[0].malls) {
                                 MainAppLocalDb.db.CityMallAndStoreDao().insertMalls(currMall);
                             }
 
-                            for (Store currStore:data[0].stores) {
+                            for (Store currStore : data[0].stores) {
                                 MainAppLocalDb.db.CityMallAndStoreDao().insertStores(currStore);
                             }
                         }

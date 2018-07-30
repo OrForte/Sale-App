@@ -39,7 +39,7 @@ public class UserAsynchDao {
         class MyAsynchTask extends AsyncTask<String, String, User> {
             @Override
             protected User doInBackground(String... usersnames) {
-                List<User> users =  MainAppLocalDb.db.userDao().getUsers();
+                List<User> users = MainAppLocalDb.db.userDao().getUsers();
                 if (users.size() == 0)
                     return null;
 
@@ -58,12 +58,11 @@ public class UserAsynchDao {
         task.execute();
     }
 
-    static public void GetUserByUserId(final String userId,final UserAsynchDaoListener<User> listener)
-    {
+    static public void GetUserByUserId(final String userId, final UserAsynchDaoListener<User> listener) {
         class MyAsynchTask extends AsyncTask<String, String, User> {
             @Override
             protected User doInBackground(String... usersnames) {
-                User user =  MainAppLocalDb.db.userDao().getUserByUserId(userId);
+                User user = MainAppLocalDb.db.userDao().getUserByUserId(userId);
                 return user;
             }
 

@@ -2,6 +2,7 @@ package com.example.eliavmenachi.myapplication.Models.User;
 
 import android.support.annotation.NonNull;
 
+import com.example.eliavmenachi.myapplication.Entities.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -14,22 +15,21 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import com.example.eliavmenachi.myapplication.Entities.User;
 
 
 public class UserAuthModelFirebase {
 
     User totalUserDetailsToSave = new User();
+
     public interface GetAllUsersCallback {
         void onCompleted(List<User> users);
+
         void onCanceled();
     }
-    public void getUsers(final String userID, final GetAllUsersCallback callback){
+
+    public void getUsers(final String userID, final GetAllUsersCallback callback) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef1 = database.getReference("users");
         final ValueEventListener listener = new ValueEventListener() {
@@ -38,8 +38,8 @@ public class UserAuthModelFirebase {
                 List<User> list = new LinkedList<>();
                 for (DataSnapshot snap : dataSnapshot.getChildren()) {
                     User user = snap.getValue(User.class);
-                    user.id =snap.getKey();
-                    if (!user.id.equals(userID)){
+                    user.id = snap.getKey();
+                    if (!user.id.equals(userID)) {
                         list.add(user);
                     }
                 }
@@ -56,11 +56,11 @@ public class UserAuthModelFirebase {
         myRef1.addListenerForSingleValueEvent(listener);
     }
 
-    public User getCurrentUser(){
+    public User getCurrentUser() {
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         User user = null;
 
-        if (firebaseUser != null){
+        if (firebaseUser != null) {
             user = new User();
             user.id = firebaseUser.getUid();
             user.username = firebaseUser.getDisplayName();
@@ -72,20 +72,18 @@ public class UserAuthModelFirebase {
 
     public interface SigninCallback {
         void onSuccess(String userID, String userName);
+
         void onFailed();
     }
+
     public void signInWithEmailAndPassword(String userEmail, String password, final SigninCallback callback) {
         FirebaseAuth.getInstance().signInWithEmailAndPassword(userEmail, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)
-                    {
-                        if (!task.isSuccessful())
-                        {
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (!task.isSuccessful()) {
                             callback.onFailed();
-                        }
-                        else
-                            {
+                        } else {
                             FirebaseUser user = task.getResult().getUser();
                             callback.onSuccess(user.getUid(), user.getDisplayName());
                         }
@@ -95,15 +93,17 @@ public class UserAuthModelFirebase {
 
     public interface CreateUserCallback {
         void onSuccess(String userID, String userName);
+
         void onFailed(String message);
     }
+
     public void createUserWithEmailAndPassword(final User userToAdd,
                                                final CreateUserCallback callback) {
         totalUserDetailsToSave = userToAdd;
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(userToAdd.email, userToAdd.password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (!task.isSuccessful()){
+                if (!task.isSuccessful()) {
                     String exception = task.getException().getMessage();
                     callback.onFailed("Registretion failed: " + exception);
                 } else {
@@ -114,6 +114,7 @@ public class UserAuthModelFirebase {
             }
         });
     }
+
     private void updateUserProfile(final FirebaseUser firebaseUser,
                                    final String userName,
                                    final CreateUserCallback callback) {
@@ -124,7 +125,7 @@ public class UserAuthModelFirebase {
         firebaseUser.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (!task.isSuccessful()){
+                if (!task.isSuccessful()) {
                     callback.onFailed("failed to update user profile");
                 } else {
 
@@ -143,13 +144,13 @@ public class UserAuthModelFirebase {
         });
     }
 
-    private void addUser(final User user, final CreateUserCallback callback){
+    private void addUser(final User user, final CreateUserCallback callback) {
         DatabaseReference mUsersRef = FirebaseDatabase.getInstance().getReference("users");
 
         mUsersRef.child(user.id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     callback.onSuccess(user.id, user.username);
                 } else {
                     callback.onFailed("faild on adding user to firebase DB");
@@ -161,7 +162,9 @@ public class UserAuthModelFirebase {
     interface getUserByIdListener {
         public void onSuccess(User user);
     }
+
     ValueEventListener eventListener;
+
     public void getUserById(String id, final getUserByIdListener listener) {
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("users");
         eventListener = stRef.orderByChild("id").equalTo(id).addValueEventListener(new ValueEventListener() {

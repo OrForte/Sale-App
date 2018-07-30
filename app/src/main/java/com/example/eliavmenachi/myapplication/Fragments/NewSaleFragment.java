@@ -15,18 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.Consts;
@@ -35,16 +31,18 @@ import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
-import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
-import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
-import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
+import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
 import com.example.eliavmenachi.myapplication.R;
+import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
+import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
-import android.widget.ArrayAdapter;
-import android.widget.Toast;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -138,13 +136,13 @@ public class NewSaleFragment extends Fragment {
         etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
 
         progressBarSaveNewSale = view.findViewById(R.id.fragment_new_sale_progress);
-        progressBarSaveNewSale . setVisibility(View.GONE);
+        progressBarSaveNewSale.setVisibility(View.GONE);
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
                 if (!bIsOccur) {
                     if (listData != null) {
-                        if (listData.cities.size() != 0 && listData.malls.size() != 0&& listData.stores.size() != 0) {
+                        if (listData.cities.size() != 0 && listData.malls.size() != 0 && listData.stores.size() != 0) {
                             bIsOccur = true;
                             SetListOfCities(listData);
                         }
@@ -153,8 +151,8 @@ public class NewSaleFragment extends Fragment {
             }
         });
 
-        String nId ="";
-        if (getArguments() != null){
+        String nId = "";
+        if (getArguments() != null) {
             bUpdateMode = true;
             nId = getArguments().getString("SALE_ID");
             m_SaleListTypeParams = getArguments().getString(Consts.instance.SALE_LIST_TYPE);
@@ -173,20 +171,16 @@ public class NewSaleFragment extends Fragment {
                     }
                 }
             });
-        }
-        else
-        {
+        } else {
             rlProgressBar.setVisibility(View.GONE);
         }
 
-        btnSave.setOnClickListener(new View.OnClickListener()
-        {
+        btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 // TODO: need to save the data to firebase
                 // TODO: add spinner to the loading of save
-                progressBarSaveNewSale . setVisibility(View.VISIBLE);
-                if (newSale == null)
-                {
+                progressBarSaveNewSale.setVisibility(View.VISIBLE);
+                if (newSale == null) {
                     newSale = new Sale();
                     newSale.id = "0";
 
@@ -197,8 +191,7 @@ public class NewSaleFragment extends Fragment {
                             AddNewSaleToFireBase(p_next);
                         }
                     });
-                }
-                else{
+                } else {
                     int nId = 1;
                     AddNewSaleToFireBase(newSale.id);
                 }
@@ -207,7 +200,7 @@ public class NewSaleFragment extends Fragment {
 
         btnEditImage = view.findViewById(R.id.new_sale_img_btn);
 
-        btnEditImage.setOnClickListener(new View.OnClickListener(){
+        btnEditImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 // TODO: need to edit image
                 //open camera
@@ -220,8 +213,8 @@ public class NewSaleFragment extends Fragment {
             }
         });
 
-        btnCancelOrDelete.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
+        btnCancelOrDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 if (bUpdateMode == true) {
                     newSale.active = false;
                     SaleModel.instance.deleteLogicSale(newSale, new SaleModel.deleteLogicSaleListener() {
@@ -242,8 +235,7 @@ public class NewSaleFragment extends Fragment {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE &&
                 resultCode == RESULT_OK) {
@@ -254,9 +246,8 @@ public class NewSaleFragment extends Fragment {
         }
     }
 
-    public void GetToSaleListFragments()
-    {
-        progressBarSaveNewSale . setVisibility(View.GONE);
+    public void GetToSaleListFragments() {
+        progressBarSaveNewSale.setVisibility(View.GONE);
         if (!bUpdateMode || m_SaleListTypeParams.equals(Consts.instance.ALL)) {
             FragmentManager fragmentManager = getFragmentManager();
             SalesListFragment fragment = new SalesListFragment();
@@ -264,9 +255,7 @@ public class NewSaleFragment extends Fragment {
             tran.replace(R.id.main_container, fragment);
             tran.addToBackStack(null);
             tran.commit();
-        }
-        else if (m_SaleListTypeParams.equals(Consts.instance.BY_USER))
-        {
+        } else if (m_SaleListTypeParams.equals(Consts.instance.BY_USER)) {
             FragmentManager fragmentManager = getFragmentManager();
             UserSalesListFragment fragment = new UserSalesListFragment();
             FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
@@ -276,8 +265,7 @@ public class NewSaleFragment extends Fragment {
         }
     }
 
-    public void SetListOfCities(ListData data)
-    {
+    public void SetListOfCities(ListData data) {
         listData = new ListData();
         listData = data;
 
@@ -296,7 +284,7 @@ public class NewSaleFragment extends Fragment {
         dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                OnSelectedCity(adapterView,view,position,l);
+                OnSelectedCity(adapterView, view, position, l);
             }
 
             @Override
@@ -305,8 +293,7 @@ public class NewSaleFragment extends Fragment {
         });
     }
 
-    public void AddNewSaleToFireBase(String newId)
-    {
+    public void AddNewSaleToFireBase(String newId) {
         newSale.id = newId;
         // setting the details of sale
         newSale.description = etDescription.getText().toString();
@@ -336,22 +323,18 @@ public class NewSaleFragment extends Fragment {
                     GetToSaleListFragments();
                 }
             });
-        }
-        else
-        {
+        } else {
             SaleModel.instance.addPost(newSale);
             GetToSaleListFragments();
         }
     }
 
-    public void OnSelectedCity(AdapterView<?> adapterView, View view, final int position, long l)
-    {
+    public void OnSelectedCity(AdapterView<?> adapterView, View view, final int position, long l) {
         mallNames = new ArrayList<>();
         storeNames = new ArrayList<>();
         selectedCityName = adapterView.getItemAtPosition(position).toString();
         City selectedCity = dataModel.GetCityByCityName(selectedCityName, listData);
-        if (selectedCity != null)
-        {
+        if (selectedCity != null) {
             cityId = selectedCity.id;
         }
         mallNames = dataModel.GetMallNamesByCityId(selectedCity.id, listData);
@@ -362,7 +345,7 @@ public class NewSaleFragment extends Fragment {
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                OnSelectedMall(adapterView,view,i,l);
+                OnSelectedMall(adapterView, view, i, l);
             }
 
             @Override
@@ -371,13 +354,11 @@ public class NewSaleFragment extends Fragment {
         });
     }
 
-    public void OnSelectedMall(AdapterView<?> adapterView, View view, int position, long l)
-    {
+    public void OnSelectedMall(AdapterView<?> adapterView, View view, int position, long l) {
         storeNames = new ArrayList<>();
         selectedMallName = adapterView.getItemAtPosition(position).toString();
         Mall selectedMall = dataModel.GetMallByMallName(selectedMallName, listData);
-        if (selectedMall != null)
-        {
+        if (selectedMall != null) {
             mallId = selectedMall.id;
             storeNames = dataModel.GetStoreNamesByMallId(selectedMall.id, listData);
         }
@@ -388,7 +369,7 @@ public class NewSaleFragment extends Fragment {
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                OnSelectedStore(adapterView,view,i,l);
+                OnSelectedStore(adapterView, view, i, l);
             }
 
             @Override
@@ -397,25 +378,21 @@ public class NewSaleFragment extends Fragment {
         });
     }
 
-    public void OnSelectedStore(AdapterView<?> adapterView, View view, int position, long l)
-    {
+    public void OnSelectedStore(AdapterView<?> adapterView, View view, int position, long l) {
         selectedStoreName = adapterView.getItemAtPosition(position).toString();
-        Store selectedStore = dataModel.GetStoreByStoreName(selectedStoreName,listData);
-        if (selectedStore != null)
-        {
+        Store selectedStore = dataModel.GetStoreByStoreName(selectedStoreName, listData);
+        if (selectedStore != null) {
             storeId = selectedStore.id;
         }
     }
 
-    public ArrayAdapter<String> SetAdapter(List<String> collection)
-    {
+    public ArrayAdapter<String> SetAdapter(List<String> collection) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, collection);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         return adapter;
     }
 
-    public void PopulateTheView()
-    {
+    public void PopulateTheView() {
         // setting the desctiption
         etDescription.setText(newSale.description);
 
