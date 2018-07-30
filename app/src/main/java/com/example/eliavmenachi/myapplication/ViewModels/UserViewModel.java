@@ -17,10 +17,11 @@ public class UserViewModel extends ViewModel {
         return data;
     }
 
+    /*
     public LiveData<User> getCurrentUser() {
         data = UserModel.instance.getCurrentUser();
         return data;
-    }
+    }*/
 
     public LiveData<User> getCurrentUserNew(){
         data = UserAuthModel.instance.getCurrentUserNew();
@@ -109,21 +110,6 @@ public class UserViewModel extends ViewModel {
         userToSqlite.lastName = userToAdd.lastName;
         userToSqlite.firstName = userToAdd.firstName;
         userToSqlite.email = userToAdd.email;
-
-        UserAsynchDao.insert(userToSqlite, new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
-            @Override
-            public void onComplete(Boolean data) {
-                callback.onSuccess(userID, userName);
-            }
-        });
-    }
-
-    public void InsertToFileBase(final String userID, final String userEmail ,final String userName, final UserAuthModelFirebase.SigninCallback callback)
-    {
-        User userToSqlite = new User();
-        userToSqlite.id = userID;
-        userToSqlite.username = userName;
-        userToSqlite.email = userEmail;
 
         UserAsynchDao.insert(userToSqlite, new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
             @Override

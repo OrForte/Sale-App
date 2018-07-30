@@ -252,7 +252,8 @@ public class EditUserProfileFragment extends Fragment {
         btnLogut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UserAuthModel.instance.signOut();
+                userViewModel.signOut();
+                //UserAuthModel.instance.signOut();
 
                 Toast.makeText(getActivity(), "User was logout successfully!",
                         Toast.LENGTH_LONG).show();
@@ -278,18 +279,6 @@ public class EditUserProfileFragment extends Fragment {
                 tran.commit();
             }
         });
-
-//        Button btnLoginButton = view.findViewById(R.id.fragment_login_btnLogin);
-
-//        btnLoginButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String strUserName = userEt.getText().toString();
-//                String strPassword = passwordEt.getText().toString();
-//
-//
-//            }
-//        });
 
         return view;
     }
