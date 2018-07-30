@@ -4,6 +4,7 @@ package com.example.eliavmenachi.myapplication.Fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.eliavmenachi.myapplication.Activities.SalesActivity;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
 import com.example.eliavmenachi.myapplication.Models.User.UserAuthModelFirebase;
@@ -72,10 +74,8 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 User user = UserAuthModel.instance.getCurrentUser();
-                UserAuthModel.instance.signOut();
                 Toast.makeText(getActivity(), "User was logout successfully!",
                         Toast.LENGTH_LONG).show();
-                User user2 = UserAuthModel.instance.getCurrentUser();
             }
         });
 
@@ -84,6 +84,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 String strUsername = userEt.getText().toString();
                 String strPassword = passwordEt.getText().toString();
+                final View copyView = view;
 
                 /*
                 userViewModel.getUserByUserNamePassword(strUsername, strPassword).observe(LoginFragment.this, new Observer<User>() {
@@ -106,6 +107,8 @@ public class LoginFragment extends Fragment {
                     public void onSuccess(String userID, String userName) {
                         String wellcomeMsg = userName + " Welcome !!";
                         Toast.makeText(getActivity(), wellcomeMsg, Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(copyView.getContext(), SalesActivity.class);
+                        startActivity(intent);
                     }
 
                     @Override

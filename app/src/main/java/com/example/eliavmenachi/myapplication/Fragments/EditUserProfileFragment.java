@@ -17,7 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.content.Intent;
 
+import com.example.eliavmenachi.myapplication.Activities.SalesActivity;
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.User;
@@ -250,10 +252,13 @@ public class EditUserProfileFragment extends Fragment {
                 Toast.makeText(getActivity(), "User was logout successfully!",
                         Toast.LENGTH_LONG).show();
 
+                Intent intent = new Intent(view.getContext(), SalesActivity.class);
+                startActivity(intent);
+                /*
                 SalesListFragment fragment = new SalesListFragment();
                 FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
                 tran.replace(R.id.main_container, fragment);
-                tran.commit();
+                tran.commit();*/
             }
         });
 

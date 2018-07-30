@@ -45,16 +45,6 @@ public class SalesActivity extends AppCompatActivity {
             tran.add(R.id.main_container, fragment);
             tran.commit();
         }
-        /*
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-
-        userViewModel.getCurrentUser().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(@Nullable User user) {
-                currentUser = user;
-                SalesActivity.this.invalidateOptionsMenu();
-            }
-        });*/
 
         // TODO: need to change to view model...
         currentUser = UserAuthModel.instance.getCurrentUser();
@@ -77,7 +67,7 @@ public class SalesActivity extends AppCompatActivity {
         menu.clear();
 
         getMenuInflater().inflate(R.menu.main_menu, menu);
-        toolBarMenu = menu;
+            toolBarMenu = menu;
 
         if (currentUser == null) {
             toolBarMenu.removeItem(R.id.menu_user_profile);
@@ -85,6 +75,18 @@ public class SalesActivity extends AppCompatActivity {
 
         return super.onPrepareOptionsMenu(menu);
     }
+
+    /*
+    public void InitActivity()
+    {
+        if (toolBarMenu != null) {
+            if (currentUser == null) {
+                toolBarMenu.removeItem(R.id.menu_user_profile);
+            } else {
+                toolBarMenu.add(Menu.NONE, R.id.menu_user_profile, Menu.NONE, "USER PROFILE");
+            }
+        }
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
