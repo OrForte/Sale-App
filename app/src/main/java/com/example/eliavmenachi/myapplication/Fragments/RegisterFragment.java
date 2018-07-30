@@ -41,7 +41,6 @@ public class RegisterFragment extends Fragment {
 
     EditText firstNameEt;
     EditText lastNameEt;
-    EditText ageEt;
     EditText passwordEt;
     EditText mailEt;
     EditText userNameEt;
@@ -49,6 +48,7 @@ public class RegisterFragment extends Fragment {
     TextView etEndDate;
     Spinner dropDownCities;
     CityMallAndStoreViewModel cityDataModel;
+    UserViewModel userViewModel;
     ListData listData = new ListData();
     List<String> citiesNames;
     ArrayAdapter<String> adapterCities;
@@ -63,6 +63,7 @@ public class RegisterFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         cityDataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
     }
 
 
@@ -100,10 +101,7 @@ public class RegisterFragment extends Fragment {
                 user.birthDate = etEndDate.getText().toString();
                 user.city = cityId;
 
-                //UserModel.instance.addUser(user);
-
-                // TODO: need to change to view model...
-                UserAuthModel.instance.createUser(user, new UserAuthModelFirebase.CreateUserCallback() {
+                userViewModel.createUser(user, new UserAuthModelFirebase.CreateUserCallback() {
                     @Override
                     public void onSuccess(String userID, String userName) {
                         String welcomeMsg = "welcome " + userName + " !!";
