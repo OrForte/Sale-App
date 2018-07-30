@@ -2,6 +2,7 @@ package com.example.eliavmenachi.myapplication.Fragments;
 
 
 import android.arch.lifecycle.Observer;
+import android.util.Patterns;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
+import com.example.eliavmenachi.myapplication.Entities.InputValidation;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
@@ -42,6 +44,7 @@ public class RegisterFragment extends Fragment {
     EditText firstNameEt;
     EditText lastNameEt;
     EditText passwordEt;
+    EditText repeatPasswordEt;
     EditText mailEt;
     EditText userNameEt;
     Button register;
@@ -80,6 +83,8 @@ public class RegisterFragment extends Fragment {
         userNameEt = view.findViewById(R.id.fragment_register_etUser);
         etEndDate = view.findViewById(R.id.fragment_register_etEndDate);
         dropDownCities = view.findViewById(R.id.fragment_register_etCity);
+        repeatPasswordEt = view.findViewById(R.id.fragment_register_etRepeatPassword);
+
 
         cityDataModel.getData().observe(this, new Observer<ListData>() {
             @Override
@@ -92,32 +97,91 @@ public class RegisterFragment extends Fragment {
 
         register.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                user.firstName = firstNameEt.getText().toString();
-                user.lastName = lastNameEt.getText().toString();
-                user.password = passwordEt.getText().toString();
-                user.email = mailEt.getText().toString();
-                user.username = userNameEt.getText().toString();
-                user.id = userNameEt.getText().toString();
-                user.birthDate = etEndDate.getText().toString();
-                user.city = cityId;
 
-                userViewModel.createUser(user, new UserAuthModelFirebase.CreateUserCallback() {
-                    @Override
-                    public void onSuccess(String userID, String userName) {
-                        String welcomeMsg = "welcome " + userName + " !!";
-                        Toast.makeText(getActivity(), welcomeMsg, Toast.LENGTH_LONG).show();
-                    }
+                boolean bIsValid = isInputsValid();
 
-                    @Override
-                    public void onFailed(String message) {
-                        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
-                    }
-                });
+                if (bIsValid == true) {
+                    user.firstName = firstNameEt.getText().toString();
+                    user.lastName = lastNameEt.getText().toString();
+                    user.password = passwordEt.getText().toString();
+                    user.email = mailEt.getText().toString();
+                    user.username = userNameEt.getText().toString();
+                    //user.id = userNameEt.getText().toString();
+                    user.birthDate = etEndDate.getText().toString();
+                    user.city = cityId;
+
+                    userViewModel.createUser(user, new UserAuthModelFirebase.CreateUserCallback() {
+                        @Override
+                        public void onSuccess(String userID, String userName) {
+                            String welcomeMsg = "welcome " + userName + " !!";
+                            Toast.makeText(getActivity(), welcomeMsg, Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onFailed(String message) {
+                            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
             }
         });
 
 
         return view;
+    }
+
+    private boolean isInputsValid()
+    {
+        final String firstName = firstNameEt.getText().toString();
+        final String lastName = lastNameEt.getText().toString();
+        final String password = passwordEt.getText().toString();
+        final String repeatPassword = repeatPasswordEt.getText().toString();
+        final String mail = mailEt.getText().toString();
+        final String userName = userNameEt.getText().toString();
+        boolean bIsValid = true;
+
+        if(firstName.length()==0)
+        {
+            firstNameEt.requestFocus();
+            firstNameEt.setError("FIELD CANNOT BE EMPTY");
+            bIsValid = false;
+        }
+
+        if(lastName.length()==0)
+        {
+            lastNameEt.requestFocus();
+            lastNameEt.setError("FIELD CANNOT BE EMPTY");
+            bIsValid = false;
+        }
+
+        //String mailPattern = "/^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$/";
+        if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()){
+            mailEt.requestFocus();
+            mailEt.setError("Invalid format mail");
+            bIsValid = false;
+        }
+
+        if (userName.length() == 0){
+            userNameEt.requestFocus();
+            userNameEt.setError("FIELD CANNOT BE EMPTY");
+            bIsValid = false;
+        }
+
+        if (!password.equals(repeatPassword))
+        {
+            passwordEt.requestFocus();
+            passwordEt.setError("Password not equals");
+            bIsValid = false;
+        }
+
+        if (password.length() <= 5)
+        {
+            passwordEt.requestFocus();
+            passwordEt.setError("Password must be 6 CHARACTERs");
+            bIsValid = false;
+        }
+
+        return bIsValid;
     }
 
     public void SetListOfCities(ListData data)
