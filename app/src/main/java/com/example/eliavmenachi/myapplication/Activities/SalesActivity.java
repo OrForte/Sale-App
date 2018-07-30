@@ -25,8 +25,8 @@ public class SalesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         currentUser = null;
+
         Log.d("SalesActivity", "onCreate");
         super.onCreate(savedInstanceState);
 
@@ -49,9 +49,9 @@ public class SalesActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         toolBarMenu = menu;
 
-        if (currentUser == null) {
-            toolBarMenu.removeItem(R.id.menu_user_profile);
-        }
+//        if (currentUser == null) {
+//            toolBarMenu.removeItem(R.id.menu_user_profile);
+//        }
 
         return true;
     }
@@ -62,9 +62,9 @@ public class SalesActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         toolBarMenu = menu;
 
-        if (currentUser == null) {
-            toolBarMenu.removeItem(R.id.menu_user_profile);
-        }
+//        if (currentUser == null) {
+//            toolBarMenu.removeItem(R.id.menu_user_profile);
+//        }
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -105,7 +105,6 @@ public class SalesActivity extends AppCompatActivity {
                 }
             }
             case R.id.menu_list_sales_by_category: {
-
                 ChooseLocationFragment fragment = new ChooseLocationFragment();
                 FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
                 tran.replace(R.id.main_container, fragment);
@@ -114,12 +113,18 @@ public class SalesActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.menu_user_profile: {
-                EditUserProfileFragment fragment = new EditUserProfileFragment();
-                FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-                tran.replace(R.id.main_container, fragment);
-                tran.addToBackStack(Consts.instance.TAG_CHOOSE_STORE);
-                tran.commit();
-                return true;
+                if (currentUser == null) {
+                    Intent intent = new Intent(SalesActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    return true;
+                } else {
+                    EditUserProfileFragment fragment = new EditUserProfileFragment();
+                    FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
+                    tran.replace(R.id.main_container, fragment);
+                    tran.addToBackStack(Consts.instance.TAG_CHOOSE_STORE);
+                    tran.commit();
+                    return true;
+                }
             }
         }
         return super.onOptionsItemSelected(item);

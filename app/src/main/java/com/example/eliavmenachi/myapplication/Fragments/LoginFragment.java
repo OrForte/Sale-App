@@ -31,11 +31,6 @@ public class LoginFragment extends Fragment {
     EditText passwordEt;
     UserViewModel userViewModel;
 
-//    public LoginFragment() {
-//        // Required empty public constructor
-//    }
-
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
