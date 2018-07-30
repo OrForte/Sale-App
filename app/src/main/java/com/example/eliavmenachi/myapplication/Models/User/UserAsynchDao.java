@@ -58,7 +58,25 @@ public class UserAsynchDao {
         task.execute();
     }
 
-    static void insert(final User users, final UserAsynchDaoListener<Boolean> listener) {
+    static public void GetUserByUserId(final String userId,final UserAsynchDaoListener<User> listener)
+    {
+        class MyAsynchTask extends AsyncTask<String, String, User> {
+            @Override
+            protected User doInBackground(String... usersnames) {
+                User user =  MainAppLocalDb.db.userDao().getUserByUserId(userId);
+                return user;
+            }
+
+            @Override
+            protected void onPostExecute(User user) {
+            }
+        }
+
+        MyAsynchTask task = new MyAsynchTask();
+        task.execute();
+    }
+
+    static public void insert(final User users, final UserAsynchDaoListener<Boolean> listener) {
         class MyAsynchTask extends AsyncTask<User, String, Boolean> {
             @Override
             protected Boolean doInBackground(User... users) {
@@ -77,7 +95,7 @@ public class UserAsynchDao {
         task.execute(users);
     }
 
-    static void removeAll(final UserAsynchDaoListener<Boolean> listener) {
+    static public void removeAll(final UserAsynchDaoListener<Boolean> listener) {
         class MyAsynchTask extends AsyncTask<User, String, Boolean> {
             @Override
             protected Boolean doInBackground(User... users) {

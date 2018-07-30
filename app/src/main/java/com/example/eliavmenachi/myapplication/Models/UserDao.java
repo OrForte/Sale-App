@@ -21,6 +21,9 @@ public interface UserDao {
     @Query("SELECT * FROM User where username LIKE :username")
     User getUserByUsername(String username);
 
+    @Query("SELECT * FROM User where id LIKE :id")
+    User getUserByUserId(String id);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertUsers(User... users);
 

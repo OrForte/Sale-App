@@ -24,13 +24,6 @@ public class UserAuthModel {
         userAuthModelFirebase.signInWithEmailAndPassword(userEmail, password, new UserAuthModelFirebase.SigninCallback() {
             @Override
             public void onSuccess(String userID, String userName) {
-
-                // TODO: adding the local save to DB
-                /*?
-                if (!userDbHelper.findUser(userID)){
-                    userDbHelper.addUser(new User(userID, userName, userEmail, password));
-                }*/
-
                 callback.onSuccess(userID, userName);
             }
 
@@ -47,7 +40,6 @@ public class UserAuthModel {
         userAuthModelFirebase.createUserWithEmailAndPassword(userToAdd, new UserAuthModelFirebase.CreateUserCallback() {
             @Override
             public void onSuccess(String userID, String userName) {
-                //userDbHelper.addUser(new User(userID, userName, email, password));
                 callback.onSuccess(userID, userName);
             }
 
