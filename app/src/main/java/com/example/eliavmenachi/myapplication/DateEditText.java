@@ -7,6 +7,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class DateEditText extends EditText {
     int year;
     int month;
@@ -46,6 +49,14 @@ public class DateEditText extends EditText {
             DateDialogFragment fragment = new DateDialogFragment();
             readDate();
             fragment.setDate(year, month, day);
+
+            final Calendar c = Calendar.getInstance();
+            int mFYear = c.get(Calendar.YEAR);
+            int mFMonth = c.get(Calendar.MONTH)+1;
+            int mFDay = c.get(Calendar.DAY_OF_MONTH);
+            fragment.day = mFDay;
+            fragment.month = mFMonth;
+            fragment.year = mFYear;
             fragment.listener = new DateDialogFragment.DateDialogFragmentListener() {
                 @Override
                 public void onDateSet(int y, int m, int d) {

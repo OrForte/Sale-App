@@ -25,6 +25,7 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import com.example.eliavmenachi.myapplication.Entities.City;
@@ -129,11 +130,12 @@ public class NewSaleFragment extends Fragment {
         btnCancelOrDelete = view.findViewById(R.id.fragment_new_sale_btnCancelSale);
         imageSale = view.findViewById(R.id.new_sale_image);
         etDescription = view.findViewById(R.id.fragment_new_sale_etDescription);
-        etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
         title = view.findViewById(R.id.fragment_register_tvRegister);
         rlProgressBar = view.findViewById(R.id.fragment_new_sale_rlProgressBar);
         dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
         dataModelSale = ViewModelProviders.of(this).get(SaleListViewModel.class);
+
+        etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
 
         progressBarSaveNewSale = view.findViewById(R.id.fragment_new_sale_progress);
         progressBarSaveNewSale . setVisibility(View.GONE);
