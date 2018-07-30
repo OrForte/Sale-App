@@ -186,7 +186,7 @@ public class EditUserProfileFragment extends Fragment {
                 currentUser.firstName = etFirstName.getText().toString();
 
                 currentUser.birthDate = etBirthDate.getText().toString();
-                currentUser.email = etFirstName.getText().toString();
+                currentUser.email = etEmail.getText().toString();
                 currentUser.city = selectedCity.id;
 
                 currentUser.city = selectedCity.id;
