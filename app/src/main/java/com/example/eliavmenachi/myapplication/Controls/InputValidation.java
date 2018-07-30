@@ -1,4 +1,4 @@
-package com.example.eliavmenachi.myapplication.Entities;
+package com.example.eliavmenachi.myapplication.Controls;
 
 import android.app.Activity;
 import android.content.Context;

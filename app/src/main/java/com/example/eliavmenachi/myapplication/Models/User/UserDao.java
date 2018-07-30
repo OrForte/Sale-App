@@ -1,4 +1,4 @@
-package com.example.eliavmenachi.myapplication.Models;
+package com.example.eliavmenachi.myapplication.Models.User;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;

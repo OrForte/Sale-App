@@ -1,13 +1,11 @@
-package com.example.eliavmenachi.myapplication;
+package com.example.eliavmenachi.myapplication.Controls;
 
 import android.app.Activity;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.EditText;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class DateEditText extends EditText {

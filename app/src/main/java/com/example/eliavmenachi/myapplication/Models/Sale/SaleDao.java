@@ -1,4 +1,4 @@
-package com.example.eliavmenachi.myapplication.Models;
+package com.example.eliavmenachi.myapplication.Models.Sale;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
@@ -7,12 +7,11 @@ import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.example.eliavmenachi.myapplication.Entities.Sale;
-import com.example.eliavmenachi.myapplication.Model.Student;
 
 import java.util.List;
 
 @Dao
-public interface    SaleDao {
+public interface SaleDao {
     @Query("select * from Sale where active = 1")
     List<Sale> getAll();
 
