@@ -134,8 +134,8 @@ public class UserAuthModelFirebase {
                     user.username = userName;
                     user.firstName = totalUserDetailsToSave.firstName;
                     user.lastName = totalUserDetailsToSave.lastName;
-                    //user.city = totalUserDetailsToSave.city;
-                    //user.birthDate = totalUserDetailsToSave.birthDate;
+                    user.city = totalUserDetailsToSave.city;
+                    user.birthDate = totalUserDetailsToSave.birthDate;
 
                     addUser(user, callback);
                 }
