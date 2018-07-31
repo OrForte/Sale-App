@@ -91,22 +91,6 @@ public class NewSaleFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-        /*
-        dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
-        dataModelSale = ViewModelProviders.of(this).get(SaleListViewModel.class);
-        dataModel.getData().observe(this, new Observer<ListData>() {
-            @Override
-            public void onChanged(@Nullable ListData listData) {
-                if (!bIsOccur) {
-                    if (listData != null) {
-                        if (listData.cities.size() != 0 && listData.malls.size() != 0&& listData.stores.size() != 0) {
-                            bIsOccur = true;
-                            SetListOfCities(listData);
-                        }
-                    }
-                }
-            }
-        });*/
     }
 
     @Override
@@ -217,7 +201,7 @@ public class NewSaleFragment extends Fragment {
             public void onClick(View view) {
                 if (bUpdateMode == true) {
                     newSale.active = false;
-                    SaleModel.instance.deleteLogicSale(newSale, new SaleModel.deleteLogicSaleListener() {
+                    dataModelSale.deleteLogicSale(newSale, new SaleModel.deleteLogicSaleListener() {
                         @Override
                         public void onDeleteLogicSale(boolean b_isDelete) {
                             if (b_isDelete == true) {

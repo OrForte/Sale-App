@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModel;
 
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
+import com.example.eliavmenachi.myapplication.Models.Sale.SalesAsyncDao;
 
 import java.util.List;
 
@@ -38,5 +39,15 @@ public class SaleListViewModel extends ViewModel {
         LiveData<List<Sale>> results = SaleModel.instance.getSalesByUserName(p_strUserName);
         ;
         return results;
+    }
+
+    public void deleteLogicSale(final Sale p_saleToDelete, final SaleModel.deleteLogicSaleListener listener) {
+        SaleModel.instance.deleteLogicSale(p_saleToDelete, new SaleModel.deleteLogicSaleListener() {
+            @Override
+            public void onDeleteLogicSale(boolean b_isDelete) {
+                SalesAsyncDao.deleteSale(p_saleToDelete);
+                listener.onDeleteLogicSale(b_isDelete);
+            }
+        });
     }
 }

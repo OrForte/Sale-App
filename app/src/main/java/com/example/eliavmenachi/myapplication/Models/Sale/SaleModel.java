@@ -55,7 +55,6 @@ public class SaleModel {
         saleModelFirebase.deleteLogicSale(p_saleToDelete, new deleteLogicSaleListener() {
             @Override
             public void onDeleteLogicSale(boolean b_isDelete) {
-                SalesAsyncDao.deleteSale(p_saleToDelete);
                 listener.onDeleteLogicSale(b_isDelete);
             }
         });
