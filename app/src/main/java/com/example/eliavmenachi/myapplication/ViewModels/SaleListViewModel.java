@@ -7,6 +7,7 @@ import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
 import com.example.eliavmenachi.myapplication.Models.Sale.SalesAsyncDao;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class SaleListViewModel extends ViewModel {
@@ -47,6 +48,23 @@ public class SaleListViewModel extends ViewModel {
             public void onDeleteLogicSale(boolean b_isDelete) {
                 SalesAsyncDao.deleteSale(p_saleToDelete);
                 listener.onDeleteLogicSale(b_isDelete);
+            }
+        });
+    }
+
+    public void addOrUpdateNewSale(final Sale p_saleToAdd, final SaleModel.addOrUpdateNewSaleListener listener)
+    {
+        SaleModel.instance.addOrUpdateNewSale(p_saleToAdd, new SaleModel.addOrUpdateNewSaleListener() {
+            @Override
+            public void onAddOrUpdateNewSaleResults(final Sale SaleToReturn) {
+                List<Sale> lstToAdd = new LinkedList<Sale>();
+                lstToAdd.add(SaleToReturn);
+                SalesAsyncDao.insertAll(lstToAdd, new SalesAsyncDao.SaleAsynchDaoListener<Boolean>() {
+                    @Override
+                    public void onComplete(Boolean data) {
+                        listener.onAddOrUpdateNewSaleResults(SaleToReturn);
+                    }
+                });
             }
         });
     }

@@ -31,7 +31,6 @@ public class SaleModel {
     public interface GetPostsByStoreIdListener {
         void onGetPosts(List<Sale> p_postToReturn);
     }
-
     public void GetPostsByStoreId(final String storeId, final GetPostsByStoreIdListener listener) {
         saleModelFirebase.getPostsByStoreId(storeId, new GetPostsByStoreIdListener() {
             @Override
@@ -47,10 +46,23 @@ public class SaleModel {
         saleModelFirebase.addPost(p_postToSave);
     }
 
+
+    public interface addOrUpdateNewSaleListener{
+        void onAddOrUpdateNewSaleResults(Sale SaleToReturn);
+    }
+    public void addOrUpdateNewSale(final Sale p_saleToAdd, final addOrUpdateNewSaleListener listener)
+    {
+        saleModelFirebase.addOrUpdateNewSale(p_saleToAdd, new addOrUpdateNewSaleListener() {
+            @Override
+            public void onAddOrUpdateNewSaleResults(Sale SaleToReturn) {
+                listener.onAddOrUpdateNewSaleResults(p_saleToAdd);
+            }
+        });
+    }
+
     public interface deleteLogicSaleListener {
         void onDeleteLogicSale(boolean b_isDelete);
     }
-
     public void deleteLogicSale(final Sale p_saleToDelete, final deleteLogicSaleListener listener) {
         saleModelFirebase.deleteLogicSale(p_saleToDelete, new deleteLogicSaleListener() {
             @Override
@@ -63,7 +75,6 @@ public class SaleModel {
     public interface GetNextSequenceListener {
         void onGetNextSeq(String p_next);
     }
-
     public void GetNextSequenceSale(final String SeqName, final GetNextSequenceListener listener) {
         saleModelFirebase.GetNextSequenceSale(SeqName, new GetNextSequenceListener() {
             @Override

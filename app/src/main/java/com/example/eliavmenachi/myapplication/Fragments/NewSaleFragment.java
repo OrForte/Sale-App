@@ -278,19 +278,8 @@ public class NewSaleFragment extends Fragment {
     }
 
     public void AddNewSaleToFireBase(String newId) {
-        newSale.id = newId;
-        // setting the details of sale
-        newSale.description = etDescription.getText().toString();
-        newSale.endDate = etEndDate.getText().toString();
-        newSale.createdDate = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
-        newSale.storeId = storeId;
-        newSale.cityId = cityId;
-        newSale.mallId = mallId;
-        newSale.mallName = selectedMallName;
-        newSale.cityName = selectedCityName;
-        newSale.storeName = selectedStoreName;
-        //newSale.userId = "liorM";
-        newSale.active = true;
+
+        SetSaleData(newId);
 
         // TODO: need to change to view model...
         final User data = UserAuthModel.instance.getCurrentUser();
@@ -303,14 +292,37 @@ public class NewSaleFragment extends Fragment {
                 @Override
                 public void onDone(String url) {
                     newSale.pictureUrl = url;
-                    SaleModel.instance.addPost(newSale);
-                    GetToSaleListFragments();
+                    addSaleToFireBase();
                 }
             });
         } else {
-            SaleModel.instance.addPost(newSale);
-            GetToSaleListFragments();
+            addSaleToFireBase();
         }
+    }
+
+    public void SetSaleData(String newId)
+    {
+        newSale.id = newId;
+        newSale.description = etDescription.getText().toString();
+        newSale.endDate = etEndDate.getText().toString();
+        newSale.createdDate = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+        newSale.storeId = storeId;
+        newSale.cityId = cityId;
+        newSale.mallId = mallId;
+        newSale.mallName = selectedMallName;
+        newSale.cityName = selectedCityName;
+        newSale.storeName = selectedStoreName;
+        newSale.active = true;
+    }
+
+    public void addSaleToFireBase()
+    {
+        dataModelSale.addOrUpdateNewSale(newSale, new SaleModel.addOrUpdateNewSaleListener() {
+            @Override
+            public void onAddOrUpdateNewSaleResults(Sale SaleToReturn) {
+                GetToSaleListFragments();
+            }
+        });
     }
 
     public void OnSelectedCity(AdapterView<?> adapterView, View view, final int position, long l) {
@@ -383,8 +395,6 @@ public class NewSaleFragment extends Fragment {
         // setting the end date
         etEndDate.setText(newSale.endDate);
 
-        //imageSale.setImageResource(R.drawable.avatar);
-        //imageSale.setTag(newSale.id);
         if (!m_bIsChangedImage) {
             imageSale.setImageResource(R.drawable.avatar);
             imageSale.setTag(newSale.id);
@@ -425,40 +435,6 @@ public class NewSaleFragment extends Fragment {
                     }
 
                     rlProgressBar.setVisibility(View.GONE);
-                    /*
-                    citiesNames = saleListViewModel.GetCityNames(listData);
-                    adapterCities = SetAdapter(citiesNames);
-                    dropDownCities.setAdapter(adapterCities);
-                    int positionCity = adapterCities.getPosition(selectedCityName);
-                    dropDownCities.setSelection(positionCity);
-
-                    if (city != null) {
-                        mallNames = saleListViewModel.GetMallNamesByCityId(city.id, listData);
-                        adapterMalls = SetAdapter(mallNames);
-                        dropDownMalls.setAdapter(adapterMalls);
-                        int positionMall = adapterMalls.getPosition(selectedMallName);
-                        dropDownMalls.setSelection(positionMall);
-                    }
-
-                    if (store != null) {
-                        storeNames = saleListViewModel.GetStoreNamesByMallId(mall.id, listData);
-                        adapterStores = SetAdapter(storeNames);
-                        dropDownStores.setAdapter(adapterStores);
-                        int positionStore = adapterStores.getPosition(selectedStoreName);
-                        dropDownStores.setSelection(positionStore);
-                    }
-                    if (selectedCityName != null && selectedStoreName != null && selectedMallName != null) {
-                        dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                                OnSelectedCity(adapterView, view, position, l);
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-                            }
-                        });
-                    }*/
                 }
             }
         });

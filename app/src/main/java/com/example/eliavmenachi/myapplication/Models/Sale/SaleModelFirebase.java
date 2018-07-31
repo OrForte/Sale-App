@@ -30,6 +30,13 @@ public class SaleModelFirebase {
         mDatabase.child("sale").child(p_postToSave.id).setValue(p_postToSave);
     }
 
+    public void addOrUpdateNewSale(final Sale p_saleToAdd, final SaleModel.addOrUpdateNewSaleListener listener)
+    {
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("sale").child(p_saleToAdd.id).setValue(p_saleToAdd);
+        listener.onAddOrUpdateNewSaleResults(p_saleToAdd);
+    }
+
     public void GetNextSequenceSale(final String SeqName, final SaleModel.GetNextSequenceListener listener) {
         final DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("sequences").child(SeqName).addListenerForSingleValueEvent(new ValueEventListener() {

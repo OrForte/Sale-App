@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SalesAsyncDao {
-    interface SaleAsynchDaoListener<T> {
+    public interface SaleAsynchDaoListener<T> {
         void onComplete(T data);
     }
 
-    interface SaleAsynchDaoListener2<T> {
+    public interface SaleAsynchDaoListener2<T> {
         void onCompleteOneSale(Sale data);
     }
 
@@ -149,7 +149,7 @@ public class SalesAsyncDao {
         task.execute();
     }
 
-    static void insertAll(final List<Sale> sales, final SaleAsynchDaoListener<Boolean> listener) {
+    public static void insertAll(final List<Sale> sales, final SaleAsynchDaoListener<Boolean> listener) {
         class MyAsynchTask extends AsyncTask<List<Sale>, String, Boolean> {
             @Override
             protected Boolean doInBackground(List<Sale>... sales) {
