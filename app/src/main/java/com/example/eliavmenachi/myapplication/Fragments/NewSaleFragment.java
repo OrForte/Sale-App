@@ -298,7 +298,7 @@ public class NewSaleFragment extends Fragment {
         // setting the details of sale
         newSale.description = etDescription.getText().toString();
         newSale.endDate = etEndDate.getText().toString();
-        newSale.createdDate = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        newSale.createdDate = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
         newSale.storeId = storeId;
         newSale.cityId = cityId;
         newSale.mallId = mallId;
