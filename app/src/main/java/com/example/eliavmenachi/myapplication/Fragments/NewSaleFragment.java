@@ -169,7 +169,7 @@ public class NewSaleFragment extends Fragment {
                     newSale.id = "0";
 
                     String SeqName = "saleSeq";
-                    SaleModel.instance.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
+                    dataModelSale.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
                         @Override
                         public void onGetNextSeq(String p_next) {
                             AddNewSaleToFireBase(p_next);

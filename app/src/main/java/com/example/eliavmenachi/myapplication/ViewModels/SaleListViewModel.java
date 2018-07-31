@@ -68,4 +68,13 @@ public class SaleListViewModel extends ViewModel {
             }
         });
     }
+
+    public void GetNextSequenceSale(final String SeqName, final SaleModel.GetNextSequenceListener listener) {
+        SaleModel.instance.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
+            @Override
+            public void onGetNextSeq(String p_next) {
+                listener.onGetNextSeq(p_next);
+            }
+        });
+    }
 }
