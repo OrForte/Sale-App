@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.User;
-import com.example.eliavmenachi.myapplication.Models.User.UserAuthModelFirebase;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
@@ -105,22 +104,21 @@ public class RegisterFragment extends Fragment {
                     user.birthDate = etEndDate.getText().toString();
                     user.city = cityId;
 
-                    userViewModel.createUser(user, new UserAuthModelFirebase.CreateUserCallback() {
+                    userViewModel.registerUser(user, new UserViewModel.CreateUserListener() {
                         @Override
-                        public void onSuccess(String userID, String userName) {
-                            String welcomeMsg = "welcome " + userName + " !!";
+                        public void onSuccess(User user) {
+                            String welcomeMsg = "welcome " + user + " !!";
                             Toast.makeText(getActivity(), welcomeMsg, Toast.LENGTH_LONG).show();
                         }
 
                         @Override
-                        public void onFailed(String message) {
-                            Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+                        public void onFailure(String exceptionMessage) {
+                            Toast.makeText(getActivity(), exceptionMessage, Toast.LENGTH_LONG).show();
                         }
                     });
                 }
             }
         });
-
 
         return view;
     }

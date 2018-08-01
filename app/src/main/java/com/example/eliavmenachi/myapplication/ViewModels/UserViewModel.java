@@ -1,118 +1,112 @@
 package com.example.eliavmenachi.myapplication.ViewModels;
 
+import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModel;
+import android.support.annotation.NonNull;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
-import com.example.eliavmenachi.myapplication.Models.User.UserAsynchDao;
-import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
-import com.example.eliavmenachi.myapplication.Models.User.UserAuthModelFirebase;
 import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 
 public class UserViewModel extends ViewModel {
     LiveData<User> data;
 
-    public LiveData<User> getUserByUserNamePassword(String username, String password) {
-        data = UserModel.instance.getUser(username, password);
-        return data;
-    }
+//    public LiveData<User> getUserByUserNamePassword(String username, String password) {
+//        data = UserModelOld.instance.getUser(username, password);
+//        return data;
+//    }
 
-    /*
+
+//    public LiveData<User> getCurrentUser() {
+//        data = UserModelOld.instance.getCurrentUser();
+//        return data;
+//    }
+
     public LiveData<User> getCurrentUser() {
         data = UserModel.instance.getCurrentUser();
         return data;
-    }*/
-
-    public LiveData<User> getCurrentUserNew() {
-        data = UserAuthModel.instance.getCurrentUserNew();
-        return data;
     }
 
-    public void setUser(User user) {
-        UserModel.instance.setUser(user);
+    public interface SignInListener {
+        void onSuccess();
+
+        void onFailure(String exceptionMessage);
     }
 
-    public interface LogoutCompleteListener {
-        public void onSuccess();
-
-        public void onFailure();
-
-    }
-
-    public void logoutCurrentUser(final LogoutCompleteListener listener) {
-        UserModel.instance.removeAllUsersLocally(new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
+    public void signIn(final String email, final String password, final SignInListener listener) {
+        UserModel.instance.signIn(email, password, new UserModel.SignInListener() {
             @Override
-            public void onComplete(Boolean data) {
-                if (data)
-                    listener.onSuccess();
-                else
-                    listener.onFailure();
+            public void onSuccess() {
+                listener.onSuccess();
+            }
+
+            @Override
+            public void onFailure(String exceptionMessage) {
+                listener.onFailure(exceptionMessage);
             }
         });
     }
 
-    public void signIn(final String userEmail, final String password, final UserAuthModelFirebase.SigninCallback callback) {
-        UserAuthModel.instance.signIn(userEmail, password, new UserAuthModelFirebase.SigninCallback() {
-            @Override
-            public void onSuccess(final String userID, final String userName) {
-                /*
-                UserAsynchDao.GetUserByUserId(userID, new UserAsynchDao.UserAsynchDaoListener<User>() {
-                    @Override
-                    public void onComplete(User data) {
-                        if (data != null){
-                            callback.onSuccess(userID, userName);
-                        }
-                        else
-                        {
-                            InsertToFileBase(userID, userEmail ,userName, callback);
-                        }
-                    }
-                });*/
+    public interface CreateUserListener {
+        void onSuccess(User user);
 
-                callback.onSuccess(userID, userName);
+        void onFailure(String exceptionMessage);
+    }
+
+    public void registerUser(final User user,
+                             final CreateUserListener listener) {
+        UserModel.instance.createUser(user, new UserModel.CreateUserListener() {
+            @Override
+            public void onSuccess(User user) {
+                listener.onSuccess(user);
             }
 
             @Override
-            public void onFailed() {
-                callback.onFailed();
+            public void onFailure(String exceptionMessage) {
+                listener.onFailure(exceptionMessage);
             }
         });
     }
 
-    public void createUser(final User userToAdd,
-                           final UserAuthModelFirebase.CreateUserCallback callback) {
-        UserAuthModel.instance.createUser(userToAdd, new UserAuthModelFirebase.CreateUserCallback() {
+    public interface SignOutListener {
+        void onSuccess();
+
+        void onFailure(String exceptionMessage);
+    }
+
+    public void signOut(final SignOutListener listener) {
+        UserModel.instance.signOut(new UserModel.SignOutListener() {
             @Override
-            public void onSuccess(final String userID, final String userName) {
-                InsertToFileBase(userID, userName, userToAdd, callback);
+            public void onSuccess() {
+                listener.onSuccess();
             }
 
             @Override
-            public void onFailed(String message) {
-                callback.onFailed(message);
+            public void onFailure(String exceptionMessage) {
+                listener.onFailure(exceptionMessage);
+            }
+        });
+    }
+
+    public interface UpdateUserListener {
+        void onSuccess();
+
+        void onFailure(String exceptionMessage);
+    }
+
+    public void updateUser(User user, final UpdateUserListener listener) {
+        UserModel.instance.updateUser(user, new UserModel.UpdateUserListener() {
+            @Override
+            public void onSuccess() {
+                listener.onSuccess();
+            }
+
+            @Override
+            public void onFailure(String exceptionMessage) {
+                listener.onFailure(exceptionMessage);
             }
         });
     }
 
-    public void signOut() {
-        UserAuthModel.instance.signOut();
-    }
-
-    public void InsertToFileBase(final String userID, final String userName, User userToAdd, final UserAuthModelFirebase.CreateUserCallback callback) {
-        User userToSqlite = new User();
-        userToSqlite.id = userID;
-        userToSqlite.username = userName;
-        userToSqlite.city = userToAdd.city;
-        userToSqlite.birthDate = userToAdd.birthDate;
-        userToSqlite.lastName = userToAdd.lastName;
-        userToSqlite.firstName = userToAdd.firstName;
-        userToSqlite.email = userToAdd.email;
-
-        UserAsynchDao.insert(userToSqlite, new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
-            @Override
-            public void onComplete(Boolean data) {
-                callback.onSuccess(userID, userName);
-            }
-        });
-    }
 }

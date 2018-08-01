@@ -33,6 +33,18 @@ public class User {
     @ColumnInfo(name = "lastName")
     public String lastName;
 
+//    public User() {
+//    }
+//
+//    public User(User user) {
+//        this.birthDate = user.birthDate;
+//        this.city = user.city;
+//        this.email = user.email;
+//        this.username = user.username;
+//        this.password = user.password;
+//        this.firstName = user.firstName;
+//        this.lastName = user.lastName;
+//    }
 
     public String getId() {
         return id;

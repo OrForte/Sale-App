@@ -125,7 +125,7 @@ public class EditUserProfileFragment extends Fragment {
             public void onChanged(@Nullable ListData listData) {
                 setListOfCities(listData);
 
-                userViewModel.getCurrentUserNew().observe(EditUserProfileFragment.this, new Observer<User>() {
+                userViewModel.getCurrentUser().observe(EditUserProfileFragment.this, new Observer<User>() {
                     @Override
                     public void onChanged(@Nullable User user) {
                         currentUser = user;
@@ -169,37 +169,49 @@ public class EditUserProfileFragment extends Fragment {
 //            }
 //        });
 
-        Button btnUpdateProfile = view.findViewById(R.id.fragment_edit_user_btnUpdateProfile);
+        final Button btnUpdateProfile = view.findViewById(R.id.fragment_edit_user_btnUpdateProfile);
 
         btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 boolean isValid = true;
 
-                currentUser.username = etUserName.getText().toString();
-                currentUser.lastName = etLastName.getText().toString();
-                currentUser.firstName = etFirstName.getText().toString();
+                User user = new User();
+                user.id = currentUser.id;
+                user.username = etUserName.getText().toString();
+                user.lastName = etLastName.getText().toString();
+                user.firstName = etFirstName.getText().toString();
 
-                currentUser.birthDate = etBirthDate.getText().toString();
-                currentUser.email = etEmail.getText().toString();
-                currentUser.city = selectedCity.id;
+                user.birthDate = etBirthDate.getText().toString();
+                user.email = etEmail.getText().toString();
+                user.city = selectedCity.id;
 
-                currentUser.city = selectedCity.id;
+                user.city = selectedCity.id;
                 if (!etPassword.getText().toString().equals("")) {
                     if (!etRetypeNewPassword.getText().toString().equals(etPassword.getText().toString())) {
                         isValid = false;
                         Toast.makeText(getActivity(), "Passwords don't match!",
                                 Toast.LENGTH_LONG).show();
                     } else {
-                        currentUser.password = etPassword.getText().toString();
+                        user.password = etPassword.getText().toString();
                     }
                 }
 
                 if (isValid) {
                     // TODO: make async
-                    userViewModel.setUser(currentUser);
-                    Toast.makeText(getActivity(), "User updated successfully!",
-                            Toast.LENGTH_LONG).show();
+                    userViewModel.updateUser(user, new UserViewModel.UpdateUserListener() {
+                        @Override
+                        public void onSuccess() {
+                            Toast.makeText(getActivity(), "User updated successfully!",
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+                        @Override
+                        public void onFailure(String exceptionMessage) {
+                            Toast.makeText(getActivity(), exceptionMessage,
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             }
         });
@@ -222,7 +234,7 @@ public class EditUserProfileFragment extends Fragment {
         btnLogut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userViewModel.logoutCurrentUser(new UserViewModel.LogoutCompleteListener() {
+                userViewModel.signOutCurrentUser(new UserViewModel.LogoutListener() {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(getActivity(), "User was logout successfully!",
@@ -247,14 +259,25 @@ public class EditUserProfileFragment extends Fragment {
         btnLogut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                userViewModel.signOut();
-                //UserAuthModel.instance.signOut();
+                userViewModel.signOut(new UserViewModel.SignOutListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getActivity(), "User was logout successfully!",
+                                Toast.LENGTH_LONG).show();
 
-                Toast.makeText(getActivity(), "User was logout successfully!",
-                        Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(EditUserProfileFragment.this.getContext(), SalesActivity.class);
+                        startActivity(intent);
+                    }
 
-                Intent intent = new Intent(view.getContext(), SalesActivity.class);
-                startActivity(intent);
+                    @Override
+                    public void onFailure(String exceptionMessage) {
+                        Toast.makeText(getActivity(), exceptionMessage,
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+                //UserModel.instance.signOut();
+
+
                 /*
                 SalesListFragment fragment = new SalesListFragment();
                 FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();

@@ -3,8 +3,10 @@ package com.example.eliavmenachi.myapplication.Models.User;
 import android.support.annotation.NonNull;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,43 +25,43 @@ public class UserModelFirebase {
             stRef.removeEventListener(eventListener);
         }
     }
+//
+//    interface GetUserByUsernamePasswordListener {
+//        public void onSuccess(User user);
+//
+//        public void onFailure();
+//    }
+//
+//    public void getUserByUsernamePassword(String username, final String password, final GetUserByUsernamePasswordListener listener) {
+//        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("users");
+//
+//        //eventListener = stRef.child(key).addChildEventListener(new
+//        eventListener = stRef.orderByChild("username").equalTo(username).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                User user = null;
+//                for (DataSnapshot stSnapshot : dataSnapshot.getChildren()) {
+//                    user = stSnapshot.getValue(User.class);
+//                }
+//
+//                if (user != null && user.password.equals(password)) {
+//                    listener.onSuccess(user);
+//                } else {
+//                    listener.onFailure();
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//            }
+//        });
+//    }
 
-    interface getUserByUsernamePasswordListener {
+    interface GetUserByIdListener {
         public void onSuccess(User user);
-
-        public void onFailure();
     }
 
-    public void getUserByUsernamePassword(String username, final String password, final getUserByUsernamePasswordListener listener) {
-        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("users");
-
-        //eventListener = stRef.child(key).addChildEventListener(new
-        eventListener = stRef.orderByChild("username").equalTo(username).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = null;
-                for (DataSnapshot stSnapshot : dataSnapshot.getChildren()) {
-                    user = stSnapshot.getValue(User.class);
-                }
-
-                if (user != null && user.password.equals(password)) {
-                    listener.onSuccess(user);
-                } else {
-                    listener.onFailure();
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    }
-
-    interface getUserByIdListener {
-        public void onSuccess(User user);
-    }
-
-    public void getUserById(String id, final getUserByIdListener listener) {
+    public void getUserById(String id, final GetUserByIdListener listener) {
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("users");
 
         //eventListener = stRef.child(key).addChildEventListener(new
@@ -84,26 +86,39 @@ public class UserModelFirebase {
         });
     }
 
-    // TODO: MAKE IT ASYNC
-    public void addUser(User userToAdd) {
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // TODO: ADD FUNCTION TO ADD REAL ADDITION OF USER
-        mDatabase.child("users").child(userToAdd.username).setValue(userToAdd);
+    interface AddUserListener {
+        public void onSuccess(User user);
+        public void onFailure(String exceptionMessage);
     }
 
-    public void setUser(User user) {
-        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference();
-        stRef.child("users").child(user.id).setValue(user);
+    public void addUser(final User user, final AddUserListener listener) {
+        DatabaseReference mUsersRef = FirebaseDatabase.getInstance().getReference("users");
+
+        mUsersRef.child(user.id).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    listener.onSuccess(user);
+                } else {
+                    String exception = task.getException().getMessage();
+                    listener.onFailure("Adding user to firebase DB has failed: " + exception);
+                }
+            }
+        });
     }
 
-    interface setUserListener {
+//    public void setUser(User user) {
+//        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference();
+//        stRef.child("users").child(user.id).setValue(user);
+//    }
+//
+    interface SetUserListener {
         public void onSuccess();
 
-        public void onFailure(Exception e);
+        public void onFailure(String exceptionMessage);
     }
 
-    public void setUser(User user, final setUserListener listener) {
+    public void setUser(User user, final SetUserListener listener) {
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference();
         stRef.child("users").child(user.id).setValue(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -113,46 +128,46 @@ public class UserModelFirebase {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                listener.onFailure(e);
+                listener.onFailure(e.getMessage());
             }
         });
     }
 
-    public interface IsUserExistsListener {
-        void onDone(boolean p_bIsExists);
-    }
-
-    public void IsUserExists(final String p_strUserName, final String p_strPassword, final IsUserExistsListener listener) {
-        userName = p_strUserName;
-        password = p_strPassword;
-        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").child(p_strUserName).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                boolean bIsValid = false;
-                User userData = dataSnapshot.getValue(User.class);
-
-                if (userData != null) {
-                    if (userData.username != null &&
-                            userData.password != null &&
-                            userData.username.equals(userName) &&
-                            userData.password.equals(password)) {
-                        bIsValid = true;
-                    } else {
-                        bIsValid = false;
-                    }
-                }
-
-                listener.onDone(bIsValid);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                listener.onDone(false);
-            }
-        });
-    }
+//    public interface IsUserExistsListener {
+//        void onDone(boolean p_bIsExists);
+//    }
+//
+//    public void IsUserExists(final String p_strUserName, final String p_strPassword, final IsUserExistsListener listener) {
+//        userName = p_strUserName;
+//        password = p_strPassword;
+//        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+//        mDatabase.child("users").child(p_strUserName).addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                boolean bIsValid = false;
+//                User userData = dataSnapshot.getValue(User.class);
+//
+//                if (userData != null) {
+//                    if (userData.username != null &&
+//                            userData.password != null &&
+//                            userData.username.equals(userName) &&
+//                            userData.password.equals(password)) {
+//                        bIsValid = true;
+//                    } else {
+//                        bIsValid = false;
+//                    }
+//                }
+//
+//                listener.onDone(bIsValid);
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                listener.onDone(false);
+//            }
+//        });
+//    }
 
 //    public void createUser(String email, String pwd) {
 //        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference();
@@ -160,6 +175,4 @@ public class UserModelFirebase {
 //        myFirebaseRef.cstRefreateUser(email, pwd, new Firebase.ResultHandler() {   @Override   public void onSuccess() { ...   }
 //            @Override   public void onError(FirebaseError firebaseError) { ...   } });
 //    }
-
-
 }

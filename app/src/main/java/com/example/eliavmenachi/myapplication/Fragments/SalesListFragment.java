@@ -27,7 +27,7 @@ import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
-import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
+import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
@@ -74,7 +74,12 @@ public class SalesListFragment extends Fragment {
         });*/
 
         // TODO: need to change to view model...
-        currentUser = UserAuthModel.instance.getCurrentUser();
+        userViewModel.getCurrentUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User user) {
+                currentUser = user;
+            }
+        });
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

@@ -15,10 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.eliavmenachi.myapplication.Activities.LoginActivity;
 import com.example.eliavmenachi.myapplication.Activities.SalesActivity;
-import com.example.eliavmenachi.myapplication.Entities.User;
-import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
 import com.example.eliavmenachi.myapplication.Models.User.UserAuthModelFirebase;
+import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
@@ -27,7 +27,7 @@ import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
  */
 public class LoginFragment extends Fragment {
     // Data Members
-    EditText userEt;
+    EditText emailEt;
     EditText passwordEt;
     UserViewModel userViewModel;
 
@@ -44,7 +44,7 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         // get the user and password details
-        userEt = view.findViewById(R.id.fragment_login_etUsername);
+        emailEt = view.findViewById(R.id.fragment_login_etUsername);
         passwordEt = view.findViewById(R.id.fragment_login_etPassword);
 
         // get instance of the login and register button
@@ -66,32 +66,44 @@ public class LoginFragment extends Fragment {
         btnSignOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                User user = UserAuthModel.instance.getCurrentUser();
-                Toast.makeText(getActivity(), "User was logout successfully!",
-                        Toast.LENGTH_LONG).show();
+                //emailEt.getText(), passwordEt.getText()
+                UserModel.instance.signOut(new UserModel.SignOutListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getActivity(), "User was logout successfully!",
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onFailure(String exceptionMessage) {
+                        Toast.makeText(getActivity(), exceptionMessage,
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 
         btnLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String strUsername = userEt.getText().toString();
+                String strEmail = emailEt.getText().toString();
                 String strPassword = passwordEt.getText().toString();
-                final View copyView = view;
 
                 boolean bIsValid = isInputsValid();
                 if (bIsValid == true) {
-                    userViewModel.signIn(strUsername, strPassword, new UserAuthModelFirebase.SigninCallback() {
+                    userViewModel.signIn(strEmail, strPassword, new UserViewModel.SignInListener() {
                         @Override
-                        public void onSuccess(String userID, String userName) {
-                            String wellcomeMsg = userName + " Welcome !!";
+                        public void onSuccess() {
+                            String wellcomeMsg = "Signed in successfully";
                             Toast.makeText(getActivity(), wellcomeMsg, Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent(copyView.getContext(), SalesActivity.class);
-                            startActivity(intent);
+
+                            getActivity().finish();
+//                            Intent intent = new Intent(LoginFragment.this.getContext(), SalesActivity.class);
+//                            startActivity(intent);
                         }
 
                         @Override
-                        public void onFailed() {
+                        public void onFailure(String exceptionMessage) {
                             Toast.makeText(getActivity(), "error in the details", Toast.LENGTH_LONG).show();
                         }
                     });
@@ -103,17 +115,17 @@ public class LoginFragment extends Fragment {
     }
 
     private boolean isInputsValid() {
-        final String mail = userEt.getText().toString();
+        final String mail = emailEt.getText().toString();
         final String password = passwordEt.getText().toString();
         boolean bIsValid = true;
 
         if (mail.length() == 0) {
-            userEt.requestFocus();
-            userEt.setError("FIELD CANNOT BE EMPTY");
+            emailEt.requestFocus();
+            emailEt.setError("FIELD CANNOT BE EMPTY");
             bIsValid = false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
-            userEt.requestFocus();
-            userEt.setError("INVALID EMAIL FORMAT");
+            emailEt.requestFocus();
+            emailEt.setError("INVALID EMAIL FORMAT");
             bIsValid = false;
         }
 

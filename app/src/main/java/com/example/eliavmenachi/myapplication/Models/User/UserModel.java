@@ -2,80 +2,61 @@ package com.example.eliavmenachi.myapplication.Models.User;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
-import android.util.Log;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
-import com.example.eliavmenachi.myapplication.Models.MainAppLocalDb;
+import com.google.firebase.auth.FirebaseUser;
 
 public class UserModel {
 
-    //region DataMembers
+    //public static UserModel.UserModelOld instance = new UserModel.UserModelOld();
     public static UserModel instance = new UserModel();
-    UserModelFirebase userModelFirebase;
-    private UserData user;
-    private String username;
-    private String password;
-    //endregion
+    private UserAuthModelFirebase userAuthModel;
+    private UserModelFirebase userModelFirebase;
+    private FirebaseUser currentFirebaseUser;
+    UserData userData; //= new UserData();
 
-    //region Methods
     private UserModel() {
+        userAuthModel = new UserAuthModelFirebase();
         userModelFirebase = new UserModelFirebase();
     }
 
+    public interface SignInListener {
+        void onSuccess();
 
-    public LiveData<User> getUser(String username, String password) {
-        this.username = username;
-        this.password = password;
-        user = new UserData();
-        return user;
+        void onFailure(String exceptionMessage);
     }
 
-    public LiveData<User> getCurrentUser() {
-        user = new UserData();
-        return user;
+    public void signIn(final String email, final String password, final SignInListener listener) {
+        userAuthModel.signInWithEmailAndPassword(email, password, new UserAuthModelFirebase.SignInCallback() {
+            @Override
+            public void onSuccess(String userID, String userName) {
+                userData = new UserData();
+                listener.onSuccess();
+            }
+
+            @Override
+            public void onFailure(String exceptionMessage) {
+                listener.onFailure(exceptionMessage);
+            }
+        });
     }
 
-    class UserData extends MutableLiveData<User> {
+    private class UserData extends MutableLiveData<User> {
         @Override
         protected void onActive() {
             super.onActive();
 
-            if (username == null) {
-                UserAsynchDao.getCurrentUser(new UserAsynchDao.UserAsynchDaoListener<User>() {
+            currentFirebaseUser = userAuthModel.getCurrentUser();
+
+            if (currentFirebaseUser == null) {
+                setValue(null);
+            } else {
+                UserAsynchDao.GetUserByUserId(currentFirebaseUser.getUid(), new UserAsynchDao.UserAsynchDaoListener<User>() {
                     @Override
                     public void onComplete(User data) {
                         setValue(data);
 
-                        if (data != null) {
-                            userModelFirebase.getUserById(data.id, new UserModelFirebase.getUserByIdListener() {
-                                @Override
-                                public void onSuccess(final User user) {
-                                    setValue(user);
-                                    UserAsynchDao.removeAll(new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
-                                        @Override
-                                        public void onComplete(Boolean data) {
-                                            UserAsynchDao.insert(user, new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
-                                                @Override
-                                                public void onComplete(Boolean data) {
-
-                                                }
-                                            });
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    }
-                });
-            } else {
-                UserAsynchDao.getData(username, new UserAsynchDao.UserAsynchDaoListener<User>() {
-                    @Override
-                    public void onComplete(User data) {
-                        if (data != null) {
-                            setValue(data);
-                        }
-
-                        userModelFirebase.getUserByUsernamePassword(username, password, new UserModelFirebase.getUserByUsernamePasswordListener() {
+                        userModelFirebase.getUserById(currentFirebaseUser.getUid(), new UserModelFirebase.GetUserByIdListener() {
                             @Override
                             public void onSuccess(User user) {
                                 setValue(user);
@@ -83,14 +64,8 @@ public class UserModel {
                                 UserAsynchDao.insert(user, new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
                                     @Override
                                     public void onComplete(Boolean data) {
-
                                     }
                                 });
-                            }
-
-                            @Override
-                            public void onFailure() {
-                                setValue(null);
                             }
                         });
                     }
@@ -101,48 +76,93 @@ public class UserModel {
         @Override
         protected void onInactive() {
             super.onInactive();
-            userModelFirebase.cancelGetUser();
-            Log.d("TAG", "cancellGetAllStudents");
         }
 
         public UserData() {
             super();
-            //setValue(AppLocalDb.db.studentDao().getAll());
-            //setValue(new User());
-        }
-
-        public UserData(String username) {
-            super();
-            setValue(MainAppLocalDb.db.userDao().getUserByUsername(username));
+            setValue(new User());
         }
     }
 
-    public void addUser(User userToAdd) {
-        userModelFirebase.addUser(userToAdd);
+    public interface CreateUserListener {
+        void onSuccess(User user);
+
+        void onFailure(String exceptionMessage);
     }
 
-    public void setUser(User user) {
-        userModelFirebase.setUser(user);
-    }
-
-    public interface LogoutCompleteListener {
-        public void onSuccess();
-
-        public void onFailure();
-
-    }
-
-    public void removeAllUsersLocally(final UserAsynchDao.UserAsynchDaoListener listener) {
-        UserAsynchDao.removeAll(new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
+    public void createUser(User user,
+                           final CreateUserListener listener) {
+        userAuthModel.createUser(user, new UserAuthModelFirebase.CreateUserCallback() {
             @Override
-            public void onComplete(Boolean data) {
-                if (data == true) {
-                    user.setValue(null);
-                }
+            public void onSuccess(User user) {
+                userModelFirebase.addUser(user, new UserModelFirebase.AddUserListener() {
+                    @Override
+                    public void onSuccess(User user) {
+                        listener.onSuccess(user);
+                    }
 
-                listener.onComplete(data);
+                    @Override
+                    public void onFailure(String exceptionMessage) {
+                        listener.onFailure(exceptionMessage);
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String exceptionMessage) {
+                listener.onFailure(exceptionMessage);
             }
         });
     }
-    //endregion
+
+    public interface SignOutListener {
+        void onSuccess();
+
+        void onFailure(String exceptionMessage);
+    }
+
+    public void signOut(final SignOutListener listener) {
+        userAuthModel.signOut();
+
+        UserAsynchDao.removeAll(new UserAsynchDao.UserAsynchDaoListener<Boolean>() {
+            @Override
+            public void onComplete(Boolean data) {
+                if (data) {
+                    userData.setValue(null);
+                    listener.onSuccess();
+                } else {
+                    listener.onFailure("Signing out has faild.");
+                }
+            }
+        });
+    }
+
+    public interface UpdateUserListener {
+        void onSuccess();
+
+        void onFailure(String exceptionMessage);
+    }
+
+    public void updateUser(final User user, final UpdateUserListener listener) {
+        userModelFirebase.setUser(user, new UserModelFirebase.SetUserListener() {
+            @Override
+            public void onSuccess() {
+                listener.onSuccess();
+            }
+
+            @Override
+            public void onFailure(String exceptionMessage) {
+                listener.onFailure(exceptionMessage);
+            }
+        });
+    }
+
+    public LiveData<User> getCurrentUser() {
+        if (this.userData == null) {
+            this.userData = new UserData();
+        }
+        //return this.userData;
+        //return user;
+        return this.userData;
+    }
 }

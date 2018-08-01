@@ -31,14 +31,14 @@ public class SaleListViewModel extends ViewModel {
     public LiveData<Sale> GetSaleBySaleId(String p_strSaleId) {
         SaleModel.instance.InitSaleId(p_strSaleId);
         LiveData<Sale> currSale = SaleModel.instance.getSaleBySaleId(p_strSaleId);
-        ;
+
         return currSale;
     }
 
     public LiveData<List<Sale>> getSaleListByUserId(String p_strUserName) {
         SaleModel.instance.InitUserName(p_strUserName);
         LiveData<List<Sale>> results = SaleModel.instance.getSalesByUserName(p_strUserName);
-        ;
+
         return results;
     }
 

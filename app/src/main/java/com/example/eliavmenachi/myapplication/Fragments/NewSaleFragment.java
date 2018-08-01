@@ -33,7 +33,7 @@ import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleModel;
-import com.example.eliavmenachi.myapplication.Models.User.UserAuthModel;
+import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
@@ -86,11 +86,18 @@ public class NewSaleFragment extends Fragment {
     int nCounterQuery = 0;
     View rlProgressBar;
     ProgressBar progressBarSaveNewSale;
+    User currentUser;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        UserModel.instance.getCurrentUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User user) {
+                currentUser = user;
+            }
+        });
     }
 
     @Override
@@ -282,9 +289,8 @@ public class NewSaleFragment extends Fragment {
         SetSaleData(newId);
 
         // TODO: need to change to view model...
-        final User data = UserAuthModel.instance.getCurrentUser();
-        if (data != null) {
-            newSale.userId = data.id;
+        if (currentUser != null) {
+            newSale.userId = currentUser.id;
         }
         // setting image details
         if (imageBitmap != null) {
