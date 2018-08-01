@@ -24,9 +24,6 @@ public class User {
     @ColumnInfo(name = "username")
     public String username;
 
-    @ColumnInfo(name = "password")
-    public String password;
-
     @ColumnInfo(name = "firstName")
     public String firstName;
 
@@ -74,10 +71,6 @@ public class User {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -104,9 +97,5 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

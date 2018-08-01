@@ -55,8 +55,9 @@ public class UserViewModel extends ViewModel {
     }
 
     public void registerUser(final User user,
+                             final String password,
                              final CreateUserListener listener) {
-        UserModel.instance.createUser(user, new UserModel.CreateUserListener() {
+        UserModel.instance.createUser(user, password, new UserModel.CreateUserListener() {
             @Override
             public void onSuccess(User user) {
                 listener.onSuccess(user);

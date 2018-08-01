@@ -187,15 +187,15 @@ public class EditUserProfileFragment extends Fragment {
                 user.city = selectedCity.id;
 
                 user.city = selectedCity.id;
-                if (!etPassword.getText().toString().equals("")) {
-                    if (!etRetypeNewPassword.getText().toString().equals(etPassword.getText().toString())) {
-                        isValid = false;
-                        Toast.makeText(getActivity(), "Passwords don't match!",
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        user.password = etPassword.getText().toString();
-                    }
-                }
+//                if (!etPassword.getText().toString().equals("")) {
+//                    if (!etRetypeNewPassword.getText().toString().equals(etPassword.getText().toString())) {
+//                        isValid = false;
+//                        Toast.makeText(getActivity(), "Passwords don't match!",
+//                                Toast.LENGTH_LONG).show();
+//                    } else {
+//                        user.password = etPassword.getText().toString();
+//                    }
+//                }
 
                 if (isValid) {
                     // TODO: make async
@@ -265,8 +265,9 @@ public class EditUserProfileFragment extends Fragment {
                         Toast.makeText(getActivity(), "User was logout successfully!",
                                 Toast.LENGTH_LONG).show();
 
-                        Intent intent = new Intent(EditUserProfileFragment.this.getContext(), SalesActivity.class);
-                        startActivity(intent);
+                        getActivity().finish();
+//                        Intent intent = new Intent(EditUserProfileFragment.this.getContext(), SalesActivity.class);
+//                        startActivity(intent);
                     }
 
                     @Override

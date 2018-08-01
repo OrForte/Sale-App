@@ -54,7 +54,9 @@ public class UserModel {
                 UserAsynchDao.GetUserByUserId(currentFirebaseUser.getUid(), new UserAsynchDao.UserAsynchDaoListener<User>() {
                     @Override
                     public void onComplete(User data) {
-                        setValue(data);
+                        if (data != null) {
+                            setValue(data);
+                        }
 
                         userModelFirebase.getUserById(currentFirebaseUser.getUid(), new UserModelFirebase.GetUserByIdListener() {
                             @Override
@@ -91,8 +93,9 @@ public class UserModel {
     }
 
     public void createUser(User user,
+                           String password,
                            final CreateUserListener listener) {
-        userAuthModel.createUser(user, new UserAuthModelFirebase.CreateUserCallback() {
+        userAuthModel.createUser(user, password, new UserAuthModelFirebase.CreateUserCallback() {
             @Override
             public void onSuccess(User user) {
                 userModelFirebase.addUser(user, new UserModelFirebase.AddUserListener() {
@@ -128,7 +131,7 @@ public class UserModel {
             @Override
             public void onComplete(Boolean data) {
                 if (data) {
-                    userData.setValue(null);
+                    //userData.setValue(null);
                     listener.onSuccess();
                 } else {
                     listener.onFailure("Signing out has faild.");

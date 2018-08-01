@@ -12,7 +12,7 @@ import com.example.eliavmenachi.myapplication.Models.CityMallAndStore.CityMallAn
 import com.example.eliavmenachi.myapplication.Models.Sale.SaleDao;
 import com.example.eliavmenachi.myapplication.Models.User.UserDao;
 
-@Database(entities = {Sale.class, User.class, City.class, Mall.class, Store.class}, version = 8)
+@Database(entities = {Sale.class, User.class, City.class, Mall.class, Store.class}, version = 9)
 public abstract class MainAppLocalDbRepository extends RoomDatabase {
     public abstract SaleDao saleDao();
 

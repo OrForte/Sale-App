@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Entities.Consts;
@@ -18,7 +20,6 @@ import com.example.eliavmenachi.myapplication.Fragments.ChooseLocationFragment;
 import com.example.eliavmenachi.myapplication.Fragments.EditUserProfileFragment;
 import com.example.eliavmenachi.myapplication.Fragments.NewSaleFragment;
 import com.example.eliavmenachi.myapplication.Fragments.SalesListFragment;
-import com.example.eliavmenachi.myapplication.Fragments.UserSalesListFragment;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
@@ -26,16 +27,19 @@ public class SalesActivity extends AppCompatActivity {
     UserViewModel userViewModel;
     Menu toolBarMenu;
     User currentUser;
+    View progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
-        currentUser = null;
-
         Log.d("SalesActivity", "onCreate");
         super.onCreate(savedInstanceState);
 
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
+        currentUser = null;
+
         setContentView(R.layout.activity_sale);
+
+        progressBar = findViewById(R.id.activity_sale_rlProgressBar);
 
         if (savedInstanceState == null) {
             SalesListFragment fragment = new SalesListFragment();
@@ -58,8 +62,21 @@ public class SalesActivity extends AppCompatActivity {
                 if (hasChanged) {
                     SalesActivity.this.invalidateOptionsMenu();
                 }
+
+                progressBar.setVisibility(View.GONE);
             }
         });
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -134,14 +151,17 @@ public class SalesActivity extends AppCompatActivity {
             case R.id.menu_user_profile: {
                 if (currentUser == null) {
                     Intent intent = new Intent(SalesActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    startActivityForResult(intent, 1);
                     return true;
                 } else {
-                    EditUserProfileFragment fragment = new EditUserProfileFragment();
-                    FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-                    tran.replace(R.id.main_container, fragment);
-                    tran.addToBackStack(Consts.instance.TAG_CHOOSE_STORE);
-                    tran.commit();
+
+                    Intent intent = new Intent(SalesActivity.this, UserProfileActivity.class);
+                    startActivity(intent);
+//                    EditUserProfileFragment fragment = new EditUserProfileFragment();
+//                    FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
+//                    tran.replace(R.id.main_container, fragment);
+//                    tran.addToBackStack(Consts.instance.TAG_CHOOSE_STORE);
+//                    tran.commit();
                     return true;
                 }
             }
@@ -150,10 +170,15 @@ public class SalesActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(SalesActivity.this, "Signed out successfully", Toast.LENGTH_LONG).show();
-                        SalesListFragment fragment = new SalesListFragment();
-                        FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-                        tran.replace(R.id.main_container, fragment);
-                        tran.commit();
+
+//                        SalesListFragment fragment = new SalesListFragment();
+//                        FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
+//                        tran.replace(R.id.main_container, fragment);
+//                        tran.commit();
+//
+//                        startActivity(getIntent());
+//                        finish();
+//                        SalesActivity.this.invalidateOptionsMenu();
                     }
 
                     @Override

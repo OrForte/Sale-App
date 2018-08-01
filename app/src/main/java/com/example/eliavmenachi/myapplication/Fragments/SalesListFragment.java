@@ -61,6 +61,7 @@ public class SalesListFragment extends Fragment {
                 Log.d("TAG", "item selected:" + i);
             }
         });
+
         rlProgressBar = view.findViewById(R.id.fragment_sale_list_rlProgressBar);
 
         /*
@@ -137,6 +138,8 @@ public class SalesListFragment extends Fragment {
             m_bGetAllSales = true;
         }
 
+//        setHasOptionsMenu(true);
+
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         dataModel = ViewModelProviders.of(this).get(SaleListViewModel.class);
         dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore).observe(this, new Observer<List<Sale>>() {
@@ -146,6 +149,8 @@ public class SalesListFragment extends Fragment {
                 //if (nCounterQuery >= 2) {
                 listAdapter.notifyDataSetChanged();
                 Log.d("TAG", "notifyDataSetChanged" + sales.size());
+
+//                getActivity().invalidateOptionsMenu();
                 rlProgressBar.setVisibility(View.GONE);
                 //}
             }
