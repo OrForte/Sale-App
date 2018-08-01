@@ -28,6 +28,13 @@ public class UserViewModel extends ViewModel {
         return data;
     }
 
+    public LiveData<User> getUserByUserId(String p_strUserId)
+    {
+        UserModel.instance.InitUserId(p_strUserId);
+        data = UserModel.instance.getUserByUserId(p_strUserId);
+        return data;
+    }
+
     public interface SignInListener {
         void onSuccess();
 

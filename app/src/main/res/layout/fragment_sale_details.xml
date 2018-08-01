@@ -93,7 +93,7 @@
         android:layout_marginTop="24dp"
         android:text="City:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_sale_details_tvCatrgory"
+        app:layout_constraintStart_toStartOf="@+id/fragment_sale_details_tvUser"
         app:layout_constraintTop_toBottomOf="@+id/fragment_sale_details_tvEndDate" />
 
 
@@ -136,7 +136,7 @@
         android:layout_marginTop="24dp"
         android:text="Store:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintStart_toStartOf="@+id/fragment_sale_details_tvCatrgory"
+        app:layout_constraintStart_toStartOf="@+id/fragment_sale_details_tvUser"
         app:layout_constraintTop_toBottomOf="@+id/fragment_sale_details_tvMall" />
 
     <TextView
@@ -151,25 +151,25 @@
         app:layout_constraintStart_toEndOf="@+id/fragment_sale_details_tvStore" />
 
     <TextView
-        android:id="@+id/fragment_sale_details_tvCatrgory"
+        android:id="@+id/fragment_sale_details_tvUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Category:"
+        android:text="User:"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
         app:layout_constraintStart_toStartOf="@+id/sale_details_image"
         app:layout_constraintTop_toBottomOf="@+id/fragment_sale_details_tvStore" />
 
     <TextView
-        android:id="@+id/fragment_new_sale_etCatrgory"
+        android:id="@+id/fragment_sale_details_etUser"
         android:layout_width="0dp"
         android:layout_height="30dp"
         android:layout_marginEnd="24dp"
         android:layout_marginStart="24dp"
         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
-        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_sale_details_tvCatrgory"
+        app:layout_constraintBaseline_toBaselineOf="@+id/fragment_sale_details_tvUser"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/fragment_sale_details_tvCatrgory" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_sale_details_tvUser" />
 
     </android.support.constraint.ConstraintLayout>
 
