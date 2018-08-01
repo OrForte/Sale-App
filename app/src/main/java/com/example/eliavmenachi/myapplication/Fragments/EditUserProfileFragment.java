@@ -26,6 +26,7 @@ import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 public class EditUserProfileFragment extends Fragment {
@@ -80,8 +81,11 @@ public class EditUserProfileFragment extends Fragment {
             if (cityListData.cities.size() > 0) {
                 City city = cityDataModel.GetCityByCityId(currentUser.city, cityListData);
                 if (city != null) {
-                    int selectedCityIndex = ((ArrayAdapter<String>) spCity.getAdapter()).getPosition(city.name);
-                    spCity.setSelection(selectedCityIndex);
+                    ArrayAdapter<String> adapterString = (ArrayAdapter<String>) spCity.getAdapter();
+                    if (adapterString != null) {
+                        int selectedCityIndex = adapterString.getPosition(city.name);
+                        spCity.setSelection(selectedCityIndex);
+                    }
                 }
             }
         }
@@ -138,8 +142,11 @@ public class EditUserProfileFragment extends Fragment {
                             if (cityListData.cities.size() > 0) {
                                 City city = cityDataModel.GetCityByCityId(user.city, cityListData);
                                 if (city != null) {
-                                    int selectedCityIndex = ((ArrayAdapter<String>) spCity.getAdapter()).getPosition(city.name);
-                                    spCity.setSelection(selectedCityIndex);
+                                    ArrayAdapter<String> adapterString = (ArrayAdapter<String>) spCity.getAdapter();
+                                    if (adapterString != null) {
+                                        int selectedCityIndex = adapterString.getPosition(city.name);
+                                        spCity.setSelection(selectedCityIndex);
+                                    }
                                 }
                             }
                             etBirthDate.setText(user.birthDate);
