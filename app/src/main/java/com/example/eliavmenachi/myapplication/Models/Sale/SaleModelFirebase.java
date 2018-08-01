@@ -65,7 +65,7 @@ public class SaleModelFirebase {
     ValueEventListener eventListener;
 
     public void getAllSales(final GetAllSalesListener listener) {
-        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
+        Query stRef = FirebaseDatabase.getInstance().getReference().child("sale");
         eventListener = stRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

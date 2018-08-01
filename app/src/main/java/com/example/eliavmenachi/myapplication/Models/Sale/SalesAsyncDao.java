@@ -168,4 +168,24 @@ public class SalesAsyncDao {
         MyAsynchTask task = new MyAsynchTask();
         task.execute(sales);
     }
+
+    public static void updateDeletedSales(final List<Sale> sales, final SaleAsynchDaoListener<Boolean> listener) {
+        class MyAsynchTask extends AsyncTask<List<Sale>, String, Boolean> {
+            @Override
+            protected Boolean doInBackground(List<Sale>... sales) {
+                for (Sale sl : sales[0]) {
+                    MainAppLocalDb.db.saleDao().delete(sl);
+                }
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean success) {
+                super.onPostExecute(success);
+                listener.onComplete(success);
+            }
+        }
+        MyAsynchTask task = new MyAsynchTask();
+        task.execute(sales);
+    }
 }
