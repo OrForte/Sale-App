@@ -108,8 +108,10 @@ public class RegisterFragment extends Fragment {
                     userViewModel.registerUser(user, password, new UserViewModel.CreateUserListener() {
                         @Override
                         public void onSuccess(User user) {
-                            String welcomeMsg = "welcome " + user + " !!";
-                            Toast.makeText(getActivity(), welcomeMsg, Toast.LENGTH_LONG).show();
+                            if (user != null) {
+                                String welcomeMsg = "welcome " + user.username + " !!";
+                                Toast.makeText(getActivity(), welcomeMsg, Toast.LENGTH_LONG).show();
+                            }
                         }
 
                         @Override
