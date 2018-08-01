@@ -99,28 +99,73 @@ public class SaleModel {
             // 1. get the students list from the local DB
             SalesAsyncDao.getAll(new SalesAsyncDao.SaleAsynchDaoListener<List<Sale>>() {
                 @Override
-                public void onComplete(List<Sale> data) {
+                public void onComplete(final List<Sale> data) {
                     // 2. update the live data with the new student list
                     setValue(data);
 
                     // 3. get the student list from firebase
                     saleModelFirebase.getAllSales(new SaleModelFirebase.GetAllSalesListener() {
                         @Override
-                        public void onSuccess(List<Sale> salesList) {
+                        public void onSuccess(final     List<Sale> salesList) {
                             // 4. update the live data with the new student list
                             setValue(salesList);
 
-                            // 5. update the local DB
-                            SalesAsyncDao.insertAll(salesList, new SalesAsyncDao.SaleAsynchDaoListener<Boolean>() {
-                                @Override
-                                public void onComplete(Boolean data) {
-                                    // Done
-                                }
-                            });
+                            List<Sale> lstToDelete = new LinkedList<Sale>();
+
+                            lstToDelete = GetSaleThatInSqlLiteButNotInFireBase(salesList, data);
+
+                            if (lstToDelete.size() > 0) {
+                                // try to delete sales that deleted from local storage
+                        SalesAsyncDao.updateDeletedSales(lstToDelete, new SalesAsyncDao.SaleAsynchDaoListener<Boolean>() {
+                            @Override
+                            public void onComplete(Boolean data) {
+                                // 5. update the local DB
+                                SalesAsyncDao.insertAll(salesList, new SalesAsyncDao.SaleAsynchDaoListener<Boolean>() {
+                                    @Override
+                                    public void onComplete(Boolean data) {
+                                        // Done
+                                    }
+                                });
+                            }
+                        });
+                    }
+
+                    // 5. update the local DB
+                    SalesAsyncDao.insertAll(salesList, new SalesAsyncDao.SaleAsynchDaoListener<Boolean>() {
+                        @Override
+                        public void onComplete(Boolean data) {
+                            // Done
                         }
                     });
                 }
             });
+        }
+    });
+}
+
+    public List<Sale> GetSaleThatInSqlLiteButNotInFireBase(List<Sale> dataFireBase, List<Sale> dataSqlLite)
+    {
+        List<Sale> returnData = new LinkedList<Sale>();
+
+        boolean bIsIn = false;
+        for(Sale saleSqlLite : dataSqlLite)
+        {
+            bIsIn = false;
+            for(Sale saleFireBase : dataFireBase)
+            {
+                if (saleSqlLite.id.contains(saleFireBase.id))
+                {
+                    bIsIn = true;
+                        break;
+                    }
+                }
+                if (bIsIn == false)
+                {
+                    returnData.add(saleSqlLite);
+                }
+            }
+
+            return returnData;
         }
 
         @Override
@@ -140,6 +185,8 @@ public class SaleModel {
     public LiveData<List<Sale>> getAllSales() {
         return studentListData;
     }
+
+
 
 
     //endregion
