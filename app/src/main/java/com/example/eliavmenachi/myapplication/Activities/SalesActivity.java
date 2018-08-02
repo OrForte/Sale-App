@@ -52,32 +52,40 @@ public class SalesActivity extends AppCompatActivity {
         userViewModel.getCurrentUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
-                boolean hasChanged = false;
-                if (currentUser != user) {
-                    hasChanged = true;
-                }
-
-                currentUser = user;
-
-                if (hasChanged) {
-                    SalesActivity.this.invalidateOptionsMenu();
-                }
-
-                progressBar.setVisibility(View.GONE);
+                updateMenuIfNeeded(user);
             }
         });
     }
 
-    @Override protected void onResume() {
-        super.onResume();
+    private void updateMenuIfNeeded(User newUser) {
+        boolean hasChanged = false;
+
+        if (currentUser != newUser) {
+            hasChanged = true;
+        }
+
+        currentUser = newUser;
+
+        if (hasChanged) {
+            SalesActivity.this.invalidateOptionsMenu();
+        }
+
+        progressBar.setVisibility(View.GONE);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            progressBar.setVisibility(View.VISIBLE);
-        }
+    @Override protected void onResume() {
+        super.onResume();
+
+        User user = userViewModel.getCurrentUser().getValue();
+        updateMenuIfNeeded(user);
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == 1) {
+//            progressBar.setVisibility(View.VISIBLE);
+//        }
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -171,6 +179,8 @@ public class SalesActivity extends AppCompatActivity {
                     public void onSuccess() {
                         Toast.makeText(SalesActivity.this, "Signed out successfully", Toast.LENGTH_LONG).show();
 
+                        User user = userViewModel.getCurrentUser().getValue();
+                        updateMenuIfNeeded(user);
 //                        SalesListFragment fragment = new SalesListFragment();
 //                        FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
 //                        tran.replace(R.id.main_container, fragment);

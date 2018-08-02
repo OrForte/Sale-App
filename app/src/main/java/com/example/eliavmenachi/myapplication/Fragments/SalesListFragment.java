@@ -27,7 +27,6 @@ import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
-import com.example.eliavmenachi.myapplication.Models.User.UserModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
@@ -211,11 +210,11 @@ public class SalesListFragment extends Fragment {
             final Sale currentSale = dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore).getValue().get(i);
             final int copyI = i;
             final View copyView = view;
-            final TextView tvCity = view.findViewById(R.id.tvCity);
+            final TextView tvCity = view.findViewById(R.id.tvStore);
             final TextView tvMall = view.findViewById(R.id.tvMall);
-            final TextView tvStore = view.findViewById(R.id.tvStore);
-            final TextView tvDesc = view.findViewById(R.id.tvDescription);
-            tvDesc.setText(currentSale.description);
+            final TextView tvStore = view.findViewById(R.id.tvCity);
+//            final TextView tvDesc = view.findViewById(R.id.tvDescription);
+//            tvDesc.setText(currentSale.description);
 
             String strStoreId = currentSale.storeId + "";
             tvCity.setText(currentSale.cityName);

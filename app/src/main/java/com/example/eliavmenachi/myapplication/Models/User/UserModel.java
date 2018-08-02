@@ -131,7 +131,7 @@ public class UserModel {
             @Override
             public void onComplete(Boolean data) {
                 if (data) {
-                    //userData.setValue(null);
+                    userData.setValue(null);
                     listener.onSuccess();
                 } else {
                     listener.onFailure("Signing out has faild.");

@@ -7,12 +7,12 @@
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/tvCity"
-        android:layout_width="0dp"
+        android:id="@+id/tvStore"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="City"
+        android:layout_marginTop="8dp"
+        android:text="Store"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,45 +20,39 @@
     <TextView
         android:id="@+id/tvMall"
         android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="Mall"
         android:textAlignment="center"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/tvStore"
-        app:layout_constraintStart_toEndOf="@+id/tvCity"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/tvCity"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvStore" />
 
     <ImageView
         android:id="@+id/ivSalePic"
-        android:layout_width="wrap_content"
-        android:layout_height="86dp"
+        android:layout_width="210dp"
+        android:layout_height="99dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvMall"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/avatar" />
 
     <TextView
-        android:id="@+id/tvStore"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Store"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvDescription"
+        android:id="@+id/tvCity"
         android:layout_width="wrap_content"
-        android:layout_height="19dp"
-        android:layout_marginTop="20dp"
-        android:text="Description"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivSalePic" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="16dp"
+        android:text="City"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
