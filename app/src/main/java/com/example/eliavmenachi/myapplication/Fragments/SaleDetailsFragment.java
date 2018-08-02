@@ -25,6 +25,8 @@ import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
 public class SaleDetailsFragment extends Fragment {
 
+    public int HEIGHT = 600;
+    public int WIDTH = 600;
     ImageView imageSale;
     TextView etDescription;
     TextView etEndDate;
@@ -138,6 +140,7 @@ public class SaleDetailsFragment extends Fragment {
                         @Override
                         public void onDone(Bitmap imageBitmap) {
                             if (currSale.id.equals(imageSale.getTag()) && imageBitmap != null) {
+                                imageBitmap = Bitmap.createScaledBitmap(imageBitmap, WIDTH, HEIGHT, true);
                                 imageSale.setImageBitmap(imageBitmap);
                             }
                         }
