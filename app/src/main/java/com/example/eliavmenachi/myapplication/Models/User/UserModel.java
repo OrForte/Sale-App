@@ -6,6 +6,8 @@ import android.arch.lifecycle.MutableLiveData;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.List;
+
 public class UserModel {
 
     //public static UserModel.UserModelOld instance = new UserModel.UserModelOld();
@@ -25,7 +27,6 @@ public class UserModel {
 
         void onFailure(String exceptionMessage);
     }
-
     public void signIn(final String email, final String password, final SignInListener listener) {
         userAuthModel.signInWithEmailAndPassword(email, password, new UserAuthModelFirebase.SignInCallback() {
             @Override
@@ -40,6 +41,57 @@ public class UserModel {
             }
         });
     }
+
+
+
+    public class UserByUserIdData extends  MutableLiveData<User> {
+        String m_userId = "";
+        @Override
+        protected void onActive() {
+            super.onActive();
+            UserAsynchDao.GetUserByUserId(m_userId, new UserAsynchDao.UserAsynchDaoListener<User>() {
+                @Override
+                public void onComplete(User data) {
+                    setValue(data);
+                    userModelFirebase.getUserById(m_userId, new UserModelFirebase.GetUserByIdListener() {
+                        @Override
+                        public void onSuccess(User user) {
+                            setValue(user);
+                        }
+                    });
+                }
+            });
+        }
+
+        @Override
+        protected void onInactive() {
+            super.onInactive();
+        }
+
+        public UserByUserIdData() {
+            super();
+            setValue(new User());
+        }
+
+        public void InitUserId(String p_userId) {
+            m_userId = p_userId;
+        }
+    }
+    public UserByUserIdData userByUserIdData = new UserByUserIdData();
+    public LiveData<User> getUserByUserId(String p_userId) {
+        return userByUserIdData;
+    }
+    public void InitUserId(String p_strStoreId) {
+        if (userByUserIdData == null) {
+            userByUserIdData = new UserByUserIdData();
+        }
+
+        userByUserIdData.InitUserId(p_strStoreId);
+    }
+
+
+
+
 
     private class UserData extends MutableLiveData<User> {
         @Override
@@ -74,7 +126,6 @@ public class UserModel {
                 });
             }
         }
-
         @Override
         protected void onInactive() {
             super.onInactive();
@@ -91,7 +142,6 @@ public class UserModel {
 
         void onFailure(String exceptionMessage);
     }
-
     public void createUser(User user,
                            String password,
                            final CreateUserListener listener) {
@@ -118,12 +168,13 @@ public class UserModel {
         });
     }
 
+
+
     public interface SignOutListener {
         void onSuccess();
 
         void onFailure(String exceptionMessage);
     }
-
     public void signOut(final SignOutListener listener) {
         userAuthModel.signOut();
 
@@ -140,12 +191,13 @@ public class UserModel {
         });
     }
 
+
+
     public interface UpdateUserListener {
         void onSuccess();
 
         void onFailure(String exceptionMessage);
     }
-
     public void updateUser(final User user, final UpdateUserListener listener) {
         userModelFirebase.setUser(user, new UserModelFirebase.SetUserListener() {
             @Override

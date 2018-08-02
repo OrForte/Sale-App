@@ -16,13 +16,17 @@ import android.widget.TextView;
 
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
+import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
+import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
 public class SaleDetailsFragment extends Fragment {
 
+    public int HEIGHT = 600;
+    public int WIDTH = 600;
     ImageView imageSale;
     TextView etDescription;
     TextView etEndDate;
@@ -30,20 +34,25 @@ public class SaleDetailsFragment extends Fragment {
     TextView etCity;
     TextView etMall;
     TextView etStore;
+    TextView etUser;
+
 
     ListView list;
     CityMallAndStoreViewModel dataModel;
     SaleListViewModel dataModelSale;
+    UserViewModel userDataModel;
     boolean bIsOccur = false;
     Sale currSale;
     View rlProgressBar;
     int nCounterQuery = 0;
+    User currentUser;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
         dataModelSale = ViewModelProviders.of(this).get(SaleListViewModel.class);
+        userDataModel = ViewModelProviders.of(this).get(UserViewModel.class);
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
@@ -72,21 +81,19 @@ public class SaleDetailsFragment extends Fragment {
         etMall = view.findViewById(R.id.fragment_sale_details_etMall);
         etStore = view.findViewById(R.id.fragment_sale_details_etStore);
         rlProgressBar = view.findViewById(R.id.fragment_sale_details_rlProgressBar);
+        etUser = view.findViewById(R.id.fragment_sale_details_etUser);
         rlProgressBar.setVisibility(View.VISIBLE);
         String nId = "";
         if (getArguments() != null) {
             nId = getArguments().getString("SALE_ID");
             dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
                 @Override
-                public void onChanged(@Nullable Sale sale) {
-                    nCounterQuery++;
-                    if (nCounterQuery >= 2) {
-                        currSale = sale;
-
-                        etTitle.setText("sale " + currSale.id);
-
-                        // populate the data
-                        PopulateTheView();
+                public void onChanged(@Nullable final Sale sale) {
+                    if (sale != null) {
+                        if (sale.id != null) {
+                            nCounterQuery++;
+                            LoadUserAndPopulateData(sale);
+                        }
                     }
                 }
             });
@@ -94,6 +101,23 @@ public class SaleDetailsFragment extends Fragment {
 
 
         return view;
+    }
+
+    public void LoadUserAndPopulateData(final Sale sale)
+    {
+        userDataModel.getUserByUserId(sale.userId).observe( SaleDetailsFragment.this, new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User user) {
+                if (nCounterQuery >= 2) {
+                    currSale = sale;
+                    currentUser = user;
+                    etTitle.setText("sale " + currSale.id);
+
+                    // populate the data
+                    PopulateTheView();
+                }
+            }
+        });
     }
 
     public void PopulateTheView() {
@@ -104,6 +128,9 @@ public class SaleDetailsFragment extends Fragment {
                 etCity.setText(currSale.cityName);
                 etMall.setText(currSale.mallName);
                 etStore.setText(currSale.storeName);
+                if (currentUser != null) {
+                    etUser.setText(currentUser.username);
+                }
 
                 imageSale.setImageResource(R.drawable.avatar);
                 imageSale.setTag(currSale.id);
@@ -113,6 +140,7 @@ public class SaleDetailsFragment extends Fragment {
                         @Override
                         public void onDone(Bitmap imageBitmap) {
                             if (currSale.id.equals(imageSale.getTag()) && imageBitmap != null) {
+                                imageBitmap = Bitmap.createScaledBitmap(imageBitmap, WIDTH, HEIGHT, true);
                                 imageSale.setImageBitmap(imageBitmap);
                             }
                         }

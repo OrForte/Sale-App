@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -48,6 +49,8 @@ import static android.app.Activity.RESULT_OK;
 
 public class NewSaleFragment extends Fragment {
 
+    public int HEIGHT = 600;
+    public int WIDTH = 600;
     ListData listData = new ListData();
     Spinner dropDownCities;
     List<String> citiesNames;
@@ -232,6 +235,7 @@ public class NewSaleFragment extends Fragment {
                 resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             imageBitmap = (Bitmap) extras.get("data");
+            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, WIDTH, HEIGHT, true);
             imageSale.setImageBitmap(imageBitmap);
             m_bIsChangedImage = true;
         }
@@ -409,6 +413,7 @@ public class NewSaleFragment extends Fragment {
                     @Override
                     public void onDone(Bitmap imageBitmap) {
                         if (newSale.id.equals(imageSale.getTag()) && imageBitmap != null) {
+                            imageBitmap = Bitmap.createScaledBitmap(imageBitmap, WIDTH, HEIGHT, true);
                             imageSale.setImageBitmap(imageBitmap);
                         }
                     }

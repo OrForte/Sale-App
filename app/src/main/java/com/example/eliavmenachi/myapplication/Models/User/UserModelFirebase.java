@@ -25,37 +25,6 @@ public class UserModelFirebase {
             stRef.removeEventListener(eventListener);
         }
     }
-//
-//    interface GetUserByUsernamePasswordListener {
-//        public void onSuccess(User user);
-//
-//        public void onFailure();
-//    }
-//
-//    public void getUserByUsernamePassword(String username, final String password, final GetUserByUsernamePasswordListener listener) {
-//        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("users");
-//
-//        //eventListener = stRef.child(key).addChildEventListener(new
-//        eventListener = stRef.orderByChild("username").equalTo(username).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                User user = null;
-//                for (DataSnapshot stSnapshot : dataSnapshot.getChildren()) {
-//                    user = stSnapshot.getValue(User.class);
-//                }
-//
-//                if (user != null && user.password.equals(password)) {
-//                    listener.onSuccess(user);
-//                } else {
-//                    listener.onFailure();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
-//    }
 
     interface GetUserByIdListener {
         public void onSuccess(User user);
@@ -107,11 +76,6 @@ public class UserModelFirebase {
         });
     }
 
-//    public void setUser(User user) {
-//        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference();
-//        stRef.child("users").child(user.id).setValue(user);
-//    }
-//
     interface SetUserListener {
         public void onSuccess();
 
@@ -133,46 +97,5 @@ public class UserModelFirebase {
         });
     }
 
-//    public interface IsUserExistsListener {
-//        void onDone(boolean p_bIsExists);
-//    }
-//
-//    public void IsUserExists(final String p_strUserName, final String p_strPassword, final IsUserExistsListener listener) {
-//        userName = p_strUserName;
-//        password = p_strPassword;
-//        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-//        mDatabase.child("users").child(p_strUserName).addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                boolean bIsValid = false;
-//                User userData = dataSnapshot.getValue(User.class);
-//
-//                if (userData != null) {
-//                    if (userData.username != null &&
-//                            userData.password != null &&
-//                            userData.username.equals(userName) &&
-//                            userData.password.equals(password)) {
-//                        bIsValid = true;
-//                    } else {
-//                        bIsValid = false;
-//                    }
-//                }
-//
-//                listener.onDone(bIsValid);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                listener.onDone(false);
-//            }
-//        });
-//    }
 
-//    public void createUser(String email, String pwd) {
-//        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference();
-//        FirebaseDatabase.getInstance().au
-//        myFirebaseRef.cstRefreateUser(email, pwd, new Firebase.ResultHandler() {   @Override   public void onSuccess() { ...   }
-//            @Override   public void onError(FirebaseError firebaseError) { ...   } });
-//    }
 }
