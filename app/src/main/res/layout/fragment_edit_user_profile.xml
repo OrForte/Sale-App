@@ -9,6 +9,7 @@
         android:id="@+id/fragment_edit_user_rlProgressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ProgressBar
             android:id="@+id/fragment_edit_user_pbProgressBar1"
             style="?android:attr/progressBarStyle"
@@ -51,16 +52,16 @@
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etLastName" />
 
             <!--<EditText-->
-            <!--android:id="@+id/fragment_edit_user_etEmail"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:layout_marginTop="12dp"-->
-            <!--android:ems="10"-->
-            <!--android:hint="Email"-->
-            <!--android:inputType="textEmailAddress"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_spCity" />-->
+                <!--android:id="@+id/fragment_edit_user_etEmail"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginTop="12dp"-->
+                <!--android:ems="10"-->
+                <!--android:hint="Email"-->
+                <!--android:inputType="textEmailAddress"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_spCity" />-->
 
             <EditText
                 android:id="@+id/fragment_edit_user_etFirstName"
@@ -72,7 +73,7 @@
                 android:hint="First Name"
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_tvPersonalDetails" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etUserName" />
 
             <EditText
                 android:id="@+id/fragment_edit_user_etLastName"
@@ -86,17 +87,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etFirstName" />
 
-            <!--<EditText-->
-            <!--android:id="@+id/fragment_edit_user_etUserName"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:layout_marginTop="16dp"-->
-            <!--android:ems="10"-->
-            <!--android:hint="Username"-->
-            <!--android:inputType="textPersonName"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_tvLoginDetails" />-->
+            <EditText
+                android:id="@+id/fragment_edit_user_etUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:ems="10"
+                android:hint="Username"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_tvPersonalDetails" />
 
             <Button
                 android:id="@+id/fragment_edit_user_btnUpdateProfile"

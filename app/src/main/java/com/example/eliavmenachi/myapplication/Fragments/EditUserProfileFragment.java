@@ -34,14 +34,14 @@ public class EditUserProfileFragment extends Fragment {
     CityMallAndStoreViewModel cityDataModel;
     UserViewModel userViewModel;
 
-    //    EditText etUserName;
+       EditText etUserName;
     EditText etFirstName;
     EditText etLastName;
     //    EditText etPassword;
 //    EditText etRetypeNewPassword;
     Spinner spCity;
     EditText etBirthDate;
-//    EditText etEmail;
+    //EditText etEmail;
 
     ListData cityListData;
     City selectedCity;
@@ -119,12 +119,12 @@ public class EditUserProfileFragment extends Fragment {
 
         mainLayout = view.findViewById(R.id.fragment_edit_user_main_layout);
 
-//        etUserName = view.findViewById(R.id.fragment_edit_user_etUserName);
+        etUserName = view.findViewById(R.id.fragment_edit_user_etUserName);
         etFirstName = view.findViewById(R.id.fragment_edit_user_etFirstName);
         etLastName = view.findViewById(R.id.fragment_edit_user_etLastName);
 //        etPassword = view.findViewById(R.id.fragment_edit_user_etNewPassword);
 //        etRetypeNewPassword = view.findViewById(R.id.fragment_edit_user_etRetypeNewPassword);
-//        etEmail = view.findViewById(R.id.fragment_edit_user_etEmail);
+      //  etEmail = view.findViewById(R.id.fragment_edit_user_etEmail);
         etBirthDate = view.findViewById(R.id.fragment_edit_user_etBirthDate);
         spCity = view.findViewById(R.id.fragment_edit_user_spCity);
         rlProgressBar = view.findViewById(R.id.fragment_edit_user_rlProgressBar);
@@ -143,7 +143,7 @@ public class EditUserProfileFragment extends Fragment {
                         currentUser = user;
 
                         if (user != null) {
-//                                etUserName.setText(user.username);
+                            etUserName.setText(user.username);
                             etFirstName.setText(user.firstName);
                             etLastName.setText(user.lastName);
 
@@ -193,7 +193,7 @@ public class EditUserProfileFragment extends Fragment {
 
                 User user = new User();
                 user.id = currentUser.id;
-//                user.username = etUserName.getText().toString();
+                user.username = etUserName.getText().toString();
                 user.lastName = etLastName.getText().toString();
                 user.firstName = etFirstName.getText().toString();
 

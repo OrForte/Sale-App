@@ -130,11 +130,11 @@ public class UserAuthModelFirebase {
                 } else {
                     user.id = firebaseUser.getUid();
 //                    user.email = firebaseUser.getEmail();
-                    user.username = user.username;
-                    user.firstName = user.firstName;
-                    user.lastName = user.lastName;
-                    user.city = user.city;
-                    user.birthDate = user.birthDate;
+//                    user.username = user.username;
+//                    user.firstName = user.firstName;
+//                    user.lastName = user.lastName;
+//                    user.city = user.city;
+//                    user.birthDate = user.birthDate;
 
                     callback.onSuccess(user);
                     // TODO: CALL from user model to firebase
