@@ -4,8 +4,10 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Entities.UserPreview;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserModel {
@@ -135,6 +137,113 @@ public class UserModel {
             super();
             setValue(new User());
         }
+    }
+
+
+
+    private class UserPreviewData extends MutableLiveData<List<UserPreview>> {
+        @Override
+        protected void onActive() {
+            super.onActive();
+
+            UserPreviewAsyncDao.GetAllPreviewUsers(new UserPreviewAsyncDao.UserAsynchDaoListener<List<UserPreview>>() {
+                @Override
+                public void onComplete(List<UserPreview> data) {
+                    setValue(data);
+                    userModelFirebase.getAllUsers(new UserModelFirebase.GetAllUsersListener() {
+                        @Override
+                        public void onSuccess(List<User> users) {
+                            List<UserPreview> lstUserPreview = new LinkedList<UserPreview>();
+
+                            for (User currUser : users)
+                            {
+                                UserPreview preview = new UserPreview();
+                                preview.id = currUser.id;
+                                preview.username = currUser.username;
+                                lstUserPreview.add(preview);
+                            }
+                            setValue(lstUserPreview);
+
+                            UserPreviewAsyncDao.insertAll(lstUserPreview, new UserPreviewAsyncDao.UserAsynchDaoListener<Boolean>() {
+                                @Override
+                                public void onComplete(Boolean data) {
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+        @Override
+        protected void onInactive() {
+            super.onInactive();
+        }
+
+        public UserPreviewData() {
+            super();
+            setValue(new LinkedList<UserPreview>());
+        }
+    }
+    public UserPreviewData userPreviewData = new UserPreviewData();
+    public LiveData<List<UserPreview>> getUsersPreviewData() {
+        return userPreviewData;
+    }
+
+
+
+    private class UserPreviewDataByUseId extends MutableLiveData<UserPreview> {
+        String m_userId = "";
+
+        @Override
+        protected void onActive() {
+            super.onActive();
+
+            UserPreviewAsyncDao.GetUserPreviewByUserId(m_userId, new UserPreviewAsyncDao.UserAsynchDaoListener<UserPreview>() {
+                @Override
+                public void onComplete(UserPreview data) {
+                    setValue(data);
+                    userModelFirebase.getUserById(m_userId, new UserModelFirebase.GetUserByIdListener() {
+                        @Override
+                        public void onSuccess(User user) {
+                            UserPreview preview = new UserPreview();
+                            if (user != null) {
+                                preview = new UserPreview();
+                                preview.id = user.id;
+                                preview.username = user.username;
+                                setValue(preview);
+                            }
+                            UserPreviewAsyncDao.insert(preview, new UserPreviewAsyncDao.UserAsynchDaoListener<Boolean>() {
+                                @Override
+                                public void onComplete(Boolean data) {
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        }
+        @Override
+        protected void onInactive() {
+            super.onInactive();
+        }
+        public UserPreviewDataByUseId() {
+            super();
+            setValue(new UserPreview());
+        }
+        public void InitUserPreviewId(String p_userId) {
+            m_userId = p_userId;
+        }
+    }
+    public UserPreviewDataByUseId userPreviewDataByUseId = new UserPreviewDataByUseId();
+    public LiveData<UserPreview> getUserPreviewByUserId(String p_userId) {
+        return userPreviewDataByUseId;
+    }
+    public void InitUserPreviewId(String p_strStoreId) {
+        if (userPreviewDataByUseId == null) {
+            userPreviewDataByUseId = new UserPreviewDataByUseId();
+        }
+
+        userPreviewDataByUseId.InitUserPreviewId(p_strStoreId);
     }
 
     public interface CreateUserListener {
