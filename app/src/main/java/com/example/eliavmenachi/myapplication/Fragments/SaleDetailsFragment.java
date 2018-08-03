@@ -89,9 +89,9 @@ public class SaleDetailsFragment extends Fragment {
             dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
                 @Override
                 public void onChanged(@Nullable final Sale sale) {
+                    nCounterQuery++;
                     if (sale != null) {
                         if (sale.id != null) {
-                            nCounterQuery++;
                             LoadUserAndPopulateData(sale);
                         }
                     }
