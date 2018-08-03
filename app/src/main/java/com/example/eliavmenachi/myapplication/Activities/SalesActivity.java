@@ -2,11 +2,13 @@ package com.example.eliavmenachi.myapplication.Activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,19 +29,18 @@ public class SalesActivity extends AppCompatActivity {
     UserViewModel userViewModel;
     Menu toolBarMenu;
     User currentUser;
-    View progressBar;
+//    View progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("SalesActivity", "onCreate");
         super.onCreate(savedInstanceState);
 
-        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         currentUser = null;
 
         setContentView(R.layout.activity_sale);
 
-        progressBar = findViewById(R.id.activity_sale_rlProgressBar);
+//        progressBar = findViewById(R.id.activity_sale_rlProgressBar);
 
         if (savedInstanceState == null) {
             SalesListFragment fragment = new SalesListFragment();
@@ -47,6 +48,8 @@ public class SalesActivity extends AppCompatActivity {
             tran.add(R.id.main_container, fragment);
             tran.commit();
         }
+
+        userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
         // TODO: need to change to view model...
         userViewModel.getCurrentUser().observe(this, new Observer<User>() {
@@ -70,7 +73,7 @@ public class SalesActivity extends AppCompatActivity {
             SalesActivity.this.invalidateOptionsMenu();
         }
 
-        progressBar.setVisibility(View.GONE);
+//        progressBar.setVisibility(View.GONE);
     }
 
     @Override protected void onResume() {

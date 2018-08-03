@@ -133,7 +133,7 @@ public class UserModel {
 
         public UserData() {
             super();
-            setValue(new User());
+            setValue(null);
         }
     }
 

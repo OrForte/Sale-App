@@ -52,7 +52,6 @@ public class UserSalesListFragment extends Fragment {
         list = view.findViewById(R.id.lvSaleList);
         rlProgressBar = view.findViewById(R.id.fragment_sale_list_rlProgressBar);
 
-
         userViewModel.getCurrentUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {

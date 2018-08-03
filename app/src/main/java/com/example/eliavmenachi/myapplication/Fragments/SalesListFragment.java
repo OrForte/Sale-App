@@ -37,7 +37,6 @@ public class SalesListFragment extends Fragment {
     // Data Members
     ListView list;
     SalesListFragment.ListAdapter listAdapter = new SalesListFragment.ListAdapter();
-    ;
     SaleListViewModel dataModel;
     ListData listData;
     String m_selectedStore = "-1";
