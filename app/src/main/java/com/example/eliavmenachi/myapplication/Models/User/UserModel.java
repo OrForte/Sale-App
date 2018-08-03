@@ -305,9 +305,10 @@ public class UserModel {
         void onFailure(String exceptionMessage);
     }
     public void createUser(User user,
+                           String email,
                            String password,
                            final CreateUserListener listener) {
-        userAuthModel.createUser(user, password, new UserAuthModelFirebase.CreateUserCallback() {
+        userAuthModel.createUser(user, email, password, new UserAuthModelFirebase.CreateUserCallback() {
             @Override
             public void onSuccess(User user) {
                 userModelFirebase.addUser(user, new UserModelFirebase.AddUserListener() {
