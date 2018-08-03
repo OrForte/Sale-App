@@ -3,6 +3,7 @@ package com.example.eliavmenachi.myapplication.Models.User;
 import android.os.AsyncTask;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Entities.UserPreview;
 import com.example.eliavmenachi.myapplication.Models.MainAppLocalDb;
 
 import java.util.List;

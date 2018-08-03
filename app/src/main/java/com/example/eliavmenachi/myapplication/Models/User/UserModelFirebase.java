@@ -13,6 +13,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class UserModelFirebase {
     String userName;
     String password;
@@ -51,6 +54,31 @@ public class UserModelFirebase {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
+    interface GetAllUsersListener  {
+        public void onSuccess(List<User> user);
+    }
+
+    public void getAllUsers(final GetAllUsersListener listener) {
+        DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("users");
+
+        eventListener = stRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<User> users = new LinkedList<User>();
+                for (DataSnapshot stSnapshot : dataSnapshot.getChildren()) {
+                    User user = stSnapshot.getValue(User.class);
+                    users.add(user);
+                }
+                listener.onSuccess(users);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
     }

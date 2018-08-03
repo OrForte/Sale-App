@@ -26,6 +26,7 @@ import com.example.eliavmenachi.myapplication.Entities.Mall;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.Store;
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Entities.UserPreview;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
@@ -140,6 +141,11 @@ public class SalesListFragment extends Fragment {
 
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         dataModel = ViewModelProviders.of(this).get(SaleListViewModel.class);
+        userViewModel.getAllUsersPreview().observe(this, new Observer<List<UserPreview>>() {
+            @Override
+            public void onChanged(@Nullable List<UserPreview> userPreviews) {
+            }
+        });
         dataModel.getDataByStoreId(m_bGetAllSales, m_selectedStore).observe(this, new Observer<List<Sale>>() {
             @Override
             public void onChanged(@Nullable List<Sale> sales) {

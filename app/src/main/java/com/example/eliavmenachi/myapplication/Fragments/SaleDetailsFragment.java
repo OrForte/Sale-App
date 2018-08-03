@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Entities.UserPreview;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
@@ -45,7 +46,7 @@ public class SaleDetailsFragment extends Fragment {
     Sale currSale;
     View rlProgressBar;
     int nCounterQuery = 0;
-    User currentUser;
+    UserPreview currentUser;
 
     @Override
     public void onAttach(Context context) {
@@ -105,12 +106,27 @@ public class SaleDetailsFragment extends Fragment {
 
     public void LoadUserAndPopulateData(final Sale sale)
     {
+        /*
         userDataModel.getUserByUserId(sale.userId).observe( SaleDetailsFragment.this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
                 if (nCounterQuery >= 2) {
                     currSale = sale;
                     currentUser = user;
+                    etTitle.setText("sale " + currSale.id);
+
+                    // populate the data
+                    PopulateTheView();
+                }
+            }
+        });*/
+
+        userDataModel.getUsersPreviewByUserId(sale.userId).observe(SaleDetailsFragment.this, new Observer<UserPreview>() {
+            @Override
+            public void onChanged(@Nullable UserPreview userPreview) {
+                if (nCounterQuery >= 2) {
+                    currSale = sale;
+                    currentUser = userPreview;
                     etTitle.setText("sale " + currSale.id);
 
                     // populate the data
@@ -130,6 +146,10 @@ public class SaleDetailsFragment extends Fragment {
                 etStore.setText(currSale.storeName);
                 if (currentUser != null) {
                     etUser.setText(currentUser.username);
+                }
+                else
+                {
+                    etUser.setText("");
                 }
 
                 imageSale.setImageResource(R.drawable.avatar);

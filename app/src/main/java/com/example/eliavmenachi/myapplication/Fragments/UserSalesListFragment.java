@@ -39,7 +39,7 @@ public class UserSalesListFragment extends Fragment {
     ListView list;
     ListAdapter listAdapter = new ListAdapter();
     ListData listData;
-    ImageView imSalePic;
+    //ImageView imSalePic;
     View rlProgressBar;
 
     private User currentUser;
@@ -177,7 +177,7 @@ public class UserSalesListFragment extends Fragment {
             tvMall.setText(currentSale.mallName);
             tvStore.setText(currentSale.storeName);
 
-            imSalePic = view.findViewById(R.id.ivSalePic);
+            final ImageView imSalePic = view.findViewById(R.id.ivSalePic);
             imSalePic.setImageResource(R.drawable.avatar);
             imSalePic.setTag(currentSale.id);
 

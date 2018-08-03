@@ -7,21 +7,13 @@ import android.arch.lifecycle.ViewModel;
 import android.support.annotation.NonNull;
 
 import com.example.eliavmenachi.myapplication.Entities.User;
+import com.example.eliavmenachi.myapplication.Entities.UserPreview;
 import com.example.eliavmenachi.myapplication.Models.User.UserModel;
+
+import java.util.List;
 
 public class UserViewModel extends ViewModel {
     LiveData<User> data;
-
-//    public LiveData<User> getUserByUserNamePassword(String username, String password) {
-//        data = UserModelOld.instance.getUser(username, password);
-//        return data;
-//    }
-
-
-//    public LiveData<User> getCurrentUser() {
-//        data = UserModelOld.instance.getCurrentUser();
-//        return data;
-//    }
 
     public LiveData<User> getCurrentUser() {
         data = UserModel.instance.getCurrentUser();
@@ -33,6 +25,19 @@ public class UserViewModel extends ViewModel {
         UserModel.instance.InitUserId(p_strUserId);
         data = UserModel.instance.getUserByUserId(p_strUserId);
         return data;
+    }
+
+    public LiveData<List<UserPreview>> getAllUsersPreview()
+    {
+        LiveData<List<UserPreview>> results = UserModel.instance.getUsersPreviewData();
+        return results;
+    }
+
+    public LiveData<UserPreview> getUsersPreviewByUserId(String p_strUserId)
+    {
+        UserModel.instance.InitUserPreviewId(p_strUserId);
+        LiveData<UserPreview> results = UserModel.instance.getUserPreviewByUserId(p_strUserId);
+        return results;
     }
 
     public interface SignInListener {
