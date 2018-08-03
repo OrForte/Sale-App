@@ -91,9 +91,11 @@ public class SaleDetailsFragment extends Fragment {
                 @Override
                 public void onChanged(@Nullable final Sale sale) {
                     nCounterQuery++;
-                    if (sale != null) {
-                        if (sale.id != null) {
-                            LoadUserAndPopulateData(sale);
+                    if (nCounterQuery >= 2) {
+                        if (sale != null) {
+                            if (sale.id != null) {
+                                LoadUserAndPopulateData(sale);
+                            }
                         }
                     }
                 }
