@@ -1,8 +1,11 @@
 package com.example.eliavmenachi.myapplication.Activities;
 
+import android.Manifest;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
@@ -25,6 +28,7 @@ public class SalesActivity extends AppCompatActivity {
     UserViewModel userViewModel;
     Menu toolBarMenu;
     User currentUser;
+    final int REQUEST_WRITE_STORAGE = 1;
 //    View progressBar;
 
     @Override
@@ -47,6 +51,14 @@ public class SalesActivity extends AppCompatActivity {
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
             tran.add(R.id.main_container, fragment);
             tran.commit();
+        }
+
+        // check whenever has permissions
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_STORAGE);
+            }
         }
 
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
