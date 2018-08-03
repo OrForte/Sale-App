@@ -88,4 +88,23 @@ public class UserPreviewAsyncDao {
         MyAsynchTask task = new MyAsynchTask();
         task.execute(sales);
     }
+    public static void updateDeletedSales(final List<UserPreview> sales, final UserAsynchDaoListener<Boolean> listener) {
+        class MyAsynchTask extends AsyncTask<List<UserPreview>, String, Boolean> {
+            @Override
+            protected Boolean doInBackground(List<UserPreview>... data) {
+                for (UserPreview sl : data[0]) {
+                    MainAppLocalDb.db.userPreviewDao().delete(sl);
+                }
+                return true;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean success) {
+                super.onPostExecute(success);
+                listener.onComplete(success);
+            }
+        }
+        MyAsynchTask task = new MyAsynchTask();
+        task.execute(sales);
+    }
 }

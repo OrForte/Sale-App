@@ -147,6 +147,10 @@ public class SaleDetailsFragment extends Fragment {
                 if (currentUser != null) {
                     etUser.setText(currentUser.username);
                 }
+                else
+                {
+                    etUser.setText("");
+                }
 
                 imageSale.setImageResource(R.drawable.avatar);
                 imageSale.setTag(currSale.id);

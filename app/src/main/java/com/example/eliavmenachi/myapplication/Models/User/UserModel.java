@@ -148,32 +148,79 @@ public class UserModel {
 
             UserPreviewAsyncDao.GetAllPreviewUsers(new UserPreviewAsyncDao.UserAsynchDaoListener<List<UserPreview>>() {
                 @Override
-                public void onComplete(List<UserPreview> data) {
+                public void onComplete(final List<UserPreview> data) {
                     setValue(data);
                     userModelFirebase.getAllUsers(new UserModelFirebase.GetAllUsersListener() {
                         @Override
-                        public void onSuccess(List<User> users) {
-                            List<UserPreview> lstUserPreview = new LinkedList<UserPreview>();
-
-                            for (User currUser : users)
-                            {
-                                UserPreview preview = new UserPreview();
-                                preview.id = currUser.id;
-                                preview.username = currUser.username;
-                                lstUserPreview.add(preview);
+                        public void onSuccess(final List<User> users) {
+                            final List<UserPreview> lstUserPreview = new LinkedList<UserPreview>();
+                            if (users != null) {
+                                for (User currUser : users) {
+                                    if (currUser != null) {
+                                        UserPreview preview = new UserPreview();
+                                        preview.id = currUser.id;
+                                        preview.username = currUser.username;
+                                        lstUserPreview.add(preview);
+                                    }
+                                }
                             }
                             setValue(lstUserPreview);
 
-                            UserPreviewAsyncDao.insertAll(lstUserPreview, new UserPreviewAsyncDao.UserAsynchDaoListener<Boolean>() {
-                                @Override
-                                public void onComplete(Boolean data) {
-                                }
-                            });
+                            List<UserPreview> lstToDelete = new LinkedList<UserPreview>();
+
+                            lstToDelete = GetUsersThatInSqlLiteButNotInFireBase(lstUserPreview, data);
+                            if (lstToDelete.size() > 0) {
+
+                                UserPreviewAsyncDao.updateDeletedSales(lstToDelete, new UserPreviewAsyncDao.UserAsynchDaoListener<Boolean>() {
+                                    @Override
+                                    public void onComplete(Boolean data) {
+                                        UserPreviewAsyncDao.insertAll(lstUserPreview, new UserPreviewAsyncDao.UserAsynchDaoListener<Boolean>() {
+                                            @Override
+                                            public void onComplete(Boolean data) {
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                            else
+                            {
+                                UserPreviewAsyncDao.insertAll(lstUserPreview, new UserPreviewAsyncDao.UserAsynchDaoListener<Boolean>() {
+                                    @Override
+                                    public void onComplete(Boolean data) {
+                                    }
+                                });
+                            }
                         }
                     });
                 }
             });
         }
+
+        public List<UserPreview> GetUsersThatInSqlLiteButNotInFireBase(List<UserPreview> dataFireBase, List<UserPreview> dataSqlLite)
+        {
+            List<UserPreview> returnData = new LinkedList<UserPreview>();
+
+            boolean bIsIn = false;
+            for(UserPreview saleSqlLite : dataSqlLite)
+            {
+                bIsIn = false;
+                for(UserPreview saleFireBase : dataFireBase)
+                {
+                    if (saleSqlLite.id.contains(saleFireBase.id))
+                    {
+                        bIsIn = true;
+                        break;
+                    }
+                }
+                if (bIsIn == false)
+                {
+                    returnData.add(saleSqlLite);
+                }
+            }
+
+            return returnData;
+        }
+
         @Override
         protected void onInactive() {
             super.onInactive();
@@ -211,17 +258,23 @@ public class UserModel {
                                 preview.id = user.id;
                                 preview.username = user.username;
                                 setValue(preview);
+
+                                UserPreviewAsyncDao.insert(preview, new UserPreviewAsyncDao.UserAsynchDaoListener<Boolean>() {
+                                    @Override
+                                    public void onComplete(Boolean data) {
+                                    }
+                                });
                             }
-                            UserPreviewAsyncDao.insert(preview, new UserPreviewAsyncDao.UserAsynchDaoListener<Boolean>() {
-                                @Override
-                                public void onComplete(Boolean data) {
-                                }
-                            });
+                            else
+                            {
+                                setValue(preview);
+                            }
                         }
                     });
                 }
             });
         }
+
         @Override
         protected void onInactive() {
             super.onInactive();
@@ -259,10 +312,18 @@ public class UserModel {
             public void onSuccess(User user) {
                 userModelFirebase.addUser(user, new UserModelFirebase.AddUserListener() {
                     @Override
-                    public void onSuccess(User user) {
-                        listener.onSuccess(user);
-                    }
+                    public void onSuccess(final User userData) {
+                        UserPreview preview = new UserPreview();
+                        preview.username = userData.username;
+                        preview.id = userData.id;
 
+                        UserPreviewAsyncDao.insert(preview, new UserPreviewAsyncDao.UserAsynchDaoListener<Boolean>() {
+                            @Override
+                            public void onComplete(Boolean data) {
+                                listener.onSuccess(userData);
+                            }
+                        });
+                    }
                     @Override
                     public void onFailure(String exceptionMessage) {
                         listener.onFailure(exceptionMessage);
@@ -311,7 +372,16 @@ public class UserModel {
         userModelFirebase.setUser(user, new UserModelFirebase.SetUserListener() {
             @Override
             public void onSuccess() {
-                listener.onSuccess();
+                UserPreview preview = new UserPreview();
+                preview.username = user.username;
+                preview.id = user.id;
+
+                UserPreviewAsyncDao.insert(preview, new UserPreviewAsyncDao.UserAsynchDaoListener<Boolean>() {
+                    @Override
+                    public void onComplete(Boolean data) {
+                        listener.onSuccess();
+                    }
+                });
             }
 
             @Override
