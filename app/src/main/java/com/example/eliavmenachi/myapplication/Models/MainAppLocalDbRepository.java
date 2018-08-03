@@ -14,7 +14,7 @@ import com.example.eliavmenachi.myapplication.Models.Sale.SaleDao;
 import com.example.eliavmenachi.myapplication.Models.User.UserDao;
 import com.example.eliavmenachi.myapplication.Models.User.UserPreviewDao;
 
-@Database(entities = {Sale.class, User.class, City.class, Mall.class, Store.class, UserPreview.class}, version = 11)
+@Database(entities = {Sale.class, User.class, City.class, Mall.class, Store.class, UserPreview.class}, version = 21)
 public abstract class MainAppLocalDbRepository extends RoomDatabase {
     public abstract SaleDao saleDao();
 
