@@ -16,6 +16,7 @@
         <!--<item name="android:actionBarStyle">@style/myTheme.ActionBar</item>-->
         <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
         <item name="buttonStyle">@style/AppTheme.Button</item>
+        <item name="android:datePickerStyle">@style/AppTheme.DatePicker</item>
     </style>
 
     <style name="AppTheme.Button" parent="@style/Widget.AppCompat.Button">
@@ -55,6 +56,7 @@
         <item name="colorPrimary">@color/colorBlack</item>
         <item name="android:textColorPrimary">@color/colorBlack</item>
         <item name="android:textColor">@color/colorBlack</item>
+
         <!--<item name="android:textStyle">bold</item>-->
 
         <!--<item name="colorControlNormal">@color/colorBlack</item>-->
@@ -72,6 +74,15 @@
         <!--<item name="android:layout_height">45dip</item>-->
     </style>
 
+
+    <style name="AppTheme.DatePicker" parent="@android:style/Widget.DeviceDefault.DatePicker">
+        <item name="colorPrimary">@color/colorBlack</item>
+        <item name="colorPrimaryDark">@color/colorBlack</item>
+        <item name="colorAccent">@color/colorBlack</item>
+        <item name="actionModeStyle">@color/colorBlack</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:calendarTextColor">@color/colorBlack</item>
+    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>

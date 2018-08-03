@@ -46,12 +46,12 @@ public class LoginFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         mainLayout = view.findViewById(R.id.fragment_login_constraintLayout);
+
         pbProgressBar = view.findViewById(R.id.fragment_login_pbProgressBar);
-        ;
         tvProgressBar = view.findViewById(R.id.fragment_login_tvProgressBarText);
 
         // get the user and password details
-        emailEt = view.findViewById(R.id.fragment_login_etUsername);
+        emailEt = view.findViewById(R.id.fragment_login_etEmail);
         passwordEt = view.findViewById(R.id.fragment_login_etPassword);
 
         // get instance of the login and register button

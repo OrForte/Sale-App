@@ -2,24 +2,20 @@ package com.example.eliavmenachi.myapplication.Activities;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.eliavmenachi.myapplication.Entities.Consts;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Fragments.ChooseLocationFragment;
-import com.example.eliavmenachi.myapplication.Fragments.EditUserProfileFragment;
 import com.example.eliavmenachi.myapplication.Fragments.NewSaleFragment;
 import com.example.eliavmenachi.myapplication.Fragments.SalesListFragment;
 import com.example.eliavmenachi.myapplication.R;
@@ -35,6 +31,10 @@ public class SalesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Log.d("SalesActivity", "onCreate");
         super.onCreate(savedInstanceState);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
+        actionBar.setIcon(R.drawable.ic_shopping_basket_black_24dp);
 
         currentUser = null;
 
@@ -76,7 +76,8 @@ public class SalesActivity extends AppCompatActivity {
 //        progressBar.setVisibility(View.GONE);
     }
 
-    @Override protected void onResume() {
+    @Override
+    protected void onResume() {
         super.onResume();
 
         User user = userViewModel.getCurrentUser().getValue();
@@ -95,7 +96,6 @@ public class SalesActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.main_menu, menu);
         toolBarMenu = menu;
-
         if (currentUser == null) {
             toolBarMenu.removeItem(R.id.menu_logout);
         }

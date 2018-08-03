@@ -18,9 +18,6 @@ public class User {
     @ColumnInfo(name = "city")
     public int city;
 
-    @ColumnInfo(name = "email")
-    public String email;
-
     @ColumnInfo(name = "username")
     public String username;
 
@@ -63,10 +60,6 @@ public class User {
         return city;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -89,10 +82,6 @@ public class User {
 
     public void setCity(int city) {
         this.city = city;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public void setUsername(String username) {

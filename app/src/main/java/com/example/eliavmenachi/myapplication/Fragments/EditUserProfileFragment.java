@@ -3,7 +3,6 @@ package com.example.eliavmenachi.myapplication.Fragments;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,14 +10,16 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.eliavmenachi.myapplication.Activities.SalesActivity;
 import com.example.eliavmenachi.myapplication.Entities.City;
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.User;
@@ -26,7 +27,6 @@ import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
-import java.lang.reflect.Array;
 import java.util.List;
 
 public class EditUserProfileFragment extends Fragment {
@@ -34,19 +34,22 @@ public class EditUserProfileFragment extends Fragment {
     CityMallAndStoreViewModel cityDataModel;
     UserViewModel userViewModel;
 
-    EditText etUserName;
+    //    EditText etUserName;
     EditText etFirstName;
     EditText etLastName;
-    EditText etPassword;
-    EditText etRetypeNewPassword;
+    //    EditText etPassword;
+//    EditText etRetypeNewPassword;
     Spinner spCity;
     EditText etBirthDate;
-    EditText etEmail;
+//    EditText etEmail;
 
     ListData cityListData;
     City selectedCity;
     User currentUser;
     View rlProgressBar;
+    TextView tvProgressBar;
+    ProgressBar pbProgressBar;
+    View mainLayout;
 
     @Override
     public void onAttach(Context context) {
@@ -114,16 +117,20 @@ public class EditUserProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_user_profile, container, false);
 
-        etUserName = view.findViewById(R.id.fragment_edit_user_etUserName);
+        mainLayout = view.findViewById(R.id.fragment_edit_user_main_layout);
+
+//        etUserName = view.findViewById(R.id.fragment_edit_user_etUserName);
         etFirstName = view.findViewById(R.id.fragment_edit_user_etFirstName);
         etLastName = view.findViewById(R.id.fragment_edit_user_etLastName);
-        etPassword = view.findViewById(R.id.fragment_edit_user_etNewPassword);
-        etRetypeNewPassword = view.findViewById(R.id.fragment_edit_user_etRetypeNewPassword);
-        etEmail = view.findViewById(R.id.fragment_edit_user_etEmail);
+//        etPassword = view.findViewById(R.id.fragment_edit_user_etNewPassword);
+//        etRetypeNewPassword = view.findViewById(R.id.fragment_edit_user_etRetypeNewPassword);
+//        etEmail = view.findViewById(R.id.fragment_edit_user_etEmail);
         etBirthDate = view.findViewById(R.id.fragment_edit_user_etBirthDate);
         spCity = view.findViewById(R.id.fragment_edit_user_spCity);
         rlProgressBar = view.findViewById(R.id.fragment_edit_user_rlProgressBar);
 
+        pbProgressBar = view.findViewById(R.id.fragment_edit_user_pbProgressBar2);
+        tvProgressBar = view.findViewById(R.id.fragment_edit_user_tvProgressBar);
 
         cityDataModel.getData().observe(this, new Observer<ListData>() {
             @Override
@@ -135,27 +142,27 @@ public class EditUserProfileFragment extends Fragment {
                     public void onChanged(@Nullable User user) {
                         currentUser = user;
 
-                            if (user != null) {
-                                etUserName.setText(user.username);
-                                etFirstName.setText(user.firstName);
-                                etLastName.setText(user.lastName);
+                        if (user != null) {
+//                                etUserName.setText(user.username);
+                            etFirstName.setText(user.firstName);
+                            etLastName.setText(user.lastName);
 
-                                if (cityListData.cities.size() > 0) {
-                                    City city = cityDataModel.GetCityByCityId(user.city, cityListData);
-                                    if (city != null) {
-                                        ArrayAdapter<String> adapterString = (ArrayAdapter<String>) spCity.getAdapter();
-                                        if (adapterString != null) {
-                                            int selectedCityIndex = adapterString.getPosition(city.name);
-                                            spCity.setSelection(selectedCityIndex);
-                                        }
+                            if (cityListData.cities.size() > 0) {
+                                City city = cityDataModel.GetCityByCityId(user.city, cityListData);
+                                if (city != null) {
+                                    ArrayAdapter<String> adapterString = (ArrayAdapter<String>) spCity.getAdapter();
+                                    if (adapterString != null) {
+                                        int selectedCityIndex = adapterString.getPosition(city.name);
+                                        spCity.setSelection(selectedCityIndex);
                                     }
                                 }
-                                etBirthDate.setText(user.birthDate);
-                                etEmail.setText(user.email);
-
-                                rlProgressBar.setVisibility(View.GONE);
                             }
-                            //myAdapter.notifyDataSetChanged();
+                            etBirthDate.setText(user.birthDate);
+//                                etEmail.setText(user.email);
+
+                            rlProgressBar.setVisibility(View.GONE);
+                        }
+                        //myAdapter.notifyDataSetChanged();
                     }
                 });
             }
@@ -186,12 +193,12 @@ public class EditUserProfileFragment extends Fragment {
 
                 User user = new User();
                 user.id = currentUser.id;
-                user.username = etUserName.getText().toString();
+//                user.username = etUserName.getText().toString();
                 user.lastName = etLastName.getText().toString();
                 user.firstName = etFirstName.getText().toString();
 
                 user.birthDate = etBirthDate.getText().toString();
-                user.email = etEmail.getText().toString();
+//                user.email = etEmail.getText().toString();
                 user.city = selectedCity.id;
 
                 user.city = selectedCity.id;
@@ -201,21 +208,38 @@ public class EditUserProfileFragment extends Fragment {
 //                        Toast.makeText(getActivity(), "Passwords don't match!",
 //                                Toast.LENGTH_LONG).show();
 //                    } else {
-//                        user.password = etPassword.getText().toString();
+//                        //user.password = etPassword.getText().toString();
 //                    }
 //                }
 
                 if (isValid) {
+                    try {
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
+
+                    } catch (Exception e) {
+
+                    }
+
+                    pbProgressBar.setVisibility(View.VISIBLE);
+                    tvProgressBar.setVisibility(View.VISIBLE);
+
                     // TODO: make async
                     userViewModel.updateUser(user, new UserViewModel.UpdateUserListener() {
                         @Override
                         public void onSuccess() {
+                            pbProgressBar.setVisibility(View.GONE);
+                            tvProgressBar.setVisibility(View.GONE);
+
                             Toast.makeText(getActivity(), "User updated successfully!",
                                     Toast.LENGTH_LONG).show();
                         }
 
                         @Override
                         public void onFailure(String exceptionMessage) {
+                            pbProgressBar.setVisibility(View.GONE);
+                            tvProgressBar.setVisibility(View.GONE);
+
                             Toast.makeText(getActivity(), exceptionMessage,
                                     Toast.LENGTH_LONG).show();
                         }
@@ -295,17 +319,17 @@ public class EditUserProfileFragment extends Fragment {
             }
         });
 
-        Button btnRegister = view.findViewById(R.id.fragment_edit_user_btnRegister);
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RegisterFragment fragment = new RegisterFragment();
-                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-                tran.replace(R.id.main_container, fragment);
-                tran.addToBackStack(null);
-                tran.commit();
-            }
-        });
+//        Button btnRegister = view.findViewById(R.id.fragment_edit_user_btnRegister);
+//        btnRegister.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                RegisterFragment fragment = new RegisterFragment();
+//                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+//                tran.replace(R.id.main_container, fragment);
+//                tran.addToBackStack(null);
+//                tran.commit();
+//            }
+//        });
 
         return view;
     }

@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main_container"
+    android:id="@+id/fragment_edit_user_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/fragment_edit_user_rlProgressBar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_edit_user_rlProgressBar">
+        android:layout_height="match_parent">
         <ProgressBar
-            android:id="@+id/progressBar2"
+            android:id="@+id/fragment_edit_user_pbProgressBar1"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true" />
     </RelativeLayout>
 
     <ScrollView
@@ -39,18 +38,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etBirthDate" />
 
-            <!--<EditText-->
-            <!--android:id="@+id/fragment_edit_user_etBirthDate"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_marginStart="16dp"-->
-            <!--android:layout_marginTop="12dp"-->
-            <!--android:ems="10"-->
-            <!--android:hint="Birth Date"-->
-            <!--android:inputType="textPersonName|number"-->
-            <!--app:layout_constraintStart_toStartOf="parent"-->
-            <!--app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etLastName" />-->
-
             <com.example.eliavmenachi.myapplication.Controls.DateEditText
                 android:id="@+id/fragment_edit_user_etBirthDate"
                 android:layout_width="wrap_content"
@@ -63,17 +50,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etLastName" />
 
-            <EditText
-                android:id="@+id/fragment_edit_user_etEmail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:ems="10"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_spCity" />
+            <!--<EditText-->
+            <!--android:id="@+id/fragment_edit_user_etEmail"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginTop="12dp"-->
+            <!--android:ems="10"-->
+            <!--android:hint="Email"-->
+            <!--android:inputType="textEmailAddress"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_spCity" />-->
 
             <EditText
                 android:id="@+id/fragment_edit_user_etFirstName"
@@ -99,17 +86,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etFirstName" />
 
-            <EditText
-                android:id="@+id/fragment_edit_user_etUserName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:ems="10"
-                android:hint="Username"
-                android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_tvLoginDetails" />
+            <!--<EditText-->
+            <!--android:id="@+id/fragment_edit_user_etUserName"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginTop="16dp"-->
+            <!--android:ems="10"-->
+            <!--android:hint="Username"-->
+            <!--android:inputType="textPersonName"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_tvLoginDetails" />-->
 
             <Button
                 android:id="@+id/fragment_edit_user_btnUpdateProfile"
@@ -119,7 +106,7 @@
                 android:layout_marginTop="28dp"
                 android:text="Update"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etRetypeNewPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_spCity" />
 
             <TextView
                 android:id="@+id/fragment_edit_user_tvPersonalDetails"
@@ -133,68 +120,68 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/fragment_edit_user_tvLoginDetails"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="72dp"
-                android:text="Login Details"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etEmail" />
+            <!--<TextView-->
+            <!--android:id="@+id/fragment_edit_user_tvLoginDetails"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginTop="72dp"-->
+            <!--android:text="Login Details"-->
+            <!--android:textSize="24sp"-->
+            <!--android:textStyle="bold"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etEmail" />-->
 
-            <EditText
-                android:id="@+id/fragment_edit_user_etNewPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint="New Password"
-                android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etUserName" />
+            <!--<EditText-->
+            <!--android:id="@+id/fragment_edit_user_etNewPassword"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:ems="10"-->
+            <!--android:hint="New Password"-->
+            <!--android:inputType="textPassword"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etUserName" />-->
 
-            <EditText
-                android:id="@+id/fragment_edit_user_etRetypeNewPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:ems="10"
-                android:hint="Retype New Password"
+            <!--<EditText-->
+            <!--android:id="@+id/fragment_edit_user_etRetypeNewPassword"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginTop="8dp"-->
+            <!--android:ems="10"-->
+            <!--android:hint="Retype New Password"-->
 
-                android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etNewPassword" />
+            <!--android:inputType="textPassword"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etNewPassword" />-->
 
-            <TextView
-                android:id="@+id/fragment_edit_user_textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="19dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginStart="20dp"
-                android:text="Note:"
-                app:layout_constraintBottom_toTopOf="@+id/fragment_edit_user_textView7"
-                app:layout_constraintStart_toEndOf="@+id/fragment_edit_user_etNewPassword" />
+            <!--<TextView-->
+            <!--android:id="@+id/fragment_edit_user_textView6"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="19dp"-->
+            <!--android:layout_marginBottom="16dp"-->
+            <!--android:layout_marginStart="20dp"-->
+            <!--android:text="Note:"-->
+            <!--app:layout_constraintBottom_toTopOf="@+id/fragment_edit_user_textView7"-->
+            <!--app:layout_constraintStart_toEndOf="@+id/fragment_edit_user_etNewPassword" />-->
 
-            <TextView
-                android:id="@+id/fragment_edit_user_textView7"
-                android:layout_width="115dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="468dp"
-                android:text="Leave the password fields empty if you don't want to change your password."
-                app:layout_constraintStart_toEndOf="@+id/fragment_edit_user_etNewPassword"
-                app:layout_constraintTop_toTopOf="parent" />
+            <!--<TextView-->
+            <!--android:id="@+id/fragment_edit_user_textView7"-->
+            <!--android:layout_width="115dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="20dp"-->
+            <!--android:layout_marginTop="468dp"-->
+            <!--android:text="Leave the password fields empty if you don't want to change your password."-->
+            <!--app:layout_constraintStart_toEndOf="@+id/fragment_edit_user_etNewPassword"-->
+            <!--app:layout_constraintTop_toTopOf="parent" />-->
 
             <Button
                 android:id="@+id/fragment_edit_user_btnUserSales"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Your Sales"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -204,21 +191,36 @@
                 android:id="@+id/fragment_edit_user_btnLogout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="48dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginTop="28dp"
                 android:text="Logout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_btnUserSales" />
 
-            <Button
-                android:id="@+id/fragment_edit_user_btnRegister"
+            <ProgressBar
+                android:id="@+id/fragment_edit_user_pbProgressBar2"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="380dp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/fragment_edit_user_tvProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="40dp"
-                android:layout_marginTop="16dp"
-                android:text="Register"
+                android:layout_marginTop="8dp"
+                android:text="Updating..."
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_btnLogout" />
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_pbProgressBar2" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

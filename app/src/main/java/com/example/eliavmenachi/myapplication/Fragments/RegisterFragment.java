@@ -97,15 +97,15 @@ public class RegisterFragment extends Fragment {
                 if (bIsValid == true) {
                     user.firstName = firstNameEt.getText().toString();
                     user.lastName = lastNameEt.getText().toString();
-                    user.email = mailEt.getText().toString();
                     user.username = userNameEt.getText().toString();
                     //user.id = userNameEt.getText().toString();
                     user.birthDate = etEndDate.getText().toString();
                     user.city = cityId;
 
                     String password = passwordEt.getText().toString();
+                    String email = mailEt.getText().toString();
 
-                    userViewModel.registerUser(user, password, new UserViewModel.CreateUserListener() {
+                    userViewModel.registerUser(user, email, password, new UserViewModel.CreateUserListener() {
                         @Override
                         public void onSuccess(User user) {
                             if (user != null) {

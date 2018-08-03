@@ -20,42 +20,42 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragement_login_tvUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/fragement_login_tvEmail" />
 
     <TextView
-        android:id="@+id/fragement_login_tvUsername"
+        android:id="@+id/fragement_login_tvEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:text="Username:"
+        android:text="Email:"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/fragment_login_etUsername"
+        android:id="@+id/fragment_login_etEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="textNoSuggestions|textPersonName"
         android:textColor="#000000"
-        app:layout_constraintStart_toEndOf="@+id/fragement_login_tvUsername"
+        app:layout_constraintStart_toEndOf="@+id/fragement_login_tvEmail"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/fragment_login_etPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:inputType="textNoSuggestions|textPassword"
         app:layout_constraintStart_toEndOf="@+id/fragment_login_tvPassword"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_login_etUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_etEmail" />
 
     <Button
         android:id="@+id/fragment_login_btnLogin"

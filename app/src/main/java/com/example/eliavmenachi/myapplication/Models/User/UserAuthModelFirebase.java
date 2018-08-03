@@ -95,9 +95,10 @@ public class UserAuthModelFirebase {
     }
 
     public void createUser(final User user,
+                           final String email,
                            final String password,
                            final CreateUserCallback callback) {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(user.email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
@@ -128,7 +129,7 @@ public class UserAuthModelFirebase {
                     callback.onFailure("Updating the user's profile has failed: " + exception);
                 } else {
                     user.id = firebaseUser.getUid();
-                    user.email = firebaseUser.getEmail();
+//                    user.email = firebaseUser.getEmail();
                     user.username = user.username;
                     user.firstName = user.firstName;
                     user.lastName = user.lastName;

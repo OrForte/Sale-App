@@ -6,8 +6,6 @@ import android.arch.lifecycle.MutableLiveData;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.List;
-
 public class UserModel {
 
     //public static UserModel.UserModelOld instance = new UserModel.UserModelOld();
@@ -27,6 +25,7 @@ public class UserModel {
 
         void onFailure(String exceptionMessage);
     }
+
     public void signIn(final String email, final String password, final SignInListener listener) {
         userAuthModel.signInWithEmailAndPassword(email, password, new UserAuthModelFirebase.SignInCallback() {
             @Override
@@ -42,10 +41,9 @@ public class UserModel {
         });
     }
 
-
-
-    public class UserByUserIdData extends  MutableLiveData<User> {
+    public class UserByUserIdData extends MutableLiveData<User> {
         String m_userId = "";
+
         @Override
         protected void onActive() {
             super.onActive();
@@ -77,10 +75,13 @@ public class UserModel {
             m_userId = p_userId;
         }
     }
+
     public UserByUserIdData userByUserIdData = new UserByUserIdData();
+
     public LiveData<User> getUserByUserId(String p_userId) {
         return userByUserIdData;
     }
+
     public void InitUserId(String p_strStoreId) {
         if (userByUserIdData == null) {
             userByUserIdData = new UserByUserIdData();
@@ -88,10 +89,6 @@ public class UserModel {
 
         userByUserIdData.InitUserId(p_strStoreId);
     }
-
-
-
-
 
     private class UserData extends MutableLiveData<User> {
         @Override
@@ -126,6 +123,7 @@ public class UserModel {
                 });
             }
         }
+
         @Override
         protected void onInactive() {
             super.onInactive();
@@ -142,10 +140,12 @@ public class UserModel {
 
         void onFailure(String exceptionMessage);
     }
+
     public void createUser(User user,
+                           String email,
                            String password,
                            final CreateUserListener listener) {
-        userAuthModel.createUser(user, password, new UserAuthModelFirebase.CreateUserCallback() {
+        userAuthModel.createUser(user, email, password, new UserAuthModelFirebase.CreateUserCallback() {
             @Override
             public void onSuccess(User user) {
                 userModelFirebase.addUser(user, new UserModelFirebase.AddUserListener() {
@@ -169,12 +169,12 @@ public class UserModel {
     }
 
 
-
     public interface SignOutListener {
         void onSuccess();
 
         void onFailure(String exceptionMessage);
     }
+
     public void signOut(final SignOutListener listener) {
         userAuthModel.signOut();
 
@@ -192,12 +192,12 @@ public class UserModel {
     }
 
 
-
     public interface UpdateUserListener {
         void onSuccess();
 
         void onFailure(String exceptionMessage);
     }
+
     public void updateUser(final User user, final UpdateUserListener listener) {
         userModelFirebase.setUser(user, new UserModelFirebase.SetUserListener() {
             @Override
