@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.DatePicker;
 
+import com.example.eliavmenachi.myapplication.R;
+
 public class DateDialogFragment extends DialogFragment {
     DateDialogFragmentListener listener;
     int year;
@@ -25,7 +27,7 @@ public class DateDialogFragment extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+        Dialog dialog = new DatePickerDialog(getActivity(), R.style.AppTheme_DatePicker1, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
                 Log.d("TAG", "date selected: " + i);
