@@ -170,8 +170,8 @@ public class UserSalesListFragment extends Fragment {
             final TextView tvCity = view.findViewById(R.id.tvStore);
             final TextView tvMall = view.findViewById(R.id.tvMall);
             final TextView tvStore = view.findViewById(R.id.tvCity);
-//            final TextView tvDesc = view.findViewById(R.id.tvDescription);
-//            tvDesc.setText(currentSale.description);
+            final TextView tvDesc = view.findViewById(R.id.tvDescription);
+            tvDesc.setText(currentSale.description);
 
             String strStoreId = currentSale.storeId + "";
             tvCity.setText(currentSale.cityName);
