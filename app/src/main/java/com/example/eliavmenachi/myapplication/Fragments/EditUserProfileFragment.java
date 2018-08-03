@@ -124,6 +124,7 @@ public class EditUserProfileFragment extends Fragment {
         spCity = view.findViewById(R.id.fragment_edit_user_spCity);
         rlProgressBar = view.findViewById(R.id.fragment_edit_user_rlProgressBar);
 
+
         cityDataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
@@ -134,27 +135,27 @@ public class EditUserProfileFragment extends Fragment {
                     public void onChanged(@Nullable User user) {
                         currentUser = user;
 
-                        if (user != null) {
-                            etUserName.setText(user.username);
-                            etFirstName.setText(user.firstName);
-                            etLastName.setText(user.lastName);
+                            if (user != null) {
+                                etUserName.setText(user.username);
+                                etFirstName.setText(user.firstName);
+                                etLastName.setText(user.lastName);
 
-                            if (cityListData.cities.size() > 0) {
-                                City city = cityDataModel.GetCityByCityId(user.city, cityListData);
-                                if (city != null) {
-                                    ArrayAdapter<String> adapterString = (ArrayAdapter<String>) spCity.getAdapter();
-                                    if (adapterString != null) {
-                                        int selectedCityIndex = adapterString.getPosition(city.name);
-                                        spCity.setSelection(selectedCityIndex);
+                                if (cityListData.cities.size() > 0) {
+                                    City city = cityDataModel.GetCityByCityId(user.city, cityListData);
+                                    if (city != null) {
+                                        ArrayAdapter<String> adapterString = (ArrayAdapter<String>) spCity.getAdapter();
+                                        if (adapterString != null) {
+                                            int selectedCityIndex = adapterString.getPosition(city.name);
+                                            spCity.setSelection(selectedCityIndex);
+                                        }
                                     }
                                 }
-                            }
-                            etBirthDate.setText(user.birthDate);
-                            etEmail.setText(user.email);
-                        }
+                                etBirthDate.setText(user.birthDate);
+                                etEmail.setText(user.email);
 
-                        rlProgressBar.setVisibility(View.GONE);
-                        //myAdapter.notifyDataSetChanged();
+                                rlProgressBar.setVisibility(View.GONE);
+                            }
+                            //myAdapter.notifyDataSetChanged();
                     }
                 });
             }

@@ -42,6 +42,7 @@ public class ChooseLocationFragment extends Fragment {
     int mallId;
     int cityId;
     Button btnShowSales;
+    View rlProgressBar;
 
     @Override
     public void onAttach(Context context) {
@@ -76,6 +77,7 @@ public class ChooseLocationFragment extends Fragment {
         dropDownMalls = view.findViewById(R.id.sMall);
         dropDownStores = view.findViewById(R.id.sStore);
         btnShowSales = view.findViewById(R.id.btnShowSales);
+        rlProgressBar = view.findViewById(R.id.fragment_choose_location_rlProgressBar);
 
         dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
         dataModel.getData().observe(this, new Observer<ListData>() {
@@ -170,6 +172,7 @@ public class ChooseLocationFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 OnSelectedStore(adapterView, view, i, l);
+                rlProgressBar.setVisibility(View.GONE);
             }
 
             @Override
