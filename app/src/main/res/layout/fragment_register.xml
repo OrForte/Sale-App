@@ -191,7 +191,7 @@
 
             <EditText
                 android:id="@+id/fragment_register_etPassword"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:layout_marginStart="24dp"
@@ -215,7 +215,7 @@
 
             <EditText
                 android:id="@+id/fragment_register_etRepeatPassword"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="24dp"
                 android:layout_marginStart="24dp"
