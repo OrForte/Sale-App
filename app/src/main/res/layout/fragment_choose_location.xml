@@ -19,63 +19,69 @@
             android:layout_centerVertical="true" />
     </RelativeLayout>
 
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <Spinner
-            android:id="@+id/sStore"
-            android:layout_width="254dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent">
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            android:background="@android:drawable/btn_dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sMall" />
+            <Spinner
+                android:id="@+id/sStore"
+                android:layout_width="254dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
 
-        <Spinner
-            android:id="@+id/sMall"
-            android:layout_width="254dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+                android:background="@android:drawable/btn_dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sMall" />
 
-            android:background="@android:drawable/btn_dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sCity" />
+            <Spinner
+                android:id="@+id/sMall"
+                android:layout_width="254dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
 
-        <Spinner
-            android:id="@+id/sCity"
-            android:layout_width="254dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
+                android:background="@android:drawable/btn_dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sCity" />
 
-            android:background="@android:drawable/btn_dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
+            <Spinner
+                android:id="@+id/sCity"
+                android:layout_width="254dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
 
-        <TextView
-            android:id="@+id/tvDesc"
-            android:layout_width="219dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Please choose you location in order to get the sales near you."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:background="@android:drawable/btn_dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
 
-        <Button
-            android:id="@+id/btnShowSales"
-            android:layout_width="158dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="Show"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sStore" />
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvDesc"
+                android:layout_width="219dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Please choose you location in order to get the sales near you."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/btnShowSales"
+                android:layout_width="158dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="Show"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sStore" />
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
 </LinearLayout>
 
