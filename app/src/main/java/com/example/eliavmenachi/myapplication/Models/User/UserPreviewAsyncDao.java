@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.example.eliavmenachi.myapplication.Entities.UserPreview;
 import com.example.eliavmenachi.myapplication.Models.MainAppLocalDb;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class UserPreviewAsyncDao {
@@ -16,7 +17,12 @@ public class UserPreviewAsyncDao {
         class MyAsynchTask extends AsyncTask<String, String, UserPreview> {
             @Override
             protected UserPreview doInBackground(String... usersnames) {
-                UserPreview user = MainAppLocalDb.db.userPreviewDao().getUserPreviewByUserId(userId);
+                UserPreview user = new UserPreview();
+                if (MainAppLocalDb.db.userPreviewDao() != null) {
+                    if (MainAppLocalDb.db.userPreviewDao().getUserPreviewByUserId(userId) != null) {
+                        user = MainAppLocalDb.db.userPreviewDao().getUserPreviewByUserId(userId);
+                    }
+                }
                 return user;
             }
 
@@ -35,7 +41,12 @@ public class UserPreviewAsyncDao {
         class MyAsynchTask extends AsyncTask<String, String, List<UserPreview>> {
             @Override
             protected List<UserPreview> doInBackground(String... usersnames) {
-                List<UserPreview> user = MainAppLocalDb.db.userPreviewDao().getUsersPreview();
+                List<UserPreview> user = new LinkedList<UserPreview>();
+                if (MainAppLocalDb.db.userPreviewDao() != null) {
+                    if (MainAppLocalDb.db.userPreviewDao().getUsersPreview() != null) {
+                        user = MainAppLocalDb.db.userPreviewDao().getUsersPreview();
+                    }
+                }
                 return user;
             }
 

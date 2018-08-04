@@ -63,7 +63,12 @@ public class UserAsynchDao {
         class MyAsynchTask extends AsyncTask<String, String, User> {
             @Override
             protected User doInBackground(String... usersnames) {
-                User user = MainAppLocalDb.db.userDao().getUserByUserId(userId);
+                User user = new User();
+                if (MainAppLocalDb.db.userDao() != null) {
+                    if (MainAppLocalDb.db.userDao().getUserByUserId(userId) != null) {
+                        user = MainAppLocalDb.db.userDao().getUserByUserId(userId);
+                    }
+                }
                 return user;
             }
 
@@ -82,7 +87,11 @@ public class UserAsynchDao {
         class MyAsynchTask extends AsyncTask<User, String, Boolean> {
             @Override
             protected Boolean doInBackground(User... users) {
-                MainAppLocalDb.db.userDao().insertUsers(users);
+                if (users != null) {
+                    if (users[0] != null) {
+                        MainAppLocalDb.db.userDao().insertUsers(users);
+                    }
+                }
                 return true;
             }
 
