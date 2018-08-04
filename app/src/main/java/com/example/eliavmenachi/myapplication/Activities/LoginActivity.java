@@ -17,7 +17,7 @@ public class LoginActivity extends AppCompatActivity {
 
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
-        actionBar.setIcon(R.drawable.ic_shopping_basket_black_24dp);
+        actionBar.setIcon(R.drawable.ic_account_circle_black_24dp);
 
         setContentView(R.layout.activity_login);
 

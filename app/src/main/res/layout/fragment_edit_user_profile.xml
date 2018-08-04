@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_edit_user_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -32,82 +33,90 @@
                 android:id="@+id/fragment_edit_user_spCity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="8dp"
                 android:ems="10"
                 android:hint="City"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etBirthDate" />
+                app:layout_constraintBottom_toBottomOf="@+id/textView9"
+                app:layout_constraintStart_toStartOf="@+id/fragment_edit_user_etBirthDate"
+                app:layout_constraintTop_toTopOf="@+id/textView9" />
 
             <com.example.eliavmenachi.myapplication.Controls.DateEditText
                 android:id="@+id/fragment_edit_user_etBirthDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="12dp"
                 android:ems="10"
                 android:hint="Birth Date"
                 android:inputType="textPersonName|number"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etLastName" />
+                app:layout_constraintBottom_toBottomOf="@+id/textView8"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/fragment_edit_user_etLastName"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etLastName"
+                app:layout_constraintVertical_bias="0.0" />
 
             <!--<EditText-->
-                <!--android:id="@+id/fragment_edit_user_etEmail"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginStart="16dp"-->
-                <!--android:layout_marginTop="12dp"-->
-                <!--android:ems="10"-->
-                <!--android:hint="Email"-->
-                <!--android:inputType="textEmailAddress"-->
-                <!--app:layout_constraintStart_toStartOf="parent"-->
-                <!--app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_spCity" />-->
+            <!--android:id="@+id/fragment_edit_user_etEmail"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginStart="16dp"-->
+            <!--android:layout_marginTop="12dp"-->
+            <!--android:ems="10"-->
+            <!--android:hint="Email"-->
+            <!--android:inputType="textEmailAddress"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_spCity" />-->
 
             <EditText
                 android:id="@+id/fragment_edit_user_etFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
                 android:hint="First Name"
                 android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/textView6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/fragment_edit_user_etUserName"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etUserName" />
 
             <EditText
                 android:id="@+id/fragment_edit_user_etLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:hint="Last Name"
                 android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etFirstName" />
+                app:layout_constraintBottom_toBottomOf="@+id/textView7"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/fragment_edit_user_etFirstName"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_etFirstName"
+                app:layout_constraintVertical_bias="0.0" />
 
             <EditText
                 android:id="@+id/fragment_edit_user_etUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginTop="16dp"
                 android:ems="10"
                 android:hint="Username"
                 android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/textView5"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_tvPersonalDetails" />
 
             <Button
                 android:id="@+id/fragment_edit_user_btnUpdateProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="20dp"
                 android:text="Update"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_spCity" />
+                app:layout_constraintStart_toStartOf="@+id/textView9"
+                app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
             <TextView
                 android:id="@+id/fragment_edit_user_tvPersonalDetails"
@@ -183,20 +192,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:layout_marginTop="16dp"
                 android:text="Your Sales"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/fragment_edit_user_btnLogout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="32dp"
-                android:layout_marginTop="28dp"
-                android:text="Logout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_btnUserSales" />
+                app:layout_constraintBottom_toBottomOf="@+id/fragment_edit_user_btnUpdateProfile"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <ProgressBar
                 android:id="@+id/fragment_edit_user_pbProgressBar2"
@@ -222,6 +220,66 @@
                 app:layout_constraintHorizontal_bias="0.501"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_pbProgressBar2" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="Username:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_edit_user_tvPersonalDetails" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="First name:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="Last name:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="Birth Date:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:text="City:"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

@@ -4,7 +4,7 @@
     <!--   color for the app bar and other primary UI elements -->
     <color name="colorPrimary">#d32f2f</color>
     <!--   a secondary color for controls like checkboxes and text fields -->
-    <color name="colorAccent">#ffeb3b</color>
+    <color name="colorAccent">#ead831</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="background_material_light">#000000</color>

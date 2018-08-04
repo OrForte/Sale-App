@@ -16,7 +16,6 @@ import android.widget.TextView;
 
 import com.example.eliavmenachi.myapplication.Entities.ListData;
 import com.example.eliavmenachi.myapplication.Entities.Sale;
-import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Entities.UserPreview;
 import com.example.eliavmenachi.myapplication.Models.Image.ImageModel;
 import com.example.eliavmenachi.myapplication.R;
@@ -75,15 +74,14 @@ public class SaleDetailsFragment extends Fragment {
         nCounterQuery = 0;
         currSale = new Sale();
         imageSale = view.findViewById(R.id.sale_details_image);
-        etDescription = view.findViewById(R.id.fragment_sale_details_etDescription);
+        etDescription = view.findViewById(R.id.fragment_sale_details_tbDescription);
         etEndDate = view.findViewById(R.id.fragment_sale_Details_etEndDate);
-        etTitle = view.findViewById(R.id.fragment_sale_details_tvRegister);
+        etTitle = view.findViewById(R.id.fragment_sale_details_tvTitle);
         etCity = view.findViewById(R.id.fragment_sale_details_etCity);
         etMall = view.findViewById(R.id.fragment_sale_details_etMall);
         etStore = view.findViewById(R.id.fragment_sale_details_etStore);
         rlProgressBar = view.findViewById(R.id.fragment_sale_details_rlProgressBar);
         etUser = view.findViewById(R.id.fragment_sale_details_etUser);
-        rlProgressBar.setVisibility(View.VISIBLE);
         String nId = "";
         if (getArguments() != null) {
             nId = getArguments().getString("SALE_ID");
@@ -129,7 +127,7 @@ public class SaleDetailsFragment extends Fragment {
                 if (nCounterQuery >= 2) {
                     currSale = sale;
                     currentUser = userPreview;
-                    etTitle.setText("sale " + currSale.id);
+                    etTitle.setText(sale.title);
 
                     // populate the data
                     PopulateTheView();
@@ -156,7 +154,6 @@ public class SaleDetailsFragment extends Fragment {
 
                 imageSale.setImageResource(R.drawable.avatar);
                 imageSale.setTag(currSale.id);
-                rlProgressBar.setVisibility(View.GONE);
                 if (currSale.getPictureUrl() != null) {
                     ImageModel.instance.getImage(currSale.getPictureUrl(), new ImageModel.GetImageListener() {
                         @Override
@@ -164,10 +161,15 @@ public class SaleDetailsFragment extends Fragment {
                             if (currSale.id.equals(imageSale.getTag()) && imageBitmap != null) {
                                 imageBitmap = Bitmap.createScaledBitmap(imageBitmap, WIDTH, HEIGHT, true);
                                 imageSale.setImageBitmap(imageBitmap);
+                                rlProgressBar.setVisibility(View.GONE);
                             }
                         }
                     });
                 }
+                else {
+                    rlProgressBar.setVisibility(View.GONE);
+                }
+
             }
         }
     }

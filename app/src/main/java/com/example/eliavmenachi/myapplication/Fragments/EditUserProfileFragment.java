@@ -260,7 +260,7 @@ public class EditUserProfileFragment extends Fragment {
             }
         });
 
-        Button btnLogut = view.findViewById(R.id.fragment_edit_user_btnLogout);
+//        Button btnLogut = view.findViewById(R.id.fragment_edit_user_btnLogout);
 
         /*
         btnLogut.setOnClickListener(new View.OnClickListener() {
@@ -287,37 +287,37 @@ public class EditUserProfileFragment extends Fragment {
             }
         });*/
 
-        // TODO: need to change to view model...
-        btnLogut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userViewModel.signOut(new UserViewModel.SignOutListener() {
-                    @Override
-                    public void onSuccess() {
-                        Toast.makeText(getActivity(), "User was logout successfully!",
-                                Toast.LENGTH_LONG).show();
-
-                        getActivity().finish();
-//                        Intent intent = new Intent(EditUserProfileFragment.this.getContext(), SalesActivity.class);
-//                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onFailure(String exceptionMessage) {
-                        Toast.makeText(getActivity(), exceptionMessage,
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-                //UserModel.instance.signOut();
-
-
-                /*
-                SalesListFragment fragment = new SalesListFragment();
-                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-                tran.replace(R.id.main_container, fragment);
-                tran.commit();*/
-            }
-        });
+//        // TODO: need to change to view model...
+//        btnLogut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                userViewModel.signOut(new UserViewModel.SignOutListener() {
+//                    @Override
+//                    public void onSuccess() {
+//                        Toast.makeText(getActivity(), "User was logout successfully!",
+//                                Toast.LENGTH_LONG).show();
+//
+//                        getActivity().finish();
+////                        Intent intent = new Intent(EditUserProfileFragment.this.getContext(), SalesActivity.class);
+////                        startActivity(intent);
+//                    }
+//
+//                    @Override
+//                    public void onFailure(String exceptionMessage) {
+//                        Toast.makeText(getActivity(), exceptionMessage,
+//                                Toast.LENGTH_LONG).show();
+//                    }
+//                });
+//                //UserModel.instance.signOut();
+//
+//
+//                /*
+//                SalesListFragment fragment = new SalesListFragment();
+//                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+//                tran.replace(R.id.main_container, fragment);
+//                tran.commit();*/
+//            }
+//        });
 
 //        Button btnRegister = view.findViewById(R.id.fragment_edit_user_btnRegister);
 //        btnRegister.setOnClickListener(new View.OnClickListener() {

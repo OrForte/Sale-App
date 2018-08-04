@@ -22,7 +22,7 @@ public class Sale {
     public String mallName;
     public String cityName;
     public boolean active;
-
+    public String title;
 
     public String getId() {
         return id;
@@ -80,6 +80,10 @@ public class Sale {
         return active;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -135,4 +139,9 @@ public class Sale {
     public void setActive(boolean p_active) {
         this.active = p_active;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
 }

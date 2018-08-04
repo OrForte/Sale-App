@@ -5,8 +5,8 @@
     android:id="@+id/fragment_login_constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.LoginFragment"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    tools:context=".Fragments.LoginFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:text="Password:"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -27,7 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:text="Email:"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -50,8 +50,8 @@
         android:id="@+id/fragment_login_etPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:inputType="textNoSuggestions|textPassword"
         app:layout_constraintStart_toEndOf="@+id/fragment_login_tvPassword"
@@ -62,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="44dp"
         android:text="Login"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_login_tvPassword" />
@@ -72,7 +72,7 @@
         android:layout_width="92dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="26dp"
         android:text="Register"
         app:layout_constraintStart_toEndOf="@+id/fragment_login_btnLogin"
         app:layout_constraintTop_toBottomOf="@+id/fragment_login_etPassword" />
@@ -84,11 +84,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginTop="24dp"
         android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@+id/fragment_login_btnRegister"
+        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toEndOf="@+id/fragment_login_btnLogin"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_etPassword" />
 
     <TextView
         android:id="@+id/fragment_login_tvProgressBarText"

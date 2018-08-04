@@ -166,11 +166,11 @@ public class UserSalesListFragment extends Fragment {
             final Sale currentSale = saleListViewModel.getSaleListByUserId(currentUser.id).getValue().get(i);
             final int copyI = i;
             final View copyView = view;
-            final TextView tvCity = view.findViewById(R.id.tvStore);
-            final TextView tvMall = view.findViewById(R.id.tvMall);
-            final TextView tvStore = view.findViewById(R.id.tvCity);
-            final TextView tvDesc = view.findViewById(R.id.tvDescription);
-            tvDesc.setText(currentSale.description);
+            final TextView tvCity = view.findViewById(R.id.sale_item_tvStore);
+            final TextView tvMall = view.findViewById(R.id.sale_item_tvMall);
+            final TextView tvStore = view.findViewById(R.id.sale_item_tvCity);
+            final TextView tvTitle = view.findViewById(R.id.sale_item_tvTitle);
+            tvTitle.setText(currentSale.title);
 
             String strStoreId = currentSale.storeId + "";
             tvCity.setText(currentSale.cityName);

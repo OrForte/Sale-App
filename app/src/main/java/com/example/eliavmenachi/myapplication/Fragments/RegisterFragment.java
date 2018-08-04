@@ -79,7 +79,6 @@ public class RegisterFragment extends Fragment {
         dropDownCities = view.findViewById(R.id.fragment_register_etCity);
         repeatPasswordEt = view.findViewById(R.id.fragment_register_etRepeatPassword);
 
-
         cityDataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData data) {
@@ -109,8 +108,10 @@ public class RegisterFragment extends Fragment {
                         @Override
                         public void onSuccess(User user) {
                             if (user != null) {
-                                String welcomeMsg = "welcome " + user.username + " !!";
+                                String welcomeMsg = "Welcome " + user.username + " !!";
                                 Toast.makeText(getActivity(), welcomeMsg, Toast.LENGTH_LONG).show();
+
+                                getActivity().finish();
                             }
                         }
 
@@ -137,38 +138,38 @@ public class RegisterFragment extends Fragment {
 
         if (firstName.length() == 0) {
             firstNameEt.requestFocus();
-            firstNameEt.setError("FIELD CANNOT BE EMPTY");
+            firstNameEt.setError("Field can't be empty.");
             bIsValid = false;
         }
 
         if (lastName.length() == 0) {
             lastNameEt.requestFocus();
-            lastNameEt.setError("FIELD CANNOT BE EMPTY");
+            lastNameEt.setError("Field can't be empty.");
             bIsValid = false;
         }
 
         //String mailPattern = "/^([\\w\\.\\-]+)@([\\w\\-]+)((\\.(\\w){2,3})+)$/";
         if (!Patterns.EMAIL_ADDRESS.matcher(mail).matches()) {
             mailEt.requestFocus();
-            mailEt.setError("Invalid format mail");
+            mailEt.setError("Invalid mail format.");
             bIsValid = false;
         }
 
         if (userName.length() == 0) {
             userNameEt.requestFocus();
-            userNameEt.setError("FIELD CANNOT BE EMPTY");
+            userNameEt.setError("Field can't be empty.");
             bIsValid = false;
         }
 
         if (!password.equals(repeatPassword)) {
             passwordEt.requestFocus();
-            passwordEt.setError("Password not equals");
+            passwordEt.setError("Passwords do not match.");
             bIsValid = false;
         }
 
         if (password.length() <= 5) {
             passwordEt.requestFocus();
-            passwordEt.setError("Password must be 6 CHARACTERs");
+            passwordEt.setError("Password must have 6 characters.");
             bIsValid = false;
         }
 

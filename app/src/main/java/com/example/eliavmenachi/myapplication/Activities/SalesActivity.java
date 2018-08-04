@@ -155,20 +155,27 @@ public class SalesActivity extends AppCompatActivity {
 //                    tran.commit();
 //                    return true;
                 } else {
-                    NewSaleFragment fragment = new NewSaleFragment();
-                    FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-                    tran.replace(R.id.main_container, fragment);
-                    tran.addToBackStack(Consts.instance.TAG_NEW_SALE);
-                    tran.commit();
+                    NewSaleFragment newSaleFragment = (NewSaleFragment) getSupportFragmentManager().findFragmentByTag(Consts.instance.TAG_NEW_SALE);
+                    if (newSaleFragment == null || !newSaleFragment.isVisible()) {
+                        NewSaleFragment fragment = new NewSaleFragment();
+                        FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
+                        tran.replace(R.id.main_container, fragment, Consts.instance.TAG_NEW_SALE);
+                        tran.addToBackStack(Consts.instance.TAG_NEW_SALE);
+                        tran.commit();
+                    }
                     return true;
                 }
             }
             case R.id.menu_list_sales_by_category: {
-                ChooseLocationFragment fragment = new ChooseLocationFragment();
-                FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-                tran.replace(R.id.main_container, fragment);
-                tran.addToBackStack(Consts.instance.TAG_CHOOSE_STORE);
-                tran.commit();
+                ChooseLocationFragment chooseLocationFragment = (ChooseLocationFragment) getSupportFragmentManager().findFragmentByTag(Consts.instance.TAG_CHOOSE_STORE);
+                if (chooseLocationFragment == null || !chooseLocationFragment.isVisible()) {
+                    ChooseLocationFragment fragment = new ChooseLocationFragment();
+                    FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
+                    tran.replace(R.id.main_container, fragment, Consts.instance.TAG_CHOOSE_STORE);
+                    tran.addToBackStack(Consts.instance.TAG_CHOOSE_STORE);
+                    tran.commit();
+                }
+
                 return true;
             }
             case R.id.menu_user_profile: {

@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -89,6 +90,8 @@ public class NewSaleFragment extends Fragment {
     View rlProgressBar;
     ProgressBar progressBarSaveNewSale;
     User currentUser;
+    TextView etTitle;
+    View mainLayout;
 
     @Override
     public void onAttach(Context context) {
@@ -127,6 +130,9 @@ public class NewSaleFragment extends Fragment {
         dataModelSale = ViewModelProviders.of(this).get(SaleListViewModel.class);
 
         etEndDate = view.findViewById(R.id.fragment_new_sale_etEndDate);
+        etTitle = view.findViewById(R.id.fragment_new_sale_etTitle);
+
+        mainLayout = view.findViewById(R.id.fragment_new_sale_layout);
 
         progressBarSaveNewSale = view.findViewById(R.id.fragment_new_sale_progress);
         progressBarSaveNewSale.setVisibility(View.GONE);
@@ -214,7 +220,7 @@ public class NewSaleFragment extends Fragment {
                         @Override
                         public void onDeleteLogicSale(boolean b_isDelete) {
                             if (b_isDelete == true) {
-                                Toast.makeText(getActivity(), "delete sale successfully",
+                                Toast.makeText(getActivity(), "Sale deleted successfully.",
                                         Toast.LENGTH_LONG).show();
                                 GetToSaleListFragments();
                             }
@@ -241,7 +247,16 @@ public class NewSaleFragment extends Fragment {
     }
 
     public void GetToSaleListFragments() {
+        try {
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
+
+        } catch (Exception e) {
+
+        }
+
         progressBarSaveNewSale.setVisibility(View.GONE);
+
         if (!bUpdateMode || m_SaleListTypeParams.equals(Consts.instance.ALL)) {
             FragmentManager fragmentManager = getFragmentManager();
             SalesListFragment fragment = new SalesListFragment();
@@ -309,8 +324,7 @@ public class NewSaleFragment extends Fragment {
         }
     }
 
-    public void SetSaleData(String newId)
-    {
+    public void SetSaleData(String newId) {
         newSale.id = newId;
         newSale.description = etDescription.getText().toString();
         newSale.endDate = etEndDate.getText().toString();
@@ -322,10 +336,10 @@ public class NewSaleFragment extends Fragment {
         newSale.cityName = selectedCityName;
         newSale.storeName = selectedStoreName;
         newSale.active = true;
+        newSale.title = etTitle.getText().toString();
     }
 
-    public void addSaleToFireBase()
-    {
+    public void addSaleToFireBase() {
         dataModelSale.addOrUpdateNewSale(newSale, new SaleModel.addOrUpdateNewSaleListener() {
             @Override
             public void onAddOrUpdateNewSaleResults(Sale SaleToReturn) {
@@ -400,6 +414,8 @@ public class NewSaleFragment extends Fragment {
     public void PopulateTheView() {
         // setting the desctiption
         etDescription.setText(newSale.description);
+
+        etTitle.setText(newSale.title);
 
         // setting the end date
         etEndDate.setText(newSale.endDate);

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
+
     <RelativeLayout
         android:id="@+id/fragment_choose_location_rlProgressBar"
         android:layout_width="match_parent"
@@ -18,7 +19,6 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true" />
     </RelativeLayout>
-
 
     <ScrollView
             android:layout_width="match_parent"
@@ -34,7 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
 
-                android:background="@android:drawable/btn_dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sMall" />
@@ -45,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
 
-                android:background="@android:drawable/btn_dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/sCity" />
@@ -56,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
 
-                android:background="@android:drawable/btn_dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvDesc" />
@@ -66,7 +63,9 @@
                 android:layout_width="219dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                android:text="Please choose you location in order to get the sales near you."
+                android:text="Please choose your location in order to get the sales near you."
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.503"
                 app:layout_constraintStart_toStartOf="parent"
