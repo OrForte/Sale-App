@@ -158,15 +158,17 @@ public class NewSaleFragment extends Fragment {
             dataModelSale.GetSaleBySaleId(nId).observe(this, new Observer<Sale>() {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
-                    nCounterQuery++;
-                    if (nCounterQuery >= 2) {
-                        newSale = sale;
+                    if (sale != null) {
+                        nCounterQuery++;
+                        if (nCounterQuery >= 2) {
+                            newSale = sale;
 
-                        title.setText("sale " + newSale.id);
-                        btnSave.setText("update");
-                        btnCancelOrDelete.setText("delete");
-                        // populate the data
-                        PopulateTheView();
+                            title.setText("sale " + newSale.id);
+                            btnSave.setText("update");
+                            btnCancelOrDelete.setText("delete");
+                            // populate the data
+                            PopulateTheView();
+                        }
                     }
                 }
             });
@@ -227,8 +229,7 @@ public class NewSaleFragment extends Fragment {
                             }
                         }
                     });
-                }
-                else {
+                } else {
                     getFragmentManager().popBackStack();
                 }
             }
@@ -261,21 +262,20 @@ public class NewSaleFragment extends Fragment {
 
         progressBarSaveNewSale.setVisibility(View.GONE);
 
-        if (!bUpdateMode || m_SaleListTypeParams.equals(Consts.instance.ALL)) {
-            FragmentManager fragmentManager = getFragmentManager();
-            SalesListFragment fragment = new SalesListFragment();
-            FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-            tran.replace(R.id.main_container, fragment);
-            tran.addToBackStack(null);
-            tran.commit();
-        } else if (m_SaleListTypeParams.equals(Consts.instance.BY_USER)) {
-            FragmentManager fragmentManager = getFragmentManager();
-            UserSalesListFragment fragment = new UserSalesListFragment();
-            FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-            tran.replace(R.id.main_container, fragment);
-            tran.addToBackStack(null);
-            tran.commit();
-        }
+        getFragmentManager().popBackStack();
+//        if (!bUpdateMode || m_SaleListTypeParams.equals(Consts.instance.ALL)) {
+//            FragmentManager fragmentManager = getFragmentManager();
+//            SalesListFragment fragment = new SalesListFragment();
+//            FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+//            tran.replace(R.id.main_container, fragment);
+//            tran.commit();
+//        } else if (m_SaleListTypeParams.equals(Consts.instance.BY_USER)) {
+//            FragmentManager fragmentManager = getFragmentManager();
+//            UserSalesListFragment fragment = new UserSalesListFragment();
+//            FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
+//            tran.replace(R.id.main_container, fragment);
+//            tran.commit();
+//        }
     }
 
     public void SetListOfCities(ListData data) {

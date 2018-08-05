@@ -109,8 +109,8 @@ public class SalesListFragment extends Fragment {
         args.putString(Consts.instance.SALE_LIST_TYPE, Consts.instance.ALL);
         fragment.setArguments(args);
         FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-        tran.replace(R.id.main_container, fragment);
-        tran.addToBackStack(null);
+        tran.replace(R.id.main_container, fragment, Consts.instance.TAG_NEW_SALE);
+        tran.addToBackStack(Consts.instance.TAG_NEW_SALE);
         tran.commit();
     }
 
@@ -120,8 +120,8 @@ public class SalesListFragment extends Fragment {
         args.putString("SALE_ID", selectedSaleItem.id);
         fragment.setArguments(args);
         FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-        tran.replace(R.id.main_container, fragment);
-        tran.addToBackStack(null);
+        tran.replace(R.id.main_container, fragment, Consts.instance.TAG_SALE_DETAILS);
+        tran.addToBackStack(Consts.instance.TAG_SALE_DETAILS);
         tran.commit();
     }
 

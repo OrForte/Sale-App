@@ -159,7 +159,7 @@ public class SalesActivity extends AppCompatActivity {
                     if (newSaleFragment == null || !newSaleFragment.isVisible()) {
                         NewSaleFragment fragment = new NewSaleFragment();
                         FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-                        tran.replace(R.id.main_container, fragment, Consts.instance.TAG_NEW_SALE);
+                        tran.replace(R.id.main_container, fragment);
                         tran.addToBackStack(Consts.instance.TAG_NEW_SALE);
                         tran.commit();
                     }
@@ -203,6 +203,14 @@ public class SalesActivity extends AppCompatActivity {
 
                         User user = userViewModel.getCurrentUser().getValue();
                         updateMenuIfNeeded(user);
+
+                        NewSaleFragment newSaleFragment = (NewSaleFragment) getSupportFragmentManager().findFragmentByTag(Consts.instance.TAG_NEW_SALE);
+                        if (newSaleFragment != null && newSaleFragment.isVisible()) {
+                            SalesListFragment fragment = new SalesListFragment();
+                            FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
+                            tran.replace(R.id.main_container, fragment, Consts.instance.TAG_NEW_SALE);
+                            tran.commit();
+                        }
 //                        SalesListFragment fragment = new SalesListFragment();
 //                        FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
 //                        tran.replace(R.id.main_container, fragment);
