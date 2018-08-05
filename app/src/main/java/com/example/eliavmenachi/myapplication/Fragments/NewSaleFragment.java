@@ -171,6 +171,7 @@ public class NewSaleFragment extends Fragment {
                 }
             });
         } else {
+            btnCancelOrDelete.setText("Cancel");
             rlProgressBar.setVisibility(View.GONE);
         }
 
@@ -226,6 +227,9 @@ public class NewSaleFragment extends Fragment {
                             }
                         }
                     });
+                }
+                else {
+                    getFragmentManager().popBackStack();
                 }
             }
         });
@@ -303,7 +307,6 @@ public class NewSaleFragment extends Fragment {
     }
 
     public void AddNewSaleToFireBase(String newId) {
-
         SetSaleData(newId);
 
         // TODO: need to change to view model...
