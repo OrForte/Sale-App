@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -206,10 +207,13 @@ public class SalesActivity extends AppCompatActivity {
 
                         NewSaleFragment newSaleFragment = (NewSaleFragment) getSupportFragmentManager().findFragmentByTag(Consts.instance.TAG_NEW_SALE);
                         if (newSaleFragment != null && newSaleFragment.isVisible()) {
-                            SalesListFragment fragment = new SalesListFragment();
-                            FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-                            tran.replace(R.id.main_container, fragment, Consts.instance.TAG_NEW_SALE);
-                            tran.commit();
+                            FragmentManager fragmentManager = getSupportFragmentManager();
+                            fragmentManager.popBackStack();
+
+//                            SalesListFragment fragment = new SalesListFragment();
+//                            FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
+//                            tran.replace(R.id.main_container, fragment, Consts.instance.TAG_NEW_SALE);
+//                            tran.commit();
                         }
 //                        SalesListFragment fragment = new SalesListFragment();
 //                        FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
