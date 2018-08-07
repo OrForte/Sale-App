@@ -49,6 +49,12 @@ import static android.app.Activity.RESULT_OK;
 
 public class NewSaleFragment extends Fragment {
 
+    private static final String END_DATE = "END_DATE";
+    private static final String TITLE = "TITLE";
+    private static final String DESCRIPTION = "REPEAT_PASSWORD";
+    private static final String PICTURE = "PICTURE";
+
+
     public int HEIGHT = 600;
     public int WIDTH = 600;
     ListData listData = new ListData();
@@ -112,7 +118,7 @@ public class NewSaleFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         bIsOccur = false;
@@ -168,6 +174,7 @@ public class NewSaleFragment extends Fragment {
                             btnCancelOrDelete.setText("delete");
                             // populate the data
                             PopulateTheView();
+                            LoadDataAfterInstanceState(savedInstanceState);
                         }
                     }
                 }
@@ -175,6 +182,7 @@ public class NewSaleFragment extends Fragment {
         } else {
             btnCancelOrDelete.setText("Cancel");
             rlProgressBar.setVisibility(View.GONE);
+            LoadDataAfterInstanceState(savedInstanceState);
         }
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -452,5 +460,32 @@ public class NewSaleFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void  onSaveInstanceState(Bundle bundle){
+        super.onSaveInstanceState(bundle);
+        bundle.putString(TITLE, etTitle.getText().toString());
+        bundle.putString(DESCRIPTION, etDescription.getText().toString());
+        bundle.putString(END_DATE, etEndDate.getText().toString());
+    }
+
+    public void LoadDataAfterInstanceState(Bundle savedInstanceState)
+    {
+        if (savedInstanceState != null)
+        {
+            String title = savedInstanceState.getString(TITLE);
+            if (title != null) {
+                etTitle.setText(title);
+            }
+            String desc = savedInstanceState.getString(DESCRIPTION);
+            if (desc != null) {
+                etDescription.setText(desc);
+            }
+            String endDate = savedInstanceState.getString(END_DATE);
+            if (endDate != null) {
+                etEndDate.setText(endDate);
+            }
+        }
     }
 }
