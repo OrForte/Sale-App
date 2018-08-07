@@ -25,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
             MainFragment fragment = new MainFragment();
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
             tran.add(R.id.main_container, fragment);
-            //tran.addToBackStack("");
             tran.commit();
         }
 
@@ -36,27 +35,6 @@ public class MainActivity extends AppCompatActivity {
                         Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_STORAGE);
             }
         }
-
-//        Log.d("OnCreate","MainActivity");
-//
-//        setContentView(R.layout.activity_main);
-//
-//        if (savedInstanceState == null) {
-//
-//            StudentsListFragment fragment = new StudentsListFragment();
-//            FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-//            tran.add(R.id.main_container, fragment);
-//            tran.addToBackStack("");
-//            tran.commit();
-//        }
-//
-//        // check whenever has permissions
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            if(checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-//                requestPermissions(new String[]{
-//                        Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_WRITE_STORAGE);
-//            }
-//        }
     }
 
     @Override

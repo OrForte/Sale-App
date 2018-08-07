@@ -15,7 +15,6 @@ import java.util.List;
 public class SaleModelFirebase {
 
     public void getPostsByStoreId(final String p_strStoreId, final SaleModel.GetPostsByStoreIdListener listener) {
-        // TODO : need to get the collections if posts by store id
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 

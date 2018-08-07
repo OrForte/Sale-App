@@ -18,51 +18,8 @@ import com.google.firebase.database.ValueEventListener;
 
 public class UserAuthModelFirebase {
 
-//    User totalUserDetailsToSave = new User();
-
-//    public interface getAllUsersCallback {
-//        void onCompleted(List<User> users);
-//
-//        void onCanceled();
-//    }
-
-//    public void getUsers(final String userID, final getAllUsersCallback callback) {
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        final DatabaseReference myRef1 = database.getReference("users");
-//        final ValueEventListener listener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                List<User> list = new LinkedList<>();
-//                for (DataSnapshot snap : dataSnapshot.getChildren()) {
-//                    User user = snap.getValue(User.class);
-//                    user.id = snap.getKey();
-//                    if (!user.id.equals(userID)) {
-//                        list.add(user);
-//                    }
-//                }
-//
-//                callback.onCompleted(list);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError error) {
-//                callback.onCanceled();
-//            }
-//        };
-//
-//        myRef1.addListenerForSingleValueEvent(listener);
-//    }
 
     public FirebaseUser getCurrentUser() {
-        //FirebaseUser firebaseUser =
-//        User user = null;
-//
-//        if (firebaseUser != null) {
-//            user = new User();
-//            user.id = firebaseUser.getUid();
-//            user.username = firebaseUser.getDisplayName();
-//            user.email = firebaseUser.getEmail();
-//        }
 
         return FirebaseAuth.getInstance().getCurrentUser();
     }
@@ -129,16 +86,7 @@ public class UserAuthModelFirebase {
                     callback.onFailure("Updating the user's profile has failed: " + exception);
                 } else {
                     user.id = firebaseUser.getUid();
-//                    user.email = firebaseUser.getEmail();
-//                    user.username = user.username;
-//                    user.firstName = user.firstName;
-//                    user.lastName = user.lastName;
-//                    user.city = user.city;
-//                    user.birthDate = user.birthDate;
-
                     callback.onSuccess(user);
-                    // TODO: CALL from user model to firebase
-                    //UserModelFirebase.addUser()
                 }
             }
         });

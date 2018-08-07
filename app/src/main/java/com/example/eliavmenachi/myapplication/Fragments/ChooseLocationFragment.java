@@ -47,19 +47,6 @@ public class ChooseLocationFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        /*
-        dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
-        dataModel.getData().observe(this, new Observer<ListData>() {
-            @Override
-            public void onChanged(@Nullable ListData listData) {
-                if (listData != null) {
-                    if (listData.cities.size() != 0 && listData.malls.size() != 0&& listData.stores.size() != 0) {
-                        SetListOfCities(listData);
-                    }
-                }
-                //SetListOfCities(listData);
-            }
-        });*/
     }
 
     @Override
@@ -100,7 +87,6 @@ public class ChooseLocationFragment extends Fragment {
                 args.putString("STORE_ID", storeId + "");
                 fragment.setArguments(args);
                 FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-                //FragmentTransaction tran = fragmentManager.beginTransaction();
                 tran.replace(R.id.main_container, fragment);
                 tran.addToBackStack(null);
                 tran.commit();

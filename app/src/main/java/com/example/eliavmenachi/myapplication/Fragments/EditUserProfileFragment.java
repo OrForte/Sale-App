@@ -198,19 +198,9 @@ public class EditUserProfileFragment extends Fragment {
                 user.firstName = etFirstName.getText().toString();
 
                 user.birthDate = etBirthDate.getText().toString();
-//                user.email = etEmail.getText().toString();
                 user.city = selectedCity.id;
 
                 user.city = selectedCity.id;
-//                if (!etPassword.getText().toString().equals("")) {
-//                    if (!etRetypeNewPassword.getText().toString().equals(etPassword.getText().toString())) {
-//                        isValid = false;
-//                        Toast.makeText(getActivity(), "Passwords don't match!",
-//                                Toast.LENGTH_LONG).show();
-//                    } else {
-//                        //user.password = etPassword.getText().toString();
-//                    }
-//                }
 
                 if (isValid) {
                     try {
@@ -259,77 +249,6 @@ public class EditUserProfileFragment extends Fragment {
                 tran.commit();
             }
         });
-
-//        Button btnLogut = view.findViewById(R.id.fragment_edit_user_btnLogout);
-
-        /*
-        btnLogut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userViewModel.signOutCurrentUser(new UserViewModel.LogoutListener() {
-                    @Override
-                    public void onSuccess() {
-                        Toast.makeText(getActivity(), "User was logout successfully!",
-                                Toast.LENGTH_LONG).show();
-
-                        SalesListFragment fragment = new SalesListFragment();
-                        FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-                        tran.replace(R.id.main_container, fragment);
-                        tran.commit();
-                    }
-
-                    @Override
-                    public void onFailure() {
-                        Toast.makeText(getActivity(), "Logout has faild!",
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-        });*/
-
-//        // TODO: need to change to view model...
-//        btnLogut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                userViewModel.signOut(new UserViewModel.SignOutListener() {
-//                    @Override
-//                    public void onSuccess() {
-//                        Toast.makeText(getActivity(), "User was logout successfully!",
-//                                Toast.LENGTH_LONG).show();
-//
-//                        getActivity().finish();
-////                        Intent intent = new Intent(EditUserProfileFragment.this.getContext(), SalesActivity.class);
-////                        startActivity(intent);
-//                    }
-//
-//                    @Override
-//                    public void onFailure(String exceptionMessage) {
-//                        Toast.makeText(getActivity(), exceptionMessage,
-//                                Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//                //UserModel.instance.signOut();
-//
-//
-//                /*
-//                SalesListFragment fragment = new SalesListFragment();
-//                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-//                tran.replace(R.id.main_container, fragment);
-//                tran.commit();*/
-//            }
-//        });
-
-//        Button btnRegister = view.findViewById(R.id.fragment_edit_user_btnRegister);
-//        btnRegister.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                RegisterFragment fragment = new RegisterFragment();
-//                FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-//                tran.replace(R.id.main_container, fragment);
-//                tran.addToBackStack(null);
-//                tran.commit();
-//            }
-//        });
 
         return view;
     }

@@ -106,21 +106,6 @@ public class SaleDetailsFragment extends Fragment {
 
     public void LoadUserAndPopulateData(final Sale sale)
     {
-        /*
-        userDataModel.getUserByUserId(sale.userId).observe( SaleDetailsFragment.this, new Observer<User>() {
-            @Override
-            public void onChanged(@Nullable User user) {
-                if (nCounterQuery >= 2) {
-                    currSale = sale;
-                    currentUser = user;
-                    etTitle.setText("sale " + currSale.id);
-
-                    // populate the data
-                    PopulateTheView();
-                }
-            }
-        });*/
-
         userDataModel.getUsersPreviewByUserId(sale.userId).observe(SaleDetailsFragment.this, new Observer<UserPreview>() {
             @Override
             public void onChanged(@Nullable UserPreview userPreview) {

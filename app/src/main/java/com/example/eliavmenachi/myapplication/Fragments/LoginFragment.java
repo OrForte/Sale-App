@@ -70,26 +70,6 @@ public class LoginFragment extends Fragment {
             }
         });
 
-//        btnSignOutButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                //emailEt.getText(), passwordEt.getText()
-//                UserModel.instance.signOut(new UserModel.SignOutListener() {
-//                    @Override
-//                    public void onSuccess() {
-//                        Toast.makeText(getActivity(), "User was logout successfully!",
-//                                Toast.LENGTH_LONG).show();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(String exceptionMessage) {
-//                        Toast.makeText(getActivity(), exceptionMessage,
-//                                Toast.LENGTH_LONG).show();
-//                    }
-//                });
-//            }
-//        });
-
         btnLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,12 +96,7 @@ public class LoginFragment extends Fragment {
                             pbProgressBar.setVisibility(View.GONE);
                             tvProgressBar.setVisibility(View.GONE);
 
-//                            Intent intent = new Intent();
-//                            intent.putExtra("SignIn", true);
-//                            getActivity().setResult(1);
                             getActivity().finish();
-//                            Intent intent = new Intent(LoginFragment.this.getContext(), SalesActivity.class);
-//                            startActivity(intent);
                         }
 
                         @Override

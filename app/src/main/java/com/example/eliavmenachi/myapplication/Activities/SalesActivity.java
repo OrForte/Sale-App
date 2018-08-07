@@ -30,7 +30,6 @@ public class SalesActivity extends AppCompatActivity {
     Menu toolBarMenu;
     User currentUser;
     final int REQUEST_WRITE_STORAGE = 1;
-//    View progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +43,6 @@ public class SalesActivity extends AppCompatActivity {
         currentUser = null;
 
         setContentView(R.layout.activity_sale);
-
-//        progressBar = findViewById(R.id.activity_sale_rlProgressBar);
 
         if (savedInstanceState == null) {
             SalesListFragment fragment = new SalesListFragment();
@@ -85,8 +82,6 @@ public class SalesActivity extends AppCompatActivity {
         if (hasChanged) {
             SalesActivity.this.invalidateOptionsMenu();
         }
-
-//        progressBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -104,13 +99,6 @@ public class SalesActivity extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == 1) {
-//            progressBar.setVisibility(View.VISIBLE);
-//        }
-//    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -122,31 +110,6 @@ public class SalesActivity extends AppCompatActivity {
 
         return true;
     }
-//
-//    public boolean onPrepareOptionsMenu(Menu menu) {
-//        menu.clear();
-//
-//        getMenuInflater().inflate(R.menu.main_menu, menu);
-//        toolBarMenu = menu;
-//
-//        if (currentUser == null) {
-//            toolBarMenu.removeItem(R.id.menu_logout);
-//        }
-//
-//        return super.onPrepareOptionsMenu(menu);
-//    }
-
-    /*
-    public void InitActivity()
-    {
-        if (toolBarMenu != null) {
-            if (currentUser == null) {
-                toolBarMenu.removeItem(R.id.menu_user_profile);
-            } else {
-                toolBarMenu.add(Menu.NONE, R.id.menu_user_profile, Menu.NONE, "USER PROFILE");
-            }
-        }
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -156,12 +119,6 @@ public class SalesActivity extends AppCompatActivity {
                     Intent intent = new Intent(SalesActivity.this, LoginActivity.class);
                     startActivity(intent);
                     return true;
-//                    LoginFragment fragment = new LoginFragment();
-//                    FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-//                    tran.replace(R.id.main_container, fragment);
-//                    tran.addToBackStack(Consts.instance.TAG_NEW_SALE); //TODO: make const
-//                    tran.commit();
-//                    return true;
                 } else {
                     NewSaleFragment newSaleFragment = (NewSaleFragment) getSupportFragmentManager().findFragmentByTag(Consts.instance.TAG_NEW_SALE);
                     if (newSaleFragment == null || !newSaleFragment.isVisible()) {
@@ -195,11 +152,6 @@ public class SalesActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(SalesActivity.this, UserProfileActivity.class);
                     startActivity(intent);
-//                    EditUserProfileFragment fragment = new EditUserProfileFragment();
-//                    FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-//                    tran.replace(R.id.main_container, fragment);
-//                    tran.addToBackStack(Consts.instance.TAG_CHOOSE_STORE);
-//                    tran.commit();
                     return true;
                 }
             }
@@ -216,20 +168,7 @@ public class SalesActivity extends AppCompatActivity {
                         if (newSaleFragment != null && newSaleFragment.isVisible()) {
                             FragmentManager fragmentManager = getSupportFragmentManager();
                             fragmentManager.popBackStack();
-
-//                            SalesListFragment fragment = new SalesListFragment();
-//                            FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-//                            tran.replace(R.id.main_container, fragment, Consts.instance.TAG_NEW_SALE);
-//                            tran.commit();
                         }
-//                        SalesListFragment fragment = new SalesListFragment();
-//                        FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
-//                        tran.replace(R.id.main_container, fragment);
-//                        tran.commit();
-//
-//                        startActivity(getIntent());
-//                        finish();
-//                        SalesActivity.this.invalidateOptionsMenu();
                     }
 
                     @Override

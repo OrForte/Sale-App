@@ -39,7 +39,6 @@ public class UserSalesListFragment extends Fragment {
     ListView list;
     ListAdapter listAdapter = new ListAdapter();
     ListData listData;
-    //ImageView imSalePic;
     View rlProgressBar;
 
     private User currentUser;
@@ -116,14 +115,11 @@ public class UserSalesListFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // todo: cahnge to ssales
-        //Model.instance.cancellGetAllStudents();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
     }
 
     class ListAdapter extends BaseAdapter {

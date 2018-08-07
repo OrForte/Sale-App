@@ -63,16 +63,6 @@ public class SalesListFragment extends Fragment {
 
         rlProgressBar = view.findViewById(R.id.fragment_sale_list_rlProgressBar);
 
-        /*
-        userViewModel.getCurrentUser().observe(SalesListFragment.this, new Observer<User>() {
-            @Override
-            public void onChanged(@Nullable User user) {
-                if (user != null){
-                    currentUser = user;
-                }
-            }
-        });*/
-
         // TODO: need to change to view model...
         userViewModel.getCurrentUser().observe(this, new Observer<User>() {
             @Override
@@ -137,8 +127,6 @@ public class SalesListFragment extends Fragment {
             m_bGetAllSales = true;
         }
 
-//        setHasOptionsMenu(true);
-
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         dataModel = ViewModelProviders.of(this).get(SaleListViewModel.class);
         userViewModel.getAllUsersPreview().observe(this, new Observer<List<UserPreview>>() {
@@ -164,14 +152,11 @@ public class SalesListFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // todo: cahnge to ssales
-        //Model.instance.cancellGetAllStudents();
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
     }
 
     class ListAdapter extends BaseAdapter {
