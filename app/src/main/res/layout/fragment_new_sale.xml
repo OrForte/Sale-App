@@ -209,29 +209,29 @@
                 app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvStore"
                 app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etMall" />
 
-            <TextView
-                android:id="@+id/fragment_new_sale_tvCatrgory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:text="Category:"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvStore"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvStore" />
+            <!--<TextView-->
+                <!--android:id="@+id/fragment_new_sale_tvCatrgory"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="36dp"-->
+                <!--android:text="Category:"-->
+                <!--android:textSize="18sp"-->
+                <!--android:textStyle="bold"-->
+                <!--app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvStore"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvStore" />-->
 
-            <EditText
-                android:id="@+id/fragment_new_sale_etCatrgory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="12dp"
-                android:ems="10"
-                android:hint="Category"
-                android:inputType="textPersonName"
+            <!--<EditText-->
+                <!--android:id="@+id/fragment_new_sale_etCatrgory"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginStart="16dp"-->
+                <!--android:layout_marginTop="12dp"-->
+                <!--android:ems="10"-->
+                <!--android:hint="Category"-->
+                <!--android:inputType="textPersonName"-->
 
-                app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvCatrgory"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etStore" />
+                <!--app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_tvCatrgory"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_etStore" />-->
 
             <Button
                 android:id="@+id/fragment_new_sale_btnSaveSale"
@@ -240,8 +240,8 @@
                 android:layout_marginTop="40dp"
                 android:text="Save"
                 app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvCatrgory"
-                app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvCatrgory" />
+                app:layout_constraintStart_toStartOf="@+id/fragment_new_sale_tvStore"
+                app:layout_constraintTop_toBottomOf="@+id/fragment_new_sale_tvStore" />
 
             <TextView
                 android:id="@+id/fragment_new_sale_tvTitle"
@@ -269,10 +269,10 @@
                 android:id="@+id/fragment_new_sale_btnCancelSale"
                 android:layout_width="88dp"
                 android:layout_height="48dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginStart="65dp"
                 android:text="Cancel"
                 app:layout_constraintBottom_toBottomOf="@+id/fragment_new_sale_btnSaveSale"
-                app:layout_constraintEnd_toEndOf="@+id/fragment_new_sale_etCatrgory" />
+                app:layout_constraintStart_toEndOf="@+id/fragment_new_sale_etStore" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

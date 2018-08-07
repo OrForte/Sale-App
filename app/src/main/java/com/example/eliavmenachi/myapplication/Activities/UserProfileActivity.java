@@ -2,6 +2,7 @@ package com.example.eliavmenachi.myapplication.Activities;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +11,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.eliavmenachi.myapplication.Entities.Consts;
 import com.example.eliavmenachi.myapplication.Entities.User;
 import com.example.eliavmenachi.myapplication.Fragments.EditUserProfileFragment;
+import com.example.eliavmenachi.myapplication.Fragments.NewSaleFragment;
 import com.example.eliavmenachi.myapplication.R;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
@@ -55,8 +58,6 @@ public class UserProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
                         Toast.makeText(UserProfileActivity.this, "Signed out successfully", Toast.LENGTH_LONG).show();
-
-                        User user = userViewModel.getCurrentUser().getValue();
                         finish();
                     }
 

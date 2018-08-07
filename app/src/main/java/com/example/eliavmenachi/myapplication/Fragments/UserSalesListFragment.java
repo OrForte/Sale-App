@@ -133,7 +133,7 @@ public class UserSalesListFragment extends Fragment {
         @Override
         public int getCount() {
             int nCount = 0;
-            if (saleListViewModel != null) {
+            if (saleListViewModel != null && currentUser != null) {
                 LiveData<List<Sale>> data = saleListViewModel.getSaleListByUserId(currentUser.id);
 
                 if (data != null) {
