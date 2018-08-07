@@ -5,16 +5,12 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,9 +40,6 @@ import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewMod
 import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,6 +54,9 @@ public class NewSaleFragment extends Fragment {
     private static final String DESCRIPTION = "REPEAT_PASSWORD";
     private static final String PICTURE = "PICTURE";
     private static final String URL = "InstanceState.png";
+    private static final String CITY = "CITY";
+    private static final String MALL = "MALL";
+    private static final String STORE = "STORE";
 
 
     public int HEIGHT = 600;
@@ -106,8 +102,7 @@ public class NewSaleFragment extends Fragment {
     User currentUser;
     TextView etTitle;
     View mainLayout;
-    boolean bIsInstanceState = false;
-
+    Bundle m_savedInstanceState;
 
     @Override
     public void onAttach(Context context) {
@@ -128,9 +123,8 @@ public class NewSaleFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             final Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         bIsOccur = false;
         View view = inflater.inflate(R.layout.fragment_new_sale, container, false);
         dropDownCities = view.findViewById(R.id.fragment_new_sale_etCity);
@@ -152,6 +146,9 @@ public class NewSaleFragment extends Fragment {
 
         progressBarSaveNewSale = view.findViewById(R.id.fragment_new_sale_progress);
         progressBarSaveNewSale.setVisibility(View.GONE);
+
+        m_savedInstanceState = savedInstanceState;
+
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData listData) {
@@ -175,7 +172,6 @@ public class NewSaleFragment extends Fragment {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
                     if (sale != null) {
-                        if (!bIsInstanceState) {
                             //nCounterQuery++;
                             //if (nCounterQuery >= 2) {
                             newSale = sale;
@@ -185,9 +181,8 @@ public class NewSaleFragment extends Fragment {
                             btnCancelOrDelete.setText("delete");
                             // populate the data
                             PopulateTheView();
-                            LoadDataAfterInstanceState(savedInstanceState);
+                            LoadDataAfterInstanceState(m_savedInstanceState);
                             //}
-                        }
                     }
                 }
             });
@@ -303,9 +298,6 @@ public class NewSaleFragment extends Fragment {
         // set the drop down cities
         dropDownCities.setAdapter(adapterCities);
 
-        int positionCity = adapterCities.getPosition(selectedCityName);
-        dropDownCities.setSelection(positionCity);
-
         dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -316,6 +308,18 @@ public class NewSaleFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+        if (m_savedInstanceState != null) {
+            String cityString = m_savedInstanceState.getString(CITY);
+            if (cityString != null) {
+                int cityInt = Integer.parseInt(cityString);
+                if (cityInt >= dropDownCities.getAdapter().getCount()) {
+                    cityInt = 0;
+                }
+
+                dropDownCities.setSelection(cityInt, true);
+            }
+        }
     }
 
     public void AddNewSaleToFireBase(String newId) {
@@ -340,22 +344,17 @@ public class NewSaleFragment extends Fragment {
     }
 
     public boolean isConnected() {
-        ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (activeNetwork != null && activeNetwork.isConnected())
-        {
-            try
-            {
+        if (activeNetwork != null && activeNetwork.isConnected()) {
+            try {
                 return true;
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 Toast.makeText(getActivity(), "internet not connected",
                         Toast.LENGTH_LONG).show();
                 return false;
             }
-        }
-        else {
+        } else {
             Toast.makeText(getActivity(), "internet not connected",
                     Toast.LENGTH_LONG).show();
             return false;
@@ -397,8 +396,7 @@ public class NewSaleFragment extends Fragment {
         mallNames = dataModel.GetMallNamesByCityId(selectedCity.id, listData);
         adapterMalls = SetAdapter(mallNames);
         dropDownMalls.setAdapter(adapterMalls);
-        int positionMall = adapterMalls.getPosition(selectedMallName);
-        dropDownMalls.setSelection(positionMall);
+
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -409,6 +407,18 @@ public class NewSaleFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+        if (m_savedInstanceState != null) {
+            String mallString = m_savedInstanceState.getString(MALL);
+            if (mallString != null) {
+                int mallInt = Integer.parseInt(mallString);
+                if (mallInt >= dropDownMalls.getAdapter().getCount()) {
+                    mallInt = 0;
+                }
+
+                dropDownMalls.setSelection(mallInt, true);
+            }
+        }
     }
 
     public void OnSelectedMall(AdapterView<?> adapterView, View view, int position, long l) {
@@ -421,8 +431,7 @@ public class NewSaleFragment extends Fragment {
         }
         adapterStores = SetAdapter(storeNames);
         dropDownStores.setAdapter(adapterStores);
-        int positionStore = adapterStores.getPosition(selectedStoreName);
-        dropDownStores.setSelection(positionStore);
+
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -433,6 +442,18 @@ public class NewSaleFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+        if (m_savedInstanceState != null) {
+            String storeString = m_savedInstanceState.getString(STORE);
+            if (storeString != null) {
+                int storeInt = Integer.parseInt(storeString);
+                if (storeInt >= dropDownStores.getAdapter().getCount()) {
+                    storeInt = 0;
+                }
+
+                dropDownStores.setSelection(storeInt, true);
+            }
+        }
     }
 
     public void OnSelectedStore(AdapterView<?> adapterView, View view, int position, long l) {
@@ -490,12 +511,9 @@ public class NewSaleFragment extends Fragment {
                     if (store != null) {
                         selectedStoreName = store.name;
                     }
-
-
                     if (selectedCityName != null && selectedStoreName != null && selectedMallName != null) {
                         SetListOfCities(data);
                     }
-
                     rlProgressBar.setVisibility(View.GONE);
                 }
             }
@@ -503,19 +521,20 @@ public class NewSaleFragment extends Fragment {
     }
 
     @Override
-    public void  onSaveInstanceState(Bundle bundle){
+    public void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
         bundle.putString(TITLE, etTitle.getText().toString());
         bundle.putString(DESCRIPTION, etDescription.getText().toString());
         bundle.putString(END_DATE, etEndDate.getText().toString());
+        bundle.putString(CITY, dropDownCities.getSelectedItemPosition() + "");
+        bundle.putString(MALL, dropDownMalls.getSelectedItemPosition() + "");
+        bundle.putString(STORE, dropDownStores.getSelectedItemPosition() + "");
 
         ImageModel.instance.saveImageToFile(imageBitmap, URL);
     }
 
-    public void LoadDataAfterInstanceState(Bundle savedInstanceState)
-    {
-        if (savedInstanceState != null)
-        {
+    public void LoadDataAfterInstanceState(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
             String title = savedInstanceState.getString(TITLE);
             if (title != null) {
                 etTitle.setText(title);
@@ -529,12 +548,13 @@ public class NewSaleFragment extends Fragment {
                 etEndDate.setText(endDate);
             }
             Bitmap bitMap = ImageModel.instance.loadImageFromFile(URL);
-            if (bitMap != null){
+            if (bitMap != null) {
                 imageSale.setImageBitmap(bitMap);
                 imageBitmap = bitMap;
                 ImageModel.instance.DeleteImage(URL);
             }
-            bIsInstanceState = true;
+
+            m_savedInstanceState = savedInstanceState;
         }
     }
 }

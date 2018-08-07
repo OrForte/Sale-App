@@ -28,6 +28,10 @@ import java.util.List;
 
 public class ChooseLocationFragment extends Fragment {
 
+    private static final String CITY = "CITY";
+    private static final String MALL = "MALL";
+    private static final String STORE = "STORE";
+
     CityMallAndStoreViewModel dataModel;
     ListData listData = new ListData();
     Spinner dropDownCities;
@@ -43,6 +47,7 @@ public class ChooseLocationFragment extends Fragment {
     int cityId;
     Button btnShowSales;
     View rlProgressBar;
+    Bundle m_savedInstanceState;
 
     @Override
     public void onAttach(Context context) {
@@ -66,6 +71,8 @@ public class ChooseLocationFragment extends Fragment {
         btnShowSales = view.findViewById(R.id.btnShowSales);
         rlProgressBar = view.findViewById(R.id.fragment_choose_location_rlProgressBar);
 
+        m_savedInstanceState = savedInstanceState;
+
         dataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
@@ -80,7 +87,6 @@ public class ChooseLocationFragment extends Fragment {
 
         btnShowSales.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
                 FragmentManager fragmentManager = getFragmentManager();
                 SalesListFragment fragment = new SalesListFragment();
                 Bundle args = new Bundle();
@@ -90,7 +96,6 @@ public class ChooseLocationFragment extends Fragment {
                 tran.replace(R.id.main_container, fragment);
                 tran.addToBackStack(null);
                 tran.commit();
-
             }
         });
 
@@ -119,6 +124,18 @@ public class ChooseLocationFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+        if (m_savedInstanceState != null) {
+            String cityString = m_savedInstanceState.getString(CITY);
+            if (cityString != null) {
+                int cityInt = Integer.parseInt(cityString);
+                if (cityInt >= dropDownCities.getAdapter().getCount()) {
+                    cityInt = 0;
+                }
+
+                dropDownCities.setSelection(Integer.parseInt(cityString), true);
+            }
+        }
     }
 
     public void OnSelectedCity(AdapterView<?> adapterView, View view, final int position, long l) {
@@ -132,6 +149,7 @@ public class ChooseLocationFragment extends Fragment {
         mallNames = dataModel.GetMallNamesByCityId(selectedCity.id, listData);
         ArrayAdapter<String> adapter = SetAdapter(mallNames);
         dropDownMalls.setAdapter(adapter);
+
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -142,6 +160,18 @@ public class ChooseLocationFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+        if (m_savedInstanceState != null) {
+            String mallString = m_savedInstanceState.getString(MALL);
+            if (mallString != null) {
+                int mallInt = Integer.parseInt(mallString);
+                if (mallInt >= dropDownMalls.getAdapter().getCount()) {
+                    mallInt = 0;
+                }
+
+                dropDownMalls.setSelection(mallInt, true);
+            }
+        }
     }
 
     public void OnSelectedMall(AdapterView<?> adapterView, View view, int position, long l) {
@@ -165,10 +195,23 @@ public class ChooseLocationFragment extends Fragment {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
+
+        if (m_savedInstanceState != null) {
+            String storeString = m_savedInstanceState.getString(STORE);
+            if (storeString != null) {
+                int storeInt = Integer.parseInt(storeString);
+                if (storeInt >= dropDownStores.getAdapter().getCount()) {
+                    storeInt = 0;
+                }
+
+                dropDownStores.setSelection(storeInt, true);
+            }
+        }
     }
 
     public void OnSelectedStore(AdapterView<?> adapterView, View view, int position, long l) {
         selectedStoreName = adapterView.getItemAtPosition(position).toString();
+
         Store selectedStore = dataModel.GetStoreByStoreName(selectedStoreName, listData);
         if (selectedStore != null) {
             storeId = selectedStore.id;
@@ -179,5 +222,13 @@ public class ChooseLocationFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, collection);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         return adapter;
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        bundle.putString(CITY, dropDownCities.getSelectedItemPosition() + "");
+        bundle.putString(MALL, dropDownMalls.getSelectedItemPosition() + "");
+        bundle.putString(STORE, dropDownStores.getSelectedItemPosition() + "");
     }
 }

@@ -87,7 +87,7 @@ public class SaleModelFirebase {
 
     public void cancellGetAllSales() {
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("sale");
-        if (stRef != null) {
+        if (eventListener != null) {
             stRef.removeEventListener(eventListener);
         }
     }

@@ -61,18 +61,6 @@ public class EditUserProfileFragment extends Fragment {
         cityDataModel = ViewModelProviders.of(this).get(CityMallAndStoreViewModel.class);
     }
 
-    private void selectSpinnerValue(Spinner spinner, String myString) {
-        int index = 0;
-        for (int i = 0; i < spinner.getCount(); i++) {
-            if (spinner.getItemAtPosition(i).toString().equals(myString)) {
-                if (spinner.getSelectedItemPosition() != i) {
-                    spinner.setSelection(i);
-                }
-                break;
-            }
-        }
-    }
-
     public void setListOfCities(ListData data) {
         cityListData = data;
         List<String> citiesNames = cityDataModel.GetCityNames(cityListData);
