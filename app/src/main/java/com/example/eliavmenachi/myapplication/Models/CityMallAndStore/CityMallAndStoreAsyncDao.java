@@ -47,29 +47,34 @@ public class CityMallAndStoreAsyncDao {
         class MyAsynchTask extends AsyncTask<ListData, String, Boolean> {
             @Override
             protected Boolean doInBackground(ListData... data) {
-
-                if (data != null) {
-                    if (data[0] != null) {
-                        if (data[0].cities != null) {
-                            for (City currCity : data[0].cities) {
-                                if (currCity != null) {
-                                    MainAppLocalDb.db.CityMallAndStoreDao().insertCities(currCity);
+                try {
+                    if (data != null) {
+                        if (data[0] != null) {
+                            if (data[0].cities != null) {
+                                for (City currCity : data[0].cities) {
+                                    if (currCity != null) {
+                                        MainAppLocalDb.db.CityMallAndStoreDao().insertCities(currCity);
+                                    }
                                 }
-                            }
 
-                            for (Mall currMall : data[0].malls) {
-                                if (currMall != null) {
-                                    MainAppLocalDb.db.CityMallAndStoreDao().insertMalls(currMall);
+                                for (Mall currMall : data[0].malls) {
+                                    if (currMall != null) {
+                                        MainAppLocalDb.db.CityMallAndStoreDao().insertMalls(currMall);
+                                    }
                                 }
-                            }
 
-                            for (Store currStore : data[0].stores) {
-                                if (currStore != null) {
-                                    MainAppLocalDb.db.CityMallAndStoreDao().insertStores(currStore);
+                                for (Store currStore : data[0].stores) {
+                                    if (currStore != null) {
+                                        MainAppLocalDb.db.CityMallAndStoreDao().insertStores(currStore);
+                                    }
                                 }
                             }
                         }
                     }
+                }
+                catch (Exception e)
+                {
+                    return true;
                 }
                 return true;
             }
