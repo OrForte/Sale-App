@@ -35,7 +35,6 @@ public class UserProfileActivity extends AppCompatActivity {
             EditUserProfileFragment fragment = new EditUserProfileFragment();
             FragmentTransaction tran = getSupportFragmentManager().beginTransaction();
             tran.add(R.id.main_container, fragment);
-            //tran.addToBackStack("");
             tran.commit();
         }
     }

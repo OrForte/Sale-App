@@ -36,7 +36,6 @@ public class UserModelFirebase {
     public void getUserById(String id, final GetUserByIdListener listener) {
         DatabaseReference stRef = FirebaseDatabase.getInstance().getReference().child("users");
 
-        //eventListener = stRef.child(key).addChildEventListener(new
         eventListener = stRef.orderByChild("id").equalTo(id).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

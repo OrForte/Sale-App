@@ -26,7 +26,6 @@ public class SalesAsyncDao {
                 if (a != null) {
                     if (MainAppLocalDb.db.saleDao().getAll() != null) {
                         sList = MainAppLocalDb.db.saleDao().getAll();
-                        //DeleteAllSales(sList);
                     }
                 }
                 return sList;

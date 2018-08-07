@@ -97,7 +97,6 @@ public class RegisterFragment extends Fragment {
                     user.firstName = firstNameEt.getText().toString();
                     user.lastName = lastNameEt.getText().toString();
                     user.username = userNameEt.getText().toString();
-                    //user.id = userNameEt.getText().toString();
                     user.birthDate = etEndDate.getText().toString();
                     user.city = cityId;
 

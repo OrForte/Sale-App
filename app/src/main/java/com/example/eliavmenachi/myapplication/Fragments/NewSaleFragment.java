@@ -263,19 +263,6 @@ public class NewSaleFragment extends Fragment {
         progressBarSaveNewSale.setVisibility(View.GONE);
 
         getFragmentManager().popBackStack();
-//        if (!bUpdateMode || m_SaleListTypeParams.equals(Consts.instance.ALL)) {
-//            FragmentManager fragmentManager = getFragmentManager();
-//            SalesListFragment fragment = new SalesListFragment();
-//            FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-//            tran.replace(R.id.main_container, fragment);
-//            tran.commit();
-//        } else if (m_SaleListTypeParams.equals(Consts.instance.BY_USER)) {
-//            FragmentManager fragmentManager = getFragmentManager();
-//            UserSalesListFragment fragment = new UserSalesListFragment();
-//            FragmentTransaction tran = getActivity().getSupportFragmentManager().beginTransaction();
-//            tran.replace(R.id.main_container, fragment);
-//            tran.commit();
-//        }
     }
 
     public void SetListOfCities(ListData data) {
@@ -442,8 +429,6 @@ public class NewSaleFragment extends Fragment {
         dataModel.getData().observe(this, new Observer<ListData>() {
             @Override
             public void onChanged(@Nullable ListData data) {
-                //listData = new ListData();
-                //listData = data;
                 if (newSale != null) {
                     City city = dataModel.GetCityByCityId(newSale.cityId, data);
                     if (city != null) {
