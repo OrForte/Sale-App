@@ -5,12 +5,15 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +43,9 @@ import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewMod
 import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -189,21 +195,24 @@ public class NewSaleFragment extends Fragment {
             public void onClick(View view) {
                 // TODO: need to save the data to firebase
                 // TODO: add spinner to the loading of save
-                progressBarSaveNewSale.setVisibility(View.VISIBLE);
-                if (newSale == null) {
-                    newSale = new Sale();
-                    newSale.id = "0";
 
-                    String SeqName = "saleSeq";
-                    dataModelSale.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
-                        @Override
-                        public void onGetNextSeq(String p_next) {
-                            AddNewSaleToFireBase(p_next);
-                        }
-                    });
-                } else {
-                    int nId = 1;
-                    AddNewSaleToFireBase(newSale.id);
+                progressBarSaveNewSale.setVisibility(View.VISIBLE);
+                if (isConnected()) {
+                    if (newSale == null) {
+                        newSale = new Sale();
+                        newSale.id = "0";
+
+                        String SeqName = "saleSeq";
+                        dataModelSale.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
+                            @Override
+                            public void onGetNextSeq(String p_next) {
+                                AddNewSaleToFireBase(p_next);
+                            }
+                        });
+                    } else {
+                        int nId = 1;
+                        AddNewSaleToFireBase(newSale.id);
+                    }
                 }
             }
         });
@@ -227,16 +236,18 @@ public class NewSaleFragment extends Fragment {
             public void onClick(View view) {
                 if (bUpdateMode == true) {
                     newSale.active = false;
-                    dataModelSale.deleteLogicSale(newSale, new SaleModel.deleteLogicSaleListener() {
-                        @Override
-                        public void onDeleteLogicSale(boolean b_isDelete) {
-                            if (b_isDelete == true) {
-                                Toast.makeText(getActivity(), "Sale deleted successfully.",
-                                        Toast.LENGTH_LONG).show();
-                                GetToSaleListFragments();
+                    if (isConnected()) {
+                        dataModelSale.deleteLogicSale(newSale, new SaleModel.deleteLogicSaleListener() {
+                            @Override
+                            public void onDeleteLogicSale(boolean b_isDelete) {
+                                if (b_isDelete == true) {
+                                    Toast.makeText(getActivity(), "Sale deleted successfully.",
+                                            Toast.LENGTH_LONG).show();
+                                    GetToSaleListFragments();
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 } else {
                     getFragmentManager().popBackStack();
                 }
@@ -319,6 +330,29 @@ public class NewSaleFragment extends Fragment {
             });
         } else {
             addSaleToFireBase();
+        }
+    }
+
+    public boolean isConnected() {
+        ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnected())
+        {
+            try
+            {
+                return true;
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(getActivity(), "internet not connected",
+                        Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        else {
+            Toast.makeText(getActivity(), "internet not connected",
+                    Toast.LENGTH_LONG).show();
+            return false;
         }
     }
 
