@@ -69,7 +69,7 @@ public class ImageModel {
         }
     }
 
-    private void saveImageToFile(Bitmap imageBitmap, String imageFileName) {
+    public void saveImageToFile(Bitmap imageBitmap, String imageFileName) {
         if (imageBitmap == null) return;
         try {
             File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
@@ -91,7 +91,7 @@ public class ImageModel {
         }
     }
 
-    private Bitmap loadImageFromFile(String imageFileName) {
+    public Bitmap loadImageFromFile(String imageFileName) {
         Bitmap bitmap = null;
         try {
             File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
@@ -105,6 +105,19 @@ public class ImageModel {
             e.printStackTrace();
         }
         return bitmap;
+    }
+
+    public void DeleteImage(String p_strUrl)
+    {
+        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        File fdelete = new File(dir, p_strUrl);
+        if (fdelete.exists()) {
+            if (fdelete.delete()) {
+                System.out.println("file Deleted :" + p_strUrl);
+            } else {
+                System.out.println("file not Deleted :" + p_strUrl);
+            }
+        }
     }
 
     //endregion

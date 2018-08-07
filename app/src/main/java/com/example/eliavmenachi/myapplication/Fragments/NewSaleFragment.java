@@ -5,12 +5,16 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,6 +44,9 @@ import com.example.eliavmenachi.myapplication.ViewModels.CityMallAndStoreViewMod
 import com.example.eliavmenachi.myapplication.ViewModels.SaleListViewModel;
 import com.example.eliavmenachi.myapplication.ViewModels.UserViewModel;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -48,6 +55,13 @@ import java.util.List;
 import static android.app.Activity.RESULT_OK;
 
 public class NewSaleFragment extends Fragment {
+
+    private static final String END_DATE = "END_DATE";
+    private static final String TITLE = "TITLE";
+    private static final String DESCRIPTION = "REPEAT_PASSWORD";
+    private static final String PICTURE = "PICTURE";
+    private static final String URL = "InstanceState.png";
+
 
     public int HEIGHT = 600;
     public int WIDTH = 600;
@@ -92,6 +106,8 @@ public class NewSaleFragment extends Fragment {
     User currentUser;
     TextView etTitle;
     View mainLayout;
+    boolean bIsInstanceState = false;
+
 
     @Override
     public void onAttach(Context context) {
@@ -112,7 +128,7 @@ public class NewSaleFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         bIsOccur = false;
@@ -159,8 +175,9 @@ public class NewSaleFragment extends Fragment {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
                     if (sale != null) {
-                        nCounterQuery++;
-                        if (nCounterQuery >= 2) {
+                        if (!bIsInstanceState) {
+                            //nCounterQuery++;
+                            //if (nCounterQuery >= 2) {
                             newSale = sale;
 
                             title.setText("sale " + newSale.id);
@@ -168,6 +185,8 @@ public class NewSaleFragment extends Fragment {
                             btnCancelOrDelete.setText("delete");
                             // populate the data
                             PopulateTheView();
+                            LoadDataAfterInstanceState(savedInstanceState);
+                            //}
                         }
                     }
                 }
@@ -175,27 +194,31 @@ public class NewSaleFragment extends Fragment {
         } else {
             btnCancelOrDelete.setText("Cancel");
             rlProgressBar.setVisibility(View.GONE);
+            LoadDataAfterInstanceState(savedInstanceState);
         }
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 // TODO: need to save the data to firebase
                 // TODO: add spinner to the loading of save
-                progressBarSaveNewSale.setVisibility(View.VISIBLE);
-                if (newSale == null) {
-                    newSale = new Sale();
-                    newSale.id = "0";
 
-                    String SeqName = "saleSeq";
-                    dataModelSale.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
-                        @Override
-                        public void onGetNextSeq(String p_next) {
-                            AddNewSaleToFireBase(p_next);
-                        }
-                    });
-                } else {
-                    int nId = 1;
-                    AddNewSaleToFireBase(newSale.id);
+                progressBarSaveNewSale.setVisibility(View.VISIBLE);
+                if (isConnected()) {
+                    if (newSale == null) {
+                        newSale = new Sale();
+                        newSale.id = "0";
+
+                        String SeqName = "saleSeq";
+                        dataModelSale.GetNextSequenceSale(SeqName, new SaleModel.GetNextSequenceListener() {
+                            @Override
+                            public void onGetNextSeq(String p_next) {
+                                AddNewSaleToFireBase(p_next);
+                            }
+                        });
+                    } else {
+                        int nId = 1;
+                        AddNewSaleToFireBase(newSale.id);
+                    }
                 }
             }
         });
@@ -219,16 +242,18 @@ public class NewSaleFragment extends Fragment {
             public void onClick(View view) {
                 if (bUpdateMode == true) {
                     newSale.active = false;
-                    dataModelSale.deleteLogicSale(newSale, new SaleModel.deleteLogicSaleListener() {
-                        @Override
-                        public void onDeleteLogicSale(boolean b_isDelete) {
-                            if (b_isDelete == true) {
-                                Toast.makeText(getActivity(), "Sale deleted successfully.",
-                                        Toast.LENGTH_LONG).show();
-                                GetToSaleListFragments();
+                    if (isConnected()) {
+                        dataModelSale.deleteLogicSale(newSale, new SaleModel.deleteLogicSaleListener() {
+                            @Override
+                            public void onDeleteLogicSale(boolean b_isDelete) {
+                                if (b_isDelete == true) {
+                                    Toast.makeText(getActivity(), "Sale deleted successfully.",
+                                            Toast.LENGTH_LONG).show();
+                                    GetToSaleListFragments();
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 } else {
                     getFragmentManager().popBackStack();
                 }
@@ -311,6 +336,29 @@ public class NewSaleFragment extends Fragment {
             });
         } else {
             addSaleToFireBase();
+        }
+    }
+
+    public boolean isConnected() {
+        ConnectivityManager cm = (ConnectivityManager)getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnected())
+        {
+            try
+            {
+                return true;
+            }
+            catch (Exception e)
+            {
+                Toast.makeText(getActivity(), "internet not connected",
+                        Toast.LENGTH_LONG).show();
+                return false;
+            }
+        }
+        else {
+            Toast.makeText(getActivity(), "internet not connected",
+                    Toast.LENGTH_LONG).show();
+            return false;
         }
     }
 
@@ -452,5 +500,41 @@ public class NewSaleFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void  onSaveInstanceState(Bundle bundle){
+        super.onSaveInstanceState(bundle);
+        bundle.putString(TITLE, etTitle.getText().toString());
+        bundle.putString(DESCRIPTION, etDescription.getText().toString());
+        bundle.putString(END_DATE, etEndDate.getText().toString());
+
+        ImageModel.instance.saveImageToFile(imageBitmap, URL);
+    }
+
+    public void LoadDataAfterInstanceState(Bundle savedInstanceState)
+    {
+        if (savedInstanceState != null)
+        {
+            String title = savedInstanceState.getString(TITLE);
+            if (title != null) {
+                etTitle.setText(title);
+            }
+            String desc = savedInstanceState.getString(DESCRIPTION);
+            if (desc != null) {
+                etDescription.setText(desc);
+            }
+            String endDate = savedInstanceState.getString(END_DATE);
+            if (endDate != null) {
+                etEndDate.setText(endDate);
+            }
+            Bitmap bitMap = ImageModel.instance.loadImageFromFile(URL);
+            if (bitMap != null){
+                imageSale.setImageBitmap(bitMap);
+                imageBitmap = bitMap;
+                ImageModel.instance.DeleteImage(URL);
+            }
+            bIsInstanceState = true;
+        }
     }
 }
