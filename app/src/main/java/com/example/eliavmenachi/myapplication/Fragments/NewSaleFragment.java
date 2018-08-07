@@ -171,8 +171,8 @@ public class NewSaleFragment extends Fragment {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
                     if (sale != null) {
-                        nCounterQuery++;
-                        if (nCounterQuery >= 2) {
+                        //nCounterQuery++;
+                        //if (nCounterQuery >= 2) {
                             newSale = sale;
 
                             title.setText("sale " + newSale.id);
@@ -181,7 +181,7 @@ public class NewSaleFragment extends Fragment {
                             // populate the data
                             PopulateTheView();
                             LoadDataAfterInstanceState(savedInstanceState);
-                        }
+                        //}
                     }
                 }
             });
