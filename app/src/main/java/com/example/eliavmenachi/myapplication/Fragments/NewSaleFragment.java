@@ -58,7 +58,6 @@ public class NewSaleFragment extends Fragment {
     private static final String MALL = "MALL";
     private static final String STORE = "STORE";
 
-
     public int HEIGHT = 600;
     public int WIDTH = 600;
     ListData listData = new ListData();
@@ -172,7 +171,7 @@ public class NewSaleFragment extends Fragment {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
                     if (sale != null) {
-                        if (!bIsInstanceState && !m_bIsChangedImage) {
+                        if (!m_bIsChangedImage) {
                             //nCounterQuery++;
                             //if (nCounterQuery >= 2) {
                             newSale = sale;
@@ -184,6 +183,7 @@ public class NewSaleFragment extends Fragment {
                             PopulateTheView();
                             LoadDataAfterInstanceState(m_savedInstanceState);
                             //}
+                        }
                     }
                 }
             });
