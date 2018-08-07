@@ -34,7 +34,7 @@ public class EditUserProfileFragment extends Fragment {
     CityMallAndStoreViewModel cityDataModel;
     UserViewModel userViewModel;
 
-       EditText etUserName;
+    EditText etUserName;
     EditText etFirstName;
     EditText etLastName;
     Spinner spCity;
@@ -82,6 +82,7 @@ public class EditUserProfileFragment extends Fragment {
 
         // set the drop down cities
         spCity.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         if (currentUser != null) {
             if (cityListData.cities.size() > 0) {
@@ -95,18 +96,6 @@ public class EditUserProfileFragment extends Fragment {
                 }
             }
         }
-
-        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                String selectedCityName = adapterView.getItemAtPosition(position).toString();
-                selectedCity = cityDataModel.GetCityByCityName(selectedCityName, cityListData);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
     }
 
     public ArrayAdapter<String> setAdapter(List<String> collection) {
@@ -127,13 +116,25 @@ public class EditUserProfileFragment extends Fragment {
         etLastName = view.findViewById(R.id.fragment_edit_user_etLastName);
 //        etPassword = view.findViewById(R.id.fragment_edit_user_etNewPassword);
 //        etRetypeNewPassword = view.findViewById(R.id.fragment_edit_user_etRetypeNewPassword);
-      //  etEmail = view.findViewById(R.id.fragment_edit_user_etEmail);
+        //  etEmail = view.findViewById(R.id.fragment_edit_user_etEmail);
         etBirthDate = view.findViewById(R.id.fragment_edit_user_etBirthDate);
         spCity = view.findViewById(R.id.fragment_edit_user_spCity);
         rlProgressBar = view.findViewById(R.id.fragment_edit_user_rlProgressBar);
 
         pbProgressBar = view.findViewById(R.id.fragment_edit_user_pbProgressBar2);
         tvProgressBar = view.findViewById(R.id.fragment_edit_user_tvProgressBar);
+
+        spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                String selectedCityName = adapterView.getItemAtPosition(position).toString();
+                selectedCity = cityDataModel.GetCityByCityName(selectedCityName, cityListData);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
 
         cityDataModel.getData().observe(this, new Observer<ListData>() {
             @Override
@@ -150,16 +151,6 @@ public class EditUserProfileFragment extends Fragment {
                             etFirstName.setText(user.firstName);
                             etLastName.setText(user.lastName);
 
-                            if (cityListData.cities.size() > 0) {
-                                City city = cityDataModel.GetCityByCityId(user.city, cityListData);
-                                if (city != null) {
-                                    ArrayAdapter<String> adapterString = (ArrayAdapter<String>) spCity.getAdapter();
-                                    if (adapterString != null) {
-                                        int selectedCityIndex = adapterString.getPosition(city.name);
-                                        spCity.setSelection(selectedCityIndex);
-                                    }
-                                }
-                            }
                             etBirthDate.setText(user.birthDate);
 //                                etEmail.setText(user.email);
 
@@ -181,7 +172,13 @@ public class EditUserProfileFragment extends Fragment {
                                     etBirthDate.setText(endDate);
                                 }
 
-                                if (cityListData.cities.size() > 0) {
+                                if (savedInstanceState != null) {
+                                    String cityString = savedInstanceState.getString(CITY);
+                                    if (cityString != null) {
+                                        spCity.setSelection(Integer.parseInt(cityString), true);
+                                    }
+                                }
+                                else if (cityListData.cities.size() > 0) {
                                     City city = cityDataModel.GetCityByCityId(user.city, cityListData);
                                     if (city != null) {
                                         ArrayAdapter<String> adapterString = (ArrayAdapter<String>) spCity.getAdapter();
@@ -201,8 +198,7 @@ public class EditUserProfileFragment extends Fragment {
         });
 
 
-        final Button btnUpdateProfile = view.findViewById(R.id.fragment_edit_user_btnUpdateProfile);
-
+        Button btnUpdateProfile = view.findViewById(R.id.fragment_edit_user_btnUpdateProfile);
         btnUpdateProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,11 +267,12 @@ public class EditUserProfileFragment extends Fragment {
     }
 
     @Override
-    public void  onSaveInstanceState(Bundle bundle){
+    public void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
         bundle.putString(FIRST_NAME, etFirstName.getText().toString());
         bundle.putString(LAST_NAME, etLastName.getText().toString());
         bundle.putString(USER_NAME, etUserName.getText().toString());
         bundle.putString(END_DATE, etBirthDate.getText().toString());
+        bundle.putString(CITY, spCity.getSelectedItemPosition() + "");
     }
 }

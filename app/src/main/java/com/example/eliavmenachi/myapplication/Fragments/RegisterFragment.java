@@ -78,12 +78,11 @@ public class RegisterFragment extends Fragment {
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_register, container, false);
+        final View view = inflater.inflate(R.layout.fragment_register, container, false);
 
         mainLayout = view.findViewById(R.id.fragment_register_constraintLayout);
 
@@ -103,6 +102,14 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onChanged(@Nullable ListData data) {
                 SetListOfCities(data);
+
+                if (savedInstanceState != null && dropDownCities != null) {
+                    String cityString = savedInstanceState.getString(CITY);
+                    if (cityString != null) {
+                        int cityIndex = Integer.parseInt(cityString);
+                        dropDownCities.setSelection(cityIndex, true);
+                    }
+                }
             }
         });
 
@@ -157,6 +164,21 @@ public class RegisterFragment extends Fragment {
                         }
                     });
                 }
+            }
+        });
+
+        dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                selectedCityName = adapterView.getItemAtPosition(position).toString();
+                City selectedCity = cityDataModel.GetCityByCityName(selectedCityName, listData);
+                if (selectedCity != null) {
+                    cityId = selectedCity.id;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
 
@@ -251,26 +273,11 @@ public class RegisterFragment extends Fragment {
     }
 
     public void SetListOfCities(ListData data) {
-        listData = new ListData();
         listData = data;
         citiesNames = cityDataModel.GetCityNames(listData);
         adapterCities = SetAdapter(citiesNames);
         dropDownCities.setAdapter(adapterCities);
-
-        dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-                selectedCityName = adapterView.getItemAtPosition(position).toString();
-                City selectedCity = cityDataModel.GetCityByCityName(selectedCityName, listData);
-                if (selectedCity != null) {
-                    cityId = selectedCity.id;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-            }
-        });
+        adapterCities.notifyDataSetChanged();
     }
 
     public ArrayAdapter<String> SetAdapter(List<String> collection) {
@@ -280,7 +287,7 @@ public class RegisterFragment extends Fragment {
     }
 
     @Override
-    public void  onSaveInstanceState(Bundle bundle){
+    public void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
         bundle.putString(FIRST_NAME, firstNameEt.getText().toString());
         bundle.putString(LAST_NAME, lastNameEt.getText().toString());
@@ -289,6 +296,6 @@ public class RegisterFragment extends Fragment {
         bundle.putString(PASSWORD, passwordEt.getText().toString());
         bundle.putString(REPEAT_PASSWORD, repeatPasswordEt.getText().toString());
         bundle.putString(END_DATE, etEndDate.getText().toString());
-        bundle.putString(CITY, cityId+"");
+        bundle.putString(CITY, dropDownCities.getSelectedItemPosition()+ "");
     }
 }
