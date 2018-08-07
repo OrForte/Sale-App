@@ -35,6 +35,15 @@ public class RegisterFragment extends Fragment {
 
     final User user = new User();
 
+    private static final String FIRST_NAME = "FIRST_NAME";
+    private static final String LAST_NAME = "LAST_NAME";
+    private static final String MAIL = "MAIL";
+    private static final String USER_NAME = "USER_NAME";
+    private static final String END_DATE = "END_DATE";
+    private static final String PASSWORD = "PASSWORD";
+    private static final String REPEAT_PASSWORD = "REPEAT_PASSWORD";
+    private static final String CITY = "CITY";
+
     EditText firstNameEt;
     EditText lastNameEt;
     EditText passwordEt;
@@ -123,6 +132,44 @@ public class RegisterFragment extends Fragment {
             }
         });
 
+        if (savedInstanceState != null) {
+            String firstName = savedInstanceState.getString(FIRST_NAME);
+            if (firstName != null) {
+                firstNameEt.setText(firstName);
+            }
+            String lastName = savedInstanceState.getString(LAST_NAME);
+            if (lastName != null) {
+                lastNameEt.setText(lastName);
+            }
+            String mail = savedInstanceState.getString(MAIL);
+            if (mail != null) {
+                mailEt.setText(mail);
+            }
+            String userName = savedInstanceState.getString(USER_NAME);
+            if (userName != null) {
+                userNameEt.setText(userName);
+            }
+            String password = savedInstanceState.getString(PASSWORD);
+            if (password != null) {
+                passwordEt.setText(password);
+            }
+            String repeatPassword = savedInstanceState.getString(REPEAT_PASSWORD);
+            if (repeatPassword != null) {
+                repeatPasswordEt.setText(repeatPassword);
+            }
+            String endDate = savedInstanceState.getString(END_DATE);
+            if (endDate != null) {
+                etEndDate.setText(endDate);
+            }
+            String cityString = savedInstanceState.getString(CITY);
+            if (cityString != null) {
+                int cityIndex = Integer.parseInt(cityString);
+                if (dropDownCities != null) {
+                    dropDownCities.setSelection(cityIndex, true);
+                }
+            }
+        }
+
         return view;
     }
 
@@ -202,5 +249,18 @@ public class RegisterFragment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.support_simple_spinner_dropdown_item, collection);
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         return adapter;
+    }
+
+    @Override
+    public void  onSaveInstanceState(Bundle bundle){
+        super.onSaveInstanceState(bundle);
+        bundle.putString(FIRST_NAME, firstNameEt.getText().toString());
+        bundle.putString(LAST_NAME, lastNameEt.getText().toString());
+        bundle.putString(MAIL, mailEt.getText().toString());
+        bundle.putString(USER_NAME, userNameEt.getText().toString());
+        bundle.putString(PASSWORD, passwordEt.getText().toString());
+        bundle.putString(REPEAT_PASSWORD, repeatPasswordEt.getText().toString());
+        bundle.putString(END_DATE, etEndDate.getText().toString());
+        bundle.putString(CITY, cityId+"");
     }
 }

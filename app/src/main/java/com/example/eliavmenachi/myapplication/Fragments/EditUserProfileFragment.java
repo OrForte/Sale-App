@@ -37,11 +37,8 @@ public class EditUserProfileFragment extends Fragment {
        EditText etUserName;
     EditText etFirstName;
     EditText etLastName;
-    //    EditText etPassword;
-//    EditText etRetypeNewPassword;
     Spinner spCity;
     EditText etBirthDate;
-    //EditText etEmail;
 
     ListData cityListData;
     City selectedCity;
@@ -50,6 +47,12 @@ public class EditUserProfileFragment extends Fragment {
     TextView tvProgressBar;
     ProgressBar pbProgressBar;
     View mainLayout;
+
+    private static final String FIRST_NAME = "FIRST_NAME";
+    private static final String LAST_NAME = "LAST_NAME";
+    private static final String USER_NAME = "USER_NAME";
+    private static final String END_DATE = "END_DATE";
+    private static final String CITY = "CITY";
 
     @Override
     public void onAttach(Context context) {
@@ -114,7 +117,7 @@ public class EditUserProfileFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+                             final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_edit_user_profile, container, false);
 
         mainLayout = view.findViewById(R.id.fragment_edit_user_main_layout);
@@ -160,29 +163,43 @@ public class EditUserProfileFragment extends Fragment {
                             etBirthDate.setText(user.birthDate);
 //                                etEmail.setText(user.email);
 
+                            if (savedInstanceState != null) {
+                                String firstName = savedInstanceState.getString(FIRST_NAME);
+                                if (firstName != null) {
+                                    etFirstName.setText(firstName);
+                                }
+                                String lastName = savedInstanceState.getString(LAST_NAME);
+                                if (lastName != null) {
+                                    etLastName.setText(lastName);
+                                }
+                                String userName = savedInstanceState.getString(USER_NAME);
+                                if (userName != null) {
+                                    etUserName.setText(userName);
+                                }
+                                String endDate = savedInstanceState.getString(END_DATE);
+                                if (endDate != null) {
+                                    etBirthDate.setText(endDate);
+                                }
+
+                                if (cityListData.cities.size() > 0) {
+                                    City city = cityDataModel.GetCityByCityId(user.city, cityListData);
+                                    if (city != null) {
+                                        ArrayAdapter<String> adapterString = (ArrayAdapter<String>) spCity.getAdapter();
+                                        if (adapterString != null) {
+                                            int selectedCityIndex = adapterString.getPosition(city.name);
+                                            spCity.setSelection(selectedCityIndex);
+                                        }
+                                    }
+                                }
+                            }
+
                             rlProgressBar.setVisibility(View.GONE);
                         }
-                        //myAdapter.notifyDataSetChanged();
                     }
                 });
             }
         });
 
-
-//        userViewModel.getCurrentUser().observe(EditUserProfileFragment.this, new Observer<User>() {
-//            @Override
-//            public void onChanged(@Nullable User user) {
-//                currentUser = user;
-//                etUserName.setText(user.username);
-//                etFirstName.setText(user.firstName);
-//                etLastName.setText(user.lastName);
-//
-//                selectSpinnerValue(spCity, cityDataModel.GetCityByCityId(user.city, cityListData).name);
-//                etBirthDate.setText(user.birthDate);
-//                etEmail.setText(user.email);
-//                //myAdapter.notifyDataSetChanged();
-//            }
-//        });
 
         final Button btnUpdateProfile = view.findViewById(R.id.fragment_edit_user_btnUpdateProfile);
 
@@ -251,5 +268,14 @@ public class EditUserProfileFragment extends Fragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void  onSaveInstanceState(Bundle bundle){
+        super.onSaveInstanceState(bundle);
+        bundle.putString(FIRST_NAME, etFirstName.getText().toString());
+        bundle.putString(LAST_NAME, etLastName.getText().toString());
+        bundle.putString(USER_NAME, etUserName.getText().toString());
+        bundle.putString(END_DATE, etBirthDate.getText().toString());
     }
 }
