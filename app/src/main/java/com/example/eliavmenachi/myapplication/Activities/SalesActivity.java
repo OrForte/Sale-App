@@ -90,6 +90,13 @@ public class SalesActivity extends AppCompatActivity {
 
         User user = userViewModel.getCurrentUser().getValue();
         updateMenuIfNeeded(user);
+        if (user == null) {
+            NewSaleFragment newSaleFragment = (NewSaleFragment) getSupportFragmentManager().findFragmentByTag(Consts.instance.TAG_NEW_SALE);
+            if (newSaleFragment != null && newSaleFragment.isVisible()) {
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.popBackStack();
+            }
+        }
     }
 
     @Override

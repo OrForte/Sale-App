@@ -6,15 +6,18 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +63,9 @@ public class RegisterFragment extends Fragment {
     ArrayAdapter<String> adapterCities;
     String selectedCityName;
     int cityId;
+    ProgressBar pbProgressBar;
+    TextView tvProgressBar;
+    ConstraintLayout mainLayout;
 
     public RegisterFragment() {
         // Required empty public constructor
@@ -79,6 +85,8 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
+        mainLayout = view.findViewById(R.id.fragment_register_constraintLayout);
+
         firstNameEt = view.findViewById(R.id.fragment_register_etName);
         lastNameEt = view.findViewById(R.id.fragment_register_etFamily);
         passwordEt = view.findViewById(R.id.fragment_register_etPassword);
@@ -87,6 +95,9 @@ public class RegisterFragment extends Fragment {
         etEndDate = view.findViewById(R.id.fragment_register_etEndDate);
         dropDownCities = view.findViewById(R.id.fragment_register_etCity);
         repeatPasswordEt = view.findViewById(R.id.fragment_register_etRepeatPassword);
+
+        pbProgressBar = view.findViewById(R.id.fragment_register_pbProgressBar);
+        tvProgressBar = view.findViewById(R.id.fragment_register_tvProgressBarText);
 
         cityDataModel.getData().observe(this, new Observer<ListData>() {
             @Override
@@ -103,6 +114,17 @@ public class RegisterFragment extends Fragment {
                 boolean bIsValid = isInputsValid();
 
                 if (bIsValid == true) {
+                    try {
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
+
+                    } catch (Exception e) {
+
+                    }
+
+                    pbProgressBar.setVisibility(View.VISIBLE);
+                    tvProgressBar.setVisibility(View.VISIBLE);
+
                     user.firstName = firstNameEt.getText().toString();
                     user.lastName = lastNameEt.getText().toString();
                     user.username = userNameEt.getText().toString();
@@ -119,6 +141,9 @@ public class RegisterFragment extends Fragment {
                                 String welcomeMsg = "Welcome " + user.username + " !!";
                                 Toast.makeText(getActivity(), welcomeMsg, Toast.LENGTH_LONG).show();
 
+                                pbProgressBar.setVisibility(View.GONE);
+                                tvProgressBar.setVisibility(View.GONE);
+
                                 getActivity().finish();
                             }
                         }
@@ -126,6 +151,9 @@ public class RegisterFragment extends Fragment {
                         @Override
                         public void onFailure(String exceptionMessage) {
                             Toast.makeText(getActivity(), exceptionMessage, Toast.LENGTH_LONG).show();
+
+                            pbProgressBar.setVisibility(View.GONE);
+                            tvProgressBar.setVisibility(View.GONE);
                         }
                     });
                 }

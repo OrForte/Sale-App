@@ -17,7 +17,7 @@ public class Sale {
     public String description;
     public String endDate;
     public String createdDate;
-    public int category;
+//    public int category;
     public String storeName;
     public String mallName;
     public String cityName;
@@ -60,9 +60,9 @@ public class Sale {
         return createdDate;
     }
 
-    public int getCategory() {
-        return category;
-    }
+//    public int getCategory() {
+//        return category;
+//    }
 
     public String getStoreName() {
         return storeName;
@@ -112,9 +112,9 @@ public class Sale {
         this.createdDate = createdDate;
     }
 
-    public void setCategory(int category) {
-        this.category = category;
-    }
+//    public void setCategory(int category) {
+//        this.category = category;
+//    }
 
     public void setCityId(int cityId) {
         this.cityId = cityId;
