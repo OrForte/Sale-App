@@ -106,6 +106,7 @@ public class NewSaleFragment extends Fragment {
     User currentUser;
     TextView etTitle;
     View mainLayout;
+    boolean bIsInstanceState = false;
 
 
     @Override
@@ -174,8 +175,9 @@ public class NewSaleFragment extends Fragment {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
                     if (sale != null) {
-                        //nCounterQuery++;
-                        //if (nCounterQuery >= 2) {
+                        if (!bIsInstanceState) {
+                            //nCounterQuery++;
+                            //if (nCounterQuery >= 2) {
                             newSale = sale;
 
                             title.setText("sale " + newSale.id);
@@ -184,7 +186,8 @@ public class NewSaleFragment extends Fragment {
                             // populate the data
                             PopulateTheView();
                             LoadDataAfterInstanceState(savedInstanceState);
-                        //}
+                            //}
+                        }
                     }
                 }
             });
@@ -531,6 +534,7 @@ public class NewSaleFragment extends Fragment {
                 imageBitmap = bitMap;
                 ImageModel.instance.DeleteImage(URL);
             }
+            bIsInstanceState = true;
         }
     }
 }
