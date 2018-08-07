@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -59,6 +60,7 @@ public class NewSaleFragment extends Fragment {
     private static final String TITLE = "TITLE";
     private static final String DESCRIPTION = "REPEAT_PASSWORD";
     private static final String PICTURE = "PICTURE";
+    private static final String URL = "InstanceState.png";
 
 
     public int HEIGHT = 600;
@@ -104,6 +106,7 @@ public class NewSaleFragment extends Fragment {
     User currentUser;
     TextView etTitle;
     View mainLayout;
+
 
     @Override
     public void onAttach(Context context) {
@@ -502,6 +505,8 @@ public class NewSaleFragment extends Fragment {
         bundle.putString(TITLE, etTitle.getText().toString());
         bundle.putString(DESCRIPTION, etDescription.getText().toString());
         bundle.putString(END_DATE, etEndDate.getText().toString());
+
+        ImageModel.instance.saveImageToFile(imageBitmap, URL);
     }
 
     public void LoadDataAfterInstanceState(Bundle savedInstanceState)
@@ -519,6 +524,12 @@ public class NewSaleFragment extends Fragment {
             String endDate = savedInstanceState.getString(END_DATE);
             if (endDate != null) {
                 etEndDate.setText(endDate);
+            }
+            Bitmap bitMap = ImageModel.instance.loadImageFromFile(URL);
+            if (bitMap != null){
+                imageSale.setImageBitmap(bitMap);
+                imageBitmap = bitMap;
+                ImageModel.instance.DeleteImage(URL);
             }
         }
     }

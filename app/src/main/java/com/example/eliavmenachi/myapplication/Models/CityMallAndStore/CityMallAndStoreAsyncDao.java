@@ -52,15 +52,21 @@ public class CityMallAndStoreAsyncDao {
                     if (data[0] != null) {
                         if (data[0].cities != null) {
                             for (City currCity : data[0].cities) {
-                                MainAppLocalDb.db.CityMallAndStoreDao().insertCities(currCity);
+                                if (currCity != null) {
+                                    MainAppLocalDb.db.CityMallAndStoreDao().insertCities(currCity);
+                                }
                             }
 
                             for (Mall currMall : data[0].malls) {
-                                MainAppLocalDb.db.CityMallAndStoreDao().insertMalls(currMall);
+                                if (currMall != null) {
+                                    MainAppLocalDb.db.CityMallAndStoreDao().insertMalls(currMall);
+                                }
                             }
 
                             for (Store currStore : data[0].stores) {
-                                MainAppLocalDb.db.CityMallAndStoreDao().insertStores(currStore);
+                                if (currStore != null) {
+                                    MainAppLocalDb.db.CityMallAndStoreDao().insertStores(currStore);
+                                }
                             }
                         }
                     }
