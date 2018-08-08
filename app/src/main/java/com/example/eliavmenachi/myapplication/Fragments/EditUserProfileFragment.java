@@ -208,12 +208,13 @@ public class EditUserProfileFragment extends Fragment {
                     } catch (Exception e) {
 
                     }
-
-                    savedInstanceState.putString(FIRST_NAME, etFirstName.getText().toString());
-                    savedInstanceState.putString(LAST_NAME, etLastName.getText().toString());
-                    savedInstanceState.putString(USER_NAME, etUserName.getText().toString());
-                    savedInstanceState.putString(END_DATE, etBirthDate.getText().toString());
-                    savedInstanceState.putString(CITY, spCity.getSelectedItemPosition() + "");
+                    if (savedInstanceState != null) {
+                        savedInstanceState.putString(FIRST_NAME, etFirstName.getText().toString());
+                        savedInstanceState.putString(LAST_NAME, etLastName.getText().toString());
+                        savedInstanceState.putString(USER_NAME, etUserName.getText().toString());
+                        savedInstanceState.putString(END_DATE, etBirthDate.getText().toString());
+                        savedInstanceState.putString(CITY, spCity.getSelectedItemPosition() + "");
+                    }
 
                     pbProgressBar.setVisibility(View.VISIBLE);
                     tvProgressBar.setVisibility(View.VISIBLE);
