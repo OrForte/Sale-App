@@ -141,13 +141,11 @@ public class UserSalesListFragment extends Fragment {
             return nCount;
         }
 
-        // TODO:
         @Override
         public Object getItem(int i) {
             return null;
         }
 
-        // TODO:
         @Override
         public long getItemId(int i) {
             return 0;

@@ -63,7 +63,6 @@ public class SalesListFragment extends Fragment {
 
         rlProgressBar = view.findViewById(R.id.fragment_sale_list_rlProgressBar);
 
-        // TODO: need to change to view model...
         userViewModel.getCurrentUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
@@ -179,13 +178,11 @@ public class SalesListFragment extends Fragment {
             return nCount;
         }
 
-        // TODO:
         @Override
         public Object getItem(int i) {
             return null;
         }
 
-        // TODO:
         @Override
         public long getItemId(int i) {
             return 0;

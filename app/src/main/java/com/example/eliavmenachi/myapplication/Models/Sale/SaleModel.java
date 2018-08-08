@@ -35,8 +35,6 @@ public class SaleModel {
         saleModelFirebase.getPostsByStoreId(storeId, new GetPostsByStoreIdListener() {
             @Override
             public void onGetPosts(List<Sale> p_postToReturn) {
-                // TODO: need to return the posts to the fragments of posts
-                //listener.onGetPosts(p_postToReturn);
             }
         });
     }

@@ -61,7 +61,6 @@ public class SalesActivity extends AppCompatActivity {
 
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
 
-        // TODO: need to change to view model...
         userViewModel.getCurrentUser().observe(this, new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {

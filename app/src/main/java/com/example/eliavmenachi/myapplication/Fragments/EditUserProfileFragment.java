@@ -219,7 +219,6 @@ public class EditUserProfileFragment extends Fragment {
                     pbProgressBar.setVisibility(View.VISIBLE);
                     tvProgressBar.setVisibility(View.VISIBLE);
 
-                    // TODO: make async
                     userViewModel.updateUser(user, new UserViewModel.UpdateUserListener() {
                         @Override
                         public void onSuccess() {

@@ -196,9 +196,6 @@ public class NewSaleFragment extends Fragment {
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                // TODO: need to save the data to firebase
-                // TODO: add spinner to the loading of save
-
                 progressBarSaveNewSale.setVisibility(View.VISIBLE);
                 if (isConnected()) {
                     if (newSale == null) {
@@ -224,7 +221,6 @@ public class NewSaleFragment extends Fragment {
 
         btnEditImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                // TODO: need to edit image
                 //open camera
                 Intent takePictureIntent = new Intent(
                         MediaStore.ACTION_IMAGE_CAPTURE);
@@ -331,7 +327,6 @@ public class NewSaleFragment extends Fragment {
     public void AddNewSaleToFireBase(String newId) {
         SetSaleData(newId);
 
-        // TODO: need to change to view model...
         if (currentUser != null) {
             newSale.userId = currentUser.id;
         }

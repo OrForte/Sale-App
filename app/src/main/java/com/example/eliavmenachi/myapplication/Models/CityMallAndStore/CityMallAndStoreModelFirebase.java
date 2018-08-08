@@ -120,7 +120,6 @@ public class CityMallAndStoreModelFirebase {
     }
 
     public void GetMallsByCityId(final String p_cityId, final CityMallAndStoreModel.GetMallsByCityIdListener listener) {
-        // TODO : need to get the collections of malls by city id
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("mall").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
