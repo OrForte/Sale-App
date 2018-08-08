@@ -102,6 +102,7 @@ public class NewSaleFragment extends Fragment {
     TextView etTitle;
     View mainLayout;
     Bundle m_savedInstanceState;
+    boolean bIsInstanceState = false;
 
     @Override
     public void onAttach(Context context) {
@@ -171,7 +172,7 @@ public class NewSaleFragment extends Fragment {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
                     if (sale != null) {
-                        if (!m_bIsChangedImage) {
+                        if (!m_bIsChangedImage && !bIsInstanceState ) {
                             //nCounterQuery++;
                             //if (nCounterQuery >= 2) {
                             newSale = sale;
@@ -556,6 +557,7 @@ public class NewSaleFragment extends Fragment {
             }
 
             m_savedInstanceState = savedInstanceState;
+            bIsInstanceState = true;
         }
     }
 }
