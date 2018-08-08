@@ -300,9 +300,6 @@ public class NewSaleFragment extends Fragment {
         // set the drop down cities
         dropDownCities.setAdapter(adapterCities);
 
-        int positionCity = adapterCities.getPosition(selectedCityName);
-        dropDownCities.setSelection(positionCity);
-
         dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -324,6 +321,10 @@ public class NewSaleFragment extends Fragment {
 
                 dropDownCities.setSelection(cityInt, true);
             }
+        }
+        else {
+            int positionCity = adapterCities.getPosition(selectedCityName);
+            dropDownCities.setSelection(positionCity);
         }
     }
 
@@ -398,12 +399,10 @@ public class NewSaleFragment extends Fragment {
         if (selectedCity != null) {
             cityId = selectedCity.id;
         }
+
         mallNames = dataModel.GetMallNamesByCityId(selectedCity.id, listData);
         adapterMalls = SetAdapter(mallNames);
         dropDownMalls.setAdapter(adapterMalls);
-
-        int positionMall = adapterMalls.getPosition(selectedMallName);
-        dropDownMalls.setSelection(positionMall);
 
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -427,6 +426,10 @@ public class NewSaleFragment extends Fragment {
                 dropDownMalls.setSelection(mallInt, true);
             }
         }
+        else {
+            int positionMall = adapterMalls.getPosition(selectedMallName);
+            dropDownMalls.setSelection(positionMall);
+        }
     }
 
     public void OnSelectedMall(AdapterView<?> adapterView, View view, int position, long l) {
@@ -439,9 +442,6 @@ public class NewSaleFragment extends Fragment {
         }
         adapterStores = SetAdapter(storeNames);
         dropDownStores.setAdapter(adapterStores);
-
-        int positionStore = adapterStores.getPosition(selectedStoreName);
-        dropDownStores.setSelection(positionStore);
 
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -464,6 +464,10 @@ public class NewSaleFragment extends Fragment {
 
                 dropDownStores.setSelection(storeInt, true);
             }
+        }
+        else {
+            int positionStore = adapterStores.getPosition(selectedStoreName);
+            dropDownStores.setSelection(positionStore);
         }
     }
 
