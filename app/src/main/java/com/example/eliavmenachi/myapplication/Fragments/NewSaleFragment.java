@@ -172,7 +172,7 @@ public class NewSaleFragment extends Fragment {
                 @Override
                 public void onChanged(@Nullable Sale sale) {
                     if (sale != null) {
-                        if (!m_bIsChangedImage && !bIsInstanceState ) {
+                        if (!m_bIsChangedImage && !bIsInstanceState) {
                             //nCounterQuery++;
                             //if (nCounterQuery >= 2) {
                             newSale = sale;
@@ -300,6 +300,9 @@ public class NewSaleFragment extends Fragment {
         // set the drop down cities
         dropDownCities.setAdapter(adapterCities);
 
+        int positionCity = adapterCities.getPosition(selectedCityName);
+        dropDownCities.setSelection(positionCity);
+
         dropDownCities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
@@ -399,6 +402,9 @@ public class NewSaleFragment extends Fragment {
         adapterMalls = SetAdapter(mallNames);
         dropDownMalls.setAdapter(adapterMalls);
 
+        int positionMall = adapterMalls.getPosition(selectedMallName);
+        dropDownMalls.setSelection(positionMall);
+
         dropDownMalls.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -433,6 +439,9 @@ public class NewSaleFragment extends Fragment {
         }
         adapterStores = SetAdapter(storeNames);
         dropDownStores.setAdapter(adapterStores);
+
+        int positionStore = adapterStores.getPosition(selectedStoreName);
+        dropDownStores.setSelection(positionStore);
 
         dropDownStores.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
