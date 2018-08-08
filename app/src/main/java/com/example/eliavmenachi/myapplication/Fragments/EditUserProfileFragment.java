@@ -160,20 +160,17 @@ public class EditUserProfileFragment extends Fragment {
                                     etBirthDate.setText(endDate);
                                 }
 
-                                if (savedInstanceState != null) {
-                                    String cityString = savedInstanceState.getString(CITY);
-                                    if (cityString != null) {
-                                        spCity.setSelection(Integer.parseInt(cityString), true);
-                                    }
+                                String cityString = savedInstanceState.getString(CITY);
+                                if (cityString != null) {
+                                    spCity.setSelection(Integer.parseInt(cityString), true);
                                 }
-                                else if (cityListData.cities.size() > 0) {
-                                    City city = cityDataModel.GetCityByCityId(user.city, cityListData);
-                                    if (city != null) {
-                                        ArrayAdapter<String> adapterString = (ArrayAdapter<String>) spCity.getAdapter();
-                                        if (adapterString != null) {
-                                            int selectedCityIndex = adapterString.getPosition(city.name);
-                                            spCity.setSelection(selectedCityIndex);
-                                        }
+                            } else if (cityListData.cities.size() > 0) {
+                                City city = cityDataModel.GetCityByCityId(user.city, cityListData);
+                                if (city != null) {
+                                    ArrayAdapter<String> adapterString = (ArrayAdapter<String>) spCity.getAdapter();
+                                    if (adapterString != null) {
+                                        int selectedCityIndex = adapterString.getPosition(city.name);
+                                        spCity.setSelection(selectedCityIndex);
                                     }
                                 }
                             }
@@ -211,6 +208,12 @@ public class EditUserProfileFragment extends Fragment {
                     } catch (Exception e) {
 
                     }
+
+                    savedInstanceState.putString(FIRST_NAME, etFirstName.getText().toString());
+                    savedInstanceState.putString(LAST_NAME, etLastName.getText().toString());
+                    savedInstanceState.putString(USER_NAME, etUserName.getText().toString());
+                    savedInstanceState.putString(END_DATE, etBirthDate.getText().toString());
+                    savedInstanceState.putString(CITY, spCity.getSelectedItemPosition() + "");
 
                     pbProgressBar.setVisibility(View.VISIBLE);
                     tvProgressBar.setVisibility(View.VISIBLE);
