@@ -1,10 +1,6 @@
 <resources>
-
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light">
-        <!-- Customize your theme here. -->
-
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:actionModeStyle">@color/colorWhite</item>
@@ -31,63 +27,22 @@
         <item name="android:textColor">@color/colorWhite</item>
     </style>
 
-    <!--<style name="myTheme.ActionBar" parent="Theme.AppCompat.Light.NoActionBar">-->
-    <!--<item name="android:background">@color/colorPrimary</item>-->
-    <!--<item name="background">@color/colorPrimary</item>-->
-    <!--<item name="android:actionMenuTextColor">@color/colorWhite</item>-->
-    <!--<item name="actionMenuTextColor">@color/colorWhite</item>-->
-    <!--<item name="android:textColor">@color/colorWhite</item>-->
-    <!--&lt;!&ndash;<item name="textColor">@color/colorWhite</item>&ndash;&gt;-->
-    <!--&lt;!&ndash;<item name="android:titleTextStyle">@style/myTheme.ActionBar.Text</item>&ndash;&gt;-->
-    <!--</style>-->
-
     <style name="AppTheme.TextView" parent="android:style/Widget.TextView">
-
         <item name="android:textColor">@color/colorBlack</item>
         <item name="colorPrimary">@color/colorBlack</item>
         <item name="android:textColorPrimary">@color/colorBlack</item>
         <item name="android:actionModeStyle">@color/colorBlack</item>
-
-        <!--<item name="android:textStyle">bold</item>-->
     </style>
-
 
     <style name="AppTheme.EditText" parent="@style/Widget.AppCompat.EditText">
         <item name="colorPrimary">@color/colorBlack</item>
         <item name="android:textColorPrimary">@color/colorBlack</item>
         <item name="android:textColor">@color/colorBlack</item>
-        <!--<item name="android:textStyle">bold</item>-->
-
-        <!--<item name="colorControlNormal">@color/colorBlack</item>-->
-        <!--<item name="colorPrimary">@color/colorBlack</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorBlack</item>-->
-        <!--<item name="android:textColorPrimary">@color/colorBlack</item>-->
-        <!--<item name="colorControlNormal">@color/colorBlack</item>-->
-        <!--<item name="colorControlActivated">@color/colorBlack</item>-->
-        <!--<item name="colorControlHighlight">@color/colorBlack</item>-->
-        <!--<item name="android:textColorHint">@color/colorBlack</item>-->
-        <!--<item name="colorAccent">@color/colorBlack</item>-->
-        <!--<item name="android:windowBackground">@color/colorBlack</item>-->
-        <!--<item name="android:background">@drawable/filled_roundededges_box_dark</item>-->
-        <!--<item name="android:textColor">@color/colorBlack</item>-->
-        <!--<item name="android:layout_height">45dip</item>-->
     </style>
 
     <style name="AppTheme.DatePicker1" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorButton</item>
     </style>
-    <!--<style name="AppTheme.DatePicker1" parent="android:Theme.Material.Light.Dialog">-->
-        <!--<item name="android:datePickerStyle">@style/AppTheme.DatePicker2</item>-->
-    <!--</style>-->
-
-    <!--<style name="AppTheme.DatePicker2" parent="@android:style/Widget.Material.Light.DatePicker">-->
-        <!--<item name="colorPrimary">@color/colorBlack</item>-->
-        <!--<item name="colorPrimaryDark">@color/colorBlack</item>-->
-        <!--<item name="colorAccent">@color/colorBlack</item>-->
-        <!--<item name="actionModeStyle">@color/colorBlack</item>-->
-        <!--<item name="android:textColor">@color/colorBlack</item>-->
-        <!--<item name="android:calendarTextColor">@color/colorBlack</item>-->
-    <!--</style>-->
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -97,5 +52,4 @@
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
 </resources>

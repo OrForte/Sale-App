@@ -273,7 +273,6 @@ public class NewSaleFragment extends Fragment {
         try {
             InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
-
         } catch (Exception e) {
 
         }
