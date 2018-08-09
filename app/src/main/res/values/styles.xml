@@ -8,8 +8,7 @@
         <item name="android:colorButtonNormal">@color/colorButton</item>
         <item name="android:buttonTint">@color/colorButton</item>
         <item name="android:editTextStyle">@style/AppTheme.EditText</item>
-        <item name="editTextStyle">@style/AppTheme.EditText</item> <!-- For compatibility with the support library -->
-        <!--<item name="android:actionBarStyle">@style/myTheme.ActionBar</item>-->
+        <item name="editTextStyle">@style/AppTheme.EditText</item><!-- For compatibility with the support library -->
         <item name="actionBarStyle">@style/AppTheme.ActionBar</item>
         <item name="buttonStyle">@style/AppTheme.Button</item>
         <item name="android:datePickerStyle">@style/AppTheme.DatePicker1</item>
